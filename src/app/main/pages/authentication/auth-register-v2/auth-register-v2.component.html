@@ -1,0 +1,391 @@
+<div class="auth-wrapper auth-v2">
+  <div class="auth-inner row m-0">
+    <!-- Brand logo-->
+    <!-- <a class="brand-logo" href="javascript:void(0);">
+      <img src="{{ coreConfig.app.appLogoImage }}" alt="brand-logo" height="28" />
+      <h2 class="brand-text text-primary ml-1">{{ coreConfig.app.appName }}</h2></a
+    > -->
+    <!-- /Brand logo-->
+    <!-- Left Text-->
+    <div class="d-none d-lg-flex col-lg-4 align-items-center img-class">
+      <div class="w-100 d-lg-flex align-items-center justify-content-center">
+        <!-- <img
+          class="img-fluid"
+          src="../../../../../assets/images/login/pexels-erik-mclean-8910014_editted.jpg"
+          alt="Register V2"
+        /> -->
+      </div>
+    </div>
+    <!-- /Left Text-->
+    <!-- Register-->
+    <div class="d-flex col-lg-8 align-items-center auth-bg px-2">
+      <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
+        <div class="text-center">
+          <img
+            src="../../../../../assets/images/login/Group 411.png"
+            alt="brand-logo"
+            height="120"
+            class=" mt-2 mb-2"
+          />
+        </div>
+        <div class="register-container">
+          <img
+            src="../../../../../assets/images/login/SIGN UP.png"
+            alt="brand-logo"
+            height="28"
+          />
+          <p class="card-text mb-2">Make your app management easy and fun!</p>
+          <form
+            class="auth-register-form mt-2"
+            [formGroup]="registerForm"
+            (ngSubmit)="onSubmit()"
+          >
+          <div class="row">
+            <div class="form-group col-6">
+              <label><strong>User Name</strong></label>
+              <input
+                type="text"
+                formControlName="username"
+                class="form-control"
+                placeholder=""
+                aria-describedby="register-username"
+                tabindex="1"
+                autofocus
+                [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
+              />
+              <div
+                *ngIf="submitted && f.username.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.username.errors.required">
+                  Username is required
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-6">
+              <label><strong>Email</strong></label>
+              <input
+                type="text"
+                formControlName="email"
+                class="form-control"
+                placeholder=""
+                aria-describedby="register-email"
+                tabindex="2"
+                [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+              />
+              <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                <div *ngIf="f.email.errors.required">Email is required</div>
+                <div *ngIf="f.email.errors.email">
+                  Email must be a valid email address
+                </div>
+              </div>
+            </div>
+            </div>
+            <div class="row">
+            <div class="form-group col-6">
+              <label><strong>Phone</strong></label>
+              <input
+                type="text"
+                formControlName="phone"
+                class="form-control"
+                placeholder=""
+                aria-describedby="register-phone"
+                tabindex="1"
+                autofocus
+                [ngClass]="{ 'is-invalid': submitted && f.phone.errors }"
+              />
+              <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+                <div *ngIf="f.phone.errors.required">
+                  Phone number is required
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-6">
+              <label><strong>Password</strong></label>
+              <div class="input-group input-group-merge form-password-toggle">
+                <input
+                  [type]="passwordTextType ? 'text' : 'password'"
+                  formControlName="password"
+                  class="form-control form-control-merge"
+                  placeholder=""
+                  aria-describedby="register-password"
+                  tabindex="3"
+                  [ngClass]="{
+                    'is-invalid error': submitted && f.password.errors
+                  }"
+                />
+                <div class="input-group-append">
+                  <span class="input-group-text cursor-pointer tranparant-bg"
+                    ><i
+                      class="feather font-small-4"
+                      [ngClass]="{
+                        'icon-eye-off': passwordTextType,
+                        'icon-eye': !passwordTextType
+                      }"
+                      (click)="togglePasswordTextType()"
+                    ></i
+                  ></span>
+                </div>
+              </div>
+              <div
+                *ngIf="submitted && f.password.errors"
+                class="invalid-feedback"
+                [ngClass]="{ 'd-block': submitted && f.password.errors }"
+              >
+                <div *ngIf="f.password.errors.required">
+                  Password is required
+                </div>
+              </div>
+            </div>
+            </div>
+            <div class="row">
+            <div class="form-group col-6">
+              <label><strong>Church Name</strong></label>
+              <input
+                type="text"
+                formControlName="churchname"
+                class="form-control"
+                placeholder=""
+                aria-describedby="register-churchname"
+                tabindex="1"
+                autofocus
+                [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
+              />
+              <div
+                *ngIf="submitted && f.churchname.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.churchname.errors.required">
+                  Churchname is required
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-6">
+              <label><strong>Pastor’s Name</strong></label>
+              <input
+                type="text"
+                formControlName="pastorname"
+                class="form-control"
+                placeholder=""
+                aria-describedby="register-pastorname"
+                tabindex="1"
+                autofocus
+                [ngClass]="{ 'is-invalid': submitted && f.pastorname.errors }"
+              />
+              <div
+                *ngIf="submitted && f.pastorname.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.pastorname.errors.required">
+                  Pastor’s name is required
+                </div>
+              </div>
+            </div>
+            </div>
+            <div class="row">
+            <div class="form-group col-6">
+              <label><strong>Number of Users</strong></label>
+              <input
+                type="text"
+                formControlName="users"
+                class="form-control"
+                placeholder=""
+                aria-describedby="register-users"
+                tabindex="1"
+                autofocus
+                [ngClass]="{ 'is-invalid': submitted && f.users.errors }"
+              />
+              <div
+                *ngIf="submitted && f.users.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.users.errors.required">
+                  Number of Users is required
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-6">
+              <label><strong>Denomination</strong></label>
+              <input
+                type="text"
+                formControlName="denomination"
+                class="form-control"
+                placeholder=""
+                aria-describedby="register-denomination"
+                tabindex="1"
+                autofocus
+                [ngClass]="{ 'is-invalid': submitted && f.denomination.errors }"
+              />
+              <div
+                *ngIf="submitted && f.denomination.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.denomination.errors.required">
+                  Denomination is required
+                </div>
+              </div>
+            </div>
+            </div>
+            <div class="form-group">
+              <label><strong>Location</strong></label>
+              <input
+                type="text"
+                formControlName="location"
+                class="form-control"
+                placeholder=""
+                aria-describedby="register-location"
+                tabindex="1"
+                autofocus
+                [ngClass]="{ 'is-invalid': submitted && f.location.errors }"
+              />
+              <div
+                *ngIf="submitted && f.location.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.location.errors.required">
+                  Location is required
+                </div>
+              </div>
+            </div>
+          
+            
+            <div class="row">
+            <div class="form-group col-6">
+              <label><strong>City</strong></label>
+              <input
+                type="text"
+                formControlName="city"
+                class="form-control"
+                
+                aria-describedby="register-city"
+                tabindex="1"
+                autofocus
+                [ngClass]="{ 'is-invalid': submitted && f.city.errors }"
+              />
+              <div
+                *ngIf="submitted && f.city.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.city.errors.required">
+                  City is required
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-6">
+              <label><strong>Country</strong></label>
+              <input
+                type="text"
+                formControlName="country"
+                class="form-control"
+                aria-describedby="register-country"
+                tabindex="1"
+                autofocus
+                [ngClass]="{ 'is-invalid': submitted && f.country.errors }"
+              />
+              <div
+                *ngIf="submitted && f.country.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.country.errors.required">
+                  Country is required
+                </div>
+              </div>
+            </div>
+            </div>
+            <div class="form-group">
+              <label><strong>Church Address</strong></label>
+              <input
+                type="text"
+                formControlName="church_address"
+                class="form-control"
+                placeholder=""
+                aria-describedby="register-church_address"
+                tabindex="1"
+                autofocus
+                [ngClass]="{ 'is-invalid': submitted && f.church_address.errors }"
+              />
+              <div
+                *ngIf="submitted && f.church_address.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.church_address.errors.required">
+                  Church address is required
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label><strong>Website</strong></label>
+              <input
+                type="text"
+                formControlName="website"
+                class="form-control"
+                aria-describedby="register-website"
+                tabindex="1"
+                autofocus
+                [ngClass]="{ 'is-invalid': submitted && f.website.errors }"
+              />
+              <div
+                *ngIf="submitted && f.website.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.website.errors.required">
+                  Website is required
+                </div>
+              </div>
+            </div>
+      
+            <!-- <div class="form-group">
+              <div class="custom-control custom-checkbox">
+                <input
+                  class="custom-control-input"
+                  type="checkbox"
+                  id="register-privacy-policy"
+                  tabindex="4"
+                />
+                <label
+                  class="custom-control-label"
+                  for="register-privacy-policy"
+                >
+                  I agree to
+                  <a href="javascript:void(0);">privacy policy & terms</a>
+                </label>
+              </div>
+            </div> -->
+            <button
+              class="btn btn-primary btn-block btn-register"
+              tabindex="5"
+              rippleEffect
+            >
+              Sign up
+            </button>
+          </form>
+
+          <div class="divider my-2">
+            <div class="divider-text">or continue with</div>
+          </div>
+          <asl-google-signin-button type='icon' size='medium'></asl-google-signin-button>
+          <div class="auth-footer-btn d-flex justify-content-center">
+            <img
+              src="../../../../../assets/images/login/Layer 28.png"
+              alt="brand-logo"
+              height="28"
+              class="mr-1"
+            />
+            <img
+              src="../../../../../assets/images/login/Layer 29.png"
+              alt="brand-logo"
+              height="28"
+            />
+          </div>
+          <p class="text-center mt-2">
+            <span>Already have an account?</span
+            ><a routerLink="/pages/authentication/login-v2"
+              ><span>&nbsp;<b class="login">Login</b></span></a
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- /Register-->
+  </div>
+</div>

@@ -1,0 +1,151 @@
+<div class="slideout-content">
+  <!-- Modal to add new user starts-->
+  <div class="modalsd modal-slide-in sdfade new-user-modal" id="modals-slide-in">
+    <div class="modal-dialog">
+      <form class="add-new-user modal-content pt-0" (ngSubmit)="(newUserForm.form.valid)" #newUserForm="ngForm">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="toggleSidebar('new-user-sidebar')"
+        >
+          ×
+        </button>
+        <div class="modal-header mb-1">
+          <h5 class="modal-title" id="exampleModalLabel">New Sub Admin</h5>
+        </div>
+        <div class="modal-body flex-grow-1">
+          <div class="form-group">
+            <label class="form-label" for="basic-icon-default-fullname">Full Name</label>
+            <input
+              type="text"
+              class="form-control dt-full-name"
+              id="basic-icon-default-fullname"
+              placeholder=""
+              name="user-fullname"
+              [(ngModel)]="fullname"
+              [class.error]="newUserForm.submitted && FNameRef.invalid"
+              #FNameRef="ngModel"
+              required
+              aria-label=""
+              aria-describedby="basic-icon-default-fullname2"
+            />
+            <span *ngIf="newUserForm.submitted && FNameRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="FNameRef.errors.required">This field is required!</small>
+            </span>
+          </div>
+          <div class="form-group mb-2">
+            <label class="form-label" for="basic-icon-default-gender">Select Gender</label>
+            <select  [(ngModel)]="gender" [ngModelOptions]="{standalone: true}"
+            id="basic-icon-default-gender"
+            class="form-control dt-gender"
+            aria-label=""
+            aria-describedby="basic-icon-default-gender"
+            name="gender"
+            [class.error]="newUserForm.submitted && GenderRef.invalid"
+              #GenderRef="ngModel" required>
+              <option value="Female">Female</option>
+              <option value="Male">Male</option>
+              <option value="Others">Others</option>
+            </select>
+            <span *ngIf="newUserForm.submitted && GenderRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="GenderRef.errors.required">This field is required!</small>
+            </span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="basic-icon-default-dob">Date of Birth</label>
+            <input
+              type="date"
+              id="basic-icon-default-dob"
+              class="form-control dt-dob"
+              aria-label=""
+              aria-describedby="basic-icon-default-dob"
+              name="dob"
+              [(ngModel)]="dob"
+              [class.error]="newUserForm.submitted && DOBRef.invalid"
+              #DOBRef="ngModel"
+              required
+            />
+            <span *ngIf="newUserForm.submitted && DOBRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="DOBRef.errors.required">This field is required!</small>
+            </span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="basic-icon-default-phone-number">Phone number</label>
+            <input
+              type="text"
+              id="basic-icon-default-phone-number"
+              class="form-control dt-phone-number"
+              placeholder=""
+              aria-label=""
+              aria-describedby="basic-icon-default-phone-number"
+              name="phone-number"
+              [(ngModel)]="phone_number"
+              [class.error]="newUserForm.submitted && PhoneRef.invalid"
+              #PhoneRef="ngModel"
+              required
+            />
+            <span *ngIf="newUserForm.submitted && PhoneRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="PhoneRef.errors.required">This field is required!</small>
+            </span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="basic-icon-default-email">Email</label>
+            <input
+              type="text"
+              id="basic-icon-default-email"
+              class="form-control dt-email"
+              placeholder=""
+              aria-label=""
+              aria-describedby="basic-icon-default-email2"
+              name="user-email"
+              [(ngModel)]="email"
+              [class.error]="newUserForm.submitted && FEmailRef.invalid"
+              #FEmailRef="ngModel"
+              required
+            />
+            <span *ngIf="newUserForm.submitted && FEmailRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="FEmailRef.errors.required">This field is required!</small>
+            </span>
+            <small class="form-text text-muted"> You can use letters, numbers & periods </small>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="basic-icon-default-city">City</label>
+            <input
+              type="text"
+              id="basic-icon-default-city"
+              class="form-control dt-city"
+              placeholder=""
+              aria-label=""
+              aria-describedby="basic-icon-default-city"
+              name="city"
+              [(ngModel)]="city"
+              [class.error]="newUserForm.submitted && CityRef.invalid"
+              #CityRef="ngModel"
+              required
+            />
+            <span *ngIf="newUserForm.submitted && CityRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="CityRef.errors.required">This field is required!</small>
+            </span>
+          </div>
+        
+                  
+          <button [disabled]="loading" type="submit"  class="btn btn-primary btn-login" rippleEffect (click)="submit(newUserForm)">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Submit
+          </button>
+          
+          <button
+            type="reset"
+            class="btn btn-outline-secondary"
+            (click)="toggleSidebar('new-user-sidebar')"
+            rippleEffect
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Modal to add new user Ends-->
+</div>

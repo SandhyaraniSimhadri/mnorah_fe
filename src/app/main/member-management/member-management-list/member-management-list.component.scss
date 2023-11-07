@@ -1,0 +1,12 @@
+@import '@core/scss/angular/libs/datatables.component.scss';
+@import '@core/scss/base/pages/app-user.scss';
+@import '@core/scss/angular/libs/select.component.scss';
+@import '@core/scss/angular/libs/toastr.component.scss';
+
+.count{
+    font-size: 12px;
+}
+@media (min-width: 576px){
+    .modal-slide-in .modal-dialog {
+        width: 48rem;
+    }}

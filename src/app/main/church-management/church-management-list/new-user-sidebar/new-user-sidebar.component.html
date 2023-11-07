@@ -1,0 +1,330 @@
+<div class="slideout-content">
+  <!-- Modal to add new user starts-->
+  <div class="modalsd modal-slide-in sdfade new-user-modal" id="modals-slide-in">
+    <div class="modal-dialog">
+      <form class="add-new-user modal-content pt-0" (ngSubmit)="(newUserForm.form.valid)" #newUserForm="ngForm">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="toggleSidebar('new-user-sidebar')"
+        >
+          ×
+        </button>
+        <div class="modal-header mb-1">
+          <h5 class="modal-title" id="exampleModalLabel">New Church</h5>
+        </div>
+        <div class="modal-body flex-grow-1">
+          <div class="row">
+            <div class="col-6">
+          <!-- <div class="form-group">
+            <label class="form-label" for="basic-icon-default-adminname">Admin name</label>
+            <input
+              type="text"
+              class="form-control dt-admin-name"
+              id="basic-icon-default-adminame"
+              placeholder=""
+              name="user-adminname"
+              [(ngModel)]="admin_name"
+              [class.error]="newUserForm.submitted && ANameRef.invalid"
+              #ANameRef="ngModel"
+              required
+              aria-label=""
+              aria-describedby="basic-icon-default-adminname"
+            />
+            <span *ngIf="newUserForm.submitted && ANameRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="ANameRef.errors.required">This field is required!</small>
+            </span>
+          </div> -->
+
+
+          <div class="form-group mb-2">
+            <label class="form-label" for="user-plan">Select Admin</label>
+            <select 
+            id="basic-icon-default-admin"
+            class="form-control dt-admin"
+            aria-label=""
+            aria-describedby="basic-icon-default-admin"
+            name="admin"
+            [class.error]="newUserForm.submitted && AdminRef.invalid"
+              #AdminRef="ngModel" required
+          
+              [(ngModel)]="admin_id"
+              [ngModelOptions]="{ standalone: true }"
+            >
+              <!-- <option value="Female">Female</option>
+              <option value="Male">Male</option>
+              <option value="Others">Others</option> -->
+              <option value="">Select</option>
+              <option *ngFor="let admin of adminsData" [value]="admin.id">
+                {{ admin.user_name }}
+              </option>
+            </select>
+            <span *ngIf="newUserForm.submitted && AdminRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="AdminRef.errors.required">This field is required!</small>
+            </span>
+          </div>
+          </div>
+          <div class="col-6">
+          <div class="form-group">
+            <label class="form-label" for="basic-icon-default-churchname">Church name</label>
+            <input
+              type="text"
+              class="form-control dt-church-name"
+              id="basic-icon-default-churchname"
+              placeholder=""
+              name="user-churchname"
+              [(ngModel)]="church_name"
+              [class.error]="newUserForm.submitted && CNameRef.invalid"
+              #CNameRef="ngModel"
+              required
+              aria-label=""
+              aria-describedby="basic-icon-default-churchname"
+            />
+            <span *ngIf="newUserForm.submitted && CNameRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="CNameRef.errors.required">This field is required!</small>
+            </span>
+          </div>
+          </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="basic-icon-default-pastorname">Pastor's name</label>
+            <input
+              type="text"
+              class="form-control dt-pastor-name"
+              id="basic-icon-default-pastorname"
+              placeholder=""
+              name="user-pastorname"
+              [(ngModel)]="pastor_name"
+              [class.error]="newUserForm.submitted && PNameRef.invalid"
+              #PNameRef="ngModel"
+              required
+              aria-label=""
+              aria-describedby="basic-icon-default-pastorname"
+            />
+            <span *ngIf="newUserForm.submitted && PNameRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="PNameRef.errors.required">This field is required!</small>
+            </span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="basic-icon-default-location">Location</label>
+            <input
+              type="text"
+              class="form-control dt-location"
+              id="basic-icon-default-location"
+              placeholder=""
+              name="user-location"
+              [(ngModel)]="location"
+              [class.error]="newUserForm.submitted && LNameRef.invalid"
+              #LNameRef="ngModel"
+              required
+              aria-label=""
+              aria-describedby="basic-icon-default-location"
+            />
+            <span *ngIf="newUserForm.submitted && LNameRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="LNameRef.errors.required">This field is required!</small>
+            </span>
+          </div>
+          <div class="row">
+            <div class="col-6">
+          <div class="form-group">
+            <label class="form-label" for="basic-icon-default-users">Number of users</label>
+            <input
+              type="text"
+              class="form-control dt-users"
+              id="basic-icon-default-users"
+              placeholder=""
+              name="user-users"
+              [(ngModel)]="users"
+              [class.error]="newUserForm.submitted && UNameRef.invalid"
+              #UNameRef="ngModel"
+              required
+              aria-label=""
+              aria-describedby="basic-icon-default-users"
+            />
+            <span *ngIf="newUserForm.submitted && UNameRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="UNameRef.errors.required">This field is required!</small>
+            </span>
+          </div>
+          </div>
+          <div class="col-6">
+          <div class="form-group">
+            <label class="form-label" for="basic-icon-default-denomination">Denomination</label>
+            <input
+              type="text"
+              class="form-control dt-denomination"
+              id="basic-icon-default-denomination"
+              placeholder=""
+              name="user-denomination"
+              [(ngModel)]="denomination"
+              [class.error]="newUserForm.submitted && DNameRef.invalid"
+              #DNameRef="ngModel"
+              required
+              aria-label=""
+              aria-describedby="basic-icon-default-denomination"
+            />
+            <span *ngIf="newUserForm.submitted && DNameRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="DNameRef.errors.required">This field is required!</small>
+            </span>
+          </div>
+          </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="basic-icon-default-language">Language</label>
+            <input
+              type="text"
+              id="basic-icon-default-language"
+              class="form-control dt-language"
+              placeholder=""
+              aria-label=""
+              aria-describedby="basic-icon-default-language"
+              name="user-language"
+              [(ngModel)]="language"
+              [class.error]="newUserForm.submitted && FEmailRef.invalid"
+              #FEmailRef="ngModel"
+              required
+            />
+            <span *ngIf="newUserForm.submitted && FEmailRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="FEmailRef.errors.required">This field is required!</small>
+            </span>
+          </div>
+        
+        
+          <div class="row">
+            <div class="col-6">
+          <div class="form-group">
+            <label class="form-label" for="basic-icon-default-city">City</label>
+            <input
+              type="text"
+              class="form-control dt-city"
+              id="basic-icon-default-city"
+              placeholder=""
+              name="user-city"
+              [(ngModel)]="city"
+              [class.error]="newUserForm.submitted && CiNameRef.invalid"
+              #CiNameRef="ngModel"
+              required
+              aria-label=""
+              aria-describedby="basic-icon-default-city"
+            />
+            <span *ngIf="newUserForm.submitted && CiNameRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="CiNameRef.errors.required">This field is required!</small>
+            </span>
+          </div>
+          </div>
+          <div class="col-6">
+          <div class="form-group">
+            <label class="form-label" for="basic-icon-default-country">Country</label>
+            <input
+              type="text"
+              class="form-control dt-country"
+              id="basic-icon-default-country"
+              placeholder=""
+              name="user-country"
+              [(ngModel)]="country"
+              [class.error]="newUserForm.submitted && CoNameRef.invalid"
+              #CoNameRef="ngModel"
+              required
+              aria-label=""
+              aria-describedby="basic-icon-default-country"
+            />
+            <span *ngIf="newUserForm.submitted && CoNameRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="CoNameRef.errors.required">This field is required!</small>
+            </span>
+          </div>
+          </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="basic-icon-default-church-address">Church address</label>
+            <input
+              type="text"
+              id="basic-icon-default-church-address"
+              class="form-control dt-church-address"
+              placeholder=""
+              aria-label=""
+              aria-describedby="basic-icon-default-church-address"
+              name="user-church-address"
+              [(ngModel)]="church_address"
+              [class.error]="newUserForm.submitted && CAddRef.invalid"
+              #CAddRef="ngModel"
+              required
+            />
+            <span *ngIf="newUserForm.submitted && CAddRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="CAddRef.errors.required">This field is required!</small>
+            </span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="basic-icon-default-contact-number">Contact number</label>
+            <input
+              type="text"
+              id="basic-icon-default-contact-number"
+              class="form-control dt-contact-number"
+              placeholder=""
+              aria-label=""
+              aria-describedby="basic-icon-default-contact-number"
+              name="user-contact-number"
+              [(ngModel)]="contact_number"
+              [class.error]="newUserForm.submitted && CNlRef.invalid"
+              #CNlRef="ngModel"
+              required
+            />
+            <span *ngIf="newUserForm.submitted && CNlRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="CNlRef.errors.required">This field is required!</small>
+            </span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="basic-icon-default-address">Address</label>
+            <input
+              type="text"
+              id="basic-icon-default-address"
+              class="form-control dt-address"
+              placeholder=""
+              aria-label=""
+              aria-describedby="basic-icon-default-address"
+              name="user-address"
+              [(ngModel)]="address"
+              [class.error]="newUserForm.submitted && AddRef.invalid"
+              #AddRef="ngModel"
+              required
+            />
+            <span *ngIf="newUserForm.submitted && AddRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="AddRef.errors.required">This field is required!</small>
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="basic-icon-default-address">Website</label>
+            <input
+              type="text"
+              id="basic-icon-default-website"
+              class="form-control dt-website"
+              placeholder=""
+              aria-label=""
+              aria-describedby="basic-icon-default-website"
+              name="user-website"
+              [(ngModel)]="website"
+              [class.error]="newUserForm.submitted && WebRef.invalid"
+              #WebRef="ngModel"
+              required
+            />
+            <span *ngIf="newUserForm.submitted && WebRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="WebRef.errors.required">This field is required!</small>
+            </span>
+          </div>
+          <button [disabled]="loading" type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" rippleEffect>
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>  Submit</button>
+          <button
+            type="reset"
+            class="btn btn-outline-secondary"
+            (click)="toggleSidebar('new-user-sidebar')"
+            rippleEffect
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Modal to add new user Ends-->
+</div>
