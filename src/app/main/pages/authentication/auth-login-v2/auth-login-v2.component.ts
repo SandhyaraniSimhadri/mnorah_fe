@@ -16,7 +16,7 @@ import { ToastrService } from "ngx-toastr";
   selector: "app-auth-login-v2",
   templateUrl: "./auth-login-v2.component.html",
   styleUrls: ["./auth-login-v2.component.scss"],
-  encapsulation: ViewEncapsulation.None,
+
 })
 export class AuthLoginV2Component implements OnInit {
   /**
@@ -146,7 +146,7 @@ export class AuthLoginV2Component implements OnInit {
         [Validators.required, Validators.email],
       ],
       password: ["", Validators.required],
-      username: ["", Validators.required],
+      // username: ["", Validators.required],
     });
 
     // get return url from route parameters or default to '/'
@@ -167,5 +167,11 @@ export class AuthLoginV2Component implements OnInit {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
+  }
+  notFound(){
+    this._toastrService.info('Registration is not yet started', "Not yet started", {
+      toastClass: "toast ngx-toastr",
+      closeButton: true,
+    });
   }
 }

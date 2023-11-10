@@ -7,7 +7,7 @@ import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'content',
   templateUrl: './content.component.html',
-  encapsulation: ViewEncapsulation.None,
+ 
   animations: [fadeInLeft, zoomIn, fadeIn]
 })
 export class ContentComponent {

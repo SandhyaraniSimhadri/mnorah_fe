@@ -129,16 +129,16 @@
               </ng-template>
               <div class="cell-line-height">
                 <a routerLink="./sub-admin-view/{{ row.id }}" class="font-medium-1 d-block"
-                  ><span class="font-weight-bold">{{ name }}</span></a
+                  ><span class="font-weight-bold white-space">{{ name }}</span></a
                 >
               </div>
             </div>
           </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column name="Email" prop="email" [width]="150"></ngx-datatable-column>
+        <ngx-datatable-column name="Email" prop="email" [width]="150" class="white-space"></ngx-datatable-column>
        
-        <ngx-datatable-column name="Gender" prop="gender" [width]="40"></ngx-datatable-column>
-        <ngx-datatable-column name="Phone number" prop="mobile_no" [width]="70">
+        <ngx-datatable-column name="Gender" prop="gender" [width]="40" class="white-space"></ngx-datatable-column>
+        <ngx-datatable-column name="Phone number" prop="mobile_no" [width]="70" class="white-space">
           
         </ngx-datatable-column>
         <ngx-datatable-column name="Actions" [width]="40" [sortable]="false">

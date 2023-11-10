@@ -26,7 +26,7 @@ import { HttpClient } from "@angular/common/http";
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
   styleUrls: ["./dashboard.component.scss"],
-  encapsulation: ViewEncapsulation.None,
+ 
 })
 export class DashboardComponent implements OnInit {
   private _unsubscribeAll: Subject<any>;

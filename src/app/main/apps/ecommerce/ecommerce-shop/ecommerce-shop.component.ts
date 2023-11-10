@@ -7,7 +7,7 @@ import { EcommerceService } from 'app/main/apps/ecommerce/ecommerce.service';
   selector: 'app-ecommerce-shop',
   templateUrl: './ecommerce-shop.component.html',
   styleUrls: ['./ecommerce-shop.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+ 
   host: { class: 'ecommerce-application' }
 })
 export class EcommerceShopComponent implements OnInit {

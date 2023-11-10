@@ -6,7 +6,7 @@ import { EcommerceService } from 'app/main/apps/ecommerce/ecommerce.service';
   selector: 'app-ecommerce-wishlist',
   templateUrl: './ecommerce-wishlist.component.html',
   styleUrls: ['./ecommerce-wishlist.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+ 
   host: { class: 'ecommerce-application' }
 })
 export class EcommerceWishlistComponent implements OnInit {

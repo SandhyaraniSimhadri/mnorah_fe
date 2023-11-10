@@ -131,16 +131,16 @@
               </ng-template>
               <div class="cell-line-height">
                 <a routerLink="./church-management-view/{{ row.id }}" class="font-medium-1 d-block"
-                  ><span class="font-weight-bold">{{ name }}</span></a
+                  ><span class="font-weight-bold white-space">{{ name }}</span></a
                 >
               </div>
               </div>
             </ng-template>
           </ngx-datatable-column>
-          <ngx-datatable-column name="Admin Name" prop="user_name" [width]="150"></ngx-datatable-column>
+          <ngx-datatable-column name="Admin Name" prop="user_name" [width]="150" class="white-space"></ngx-datatable-column>
          
-          <ngx-datatable-column name="Pastor Name" prop="pastor_name" [width]="40"></ngx-datatable-column>
-          <ngx-datatable-column name="Location" prop="location" [width]="70">
+          <ngx-datatable-column name="Pastor Name" prop="pastor_name" [width]="40" class="white-space"></ngx-datatable-column>
+          <ngx-datatable-column name="Location" prop="location" [width]="70" class="white-space">
             
           </ngx-datatable-column>
           <ngx-datatable-column name="Actions" [width]="40" [sortable]="false">

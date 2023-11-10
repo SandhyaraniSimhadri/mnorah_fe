@@ -22,7 +22,7 @@ import { ToastrService } from "ngx-toastr";
   selector: "app-church-management-edit",
   templateUrl: "./church-management-edit.component.html",
   styleUrls: ["./church-management-edit.component.scss"],
-  encapsulation: ViewEncapsulation.None,
+ 
 })
 export class ChurchManagementEditComponent implements OnInit, OnDestroy {
   // Public

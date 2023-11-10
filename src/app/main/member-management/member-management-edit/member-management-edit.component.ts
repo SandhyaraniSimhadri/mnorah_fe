@@ -24,7 +24,7 @@ import { ToastrService } from "ngx-toastr";
   selector: "app-member-management-edit",
   templateUrl: "./member-management-edit.component.html",
   styleUrls: ["./member-management-edit.component.scss"],
-  encapsulation: ViewEncapsulation.None,
+ 
 })
 export class MemberManagementEditComponent implements OnInit, OnDestroy {
   // Public

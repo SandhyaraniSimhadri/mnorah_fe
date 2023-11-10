@@ -8,7 +8,7 @@ import { EcommerceService } from 'app/main/apps/ecommerce/ecommerce.service';
   selector: 'app-ecommerce-checkout',
   templateUrl: './ecommerce-checkout.component.html',
   styleUrls: ['./ecommerce-checkout.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+ 
   host: { class: 'ecommerce-application' }
 })
 export class EcommerceCheckoutComponent implements OnInit {

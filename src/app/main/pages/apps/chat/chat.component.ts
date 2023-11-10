@@ -4,7 +4,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+ 
   host: { class: 'chat-application' }
 })
 export class ChatComponent {}

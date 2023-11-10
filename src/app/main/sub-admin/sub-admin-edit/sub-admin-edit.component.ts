@@ -24,7 +24,6 @@ import { ToastrService } from "ngx-toastr";
   selector: "app-sub-admin-edit",
   templateUrl: "./sub-admin-edit.component.html",
   styleUrls: ["./sub-admin-edit.component.scss"],
-  encapsulation: ViewEncapsulation.None,
 })
 export class SubAdminEditComponent implements OnInit, OnDestroy {
   // Public

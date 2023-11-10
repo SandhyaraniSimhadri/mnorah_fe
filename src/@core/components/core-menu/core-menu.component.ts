@@ -9,7 +9,7 @@ import { CoreMenuService } from '@core/components/core-menu/core-menu.service';
   selector: '[core-menu]',
   templateUrl: './core-menu.component.html',
   styleUrls: ['./core-menu.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoreMenuComponent implements OnInit {

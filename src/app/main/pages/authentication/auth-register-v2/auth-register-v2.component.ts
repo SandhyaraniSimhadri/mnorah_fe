@@ -16,7 +16,7 @@ declare var gapi: any;
   selector: "app-auth-register-v2",
   templateUrl: "./auth-register-v2.component.html",
   styleUrls: ["./auth-register-v2.component.scss"],
-  encapsulation: ViewEncapsulation.None,
+ 
 })
 export class AuthRegisterV2Component implements OnInit {
   // Public

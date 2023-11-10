@@ -1,3 +1,4 @@
+
 <div class="auth-wrapper auth-v2">
   <div class="auth-inner row m-0">
     <!-- Brand logo-->
@@ -24,7 +25,7 @@
           <div class="row d-flex justify-content-center ">
             <div class="col-3">
           <div class="avatar">
-            <img src="../../../../../assets/images/login/Group 464@2x.png" alt="avatar" width="55" height="55" />
+            <img src="../../../../../assets/images/login/Group 464@2x.png" alt="avatar" width="60" />
           </div>
           </div>
           <div class="col-9 font-cls">
@@ -38,7 +39,7 @@
         </ngb-alert> -->
 
         <form class="auth-login-form mt-2" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-          <div  class="input-group" >
+          <!-- <div  class="input-group" >
             <i data-feather="user" class="mr-1 mt-0 icon-cls" ></i>
             <input type="text"  formControlName="username"
             class=""
@@ -48,7 +49,7 @@
             <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
               <div *ngIf="f.username.errors.required">User name is required</div>
             </div>
-          </div>
+          </div> -->
           <div class="input-group">
             <i data-feather="mail" class="mr-1 mt-0 icon-cls" ></i>
             <input
@@ -106,14 +107,28 @@
        
       
         <div class="auth-footer-btn d-flex justify-content-center">
-          <img src="../../../../../assets/images/login/facebook.png" alt="brand-logo" height="55" class="mr-1"/>
-          <img src="../../../../../assets/images/login/google.png" alt="brand-logo" height="55"/>
+          <!-- <img src="../../../../../assets/images/login/facebook.png" alt="brand-logo" height="55" class="mr-1"/>
+          <img src="../../../../../assets/images/login/google.png" alt="brand-logo" height="55"/> -->
+
+          <div class="auth-footer-btn d-flex justify-content-center">
+            <img
+              src="../../../../../assets/images/login/Layer 28.png"
+              alt="brand-logo"
+              height="28"
+              class="mr-1"
+            />
+            <img
+              src="../../../../../assets/images/login/Layer 29.png"
+              alt="brand-logo"
+              height="28"
+            />
+          </div>
         
         </div>
        
          <p class="d-flex justify-content-center mt-3">Don't have an account?</p
           >
-          <span class="d-flex justify-content-center mt-n0 font-cls"><a routerLink="/pages/authentication/register-v2"><span>&nbsp;<b class="register">REGISTER</b></span></a></span>
+          <span class="d-flex justify-content-center mt-n0 font-cls"><a (click)="notFound()"><span>&nbsp;<b class="register">REGISTER</b></span></a></span>
      
         </div>
       </div>

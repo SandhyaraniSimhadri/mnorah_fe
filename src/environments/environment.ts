@@ -6,6 +6,8 @@ export const environment = {
   production: false,
   hmr: false,
   apiUrl: 'http://65.0.95.206/'
+  // apiUrl: 'http://localhost:8000/'
+
 };
 
 /*
