@@ -18,6 +18,12 @@ export const locale = {
       MEMBER_MANAGEMENT: {
         MEMBER_MANAGEMENT:'Member Management'    
       },
+      FEED_MANAGEMENT: {
+        FEED_MANAGEMENT:'Feed Management'    
+      },
+      EVENT_MANAGEMENT: {
+        EVENT_MANAGEMENT:'Event Management'    
+      },
       LEAGUES: {
         COLLAPSIBLE: 'Leagues',
         BADGE: '2',

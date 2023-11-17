@@ -55,6 +55,16 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'feed-management',
+    loadChildren: () => import('./main/feed-management/feed-management.module').then(m => m.FeedManagementModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'event-management',
+    loadChildren: () => import('./main/event-management/event-management.module').then(m => m.EventManagementModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'apps',
     loadChildren: () => import('./main/apps/apps.module').then(m => m.AppsModule),
     canActivate: [AuthGuard]

@@ -36,7 +36,22 @@ export const menu: CoreMenu[] = [
     icon: 'users',
     url: 'member-management'
   },
-
+  {
+    id: 'feed-management',
+    title: 'Feed Management',
+    translate: 'MENU.FEED_MANAGEMENT.FEED_MANAGEMENT',
+    type: 'item',
+    icon: 'book-open',
+    url: 'feed-management'
+  },
+  {
+    id: 'event-management',
+    title: 'Event Management',
+    translate: 'MENU.EVENT_MANAGEMENT.EVENT_MANAGEMENT',
+    type: 'item',
+    icon: 'calendar',
+    url: 'event-management'
+  },
   // // Apps & Pages
   // {
   //   id: 'apps',
