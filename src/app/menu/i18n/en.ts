@@ -24,6 +24,9 @@ export const locale = {
       EVENT_MANAGEMENT: {
         EVENT_MANAGEMENT:'Event Management'    
       },
+      VISITOR_MANAGEMENT: {
+        VISITOR_MANAGEMENT:'Visitor Management'    
+      },
       LEAGUES: {
         COLLAPSIBLE: 'Leagues',
         BADGE: '2',

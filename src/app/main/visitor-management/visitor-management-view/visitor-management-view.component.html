@@ -1,0 +1,226 @@
+<div class="loading" *ngIf="loading">
+  <div class="effect-1 effects"></div>
+  <div class="effect-2 effects"></div>
+  <div class="effect-3 effects"></div>
+</div>
+<div class="content-wrapper container-xxl p-0" *ngIf="!loading">
+  <div class="content-body">
+    <!-- page users view start -->
+    <section class="app-user-view">
+      <!-- User Card & Plan Starts -->
+      <div class="row">
+        <!-- User Card starts-->
+        <div class="col-xl-12 col-lg-12 col-md-12">
+          <div class="card user-card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-xl-6 col-lg-12 d-flex flex-column justify-content-between border-container-lg">
+                  <div class="user-avatar-section">
+                    <div class="d-flex justify-content-start">
+                      <div *ngIf="data.avatar!=null && data.avatar.length > 0; else customAvatar">
+                        <img class="img-fluid rounded" [src]="apiUrl+data.avatar" height="104" width="104" alt="User avatar" />
+                      </div>
+                      <ng-template #customAvatar>
+                        <div class="mr-1 ml-0">
+                          <div
+                            [ngClass]="{
+                              'bg-light-success': data.status == 'active',
+                              'bg-light-secondary': data.status == 'inactive',
+                              'bg-light-warning': data.status == 'pending'
+                            }"
+                            class="rounded p-3"
+                          >
+                            <h2
+                              [ngClass]="{
+                                'text-success': data.status == 'active',
+                                'text-secondary': data.status == 'inactive',
+                                'text-warning': data.status == 'pending'
+                              }"
+                              class="m-0"
+                            >
+                              {{ data.first_name | initials }}
+                            </h2>
+                          </div>
+                        </div>
+                      </ng-template>
+                      <div class="d-flex flex-column ml-1">
+                        <div class="user-info mb-1">
+                          <h4 class="mb-0">{{ data.first_name }} {{ data.last_name }}</h4>
+                          <span class="card-text">{{ data.email }}</span><br/>
+                          <span class="card-text">{{ data.church_name }}</span>
+                        </div>
+                        <div class="d-flex flex-wrap">
+                          <a routerLink="../../visitor-management-edit/{{ data.id }}" class="btn btn-primary" rippleEffect
+                            >Edit</a
+                          >
+                          <button  [disabled]="buttonLoading"class="btn btn-outline-danger ml-1" rippleEffect (click)="delete(data.id)">
+                            <span *ngIf="buttonLoading" class="spinner-border spinner-border-sm mr-1"></span>
+                            Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                 
+                </div>
+                <div class="col-xl-6 col-lg-12 mt-2 mt-xl-0">
+                  <div class="user-info-wrapper">
+                    <div class="d-flex flex-wrap">
+                      <div class="user-info-title">
+                        <!-- <i data-feather="user" class="mr-1"></i> -->
+                        <span class="card-text user-info-title font-weight-bold mb-0">Visitor name</span>
+                      </div>
+                      <p class="card-text mb-0">{{ data.first_name }} {{ data.last_name }}</p>
+                    </div>
+                    <div class="d-flex flex-wrap my-50">
+                      <div class="user-info-title">
+                        <!-- <i data-feather="mail" class="mr-1"></i> -->
+                        <span class="card-text user-info-title font-weight-bold mb-0">Email</span>
+                      </div>
+                      <p class="card-text mb-0">{{ data.email }}</p>
+                    </div>
+                    <div class="d-flex flex-wrap my-50">
+                      <div class="user-info-title">
+                        <!-- <i data-feather="mail" class="mr-1"></i> -->
+                        <span class="card-text user-info-title font-weight-bold mb-0">Church name</span>
+                      </div>
+                      <p class="card-text mb-0">{{ data.church_name }}</p>
+                    </div>
+
+                    <div class="d-flex flex-wrap my-50">
+                      <div class="user-info-title">
+                        <!-- <i data-feather="mail" class="mr-1"></i> -->
+                        <span class="card-text user-info-title font-weight-bold mb-0">Spouse name</span>
+                      </div>
+                      <p class="card-text mb-0">{{ data.spouse_name }}</p>
+                    </div>
+
+                    <div class="d-flex flex-wrap my-50">
+                      <div class="user-info-title">
+                        <!-- <i data-feather="mail" class="mr-1"></i> -->
+                        <span class="card-text user-info-title font-weight-bold mb-0">Child 1 name</span>
+                      </div>
+                      <p class="card-text mb-0">{{ data.child1_name }}</p>
+                    </div>
+                    <div class="d-flex flex-wrap my-50">
+                      <div class="user-info-title">
+                        <!-- <i data-feather="mail" class="mr-1"></i> -->
+                        <span class="card-text user-info-title font-weight-bold mb-0">Child 2 name</span>
+                      </div>
+                      <p class="card-text mb-0">{{ data.child2_name}}</p>
+                    </div>
+                    <div class="d-flex flex-wrap my-50">
+                      <div class="user-info-title">
+                        <!-- <i data-feather="mail" class="mr-1"></i> -->
+                        <span class="card-text user-info-title font-weight-bold mb-0">Child 3 name</span>
+                      </div>
+                      <p class="card-text mb-0">{{ data.child3_name }}</p>
+                    </div>
+                    <div class="d-flex flex-wrap my-50">
+                      <div class="user-info-title">
+                        <!-- <i data-feather="mail" class="mr-1"></i> -->
+                        <span class="card-text user-info-title font-weight-bold mb-0">Child 4 name</span>
+                      </div>
+                      <p class="card-text mb-0">{{ data.child4_name }}</p>
+                    </div>
+
+                    <div class="d-flex flex-wrap my-50">
+                      <div class="user-info-title">
+                        <!-- <i data-feather="phone" class="mr-1"></i> -->
+                        <span class="card-text user-info-title font-weight-bold mb-0">Phone number</span>
+                      </div>
+                      <p class="card-text mb-0">{{data.phone_number}}</p>
+                    </div>
+                    <div class="d-flex flex-wrap">
+                      <div class="user-info-title">
+                        <!-- <i data-feather="user-check" class="mr-1"></i> -->
+                        <span class="card-text user-info-title font-weight-bold mb-0">Address</span>
+                      </div>
+                      <p class="card-text mb-0">{{ data.address }}</p>
+                    </div>
+                    <div class="d-flex flex-wrap my-50">
+                      <div class="user-info-title">
+                        <!-- <i data-feather="home" class="mr-1"></i> -->
+                        <span class="card-text user-info-title font-weight-bold mb-0">City</span>
+                      </div>
+                      <p class="card-text mb-0">{{data.city}}</p>
+                    </div>
+                    <div class="d-flex flex-wrap my-50">
+                      <div class="user-info-title">
+                        <!-- <i data-feather="home" class="mr-1"></i> -->
+                        <span class="card-text user-info-title font-weight-bold mb-0">Connection card</span>
+                      </div>
+                      <p class="card-text mb-0">{{data.connection}}</p>
+                    </div>
+
+                    <div class="d-flex flex-wrap my-50">
+                      <div class="user-info-title">
+                        <!-- <i data-feather="home" class="mr-1"></i> -->
+                        <span class="card-text user-info-title font-weight-bold mb-0">How did you hear about us?
+                        </span>
+                      </div>
+                      <p class="card-text mb-0" *ngIf="data.hear_about!='Other'">{{data.hear_about}}</p>
+                      <p class="card-text mb-0" *ngIf="data.hear_about=='Other'">{{data.hear_about_other}}</p>
+                    </div>
+                    <div class="d-flex flex-wrap my-50">
+                      <div class="user-info-title">
+                        <!-- <i data-feather="home" class="mr-1"></i> -->
+                        <span class="card-text user-info-title font-weight-bold mb-0">Date of Visit</span>
+                      </div>
+                      <p class="card-text mb-0">{{data.visit_date}}</p>
+                    </div>
+
+                    <div class="d-flex flex-wrap my-50">
+                      <div class="user-info-title">
+                        <!-- <i data-feather="home" class="mr-1"></i> -->
+                        <span class="card-text user-info-title font-weight-bold mb-0">How was your experience today?</span>
+                      </div>
+                      <p class="card-text mb-0">{{data.experience}}</p>
+                    </div>
+
+                    <div class="d-flex flex-wrap my-50">
+                      <div class="user-info-title">
+                        <!-- <i data-feather="home" class="mr-1"></i> -->
+                        <span class="card-text user-info-title font-weight-bold mb-0">What did you enjoy most about your visit?</span>
+                      </div>
+                      <p class="card-text mb-0">{{data.about_visit}}</p>
+                    </div>
+
+                    <div class="d-flex flex-wrap my-50">
+                      <div class="user-info-title">
+                        <!-- <i data-feather="home" class="mr-1"></i> -->
+                        <span class="card-text user-info-title font-weight-bold mb-0">Suggestions for Improvement</span>
+                      </div>
+                      <p class="card-text mb-0">{{data.suggestions}}</p>
+                    </div>
+
+                    <div class="d-flex flex-wrap my-50">
+                      <div class="user-info-title">
+                        <!-- <i data-feather="home" class="mr-1"></i> -->
+                        <span class="card-text user-info-title font-weight-bold mb-0">Prayer Requests</span>
+                      </div>
+                      <p class="card-text mb-0">{{data.prayer_request}}</p>
+                    </div>
+
+                    <div class="d-flex flex-wrap my-50">
+                      <div class="user-info-title">
+                        <!-- <i data-feather="home" class="mr-1"></i> -->
+                        <span class="card-text user-info-title font-weight-bold mb-0">Additional Comments</span>
+                      </div>
+                      <p class="card-text mb-0">{{data.comments}}</p>
+                    </div>
+
+  
+               
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+       
+      </div>
+
+    </section>
+    <!-- page users view end -->
+  </div>
+</div>

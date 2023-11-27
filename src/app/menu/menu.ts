@@ -52,6 +52,14 @@ export const menu: CoreMenu[] = [
     icon: 'calendar',
     url: 'event-management'
   },
+  {
+    id: 'visitor-management',
+    title: 'Visitor Management',
+    translate: 'MENU.VISITOR_MANAGEMENT.VISITOR_MANAGEMENT',
+    type: 'item',
+    icon: 'user',
+    url: 'visitor-management'
+  },
   // // Apps & Pages
   // {
   //   id: 'apps',

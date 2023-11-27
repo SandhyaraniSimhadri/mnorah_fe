@@ -1,0 +1,95 @@
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
+
+import { NgSelectModule } from '@ng-select/ng-select';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { Ng2FlatpickrModule } from 'ng2-flatpickr';
+
+import { CoreCommonModule } from '@core/common.module';
+import { CoreDirectivesModule } from '@core/directives/directives';
+import { CorePipesModule } from '@core/pipes/pipes.module';
+import { CoreSidebarModule } from '@core/components';
+
+import { InvoiceListService } from 'app/main/apps/invoice/invoice-list/invoice-list.service';
+import { InvoiceModule } from 'app/main/apps/invoice/invoice.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { VisitorManagementListComponent } from './visitor-management-list/visitor-management-list.component';
+import { NewUserSidebarComponent } from './visitor-management-list/new-user-sidebar/new-user-sidebar.component';
+import { UserListService } from './visitor-management-list/user-list.service';
+import { VisitorManagementEditComponent } from './visitor-management-edit/visitor-management-edit.component';
+import { VisitorManagementViewComponent } from './visitor-management-view/visitor-management-view.component';
+import { UserEditService } from './visitor-management-edit/user-edit.service';
+import { UserViewService } from './visitor-management-view/user-view.service';
+const routes: Routes = [
+  {
+    path: 'visitor-management',
+    component: VisitorManagementListComponent,
+    resolve: {
+      uls: UserListService
+    },
+    data: { animation: 'VisitorManagementListComponent' }
+  },
+  {
+    path: '',
+    component: VisitorManagementListComponent,
+    resolve: {
+      uls: UserListService
+    },
+    data: { animation: 'VisitorManagementListComponent' }
+  },
+  {
+    path: 'visitor-management-view/:id',
+    component: VisitorManagementViewComponent,
+    resolve: {
+      data: UserViewService,
+      InvoiceListService
+    },
+    data: { path: 'view/:id', animation: 'VisitorManagementViewComponent' }
+  },
+  {
+    path: 'visitor-management-edit/:id',
+    component: VisitorManagementEditComponent
+    ,
+    resolve: {
+      ues: UserEditService
+    },
+    data: { animation: 'VisitorManagementEditComponent' }
+  },
+  {
+    path: 'visitor-management-view',
+    redirectTo: '/visitor-management-view/2' // Redirection
+  },
+  {
+    path: 'visitor-management-edit',
+    redirectTo: '/visitor-management-edit/2' // Redirection
+  }
+];
+
+@NgModule({
+  declarations: [VisitorManagementListComponent, 
+    VisitorManagementViewComponent, VisitorManagementEditComponent, 
+    NewUserSidebarComponent],
+  imports: [
+    NgbModule,
+    NgbNavModule,
+    CommonModule,
+    RouterModule.forChild(routes),
+    CoreCommonModule,
+    FormsModule,
+    NgSelectModule,
+    Ng2FlatpickrModule,
+    NgxDatatableModule,
+    CorePipesModule,
+    CoreDirectivesModule,
+    InvoiceModule,
+    CoreSidebarModule
+  ],
+  providers: [UserListService, 
+    UserViewService, 
+    UserEditService,
+  ]
+})
+export class VisitorManagementModule {}
