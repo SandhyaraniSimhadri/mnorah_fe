@@ -20,6 +20,7 @@ export class NewUserSidebarComponent implements OnInit {
   public event_time;
   public venue;
   public contact_person;
+  public frequency;
   public event_description;
   public agenda;
   public reg_info;
@@ -59,7 +60,7 @@ export class NewUserSidebarComponent implements OnInit {
   submit(form) {
     this.loading=true;
     this.form={church_id:this.church_id,event_name:this.event_name,event_type:this.event_type,event_date:this.event_date,event_time:this.event_time,
-      venue:this.venue,contact_person:this.contact_person,event_description:this.event_description,agenda:this.agenda,
+      venue:this.venue,contact_person:this.contact_person,frequency:this.frequency,event_description:this.event_description,agenda:this.agenda,
       reg_info:this.reg_info,speakers:this.speakers,special_req:this.special_req,dress_code:this.dress_code,additional_info:this.additional_info};
     if (form.valid) {
       console.log("form values",this.form);

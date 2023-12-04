@@ -60,6 +60,25 @@ export const menu: CoreMenu[] = [
     icon: 'user',
     url: 'visitor-management'
   },
+
+  {
+    id: 'testimony-management',
+    title: 'Testimony Management',
+    translate: 'MENU.TESTIMONY_MANAGEMENT.TESTIMONY_MANAGEMENT',
+    type: 'item',
+    icon: 'book-open',
+    url: 'testimony-management'
+  },
+
+  {
+    id: 'life-group-management',
+    title: 'Life Group Management',
+    translate: 'MENU.LIFE_GROUP_MANAGEMENT.LIFE_GROUP_MANAGEMENT',
+    type: 'item',
+    icon: 'book-open',
+    url: 'life-group-management'
+  },
+
   // // Apps & Pages
   // {
   //   id: 'apps',

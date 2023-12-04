@@ -27,6 +27,12 @@ export const locale = {
       VISITOR_MANAGEMENT: {
         VISITOR_MANAGEMENT:'Visitor Management'    
       },
+      TESTIMONY_MANAGEMENT: {
+        TESTIMONY_MANAGEMENT:'Testimony Management'    
+      },
+      LIFE_GROUP_MANAGEMENT: {
+        LIFE_GROUP_MANAGEMENT:'Life Group Management'    
+      },
       LEAGUES: {
         COLLAPSIBLE: 'Leagues',
         BADGE: '2',

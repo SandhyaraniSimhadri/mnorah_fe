@@ -1,0 +1,101 @@
+<div class="slideout-content">
+  <!-- Modal to add new user starts-->
+  <div class="modalsd modal-slide-in sdfade new-user-modal" id="modals-slide-in">
+    <div class="modal-dialog">
+      <form class="add-new-user modal-content pt-0" (ngSubmit)="(newUserForm.form.valid)" #newUserForm="ngForm">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="toggleSidebar('new-user-sidebar')"
+        >
+          ×
+        </button>
+        <div class="modal-header mb-1">
+          <h5 class="modal-title" id="exampleModalLabel">New Testimony</h5>
+        </div>
+        <div class="modal-body flex-grow-1">
+          <div class="form-group mb-2">
+            <label class="form-label">Select Church</label>
+            <select 
+            id="basic-icon-default-church"
+            class="form-control dt-church"
+            aria-label=""
+            aria-describedby="basic-icon-default-church"
+            name="church"
+            [class.error]="newUserForm.submitted && ChurchRef.invalid"
+              #ChurchRef="ngModel" required
+          
+              [(ngModel)]="church_id"
+              [ngModelOptions]="{ standalone: true }"
+            >
+              <option value="">Select</option>
+              <option *ngFor="let church of churchData" [value]="church.id">
+                {{ church.church_name }}
+              </option>
+            </select>
+            <span *ngIf="newUserForm.submitted && ChurchRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="ChurchRef.errors.required">This field is required!</small>
+            </span>
+         
+         
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="basic-icon-default-testimony">Testimony</label>
+            <textarea
+              type="text"
+              class="form-control dt-testimony"
+              id="basic-icon-default-testimony"
+              placeholder=""
+              name="user-testimony"
+              [(ngModel)]="testimony"
+              [class.error]="newUserForm.submitted && TNameRef.invalid"
+              #TNameRef="ngModel"
+              required
+              aria-label=""
+              aria-describedby="basic-icon-default-testimony"
+            ></textarea>
+            <span *ngIf="newUserForm.submitted && TNameRef.invalid" class="invalid-form">
+              <small class="form-text text-danger" *ngIf="TNameRef.errors.required">This field is required!</small>
+            </span>
+          </div>
+
+        
+
+          <div class="form-group">
+            <label class="form-label" for="basic-icon-default-author">Image</label>
+            <input
+              type="file"
+              class="form-control dt-author"
+              id="basic-icon-default-author"
+              placeholder=""
+              name="author"
+              [(ngModel)]="imageval"
+              (change)="uploadImage($event)"
+              accept="image/png, image/jpeg, image/jpg"
+              [class.error]="newUserForm.submitted && ImNameRef.invalid"
+              #ImNameRef="ngModel"
+            
+              aria-label=""
+              aria-describedby="basic-icon-default-author"
+            />
+          </div>
+
+          <button [disabled]="loading" type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" rippleEffect>
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>  Submit</button>
+          <button
+            type="reset"
+            class="btn btn-outline-secondary"
+            (click)="toggleSidebar('new-user-sidebar')"
+            rippleEffect
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Modal to add new user Ends-->
+</div>

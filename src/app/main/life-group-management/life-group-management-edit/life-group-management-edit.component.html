@@ -4,7 +4,7 @@
   <div class="effect-3 effects"></div>
 </div>
 
-<div class="content-wrapper container-xxl p-0" *ngIf="!loading">
+<div class="content-wrapper container-xxl p-0" *ngIf="!loading && members_data!=undefined">
   <div class="content-body">
     <!-- users edit start -->
     <section class="app-user-edit">
@@ -51,12 +51,12 @@
                         }"
                       >
                         <div class="rounded p-3">
-                          {{ currentRow.event_name | initials }}
+                          {{ currentRow.country | initials }}
                         </div>
                       </div>
                     </ng-template>
                     <div class="media-body mt-50">
-                      <h4>{{ currentRow.event_name }}</h4>
+                      <h4>{{ currentRow.country }}</h4>
                       <div class="col-12 d-flex mt-1 px-0">
                         <label
                           class="btn btn-primary mr-75 mb-0"
@@ -92,73 +92,63 @@
                     #accountForm="ngForm"
                   >
                     <div class="row">
-                      <div class="col-md-4">
+                      <div class="col-md-6">
                         <div class="form-group">
-                          <label>Event Name</label>
+                          <label for="company">Country</label>
                           <input
                             type="text"
                             class="form-control"
-                            [(ngModel)]="currentRow.event_name"
-                            placeholder="Event name"
-                            id="event_name"
-                            name="event_name"
+                            [(ngModel)]="currentRow.country"
+                            placeholder="Country"
+                            id="country"
+                            name="country"
                             [class.error]="
-                              accountForm.submitted && EveNameRef.invalid
+                              accountForm.submitted && countryRef.invalid
                             "
-                            #EveNameRef="ngModel"
+                            #countryRef="ngModel"
                             required
                           />
                           <span
-                            *ngIf="accountForm.submitted && EveNameRef.invalid"
+                            *ngIf="accountForm.submitted && countryRef.invalid"
                             class="invalid-form"
                           >
                             <small
                               class="form-text text-danger"
-                              *ngIf="EveNameRef.errors.required"
+                              *ngIf="countryRef.errors.required"
                               >This field is required!</small
                             >
                           </span>
                         </div>
                       </div>
-
-                      <div class="col-md-4">
+                      <div class="col-md-6">
                         <div class="form-group">
-                          <label for="company">Event Type</label>
-
-                          <select
-                            [(ngModel)]="currentRow.event_type"
-                            [ngModelOptions]="{ standalone: true }"
+                          <label>City</label>
+                          <input
+                            type="text"
                             class="form-control"
-                            id="event-type"
-                            name="event-type"
+                            [(ngModel)]="currentRow.city"
+                            placeholder="City"
+                            id="city"
+                            name="city"
                             [class.error]="
-                              accountForm.submitted && EventTyRef.invalid
+                              accountForm.submitted && cityRef.invalid
                             "
-                            #EventTyRef="ngModel"
+                            #cityRef="ngModel"
                             required
-                          >
-                            <option value="Church Service">
-                              Church Service
-                            </option>
-                            <option value="Conference">Conference</option>
-                            <option value="Seminar">Seminar</option>
-                            <option value="Workshop">Workshop</option>
-                            <option value="Meeting">Meeting</option>
-                          </select>
+                          />
                           <span
-                            *ngIf="accountForm.submitted && EventTyRef.invalid"
+                            *ngIf="accountForm.submitted && cityRef.invalid"
                             class="invalid-form"
                           >
                             <small
                               class="form-text text-danger"
-                              *ngIf="EventTyRef.errors.required"
+                              *ngIf="cityRef.errors.required"
                               >This field is required!</small
                             >
                           </span>
                         </div>
                       </div>
-
-                      <div class="col-md-4">
+                      <div class="col-md-6">
                         <div class="form-group mb-2">
                           <label class="form-label" for="user-plan"
                             >Select Church</label
@@ -195,176 +185,94 @@
                           </span>
                         </div>
                       </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label>Event Date</label>
-                          <input
-                            type="date"
-                            class="form-control"
-                            [(ngModel)]="currentRow.event_date"
-                            placeholder="Event Date"
-                            id="event-date"
-                            name="event-date"
-                          />
-                        </div>
-                      </div>
 
-                      <div class="col-md-4">
+                      <div class="col-md-6">
                         <div class="form-group">
-                          <label for="company">Event Time</label>
-                          <input
-                            type="time"
-                            class="form-control"
-                            [(ngModel)]="currentRow.event_time"
-                            placeholder="Event Time"
-                            id="event-time"
-                            name="event-time"
-                          />
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label for="company">Venue</label>
+                          <label for="company">Area</label>
                           <input
                             type="text"
                             class="form-control"
-                            [(ngModel)]="currentRow.venue"
-                            placeholder="Venue"
-                            id="venue"
-                            name="venue"
-                          />
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label>Speakers</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            [(ngModel)]="currentRow.speakers"
-                            placeholder="Speakers"
-                            id="speakers"
-                            name="speakers"
-                          />
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label>Contact Person</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            [(ngModel)]="currentRow.contact_person"
-                            placeholder="Contact Person"
-                            id="contact_person"
-                            name="contact_person"
-                          />
-                        </div>
-                      </div>
-
-                      
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label>Frequency</label>
-
-                          <select
-                            [(ngModel)]="currentRow.frequency"
-                            [ngModelOptions]="{ standalone: true }"
-                            class="form-control"
-                            id="frequency"
-                            name="frequency"
+                            [(ngModel)]="currentRow.area"
+                            placeholder="Area"
+                            id="area"
+                            name="area"
                             [class.error]="
-                              accountForm.submitted && FreqRef.invalid
+                              accountForm.submitted && areaRef.invalid
                             "
-                            #FreqRef="ngModel"
+                            #areaRef="ngModel"
                             required
-                          >
-                          <option value="Daily">Daily</option>
-                          <option value="Bi-weekly">Bi-weekly</option>
-                          <option value="Weekly">Weekly</option>
-                          <option value="Monthly">Monthly</option>
-                          <option value="Yearly">Yearly</option>
-                          <option value="One-off">One-off</option>
-                          </select>
+                          />
                           <span
-                            *ngIf="accountForm.submitted && FreqRef.invalid"
+                            *ngIf="accountForm.submitted && areaRef.invalid"
                             class="invalid-form"
                           >
                             <small
                               class="form-text text-danger"
-                              *ngIf="FreqRef.errors.required"
+                              *ngIf="areaRef.errors.required"
                               >This field is required!</small
                             >
                           </span>
                         </div>
                       </div>
-                      <div class="col-md-4">
+
+                      <div class="col-md-6">
                         <div class="form-group">
-                          <label>Event Description</label>
+                          <label for="company">Number of members</label>
                           <input
                             type="text"
                             class="form-control"
-                            [(ngModel)]="currentRow.event_description"
-                            placeholder="Event Description"
-                            id="event-description"
-                            name="event-description"
+                            [(ngModel)]="currentRow.members_count"
+                            placeholder="Members"
+                            id="members-count"
+                            name="members-count"
+                            [class.error]="
+                              accountForm.submitted && MemCntRef.invalid
+                            "
+                            #MemCntRef="ngModel"
+                            required
                           />
+                          <span
+                            *ngIf="accountForm.submitted && MemCntRef.invalid"
+                            class="invalid-form"
+                          >
+                            <small
+                              class="form-text text-danger"
+                              *ngIf="MemCntRef.errors.required"
+                              >This field is required!</small
+                            >
+                          </span>
                         </div>
                       </div>
-
-                      <div class="col-md-4">
+                      <div class="col-md-6">
                         <div class="form-group">
-                          <label>Agenda/Schedule</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            [(ngModel)]="currentRow.agenda"
-                            placeholder="Agenda/Schedule"
-                            id="agenda"
-                            name="agenda"
-                          />
-                        </div>
-                      </div>
-
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label>Registration Information</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            [(ngModel)]="currentRow.reg_info"
-                            placeholder="Registration Information"
-                            id="reg_info"
-                            name="reg_info"
-                          />
-                        </div>
-                      </div>
-
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label>Special Requirements (if any)</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            [(ngModel)]="currentRow.special_req"
-                            placeholder="Special Requirements (if any)"
-                            id="special_req"
-                            name="special_req"
-                          />
-                        </div>
-                      </div>
-
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label>Additional Information (if any)</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            [(ngModel)]="currentRow.additional_info"
-                            placeholder="Additional Information (if any)"
-                            id="additional_info"
-                            name="additional_info"
-                          />
+                          <label>Select Members</label>
+                          <div class="form-group">
+                            <!-- Select Custom Tag -->
+                            <ng-select
+                              [items]="customTag"
+                              [hideSelected]="true"
+                              multiple="true"
+                              bindLabel="name"
+                              [(ngModel)]="customTagselected"
+                              [ngModelOptions]="{ standalone: true }"
+                            >
+                              <ng-template
+                                ng-label-tmp
+                                let-item="item"
+                                let-clear="clear"
+                              >
+                                <span class="ng-value-label">
+                                  {{ item.name }}</span
+                                >
+                                <span
+                                  class="ng-value-icon right"
+                                  (click)="clear(item)"
+                                  aria-hidden="true"
+                                  >×</span
+                                >
+                              </ng-template>
+                            </ng-select>
+                          </div>
                         </div>
                       </div>
 

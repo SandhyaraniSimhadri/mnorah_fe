@@ -70,6 +70,16 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'testimony-management',
+    loadChildren: () => import('./main/testimony-management/testimony-management.module').then(m => m.TestimonyManagementModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'life-group-management',
+    loadChildren: () => import('./main/life-group-management/life-group-management.module').then(m => m.LifeGroupManagementModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'apps',
     loadChildren: () => import('./main/apps/apps.module').then(m => m.AppsModule),
     canActivate: [AuthGuard]

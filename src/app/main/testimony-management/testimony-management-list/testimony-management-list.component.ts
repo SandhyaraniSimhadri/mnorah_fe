@@ -14,30 +14,28 @@ import { ToastrService } from "ngx-toastr";
 // UserListService
 
 @Component({
-  selector: "app-church-management-list",
-  templateUrl: "./church-management-list.component.html",
-  styleUrls: ["./church-management-list.component.scss"],
+  selector: "app-testimony-management-list",
+  templateUrl: "./testimony-management-list.component.html",
+  styleUrls: ["./testimony-management-list.component.scss"],
  
 })
-export class ChurchManagementListComponent implements OnInit {
+export class TestimonyManagementListComponent implements OnInit {
   // Public
   public sidebarToggleRef = false;
   public rows;
   public selectedOption = 10;
   public ColumnMode = ColumnMode;
   public temp = [];
-  public previousRoleFilter = "";
-  public previousPlanFilter = "";
+  public previousChurchFilter = "";
+  public previousAuthorFilter = "";
   public previousStatusFilter = "";
   public apiUrl: any;
   public selectChurch: any = [];
-  public selectUsers: any = [];
-  public selectLanguage: any = [];
+  public selectAuthors: any = [];
   public loading: boolean = false;
   public searchValue = "";
   public selectedChurch = [];
-  public selectedUsers = [];
-  public selectedLanguage = [];
+  public selectedAuthors = [];
   public buttonLoading:any=false
 
   // Decorator
@@ -75,14 +73,13 @@ export class ChurchManagementListComponent implements OnInit {
   filterUpdate(event) {
     // Reset ng-select on search
     this.selectedChurch = this.selectChurch[0];
-    this.selectedUsers = this.selectUsers[0];
-    this.selectedLanguage = this.selectLanguage[0];
+    this.selectedAuthors = this.selectAuthors[0];
 
     const val = event.target.value.toLowerCase();
-    console.log('@dd: ', val);
+
     // Filter Our Data
     const temp = this.tempData.filter(function (d) {
-      return d.church_name.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.title.toLowerCase().indexOf(val) !== -1 || !val;
     });
 
     // Update The Rows
@@ -107,11 +104,10 @@ export class ChurchManagementListComponent implements OnInit {
    */
   filterByChurch(event) {
     const filter = event ? event.value : "";
-    this.previousRoleFilter = filter;
+    this.previousChurchFilter = filter;
     this.temp = this.filterRows(
       filter,
-      this.previousPlanFilter,
-      this.previousStatusFilter
+      this.previousAuthorFilter,
     );
     this.rows = this.temp;
   }
@@ -121,13 +117,13 @@ export class ChurchManagementListComponent implements OnInit {
    *
    * @param event
    */
-  filterByUsers(event) {
+  filterByAuthor(event) {
     const filter = event ? event.value : "";
-    this.previousPlanFilter = filter;
+    this.previousAuthorFilter = filter;
     this.temp = this.filterRows(
-      this.previousRoleFilter,
+      this.previousChurchFilter,
       filter,
-      this.previousStatusFilter
+
     );
     this.rows = this.temp;
   }
@@ -137,17 +133,7 @@ export class ChurchManagementListComponent implements OnInit {
    *
    * @param event
    */
-  filterByLanguage(event) {
-    const filter = event ? event.value : "";
-    this.previousStatusFilter = filter;
-    console.log("prev", this.previousStatusFilter);
-    this.temp = this.filterRows(
-      this.previousRoleFilter,
-      this.previousPlanFilter,
-      filter
-    );
-    this.rows = this.temp;
-  }
+
 
   /**
    * Filter Rows
@@ -156,29 +142,24 @@ export class ChurchManagementListComponent implements OnInit {
    * @param usersFilter
    * @param languageFilter
    */
-  filterRows(churchFilter, usersFilter, languageFilter): any[] {
+  filterRows(churchFilter, authorFilter): any[] {
     // Reset search on select change
     this.searchValue = "";
-    // console.log("churchFilter", churchFilter);
-    // console.log("usersFilter", usersFilter);
-    // console.log("languageFilter", languageFilter);
+    console.log("churchFilter", churchFilter);
+    console.log("authorFilter", authorFilter);
 
     churchFilter = churchFilter.toLowerCase();
-    usersFilter = usersFilter.toLowerCase();
-    languageFilter = languageFilter.toLowerCase();
-    // console.log("tempdata", this.tempData);
-    // 
+    authorFilter = authorFilter.toLowerCase();
+    console.log("tempdata", this.tempData);
     return this.tempData.filter((row) => {
       const isPartialNameMatch =
         row.church_name.toLowerCase().indexOf(churchFilter) !== -1 ||
         !churchFilter;
-      const isPartialUsersMatch =
-        row.users.toLowerCase().indexOf(usersFilter) !== -1 || !usersFilter;
-      const isPartialLanguageMatch =
-        row.language.toLowerCase().indexOf(languageFilter) !== -1 ||
-        !languageFilter;
+      const isPartialAuthorMatch =
+        row.users.toLowerCase().indexOf(authorFilter) !== -1 || !authorFilter;
+  
       return (
-        isPartialNameMatch && isPartialUsersMatch && isPartialLanguageMatch
+        isPartialNameMatch && isPartialAuthorMatch
       );
     });
   }
@@ -190,7 +171,7 @@ export class ChurchManagementListComponent implements OnInit {
    */
   ngOnInit(): void {
     this.apiUrl = environment.apiUrl;
-    this.getChurches();
+    this.getTestimony();
   }
 
   /**
@@ -202,13 +183,13 @@ export class ChurchManagementListComponent implements OnInit {
     this._unsubscribeAll.complete();
   }
 
-  getChurches() {
+  getTestimony() {
     this.loading = true;
     let request;
 
     request = {
       params: null,
-      action_url: "get_churches",
+      action_url: "get_testimony",
       method: "GET",
     };
     this.httpService.doHttp(request).subscribe(
@@ -222,35 +203,17 @@ export class ChurchManagementListComponent implements OnInit {
             this.tempData = this.rows;
             console.log("rowss", this.rows);
             const nameSet = new Set();
-            this.rows.forEach((church) => {
-              if (!nameSet.has(church.church_name)) {
+            this.rows.forEach((testimony) => {
+              if (!nameSet.has(testimony.church_name)) {
                 this.selectChurch.push({
-                  name: church.church_name,
-                  value: church.church_name,
+                  name: testimony.church_name,
+                  value: testimony.church_name,
                 });
-                nameSet.add(church.church_name);
+                nameSet.add(testimony.church_name);
               }
             });
-            const usersSet = new Set();
-            this.rows.forEach((church) => {
-              if (!usersSet.has(church.users)) {
-                this.selectUsers.push({
-                  name: church.users,
-                  value: church.users,
-                });
-                usersSet.add(church.users);
-              }
-            });
-            const languageSet = new Set();
-            this.rows.forEach((church) => {
-              if (!languageSet.has(church.language)) {
-                this.selectLanguage.push({
-                  name: church.language,
-                  value: church.language,
-                });
-                languageSet.add(church.language);
-              }
-            });
+           
+      
           }
         }
         this.loading=false;
@@ -260,17 +223,17 @@ export class ChurchManagementListComponent implements OnInit {
       }
     );
   }
-  updateUserList(newUser: any) {
+  updateTestimonyList(newTestimony: any) {
     console.log("called");
     this.loading=true;
-    this.rows.push(newUser);
-    this.getChurches(); 
+    this.rows.push(newTestimony);
+    this.getTestimony(); 
   }
   delete(id: any) {
     this.buttonLoading=true;
     let request = {
       params: { id: id },
-      action_url: "delete_church",
+      action_url: "delete_testimony",
       method: "POST",
     };
     this.httpService.doHttp(request).subscribe(
@@ -287,7 +250,7 @@ export class ChurchManagementListComponent implements OnInit {
               toastClass: "toast ngx-toastr",
               closeButton: true,
             });
-            this.getChurches();
+            this.getTestimony();
           }
         }
     this.buttonLoading=false;
