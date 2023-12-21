@@ -1,6 +1,5 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
-import { Router } from "@angular/router";
 import { CoreSidebarService } from "@core/components/core-sidebar/core-sidebar.service";
 import { CoreHttpService } from "@core/services/http.service";
 import { environment } from "environments/environment";
@@ -32,7 +31,6 @@ export class NewUserSidebarComponent implements OnInit {
   constructor(
     private _coreSidebarService: CoreSidebarService,
     public httpService: CoreHttpService,
-    private router: Router,
     private _toastrService: ToastrService,
     private http: HttpClient
   ) {}

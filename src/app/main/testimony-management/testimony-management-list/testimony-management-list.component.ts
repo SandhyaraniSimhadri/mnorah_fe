@@ -2,11 +2,7 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import { ColumnMode, DatatableComponent } from "@swimlane/ngx-datatable";
 
 import { Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
-
-import { CoreConfigService } from "@core/services/config.service";
 import { CoreSidebarService } from "@core/components/core-sidebar/core-sidebar.service";
-import { UserListService } from "./user-list.service";
 import { CoreHttpService } from "@core/services/http.service";
 import { environment } from "environments/environment";
 import { ToastrService } from "ngx-toastr";
@@ -55,13 +51,12 @@ export class TestimonyManagementListComponent implements OnInit {
    * @param {CoreSidebarService} _coreSidebarService
    */
   constructor(
-    private _userListService: UserListService,
+
     private _coreSidebarService: CoreSidebarService,
-    private _coreConfigService: CoreConfigService,
     public httpService: CoreHttpService,
     private _toastrService: ToastrService,
     public modalsService:ModalsService,
-    public modalService: NgbModal,
+    public modalService: NgbModal
   ) {
     this._unsubscribeAll = new Subject();
   }

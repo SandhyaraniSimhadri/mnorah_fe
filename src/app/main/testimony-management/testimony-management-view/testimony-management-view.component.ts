@@ -3,9 +3,6 @@ import { Router } from '@angular/router';
 import { CoreHttpService } from '@core/services/http.service';
 import { environment } from 'environments/environment';
 import { ToastrService } from 'ngx-toastr';
-
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-testimony-management-view',
   templateUrl: './testimony-management-view.component.html',
@@ -29,7 +26,7 @@ export class TestimonyManagementViewComponent implements OnInit, OnDestroy {
    * @param {Router} router
 
    */
-  constructor(private router: Router,   public httpService: CoreHttpService,private _toastrService: ToastrService,   ) {
+  constructor(private router: Router,   public httpService: CoreHttpService,private _toastrService: ToastrService  ) {
     this.lastValue = this.url.substr(this.url.lastIndexOf('/') + 1);
   }
 

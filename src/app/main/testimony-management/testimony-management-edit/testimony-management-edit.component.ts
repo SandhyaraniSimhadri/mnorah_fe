@@ -2,17 +2,14 @@ import {
   Component,
   OnInit,
   OnDestroy,
-  ViewEncapsulation,
-  ViewChild,
+  ViewChild
 } from "@angular/core";
 import { Router } from "@angular/router";
 import { NgForm } from "@angular/forms";
 
 import { Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
 import { FlatpickrOptions } from "ng2-flatpickr";
 import { cloneDeep } from "lodash";
-import { UserEditService } from "./user-edit.service";
 import { CoreHttpService } from "@core/services/http.service";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "environments/environment";
@@ -65,11 +62,10 @@ export class TestimonyManagementEditComponent implements OnInit, OnDestroy {
    */
   constructor(
     private router: Router,
-    private _userEditService: UserEditService,
     private http: HttpClient,
     public httpService: CoreHttpService,
     private _toastrService: ToastrService,
-    private _router: Router,
+    private _router: Router
   ) {
     this._unsubscribeAll = new Subject();
     this.urlLastValue = this.url.substr(this.url.lastIndexOf("/") + 1);

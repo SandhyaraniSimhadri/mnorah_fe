@@ -1,19 +1,12 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import { ColumnMode, DatatableComponent } from "@swimlane/ngx-datatable";
-
 import { Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
-
-import { CoreConfigService } from "@core/services/config.service";
 import { CoreSidebarService } from "@core/components/core-sidebar/core-sidebar.service";
-import { UserListService } from "./user-list.service";
 import { CoreHttpService } from "@core/services/http.service";
 import { environment } from "environments/environment";
 import { ToastrService } from "ngx-toastr";
 import { ModalsService } from "@core/services/modals.service";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-// import { UserListService } from 'app/main/apps/user/user-list/user-list.service';
-// UserListService
 
 @Component({
   selector: "app-life-group-management-list",
@@ -58,13 +51,11 @@ export class LifeGroupManagementListComponent implements OnInit {
    * @param {CoreSidebarService} _coreSidebarService
    */
   constructor(
-    private _userListService: UserListService,
     private _coreSidebarService: CoreSidebarService,
-    private _coreConfigService: CoreConfigService,
     public httpService: CoreHttpService,
     private _toastrService: ToastrService,
     public modalsService:ModalsService,
-    public modalService: NgbModal,
+    public modalService: NgbModal
   ) {
     this._unsubscribeAll = new Subject();
   }
