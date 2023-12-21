@@ -94,7 +94,8 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label for="company">Country</label>
+                          <label for="company">Country <span *ngIf="accountForm.submitted && countryRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !countryRef.invalid">*</span></label>
                           <input
                             type="text"
                             class="form-control"
@@ -122,7 +123,8 @@
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label>City</label>
+                          <label>City <span *ngIf="accountForm.submitted && cityRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !cityRef.invalid">*</span></label>
                           <input
                             type="text"
                             class="form-control"
@@ -149,9 +151,10 @@
                         </div>
                       </div>
                       <div class="col-md-6">
-                        <div class="form-group mb-2">
+                        <div class="form-group">
                           <label class="form-label" for="user-plan"
-                            >Select Church</label
+                            >Select Church <span *ngIf="accountForm.submitted && ChurchRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !ChurchRef.invalid">*</span></label
                           >
                           <select
                             class="form-control"
@@ -188,7 +191,8 @@
 
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label for="company">Area</label>
+                          <label for="company">Area <span *ngIf="accountForm.submitted && areaRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !areaRef.invalid">*</span></label>
                           <input
                             type="text"
                             class="form-control"
@@ -215,7 +219,7 @@
                         </div>
                       </div>
 
-                      <div class="col-md-6">
+                      <!-- <div class="col-md-6">
                         <div class="form-group">
                           <label for="company">Number of members</label>
                           <input
@@ -242,7 +246,7 @@
                             >
                           </span>
                         </div>
-                      </div>
+                      </div> -->
                       <div class="col-md-6">
                         <div class="form-group">
                           <label>Select Members</label>

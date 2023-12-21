@@ -13,24 +13,25 @@ export const menu: CoreMenu[] = [
   //   url: 'dashboard'
   // },
   {
-    id: 'sub-admin',
-    title: 'Sub Admin Management',
-    translate: 'MENU.SUB_ADMIN_MANAGEMENT.SUB_ADMIN_MANAGEMENT',
-    type: 'item',
-    icon: 'user-plus',
-    url: 'sub-admin'
-  },
-  {
     id: 'church-management',
-    title: 'Church Management',
+    title: 'Church',
     translate: 'MENU.CHURCH_MANAGEMENT.CHURCH_MANAGEMENT',
     type: 'item',
     icon: 'life-buoy',
     url: 'church-management'
   },
   {
+    id: 'sub-admin',
+    title: 'Sub Admin',
+    translate: 'MENU.SUB_ADMIN_MANAGEMENT.SUB_ADMIN_MANAGEMENT',
+    type: 'item',
+    icon: 'user-plus',
+    url: 'sub-admin'
+  },
+  
+  {
     id: 'member-management',
-    title: 'Member Management',
+    title: 'Member',
     translate: 'MENU.MEMBER_MANAGEMENT.MEMBER_MANAGEMENT',
     type: 'item',
     icon: 'users',
@@ -38,7 +39,7 @@ export const menu: CoreMenu[] = [
   },
   {
     id: 'feed-management',
-    title: 'Feed Management',
+    title: 'Feed',
     translate: 'MENU.FEED_MANAGEMENT.FEED_MANAGEMENT',
     type: 'item',
     icon: 'book-open',
@@ -46,7 +47,7 @@ export const menu: CoreMenu[] = [
   },
   {
     id: 'event-management',
-    title: 'Event Management',
+    title: 'Event',
     translate: 'MENU.EVENT_MANAGEMENT.EVENT_MANAGEMENT',
     type: 'item',
     icon: 'calendar',
@@ -54,7 +55,7 @@ export const menu: CoreMenu[] = [
   },
   {
     id: 'visitor-management',
-    title: 'Visitor Management',
+    title: 'Visitor',
     translate: 'MENU.VISITOR_MANAGEMENT.VISITOR_MANAGEMENT',
     type: 'item',
     icon: 'user',
@@ -63,7 +64,7 @@ export const menu: CoreMenu[] = [
 
   {
     id: 'testimony-management',
-    title: 'Testimony Management',
+    title: 'Testimony',
     translate: 'MENU.TESTIMONY_MANAGEMENT.TESTIMONY_MANAGEMENT',
     type: 'item',
     icon: 'book-open',
@@ -72,11 +73,20 @@ export const menu: CoreMenu[] = [
 
   {
     id: 'life-group-management',
-    title: 'Life Group Management',
+    title: 'Life Group',
     translate: 'MENU.LIFE_GROUP_MANAGEMENT.LIFE_GROUP_MANAGEMENT',
     type: 'item',
     icon: 'book-open',
     url: 'life-group-management'
+  },
+
+  {
+    id: 'prayer-request-management',
+    title: 'Prayer Request',
+    translate: 'MENU.PRAYER_REQUEST_MANAGEMENT.PRAYER_REQUEST_MANAGEMENT',
+    type: 'item',
+    icon: 'book-open',
+    url: 'prayer-request-management'
   },
 
   // // Apps & Pages

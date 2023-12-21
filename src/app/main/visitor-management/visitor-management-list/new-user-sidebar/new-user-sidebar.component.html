@@ -32,8 +32,9 @@
             ! We're delighted to have you worship with us. Please take a moment
             to provide some information about yourself.</b>
           </h6>
-          <div class="form-group mb-2">
-            <label class="form-label" for="user-plan">Select Church</label>
+          <div class="form-group">
+            <label class="form-label" for="user-plan">Select Church <span *ngIf="newUserForm.submitted && ChurchRef.invalid" class="text-danger">*</span>
+              <span *ngIf="!newUserForm.submitted || !ChurchRef.invalid">*</span></label>
             <select
               id="basic-icon-default-church"
               class="form-control dt-church"
@@ -68,7 +69,8 @@
           </div>
           <div class="form-group">
             <label class="form-label" for="basic-icon-default-firstname"
-              >Full Name</label
+              >Full Name <span *ngIf="newUserForm.submitted && FiNameRef.invalid && LsNameRef.invalid" class="text-danger">*</span>
+              <span *ngIf="!newUserForm.submitted || !FiNameRef.invalid || LsNameRef.invalid">*</span></label
             >
             <div class="row">
               <div class="col-md-6">
@@ -137,9 +139,6 @@
               aria-describedby="basic-icon-default-spouse"
               name="spouse"
               [(ngModel)]="visitorForm.spouse_name"
-              [class.error]="newUserForm.submitted && SpouseRef.invalid"
-              #SpouseRef="ngModel"
-              required
             />
           </div>
 
@@ -156,8 +155,6 @@
                   placeholder="Child 1"
                   name="user-child1"
                   [(ngModel)]="visitorForm.child1_name"
-                  [class.error]="newUserForm.submitted && Child1Ref.invalid"
-                  #Child1Ref="ngModel"
                   aria-label=""
                   aria-describedby="basic-icon-default-child1"
                 />
@@ -211,7 +208,8 @@
 
           <div class="form-group">
             <label class="form-label" for="basic-icon-default-phone-number"
-              >Contact Information</label
+              >Contact Information <span *ngIf="newUserForm.submitted && PhoneRef.invalid && FEmailRef.invalid" class="text-danger">*</span>
+              <span *ngIf="!newUserForm.submitted || !PhoneRef.invalid || FEmailRef.invalid">*</span></label
             >
             <div class="row">
               <!-- First Name Input -->
@@ -275,35 +273,12 @@
 
           <div class="form-group">
             <label class="form-label" for="basic-icon-default-city"
-              >Address</label
+              >Address <span *ngIf="newUserForm.submitted && CityRef.invalid" class="text-danger">*</span>
+              <span *ngIf="!newUserForm.submitted || !CityRef.invalid">*</span></label
             >
             <div class="row">
-              <div class="col-6">
-                <input
-                  type="text"
-                  id="basic-icon-default-state"
-                  class="form-control dt-state"
-                  placeholder="Address"
-                  aria-label=""
-                  aria-describedby="basic-icon-default-state"
-                  name="state"
-                  [(ngModel)]="visitorForm.address"
-                  [class.error]="newUserForm.submitted && StateRef.invalid"
-                  #StateRef="ngModel"
-                  required
-                />
-                <span
-                  *ngIf="newUserForm.submitted && StateRef.invalid"
-                  class="invalid-form"
-                >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="StateRef.errors.required"
-                    >This field is required!</small
-                  >
-                </span>
-              </div>
-              <div class="col-6">
+          
+              <div class="col-12">
                 <input
                   type="text"
                   id="basic-icon-default-city"
@@ -379,7 +354,7 @@
             </div>
           </div>
 
-          <div class="form-group mb-2">
+          <div class="form-group">
             <label class="form-label" for="user-plan"
               >How did you hear about us?</label
             >
@@ -443,7 +418,7 @@
 
           <div class="row">
             <div class="col-6">
-              <div class="form-group mb-2">
+              <div class="form-group">
                 <label class="form-label" for="user-plan">Date of Visit</label>
 
                 <input
@@ -472,14 +447,13 @@
               </div>
             </div>
             <div class="col-6">
-              <div class="form-group mb-2">
+              <div class="form-group">
                 <label class="form-label" for="user-plan"
                   >How was your experience today?</label
                 >
                 <select
                   [(ngModel)]="visitorForm.experience"
                   [ngModelOptions]="{ standalone: true }"
-                  id="basic-icon-default-experience"
                   class="form-control dt-experience"
                   aria-label=""
                   aria-describedby="basic-icon-default-experience"
@@ -640,6 +614,8 @@
               </div>
             </div>
           </div>
+
+          <div class="d-flex justify-content-between mt-2">
           <button
             [disabled]="loading"
             type="submit"
@@ -662,6 +638,7 @@
           >
             Cancel
           </button>
+          </div>
         </div>
       </form>
     </div>

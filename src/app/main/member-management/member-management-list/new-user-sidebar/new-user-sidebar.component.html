@@ -1,4 +1,4 @@
-<div class="slideout-content">
+<div class="slideout-content" *ngIf="status">
   <!-- Modal to add new user starts-->
   <div
     class="modalsd modal-slide-in sdfade new-user-modal"
@@ -23,7 +23,7 @@
           <h5 class="modal-title" id="exampleModalLabel">New Member</h5>
         </div>
         <div class="modal-body flex-grow-1">
-          <div class="form-group mb-2">
+          <div class="form-group">
             <label class="form-label" for="user-plan">Select Church</label>
             <select
               id="basic-icon-default-church"
@@ -32,11 +32,10 @@
               aria-describedby="basic-icon-default-church"
               name="church"
               [class.error]="newUserForm.submitted && ChurchRef.invalid"
-                #ChurchRef="ngModel" required
-            
-                [(ngModel)]="memberForm.church_id"
-                [ngModelOptions]="{ standalone: true }"
-
+              #ChurchRef="ngModel"
+              required
+              [(ngModel)]="memberForm.church_id"
+              [ngModelOptions]="{ standalone: true }"
             >
               <!-- <option value="Female">Female</option>
               <option value="Male">Male</option>
@@ -46,8 +45,15 @@
                 {{ church.church_name }}
               </option>
             </select>
-            <span *ngIf="newUserForm.submitted && ChurchRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="ChurchRef.errors.required">This field is required!</small>
+            <span
+              *ngIf="newUserForm.submitted && ChurchRef.invalid"
+              class="invalid-form"
+            >
+              <small
+                class="form-text text-danger"
+                *ngIf="ChurchRef.errors.required"
+                >This field is required!</small
+              >
             </span>
           </div>
           <div class="form-group">
@@ -80,24 +86,33 @@
           </div>
           <div class="row">
             <div class="col-6">
-              <div class="form-group mb-2">
+              <div class="form-group">
                 <label class="form-label" for="user-plan">Select Gender</label>
                 <select
-                  [(ngModel)]="memberForm.gender" [ngModelOptions]="{standalone: true}"
-            id="basic-icon-default-gender"
-            class="form-control dt-gender"
-            aria-label=""
-            aria-describedby="basic-icon-default-gender"
-            name="gender"
-            [class.error]="newUserForm.submitted && GenderRef.invalid"
-              #GenderRef="ngModel" required
+                  [(ngModel)]="memberForm.gender"
+                  [ngModelOptions]="{ standalone: true }"
+                  id="basic-icon-default-gender"
+                  class="form-control dt-gender"
+                  aria-label=""
+                  aria-describedby="basic-icon-default-gender"
+                  name="gender"
+                  [class.error]="newUserForm.submitted && GenderRef.invalid"
+                  #GenderRef="ngModel"
+                  required
                 >
                   <option value="Female">Female</option>
                   <option value="Male">Male</option>
                   <option value="Others">Others</option>
                 </select>
-                <span *ngIf="newUserForm.submitted && GenderRef.invalid" class="invalid-form">
-                  <small class="form-text text-danger" *ngIf="GenderRef.errors.required">This field is required!</small>
+                <span
+                  *ngIf="newUserForm.submitted && GenderRef.invalid"
+                  class="invalid-form"
+                >
+                  <small
+                    class="form-text text-danger"
+                    *ngIf="GenderRef.errors.required"
+                    >This field is required!</small
+                  >
                 </span>
               </div>
             </div>
@@ -177,23 +192,21 @@
                   aria-describedby="basic-icon-default-email2"
                   name="user-email"
                   [(ngModel)]="memberForm.email"
+                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                   [class.error]="newUserForm.submitted && FEmailRef.invalid"
                   #FEmailRef="ngModel"
                   required
                 />
                 <span
-                  *ngIf="newUserForm.submitted && FEmailRef.invalid"
-                  class="invalid-form"
+                *ngIf="newUserForm.submitted && FEmailRef.invalid"
+                class="invalid-form"
+              >
+                <small
+                  class="form-text text-danger"
+                  *ngIf="FEmailRef.invalid && newUserForm.submitted"
+                  >Must be a valid email!</small
                 >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="FEmailRef.errors.required"
-                    >This field is required!</small
-                  >
-                </span>
-                <small class="form-text text-muted">
-                  You can use letters, numbers & periods
-                </small>
+              </span>
               </div>
             </div>
           </div>
@@ -263,30 +276,37 @@
 
           <div class="row">
             <div class="col-6">
-              <div class="form-group mb-2">
+              <div class="form-group">
                 <label class="form-label" for="user-plan"
                   >Membership Status (select one) :</label
                 >
                 <select
-                 
                   [(ngModel)]="memberForm.membership"
                   [ngModelOptions]="{ standalone: true }"
-            id="basic-icon-default-member-status"
-            class="form-control dt-member-status"
-            aria-label=""
-            aria-describedby="basic-icon-default-member-status"
-            name="member-status"
-            [class.error]="newUserForm.submitted && MemStsRef.invalid"
-              #MemStsRef="ngModel" required
+                  id="basic-icon-default-member-status"
+                  class="form-control dt-member-status"
+                  aria-label=""
+                  aria-describedby="basic-icon-default-member-status"
+                  name="member-status"
+                  [class.error]="newUserForm.submitted && MemStsRef.invalid"
+                  #MemStsRef="ngModel"
+                  required
                 >
-                <option value="">Select</option>
+                  <option value="">Select</option>
                   <option value="New Member">New Member</option>
                   <option value="Returning Member">Returning Member</option>
                   <option value="Visitor">Visitor</option>
                   <option value="Other">Other</option>
                 </select>
-                <span *ngIf="newUserForm.submitted && MemStsRef.invalid" class="invalid-form">
-                  <small class="form-text text-danger" *ngIf="MemStsRef.errors.required">This field is required!</small>
+                <span
+                  *ngIf="newUserForm.submitted && MemStsRef.invalid"
+                  class="invalid-form"
+                >
+                  <small
+                    class="form-text text-danger"
+                    *ngIf="MemStsRef.errors.required"
+                    >This field is required!</small
+                  >
                 </span>
                 <div
                   class="form-group"
@@ -319,7 +339,7 @@
               </div>
             </div>
             <div class="col-6">
-              <div class="form-group mb-2">
+              <div class="form-group">
                 <label class="form-label" for="user-plan"
                   >How did you hear about our church? :</label
                 >
@@ -332,17 +352,25 @@
                   aria-describedby="basic-icon-default-hear-about-church"
                   name="hear-about-church"
                   [class.error]="newUserForm.submitted && HACRef.invalid"
-                    #HACRef="ngModel" required
+                  #HACRef="ngModel"
+                  required
                 >
-                <option value="">Select</option>
+                  <option value="">Select</option>
                   <option value="Word of Mouth">Word of Mouth</option>
                   <option value="Website">Website</option>
                   <option value="Social Media">Social Media</option>
                   <option value="Invitation">Invitation</option>
                   <option value="Other">Other</option>
                 </select>
-                <span *ngIf="newUserForm.submitted && HACRef.invalid" class="invalid-form">
-                  <small class="form-text text-danger" *ngIf="HACRef.errors.required">This field is required!</small>
+                <span
+                  *ngIf="newUserForm.submitted && HACRef.invalid"
+                  class="invalid-form"
+                >
+                  <small
+                    class="form-text text-danger"
+                    *ngIf="HACRef.errors.required"
+                    >This field is required!</small
+                  >
                 </span>
                 <div
                   class="form-group"
@@ -389,20 +417,24 @@
                   groupBy="country"
                   [(ngModel)]="selectMultiGroupSelected"
                   (click)="checkOther($event)"
-                 
                   [class.error]="newUserForm.submitted && InvlRef.invalid"
-                    #InvlRef="ngModel" required
+                  #InvlRef="ngModel"
+                  required
                 >
                   <ng-template ng-optgroup-tmp let-item="item">
                     {{ item.country || "Unnamed group" }}
                   </ng-template>
                 </ng-select>
-                <span *ngIf="newUserForm.submitted && InvlRef.invalid" class="invalid-form">
-                  <small class="form-text text-danger" *ngIf="InvlRef.errors.required">This field is required!</small>
+                <span
+                  *ngIf="newUserForm.submitted && InvlRef.invalid"
+                  class="invalid-form"
+                >
+                  <small
+                    class="form-text text-danger"
+                    *ngIf="InvlRef.errors.required"
+                    >This field is required!</small
+                  >
                 </span>
-                <br />
-                <!-- <small>Selected: {{ selectMultiGroupSelected | json }}</small> -->
-                <!--/ Select Group by item -->
               </div>
             </div>
           </div>
@@ -464,12 +496,13 @@
             </div>
           </div>
 
-          <div class="row">
-            <div class="col-12">
-              <label>Additional Comments or Questions</label>
+         
 
               <div class="form-group">
-                <textarea rows="4"
+              <label>Additional Comments or Questions</label>
+
+                <textarea
+                  rows="4"
                   id="basic-icon-default-comments"
                   class="form-control dt-comments"
                   placeholder=""
@@ -481,26 +514,43 @@
                   #CommentRef="ngModel"
                   required
                 ></textarea>
-                <span *ngIf="newUserForm.submitted && CommentRef.invalid" class="invalid-form">
-                  <small class="form-text text-danger" *ngIf="CommentRef.errors?.required">This field is required!</small>
+                <span
+                  *ngIf="newUserForm.submitted && CommentRef.invalid"
+                  class="invalid-form"
+                >
+                  <small
+                    class="form-text text-danger"
+                    *ngIf="CommentRef.errors?.required"
+                    >This field is required!</small
+                  >
                 </span>
               </div>
-              
-            </div>
-          </div>
-                        
-          <button [disabled]="loading" type="submit"  class="btn btn-primary btn-login" rippleEffect (click)="submit(newUserForm)">
-            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Submit
-          </button>
           
-          <button
-            type="reset"
-            class="btn btn-outline-secondary"
-            (click)="toggleSidebar('new-user-sidebar')"
-            rippleEffect
-          >
-            Cancel
-          </button>
+
+          <div class="d-flex justify-content-between mt-2">
+            <button
+              [disabled]="loading"
+              type="submit"
+              class="btn btn-primary btn-login"
+              rippleEffect
+              (click)="submit(newUserForm)"
+            >
+              <span
+                *ngIf="loading"
+                class="spinner-border spinner-border-sm mr-1"
+              ></span
+              >Submit
+            </button>
+
+            <button
+              type="reset"
+              class="btn btn-outline-secondary"
+              (click)="toggleSidebar('new-user-sidebar')"
+              rippleEffect
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       </form>
     </div>

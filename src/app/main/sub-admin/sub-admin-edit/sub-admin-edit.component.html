@@ -41,7 +41,7 @@
                       </div>
                     </ng-template>
                     <div class="media-body mt-50">
-                      <h4>{{ currentRow.user_name }}</h4>
+                      <h4 style="word-break: break-all;">{{ currentRow.user_name }}</h4>
                       <div class="col-12 d-flex mt-1 px-0">
                         <label class="btn btn-primary mr-75 mb-0" for="change-picture">
                           <span class="d-none d-sm-block">Change</span>
@@ -70,7 +70,8 @@
                     <div class="row">
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="username">Username</label>
+                          <label for="username">Username  <span *ngIf="accountForm.submitted && UserNameRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !UserNameRef.invalid">*</span></label>
                           <input
                             type="text"
                             id="username"
@@ -92,7 +93,47 @@
                    
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="email">E-mail</label>
+                          <label class="form-label" for="user-plan"
+                            >Select Church <span *ngIf="accountForm.submitted && ChurchIdRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !ChurchIdRef.invalid">*</span></label
+                          >
+                          <select
+                            [(ngModel)]="currentRow.church_id"
+                            [ngModelOptions]="{ standalone: true }"
+                            class="form-control"
+                            id="churchid"
+                            name="churchid"
+                            [class.error]="
+                              accountForm.submitted && ChurchIdRef.invalid
+                            "
+                            #ChurchIdRef="ngModel"
+                            required
+                          >
+                          
+                            <option
+                              *ngFor="let church of churcesData"
+                              [value]="church.id"
+                            >
+                              {{ church.church_name }}
+                            </option>
+                          </select>
+                          <span
+                            *ngIf="accountForm.submitted && ChurchIdRef.invalid"
+                            class="invalid-form"
+                          >
+                            <small
+                              class="form-text text-danger"
+                              *ngIf="ChurchIdRef.errors.required"
+                              >This field is required!</small
+                            >
+                          </span>
+                        </div>
+                      </div>
+                      
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="email">Email  <span *ngIf="accountForm.submitted && EmailRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !EmailRef.invalid">*</span></label>
                           <input
                             type="email"
                             id="email"
@@ -128,7 +169,8 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="company">Phone number</label>
+                          <label for="company">Phone number  <span *ngIf="accountForm.submitted && PhoneRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !PhoneRef.invalid">*</span></label>
                           <input
                             type="text"
                             class="form-control"
@@ -136,7 +178,15 @@
                             placeholder="Phone number"
                             id="contact"
                             name="contact"
+                            [class.error]="accountForm.submitted && PhoneRef.invalid"
+                            #PhoneRef="ngModel"
+                            required
                           />
+                          <span *ngIf="accountForm.submitted && PhoneRef.invalid" class="invalid-form">
+                            <small class="form-text text-danger" *ngIf="PhoneRef.errors.required"
+                              >This field is required!</small
+                            >
+                          </span>
                         </div>
                       </div>
                       <div class="col-md-4">
@@ -154,7 +204,8 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="company">City</label>
+                          <label for="company">City <span *ngIf="accountForm.submitted && CityRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !CityRef.invalid">*</span></label>
                           <input
                             type="text"
                             class="form-control"
@@ -162,7 +213,15 @@
                             placeholder="City name"
                             id="city"
                             name="city"
+                            [class.error]="accountForm.submitted && CityRef.invalid"
+                            #CityRef="ngModel"
+                            required
                           />
+                          <span *ngIf="accountForm.submitted && CityRef.invalid" class="invalid-form">
+                            <small class="form-text text-danger" *ngIf="CityRef.errors.required"
+                              >This field is required!</small
+                            >
+                          </span>
                         </div>
                       </div>
                       <div class="col-12 d-flex flex-sm-row flex-column mt-2">

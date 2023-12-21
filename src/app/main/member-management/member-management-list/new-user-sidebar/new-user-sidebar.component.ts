@@ -25,10 +25,10 @@ export class NewUserSidebarComponent implements OnInit {
   public enableAttending: any = false;
   public loading:boolean=false;
   public selectGroup = [
-    {
-      name: "I am interested in becoming a member.",
-      country: "I am interested in becoming a member.",
-    },
+    // {
+    //   name: "I am interested in becoming a member.",
+    //   country: "I am interested in becoming a member.",
+    // },
     {
       name: "Ushering",
       country: "I am interested in volunteering in the following areas:",

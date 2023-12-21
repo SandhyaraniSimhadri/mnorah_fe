@@ -38,17 +38,17 @@ const appRoutes: Routes = [
     loadChildren: () => import('./main/dashboard/dashboard.module').then(m => m.DashboardModule),
     canActivate: [AuthGuard]
   },
-
-  {
-    path: 'sub-admin',
-    loadChildren: () => import('./main/sub-admin/sub-admin.module').then(m => m.SubAdminModule),
-    canActivate: [AuthGuard]
-  },
   {
     path: 'church-management',
     loadChildren: () => import('./main/church-management/church-management.module').then(m => m.ChurchManagementModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'sub-admin',
+    loadChildren: () => import('./main/sub-admin/sub-admin.module').then(m => m.SubAdminModule),
+    canActivate: [AuthGuard]
+  },
+ 
   {
     path: 'member-management',
     loadChildren: () => import('./main/member-management/member-management.module').then(m => m.MemberManagementModule),
@@ -77,6 +77,11 @@ const appRoutes: Routes = [
   {
     path: 'life-group-management',
     loadChildren: () => import('./main/life-group-management/life-group-management.module').then(m => m.LifeGroupManagementModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'prayer-request-management',
+    loadChildren: () => import('./main/prayer-request-management/prayer-request-management.module').then(m => m.PrayerRequestManagementModule),
     canActivate: [AuthGuard]
   },
   {
@@ -120,7 +125,7 @@ const appRoutes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/sub-admin',
+    redirectTo: '/church-management',
     pathMatch: 'full',
   },
   {

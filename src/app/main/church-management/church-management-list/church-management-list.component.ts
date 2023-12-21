@@ -10,6 +10,8 @@ import { UserListService } from "./user-list.service";
 import { CoreHttpService } from "@core/services/http.service";
 import { environment } from "environments/environment";
 import { ToastrService } from "ngx-toastr";
+import { ModalsService } from "@core/services/modals.service";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 // import { UserListService } from 'app/main/apps/user/user-list/user-list.service';
 // UserListService
 
@@ -59,7 +61,9 @@ export class ChurchManagementListComponent implements OnInit {
     private _coreSidebarService: CoreSidebarService,
     private _coreConfigService: CoreConfigService,
     public httpService: CoreHttpService,
+    public modalsService:ModalsService,
     private _toastrService: ToastrService,
+    private modalService: NgbModal,
   ) {
     this._unsubscribeAll = new Subject();
   }
@@ -287,6 +291,7 @@ export class ChurchManagementListComponent implements OnInit {
               toastClass: "toast ngx-toastr",
               closeButton: true,
             });
+            this.modalService.dismissAll();
             this.getChurches();
           }
         }
@@ -298,4 +303,5 @@ export class ChurchManagementListComponent implements OnInit {
       }
     );
   }
+
 }

@@ -26,6 +26,10 @@ export class NewUserSidebarComponent implements OnInit {
   public pending_users: any = "";
   public active_users: any = "";
   public loading: any = false;
+  public churcesData: any;
+  public status: any = false;
+  public church_id:any;
+
 
   /**
    * Constructor
@@ -63,6 +67,7 @@ export class NewUserSidebarComponent implements OnInit {
       email: this.email,
       phone_number: this.phone_number,
       city: this.city,
+      church_id:this.church_id
     };
     if (form.valid) {
       this.loading = true;
@@ -112,6 +117,31 @@ export class NewUserSidebarComponent implements OnInit {
       this.loading=false;
     }
   }
-  ngOnInit(): void {}
+  getData() {
+
+    let request = {
+      params: null,
+      action_url: "get_churches",
+      method: "GET",
+    };
+    this.httpService.doHttp(request).subscribe(
+      (res: any) => {
+        if (res == "nonet") {
+        } else {
+          if (res.status == false) {
+          } else if (res.status == true) {
+            this.churcesData = res.data;
+            console.log("rowss", this.rows);
+            this.status = true;
+          }
+        }
+      },
+      (error: any) => {}
+    );
+  }
+  ngOnInit(): void {
+    this.getData();
+
+  }
 
 }

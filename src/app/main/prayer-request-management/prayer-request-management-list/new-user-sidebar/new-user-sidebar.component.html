@@ -1,0 +1,189 @@
+<div class="slideout-content">
+  <!-- Modal to add new user starts-->
+  <div
+    class="modalsd modal-slide-in sdfade new-user-modal"
+    id="modals-slide-in"
+  >
+    <div class="modal-dialog">
+      <form
+        class="add-new-user modal-content pt-0"
+        (ngSubmit)="(newUserForm.form.valid)"
+        #newUserForm="ngForm"
+      >
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="toggleSidebar('new-user-sidebar')"
+        >
+          ×
+        </button>
+        <div class="modal-header mb-1">
+          <h5 class="modal-title" id="exampleModalLabel">New Prayer Request</h5>
+        </div>
+        <div class="modal-body flex-grow-1">
+          <div class="form-group">
+            <label class="form-label">Select Church <span *ngIf="newUserForm.submitted && ChurchRef.invalid" class="text-danger">*</span>
+              <span *ngIf="!newUserForm.submitted || !ChurchRef.invalid">*</span></label>
+            <select
+              id="basic-icon-default-church"
+              class="form-control dt-church"
+              aria-label=""
+              aria-describedby="basic-icon-default-church"
+              name="church"
+              [class.error]="newUserForm.submitted && ChurchRef.invalid"
+              #ChurchRef="ngModel"
+              required
+              [(ngModel)]="church_id"
+              [ngModelOptions]="{ standalone: true }"
+              (ngModelChange)="getMembers()"
+            >
+              <option *ngFor="let church of churchData" [value]="church.id">
+                {{ church.church_name }}
+              </option>
+            </select>
+            <span
+              *ngIf="newUserForm.submitted && ChurchRef.invalid"
+              class="invalid-form"
+            >
+              <small
+                class="form-text text-danger"
+                *ngIf="ChurchRef.errors.required"
+                >This field is required!</small
+              >
+            </span>
+          </div>
+
+
+          <div class="form-group">
+            <label class="form-label">Select Member <span *ngIf="newUserForm.submitted && MemberRef.invalid" class="text-danger">*</span>
+              <span *ngIf="!newUserForm.submitted || !MemberRef.invalid">*</span></label>
+            <select
+              id="basic-icon-default-member"
+              class="form-control dt-member"
+              aria-label=""
+              aria-describedby="basic-icon-default-member"
+              name="member"
+              [class.error]="newUserForm.submitted && MemberRef.invalid"
+              #MemberRef="ngModel"
+              required
+              [(ngModel)]="member_id"
+              [ngModelOptions]="{ standalone: true }"
+            >
+            
+              <option *ngFor="let member of membersData" [value]="member.id">
+                {{ member.user_name }}
+              </option>
+            </select>
+            <span
+              *ngIf="newUserForm.submitted && MemberRef.invalid"
+              class="invalid-form"
+            >
+              <small
+                class="form-text text-danger"
+                *ngIf="MemberRef.errors.required"
+                >This field is required!</small
+              >
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="user-plan"
+              >Prayer Request <span *ngIf="newUserForm.submitted && ReqRef.invalid" class="text-danger">*</span>
+              <span *ngIf="!newUserForm.submitted || !ReqRef.invalid ">*</span></label
+            >
+            <select
+              [(ngModel)]="prayer_request"
+              [ngModelOptions]="{ standalone: true }"
+              id="basic-icon-default-request"
+              class="form-control dt-request"
+              aria-label=""
+              aria-describedby="basic-icon-default-request"
+              name="request"
+              [class.error]="newUserForm.submitted && ReqRef.invalid"
+              #ReqRef="ngModel"
+              required
+            >
+             
+              <option value="Health and Healing">
+                Health and Healing
+              </option>
+              <option value="Family and Relationships">Family and Relationships</option>
+              <option value="Financial stability">Financial stability</option>
+              <option value="Advertisement">Advertisement</option>
+              <option value="Work">Work</option>
+              <option value="Grief">Grief</option>
+              <option value="Spiritual Growth">Spiritual Growth</option>
+              <option value="Personal Struggles">Personal Struggles</option>
+              <option value="Prayers for peace">Prayers for peace</option>
+              <option value="Global Issues">Global Issues</option>
+              <option value="Guidance and Decision-Making">Guidance and Decision-Making</option>
+              <option value="Mission and Outreach">Mission and Outreach</option>
+              <option value="Other">Other</option>
+            </select>
+            <span
+              *ngIf="newUserForm.submitted && ReqRef.invalid"
+              class="invalid-form"
+            >
+              <small
+                class="form-text text-danger"
+                *ngIf="ReqRef.errors.required"
+                >This field is required!</small
+              >
+            </span>
+            <div class="form-group" *ngIf="prayer_request == 'Other'">
+              <textarea
+                type="text"
+                id="basic-icon-default-request-other"
+                class="form-control dt-request-other"
+                placeholder="Type here..."
+                aria-label=""
+                aria-describedby="basic-icon-default-request-other"
+                name="request-other"
+                [(ngModel)]="prayer_request_other"
+                [class.error]="newUserForm.submitted && ReqOthrRef.invalid"
+                #ReqOthrRef="ngModel"
+                required
+              ></textarea>
+              <span
+                *ngIf="newUserForm.submitted && ReqOthrRef.invalid"
+                class="invalid-form"
+              >
+                <small
+                  class="form-text text-danger"
+                  *ngIf="ReqOthrRef.errors.required"
+                  >This field is required!</small
+                >
+              </span>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between mt-2">
+          <button
+            [disabled]="loading"
+            type="submit"
+            class="btn btn-primary"
+            (click)="submit(newUserForm)"
+            rippleEffect
+          >
+            <span
+              *ngIf="loading"
+              class="spinner-border spinner-border-sm mr-1"
+            ></span>
+            Submit
+          </button>
+          <button
+            type="reset"
+            class="btn btn-outline-secondary"
+            (click)="toggleSidebar('new-user-sidebar')"
+            rippleEffect
+          >
+            Cancel
+          </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Modal to add new user Ends-->
+</div>

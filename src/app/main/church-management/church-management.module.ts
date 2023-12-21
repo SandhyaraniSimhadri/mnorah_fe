@@ -34,6 +34,7 @@ import { UserListService } from './church-management-list/user-list.service';
 import { ChurchManagementViewComponent } from './church-management-view/church-management-view.component';
 import { UserViewService } from './church-management-view/user-view.service';
 import { NewUserSidebarComponent } from './church-management-list/new-user-sidebar/new-user-sidebar.component';
+import { DeleteDailogueBoxComponent } from '../components/delete-dailogue-box/delete-dailogue-box.component';
 
 // routing
 const routes: Routes = [
@@ -84,7 +85,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [ChurchManagementListComponent, 
     ChurchManagementViewComponent, ChurchManagementEditComponent, 
-    NewUserSidebarComponent],
+    NewUserSidebarComponent,DeleteDailogueBoxComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

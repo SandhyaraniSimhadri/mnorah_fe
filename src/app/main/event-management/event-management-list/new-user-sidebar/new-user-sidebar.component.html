@@ -23,8 +23,9 @@
           <h5 class="modal-title" id="exampleModalLabel">New Event</h5>
         </div>
         <div class="modal-body flex-grow-1">
-          <div class="form-group mb-2">
-            <label class="form-label" for="user-plan">Select Church</label>
+          <div class="form-group">
+            <label class="form-label" for="user-plan">Select Church <span *ngIf="newUserForm.submitted && ChurchRef.invalid" class="text-danger">*</span>
+              <span *ngIf="!newUserForm.submitted || !ChurchRef.invalid">*</span></label>
             <select
               id="basic-icon-default-church"
               class="form-control dt-church"
@@ -37,9 +38,6 @@
               [(ngModel)]="church_id"
               [ngModelOptions]="{ standalone: true }"
             >
-              <!-- <option value="Female">Female</option>
-              <option value="Male">Male</option>
-              <option value="Others">Others</option> -->
               <option value="">Select</option>
               <option *ngFor="let church of churchData" [value]="church.id">
                 {{ church.church_name }}
@@ -61,7 +59,8 @@
             <div class="col-6">
               <div class="form-group">
                 <label class="form-label" for="basic-icon-default-eventname"
-                  >Event Name</label
+                  >Event Name <span *ngIf="newUserForm.submitted && EvNameRef.invalid" class="text-danger">*</span>
+                  <span *ngIf="!newUserForm.submitted || !EvNameRef.invalid">*</span></label
                 >
                 <input
                   type="text"
@@ -89,9 +88,10 @@
               </div>
             </div>
             <div class="col-6">
-              <div class="form-group mb-2">
+              <div class="form-group">
                 <label class="form-label" for="user-plan"
-                  >Select Event Type</label
+                  >Select Event Type <span *ngIf="newUserForm.submitted && EventTyRef.invalid" class="text-danger">*</span>
+                  <span *ngIf="!newUserForm.submitted || !EventTyRef.invalid">*</span></label
                 >
                 <select
                   [(ngModel)]="event_type"
@@ -128,7 +128,8 @@
             <div class="col-6">
               <div class="form-group">
                 <label class="form-label" for="basic-icon-default-event-date"
-                  >Event Date</label
+                  >Event Date <span *ngIf="newUserForm.submitted && EveDateRef.invalid" class="text-danger">*</span>
+                  <span *ngIf="!newUserForm.submitted || !EveDateRef.invalid">*</span></label
                 >
                 <input
                   type="date"
@@ -159,7 +160,8 @@
             <div class="col-6">
               <div class="form-group">
                 <label class="form-label" for="basic-icon-default-event-time"
-                  >Event Time</label
+                  >Event Time <span *ngIf="newUserForm.submitted && EveTimeRef.invalid" class="text-danger">*</span>
+                  <span *ngIf="!newUserForm.submitted || !EveTimeRef.invalid">*</span></label
                 >
                 <input
                   type="time"
@@ -192,7 +194,8 @@
             <div class="col-6">
               <div class="form-group">
                 <label class="form-label" for="basic-icon-default-venue"
-                  >Venue</label
+                  >Venue <span *ngIf="newUserForm.submitted && VenueRef.invalid" class="text-danger">*</span>
+                  <span *ngIf="!newUserForm.submitted || !VenueRef.invalid">*</span></label
                 >
                 <input
                   type="text"
@@ -233,90 +236,68 @@
                   aria-describedby="basic-icon-default-speakers"
                   name="speakers"
                   [(ngModel)]="speakers"
-                  [class.error]="newUserForm.submitted && SpeakersRef.invalid"
-                  #SpeakersRef="ngModel"
-                  required
+                
                 />
-                <span
-                  *ngIf="newUserForm.submitted && SpeakersRef.invalid"
-                  class="invalid-form"
-                >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="SpeakersRef.errors.required"
-                    >This field is required!</small
-                  >
-                </span>
+                
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-6">
-          <div class="form-group">
-            <label class="form-label" for="basic-icon-default-contact-person"
-              >Contact Person</label
-            >
-            <input
-              type="text"
-              id="basic-icon-default-contact-person"
-              class="form-control dt-contact-person"
-              placeholder=""
-              aria-label=""
-              aria-describedby="basic-icon-default-contact-person"
-              name="contact-person"
-              [(ngModel)]="contact_person"
-              [class.error]="newUserForm.submitted && ConPerRef.invalid"
-              #ConPerRef="ngModel"
-              required
-            />
-            <span
-              *ngIf="newUserForm.submitted && ConPerRef.invalid"
-              class="invalid-form"
-            >
-              <small
-                class="form-text text-danger"
-                *ngIf="ConPerRef.errors.required"
-                >This field is required!</small
-              >
-            </span>
-          </div>
-          </div>
-           <div class="col-6">
-            <div class="form-group mb-2">
-              <label class="form-label" for="user-plan"
-                >Frequency</label
-              >
-              <select
-                [(ngModel)]="frequency"
-                [ngModelOptions]="{ standalone: true }"
-                id="basic-icon-default-frequency"
-                class="form-control dt-frequency"
-                aria-label=""
-                aria-describedby="basic-icon-default-frequency"
-                name="frequency"
-                [class.error]="newUserForm.submitted && FreqRef.invalid"
-                #FreqRef="ngModel"
-                required
-              >
-                <option value="Daily">Daily</option>
-                <option value="Bi-weekly">Bi-weekly</option>
-                <option value="Weekly">Weekly</option>
-                <option value="Monthly">Monthly</option>
-                <option value="Yearly">Yearly</option>
-                <option value="One-off">One-off</option>
-
-              </select>
-              <span
-                *ngIf="newUserForm.submitted && FreqRef.invalid"
-                class="invalid-form"
-              >
-                <small
-                  class="form-text text-danger"
-                  *ngIf="FreqRef.errors.required"
-                  >This field is required!</small
+              <div class="form-group">
+                <label
+                  class="form-label"
+                  for="basic-icon-default-contact-person"
+                  >Contact Person <span *ngIf="newUserForm.submitted && ConPerRef.invalid" class="text-danger">*</span>
+                  <span *ngIf="!newUserForm.submitted || !ConPerRef.invalid">*</span></label
                 >
-              </span>
+                <input
+                  type="text"
+                  id="basic-icon-default-contact-person"
+                  class="form-control dt-contact-person"
+                  placeholder=""
+                  aria-label=""
+                  aria-describedby="basic-icon-default-contact-person"
+                  name="contact-person"
+                  [(ngModel)]="contact_person"
+                  [class.error]="newUserForm.submitted && ConPerRef.invalid"
+                  #ConPerRef="ngModel"
+                  required
+                />
+                <span
+                  *ngIf="newUserForm.submitted && ConPerRef.invalid"
+                  class="invalid-form"
+                >
+                  <small
+                    class="form-text text-danger"
+                    *ngIf="ConPerRef.errors.required"
+                    >This field is required!</small
+                  >
+                </span>
+              </div>
             </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label class="form-label" for="user-plan">Frequency</label>
+                <select
+                  [(ngModel)]="frequency"
+                  [ngModelOptions]="{ standalone: true }"
+                  id="basic-icon-default-frequency"
+                  class="form-control dt-frequency"
+                  aria-label=""
+                  aria-describedby="basic-icon-default-frequency"
+                  name="frequency"
+               
+                >
+                  <option value="Daily">Daily</option>
+                  <option value="Bi-weekly">Bi-weekly</option>
+                  <option value="Weekly">Weekly</option>
+                  <option value="Monthly">Monthly</option>
+                  <option value="Yearly">Yearly</option>
+                  <option value="One-off">One-off</option>
+                </select>
+              
+              </div>
             </div>
           </div>
 
@@ -335,22 +316,10 @@
                   placeholder=""
                   name="event-description"
                   [(ngModel)]="event_description"
-                  [class.error]="newUserForm.submitted && EveDescRef.invalid"
-                  #EveDescRef="ngModel"
-                  required
                   aria-label=""
                   aria-describedby="basic-icon-default-event-description"
                 />
-                <span
-                  *ngIf="newUserForm.submitted && EveDescRef.invalid"
-                  class="invalid-form"
-                >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="EveDescRef.errors.required"
-                    >This field is required!</small
-                  >
-                </span>
+               
               </div>
             </div>
             <div class="col-6">
@@ -365,22 +334,10 @@
                   placeholder=""
                   name="agenda"
                   [(ngModel)]="agenda"
-                  [class.error]="newUserForm.submitted && AgendaRef.invalid"
-                  #AgendaRef="ngModel"
-                  required
                   aria-label=""
                   aria-describedby="basic-icon-default-agenda"
                 />
-                <span
-                  *ngIf="newUserForm.submitted && AgendaRef.invalid"
-                  class="invalid-form"
-                >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="AgendaRef.errors.required"
-                    >This field is required!</small
-                  >
-                </span>
+                
               </div>
             </div>
           </div>
@@ -400,20 +357,9 @@
                   aria-describedby="basic-icon-default-reg-info"
                   name="reg-info"
                   [(ngModel)]="reg_info"
-                  [class.error]="newUserForm.submitted && RegInfoRef.invalid"
-                  #RegInfoRef="ngModel"
-                  required
+                
                 />
-                <span
-                  *ngIf="newUserForm.submitted && RegInfoRef.invalid"
-                  class="invalid-form"
-                >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="RegInfoRef.errors.required"
-                    >This field is required!</small
-                  >
-                </span>
+               
               </div>
             </div>
             <div class="col-6">
@@ -430,110 +376,72 @@
                   aria-describedby="basic-icon-default-dress-code"
                   name="dress-code"
                   [(ngModel)]="dress_code"
-                  [class.error]="newUserForm.submitted && DresCdRef.invalid"
-                  #DresCdRef="ngModel"
-                  required
+               
                 />
-                <span
-                  *ngIf="newUserForm.submitted && DresCdRef.invalid"
-                  class="invalid-form"
-                >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="DresCdRef.errors.required"
-                    >This field is required!</small
-                  >
-                </span>
+                
               </div>
             </div>
           </div>
-
-          <div class="row">
-            <div class="col-6">
-              <div class="form-group">
-                <label class="form-label" for="basic-icon-default-special-req"
-                  >Special Requirements (if any)</label
-                >
-                <input
-                  type="text"
-                  id="basic-icon-default-special-req"
-                  class="form-control dt-special-req"
-                  placeholder=""
-                  aria-label=""
-                  aria-describedby="basic-icon-default-special-req"
-                  name="special-req"
-                  [(ngModel)]="special_req"
-                  [class.error]="newUserForm.submitted && SpeReqRef.invalid"
-                  #SpeReqRef="ngModel"
-                  required
-                />
-                <span
-                  *ngIf="newUserForm.submitted && SpeReqRef.invalid"
-                  class="invalid-form"
-                >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="SpeReqRef.errors.required"
-                    >This field is required!</small
-                  >
-                </span>
-              </div>
-            </div>
-
-            <div class="col-6">
-              <div class="form-group">
-                <label
-                  class="form-label"
-                  for="basic-icon-default-additional-info"
-                  >Additional Information (if any)</label
-                >
-                <input
-                  type="text"
-                  id="basic-icon-default-additional-info"
-                  class="form-control dt-additional-info"
-                  placeholder=""
-                  aria-label=""
-                  aria-describedby="basic-icon-default-additional-info"
-                  name="additional-info"
-                  [(ngModel)]="additional_info"
-                  [class.error]="newUserForm.submitted && AddInfRef.invalid"
-                  #AddInfRef="ngModel"
-                  required
-                />
-                <span
-                  *ngIf="newUserForm.submitted && AddInfRef.invalid"
-                  class="invalid-form"
-                >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="AddInfRef.errors.required"
-                    >This field is required!</small
-                  >
-                </span>
-              </div>
-            </div>
+          <div class="form-group">
+            <label class="form-label" for="basic-icon-default-special-req"
+              >Special Requirements (if any)</label
+            >
+            <textarea
+              type="text"
+              rows="4"
+              id="basic-icon-default-special-req"
+              class="form-control dt-special-req"
+              placeholder=""
+              aria-label=""
+              aria-describedby="basic-icon-default-special-req"
+              name="special-req"
+              [(ngModel)]="special_req"
+           
+            ></textarea>
+          
           </div>
-          <button
-            [disabled]="loading"
-            type="submit"
-            class="btn btn-primary mr-1"
-            (click)="submit(newUserForm)"
-            rippleEffect
-          >
-            <span
-              *ngIf="loading"
-              class="spinner-border spinner-border-sm mr-1"
-            ></span>
-            Submit
-          </button>
-          <button
-            type="reset"
-            class="btn btn-outline-secondary"
-            (click)="toggleSidebar('new-user-sidebar')"
-            rippleEffect
-          >
-            Cancel
-          </button>
+          <div class="form-group">
+            <label class="form-label" for="basic-icon-default-additional-info"
+              >Additional Information (if any)</label
+            >
+            <textarea
+              type="text"
+              rows="4"
+              id="basic-icon-default-additional-info"
+              class="form-control dt-additional-info"
+              placeholder=""
+              aria-label=""
+              aria-describedby="basic-icon-default-additional-info"
+              name="additional-info"
+              [(ngModel)]="additional_info"
+            
+            ></textarea>
+     
+          </div>
+
+          <div class="d-flex justify-content-between mt-2">
+            <button
+              [disabled]="loading"
+              type="submit"
+              class="btn btn-primary mr-1"
+              (click)="submit(newUserForm)"
+              rippleEffect
+            >
+              <span
+                *ngIf="loading"
+                class="spinner-border spinner-border-sm mr-1"
+              ></span>
+              Submit
+            </button>
+            <button
+              type="reset"
+              class="btn btn-outline-secondary"
+              (click)="toggleSidebar('new-user-sidebar')"
+              rippleEffect
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       </form>
     </div>

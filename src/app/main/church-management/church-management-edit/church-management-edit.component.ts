@@ -22,7 +22,6 @@ import { ToastrService } from "ngx-toastr";
   selector: "app-church-management-edit",
   templateUrl: "./church-management-edit.component.html",
   styleUrls: ["./church-management-edit.component.scss"],
- 
 })
 export class ChurchManagementEditComponent implements OnInit, OnDestroy {
   // Public
@@ -34,10 +33,13 @@ export class ChurchManagementEditComponent implements OnInit, OnDestroy {
   public avatarImage: string;
   public image: any;
   public apiUrl: any;
-  public loading:boolean=false;
-  public adminsData:any;
-  public buttonLoading:boolean=false;
+  public loading: boolean = false;
+  public adminsData: any;
+  public buttonLoading: boolean = false;
   @ViewChild("accountForm") accountForm: NgForm;
+  public customTag: any[] = [];
+  public customTagselected: any = [];
+  public admins_list: any=[];
 
   public birthDateOptions: FlatpickrOptions = {
     altInput: true,
@@ -69,7 +71,7 @@ export class ChurchManagementEditComponent implements OnInit, OnDestroy {
     private http: HttpClient,
     public httpService: CoreHttpService,
     private _toastrService: ToastrService,
-    private _router: Router,
+    private _router: Router
   ) {
     this._unsubscribeAll = new Subject();
     this.urlLastValue = this.url.substr(this.url.lastIndexOf("/") + 1);
@@ -91,7 +93,7 @@ export class ChurchManagementEditComponent implements OnInit, OnDestroy {
    * @param event
    */
   uploadImage(event: any) {
-    this.loading=true;
+    this.loading = true;
     if (event.target.files && event.target.files[0]) {
       let reader = new FileReader();
       console.log("file", event.target.files[0]);
@@ -103,7 +105,7 @@ export class ChurchManagementEditComponent implements OnInit, OnDestroy {
       this.currentRow.avatar = event.target.files[0].name;
       this.image = event.target.files[0];
     }
-    this.loading=false;
+    this.loading = false;
   }
 
   /**
@@ -112,16 +114,22 @@ export class ChurchManagementEditComponent implements OnInit, OnDestroy {
    * @param form
    */
   submit(form) {
-    this.buttonLoading=true;
+    var i = 0;
+    if (Array.isArray(this.customTagselected)) {
+      for (var i = 0; i < this.customTagselected.length; i++) {
+        this.admins_list.push(this.customTagselected[i].id);
+      }
+    }
+    this.buttonLoading = true;
     if (form.valid) {
       const formData = new FormData();
       formData.append("image", this.image);
 
       // Append form data fields
       formData.append("id", this.currentRow.id);
-      formData.append("admin_id", this.currentRow.admin_id);
+      formData.append("admins", this.currentRow.admin_id);
       formData.append("avatar", this.currentRow.avatar);
-      formData.append("church_address", this.currentRow.church_address);
+      formData.append("address", this.currentRow.address);
       formData.append("church_name", this.currentRow.church_name);
       formData.append("city", this.currentRow.city);
       formData.append("country", this.currentRow.country);
@@ -133,6 +141,8 @@ export class ChurchManagementEditComponent implements OnInit, OnDestroy {
       formData.append("pastor_name", this.currentRow.pastor_name);
       formData.append("users", this.currentRow.users);
       formData.append("website", this.currentRow.website);
+      formData.append("admins_count", this.customTagselected.length);
+      formData.append("admins_list", this.admins_list);
 
       let request;
       this.currentRow.image = this.image;
@@ -143,7 +153,7 @@ export class ChurchManagementEditComponent implements OnInit, OnDestroy {
       };
       console.log("request", request);
       this.http
-        .post<any>(this.apiUrl+"api/update_church", formData)
+        .post<any>(this.apiUrl + "api/update_church", formData)
         .subscribe(
           (res: any) => {
             console.log("res", res);
@@ -157,23 +167,21 @@ export class ChurchManagementEditComponent implements OnInit, OnDestroy {
                   closeButton: true,
                 });
               } else if (res.status == true) {
-                this._toastrService.success(
-                  res.msg,
-                  'Success',
-                  { toastClass: 'toast ngx-toastr', closeButton: true }
-                );
+                this._toastrService.success(res.msg, "Success", {
+                  toastClass: "toast ngx-toastr",
+                  closeButton: true,
+                });
                 this._router.navigate(["../church-management"]);
               }
             }
-            this.buttonLoading=false;
+            this.buttonLoading = false;
           },
           (error: any) => {
-            this.buttonLoading=false;
+            this.buttonLoading = false;
           }
         );
-    }
-    else{
-      this.buttonLoading=false;
+    } else {
+      this.buttonLoading = false;
     }
   }
 
@@ -184,11 +192,11 @@ export class ChurchManagementEditComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.apiUrl = environment.apiUrl;
-    this.getData();
+    this.getAdmins();
     this.getSingleChurch();
   }
   getSingleChurch() {
-    this.loading=true;
+    this.loading = true;
     let request;
 
     request = {
@@ -203,16 +211,30 @@ export class ChurchManagementEditComponent implements OnInit, OnDestroy {
           if (res.status == false) {
           } else if (res.status == true) {
             this.currentRow = res.data;
-            if(this.currentRow.avatar){
-            this.avatarImage = this.apiUrl+this.currentRow.avatar;}
+            if (this.currentRow.avatar) {
+              this.avatarImage = this.apiUrl + this.currentRow.avatar;
+            }
             this.tempRow = cloneDeep(this.currentRow);
+            if(this.currentRow.admin_ids){
+            this.currentRow.admin_ids = this.currentRow.admin_ids.split(",");
+            this.currentRow.admins = this.currentRow.admins.split(",");
+
+            console.log("rows values 12", this.currentRow);
+            this.currentRow.admin_ids.forEach((c, i) => {
+              this.customTagselected.push({
+                id: c,
+                name: this.currentRow.admins[i],
+              });
+              this.customTag.push({ id: c, name: this.currentRow.admins[i] });
+            });
+          }
             console.log("rows values", this.currentRow);
           }
         }
-        this.loading=false;
+        this.loading = false;
       },
       (error: any) => {
-        this.loading=false;
+        this.loading = false;
       }
     );
   }
@@ -225,11 +247,11 @@ export class ChurchManagementEditComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
   }
-  getData() {
+  getAdmins() {
     console.log("@gb getdata called ");
     let request = {
       params: null,
-      action_url: "get_admins",
+      action_url: "get_admins_for_new_church",
       method: "GET",
     };
     this.httpService.doHttp(request).subscribe(
@@ -239,7 +261,11 @@ export class ChurchManagementEditComponent implements OnInit, OnDestroy {
           if (res.status == false) {
           } else if (res.status == true) {
             this.adminsData = res.data;
-            console.log("rowss", this.adminsData);
+
+            this.adminsData.forEach((c, i) => {
+              this.customTag.push({ id: c.id, name: c.user_name });
+            });
+            console.log("customs data", this.customTag);
           }
         }
       },

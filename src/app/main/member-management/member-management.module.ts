@@ -15,23 +15,6 @@ import { CoreSidebarModule } from '@core/components';
 import { InvoiceListService } from 'app/main/apps/invoice/invoice-list/invoice-list.service';
 import { InvoiceModule } from 'app/main/apps/invoice/invoice.module';
 
-// import { UserEditComponent } from 'app/main/apps/user/user-edit/user-edit.component';
-// import { UserEditService } from 'app/main/apps/user/user-edit/user-edit.service';
-
-// import { UserListComponent } from 'app/main/apps/user/user-list/user-list.component';
-
-// import { UserListService } from 'app/main/apps/user/user-list/user-list.service';
-
-// import { UserViewComponent } from 'app/main/apps/user/user-view/user-view.component';
-// import { UserViewService } from 'app/main/apps/user/user-view/user-view.service';
-// import { NewUserSidebarComponent } from 'app/main/apps/user/user-list/new-user-sidebar/new-user-sidebar.component';
-// import { SubAdminListComponent } from './sub-admin-list/sub-admin-list.component';
-// import { NewUserSidebarComponent } from './sub-admin-list/new-user-sidebar/new-user-sidebar.component';
-// import { UserListService } from './sub-admin-list/user-list.service';
-// import { SubAdminViewComponent } from './sub-admin-view/sub-admin-view.component';
-// import { UserViewService } from './sub-admin-view/user-view.service';
-// import { SubAdminEditComponent } from './sub-admin-edit/sub-admin-edit.component';
-// import { UserEditService } from './sub-admin-edit/user-edit.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { MemberManagementListComponent } from './member-management-list/member-management-list.component';

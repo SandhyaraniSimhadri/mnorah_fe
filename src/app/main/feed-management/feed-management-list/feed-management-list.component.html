@@ -1,4 +1,3 @@
-
 <div class="loading" *ngIf="loading">
   <div class="effect-1 effects"></div>
   <div class="effect-2 effects"></div>
@@ -8,7 +7,7 @@
 <div class="content-wrapper container-xxl p-0" *ngIf="!loading">
   <div class="content-body">
     <!-- User List -->
-    <section class="users-list-wrapper" >
+    <section class="users-list-wrapper">
       <!-- users filter start -->
       <div class="card">
         <h5 class="card-header">Search Filter</h5>
@@ -40,7 +39,6 @@
                     ></ng-select>
                   </fieldset>
                 </div>
-                
               </div>
             </form>
           </div>
@@ -64,43 +62,58 @@
               >
             </div>
           </div>
-          <div class="col-md-6 col-12 d-flex justify-content-start justify-content-md-end">
-            <div class="d-flex align-items-center justify-content-end pr-1 pb-1 pb-md-0">
+          <div
+            class="col-md-6 col-12 d-flex justify-content-start justify-content-md-end"
+          >
+            <div
+              class="d-flex align-items-center justify-content-end pr-1 pb-1 pb-md-0"
+            >
               <label class="d-flex align-items-center ml-1 ml-md-0"
-                >Search:<input
+                >Search:</label><input
                   [(ngModel)]="searchValue"
                   name="searchValue"
                   type="search"
                   class="form-control ml-25"
                   (keyup)="filterUpdate($event)"
                   (search)="filterUpdate($event)"
-              /></label>
-              <button class="btn btn-primary ml-1" rippleEffect (click)="toggleSidebar('new-user-sidebar')">
-                <i data-feather="plus" class="d-sm-none d-inline-block mr-0 mr-sm-1"></i
-                ><span class="d-none d-sm-inline-block">Add New Feed</span>
+              />
+              <button
+                class="btn btn-primary ml-1 d-flex w-100  justify-content-center align-items-center"
+                rippleEffect
+                (click)="toggleSidebar('new-user-sidebar')"
+              >
+               <span class="d-none d-sm-inline-block">Add New Feed</span>
               </button>
             </div>
           </div>
         </div>
         <ngx-datatable
-        [rows]="rows"
-        [rowHeight]="50"
-        class="bootstrap core-bootstrap"
-        [limit]="selectedOption"
-        [columnMode]="ColumnMode.force"
-        [headerHeight]="50"
-        [footerHeight]="50"
-        [scrollbarH]="true"
-        style="width: 100%; overflow-x: auto;"
+          [rows]="rows"
+          [rowHeight]="auto"
+          class="bootstrap core-bootstrap"
+          [limit]="selectedOption"
+          [columnMode]="ColumnMode.force"
+          [headerHeight]="50"
+          [footerHeight]="50"
+          [scrollbarH]="true"
+          style="width: 100%; overflow-x: auto"
         >
           <ngx-datatable-column name="Title" prop="title" [width]="200">
-            <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
+            <ng-template
+              let-row="row"
+              let-name="value"
+              ngx-datatable-cell-template
+            >
               <div class="d-flex align-items-center">
-                <div *ngIf="row.avatar!=null && row.avatar.length > 0; else customAvatar">
-                  
+                <div
+                  *ngIf="
+                    row.avatar != null && row.avatar.length > 0;
+                    else customAvatar
+                  "
+                >
                   <img
                     class="rounded-circle mr-1"
-                    src="{{ apiUrl+row.avatar}}"
+                    src="{{ apiUrl + row.avatar }}"
                     height="32"
                     width="32"
                     alt="datatable-avatar"
@@ -115,38 +128,129 @@
                       'bg-light-warning': row.status == 'pending'
                     }"
                   >
-                  <div class="avatar-content">{{ name | initials }}</div>
+                    <div class="avatar-content">{{ name | initials }}</div>
+                  </div>
+                </ng-template>
+                <div class="cell-line-height">
+                  <a
+                    routerLink="./feed-management-view/{{ row.id }}"
+                    class="font-medium-1 d-block"
+                    > <div class="d-flex align-items-center">
+                      <div class="cell-line-height d-block"><span class="font-weight-bold white-space">{{
+                      name
+                    }}</span></div></div></a
+                  >
                 </div>
-              </ng-template>
-              <div class="cell-line-height">
-                <a routerLink="./feed-management-view/{{ row.id }}" class="font-medium-1 d-block"
-                  ><span class="font-weight-bold white-space">{{ name }}</span></a
-                >
-              </div>
               </div>
             </ng-template>
           </ngx-datatable-column>
-          <ngx-datatable-column name="Church Name" prop="church_name" [width]="150" class="white-space"></ngx-datatable-column>
          
-          <ngx-datatable-column name="Author" prop="author" [width]="40" class="white-space"></ngx-datatable-column>
-          <ngx-datatable-column name="Description" prop="description" [width]="70" class="white-space">
-            
-          </ngx-datatable-column>
+
+          <ngx-datatable-column
+          name="Church Name"
+          prop="church_name"
+        >
+          <ng-template
+            let-row="row"
+            let-name="value"
+            ngx-datatable-cell-template
+          >
+            <div class="d-flex align-items-center">
+              <div class="cell-line-height d-block">
+                <span class="font-weight-bold white-space">{{
+                    name
+                  }}</span>
+              </div>
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+
+
+         
+
+          <ngx-datatable-column
+          name="Author"
+          prop="author"
+        >
+          <ng-template
+            let-row="row"
+            let-name="value"
+            ngx-datatable-cell-template
+          >
+            <div class="d-flex align-items-center">
+              <div class="cell-line-height d-block">
+                <span class="font-weight-bold white-space">{{
+                    name
+                  }}</span>
+              </div>
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+
+    
+
+
+          <ngx-datatable-column
+          name="Description"
+          prop="description"
+        >
+          <ng-template
+            let-row="row"
+            let-name="value"
+            ngx-datatable-cell-template
+          >
+            <div class="d-flex align-items-center">
+              <div class="cell-line-height d-block">
+                <span class="font-weight-bold white-space">{{
+                    name
+                  }}</span>
+              </div>
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+
           <ngx-datatable-column name="Actions" [width]="40" [sortable]="false">
             <ng-template ngx-datatable-cell-template let-row="row">
               <div ngbDropdown container="body">
-                <button ngbDropdownToggle type="button" class="btn icon-btn btn-sm hide-arrow" rippleEffect>
-                  <span [data-feather]="'more-vertical'" [class]="'cursor-pointer'"></span>
+                <button
+                  ngbDropdownToggle
+                  type="button"
+                  class="btn icon-btn btn-sm hide-arrow"
+                  rippleEffect
+                >
+                  <span
+                    [data-feather]="'more-vertical'"
+                    [class]="'cursor-pointer'"
+                  ></span>
                 </button>
                 <div ngbDropdownMenu>
-                  <a routerLink="./feed-management-view/{{ row.id }}" ngbDropdownItem
-                    ><span [data-feather]="'file-text'" [size]="16" [class]="'mr-50'"></span> Details</a
+                  <a
+                    routerLink="./feed-management-view/{{ row.id }}"
+                    ngbDropdownItem
+                    ><span
+                      [data-feather]="'file-text'"
+                      [size]="16"
+                      [class]="'mr-50'"
+                    ></span>
+                    Details</a
                   >
-                  <a routerLink="./feed-management-edit/{{ row.id }}" ngbDropdownItem
-                    ><span [data-feather]="'edit'" [size]="16" [class]="'mr-50'"></span> Edit</a
+                  <a
+                    routerLink="./feed-management-edit/{{ row.id }}"
+                    ngbDropdownItem
+                    ><span
+                      [data-feather]="'edit'"
+                      [size]="16"
+                      [class]="'mr-50'"
+                    ></span>
+                    Edit</a
                   >
-                  <a (click)="delete(row.id)" ngbDropdownItem
-                    ><span [data-feather]="'trash'" [size]="16" [class]="'mr-50'"></span> Delete</a
+                  <a (click)="modalsService.modalOpenDanger(modalDanger, row)" ngbDropdownItem
+                    ><span
+                      [data-feather]="'trash'"
+                      [size]="16"
+                      [class]="'mr-50'"
+                    ></span>
+                    Delete</a
                   >
                 </div>
               </div>
@@ -157,14 +261,35 @@
     </section>
     <!--/ User List -->
   </div>
-
+  <ng-template #modalDanger let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title" id="myModalLabel">Confirm</h5>
+      <!-- <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button> -->
+    </div>
+    <div class="modal-body" tabindex="0" ngbAutofocus>
+      Are you sure you want to delete feed - {{modalsService.item.title}}?<br/>
+    <span class="f-size-class"> This item will be deleted immediately. You can't undo this action.</span>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn" (click)="modal.dismiss('Cross click')" rippleEffect>
+        No
+      </button>
+      <button type="button" class="btn btn-danger" (click)="delete(modalsService.item.id)" rippleEffect>
+        Yes
+      </button>
+    </div>
+  </ng-template>
   <!-- New User Sidebar -->
   <core-sidebar
     class="modal modal-slide-in sidebar-todo-modal fade"
     name="new-user-sidebar"
     overlayClass="modal-backdrop"
   >
-    <app-new-user-sidebar (onFeedAdded)="updateFeedList($event)"></app-new-user-sidebar>
+    <app-new-user-sidebar
+      (onFeedAdded)="updateFeedList($event)"
+    ></app-new-user-sidebar>
   </core-sidebar>
   <!--/ New User Sidebar -->
 </div>

@@ -33,6 +33,9 @@ export const locale = {
       LIFE_GROUP_MANAGEMENT: {
         LIFE_GROUP_MANAGEMENT:'Life Group Management'    
       },
+      PRAYER_REQUEST_MANAGEMENT: {
+        PRAYER_REQUEST_MANAGEMENT:'Prayer Request Management'    
+      },
       LEAGUES: {
         COLLAPSIBLE: 'Leagues',
         BADGE: '2',

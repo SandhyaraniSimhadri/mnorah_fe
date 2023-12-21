@@ -98,6 +98,7 @@ export class MemberManagementEditComponent implements OnInit, OnDestroy {
       country: "I am interested in attending the following events:",
     },
   ];
+  
   @ViewChild("accountForm") accountForm: NgForm;
 
   public birthDateOptions: FlatpickrOptions = {

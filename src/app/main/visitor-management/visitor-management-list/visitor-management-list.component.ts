@@ -11,6 +11,8 @@ import { CoreHttpService } from '@core/services/http.service';
 import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
 import { ToastrService } from 'ngx-toastr';
+import { ModalsService } from '@core/services/modals.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-visitor-management-list',
@@ -63,6 +65,8 @@ public selectCity:any=[];
     private _coreConfigService: CoreConfigService,
     public httpService: CoreHttpService,   private router: Router,
     private _toastrService: ToastrService,
+    public modalsService:ModalsService,
+    public modalService: NgbModal,
   ) {
     this._unsubscribeAll = new Subject();
   }
@@ -234,6 +238,7 @@ public selectCity:any=[];
               toastClass: "toast ngx-toastr",
               closeButton: true,
             });
+            this.modalService.dismissAll();
             this.getVisitors();
           }
         }

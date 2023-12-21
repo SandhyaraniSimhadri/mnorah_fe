@@ -11,6 +11,8 @@ import { CoreHttpService } from "@core/services/http.service";
 import { Router } from "@angular/router";
 import { environment } from "environments/environment";
 import { ToastrService } from "ngx-toastr";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { ModalsService } from "@core/services/modals.service";
 
 @Component({
   selector: "app-sub-admin-list",
@@ -28,38 +30,21 @@ export class SubAdminListComponent implements OnInit {
   public temp = [];
   public previousRoleFilter = "";
   public previousPlanFilter = "";
-  public previousGenderFilter = "";
+  public previousChurchFilter = "";
   public pending_users: any = "";
   public active_users: any = "";
   public totalrows:any;
-  public selectRole: any = [
-    { name: "All", value: "" },
-    { name: "Admin", value: "Admin" },
-    { name: "Author", value: "Author" },
-    { name: "Editor", value: "Editor" },
-    { name: "Maintainer", value: "Maintainer" },
-    { name: "Subscriber", value: "Subscriber" },
-  ];
+
   public apiUrl: any;
 
-  public selectPlan: any = [
-    { name: "All", value: "" },
-    { name: "Basic", value: "Basic" },
-    { name: "Company", value: "Company" },
-    { name: "Enterprise", value: "Enterprise" },
-    { name: "Team", value: "Team" },
-  ];
 
-  public selectGender: any = [
-    { name: "Female", value: "Female" },
-    { name: "Male", value: "Male" },
-    { name: "Others", value: "Others" },
-  ];
 
-  public selectedRole = [];
-  public selectedPlan = [];
-  public selectedGender = [];
+  public selectedChurch = [];
+  
   public searchValue = "";
+  public item:any;
+  public selectChurch: any = [];
+  public sentLoading:boolean=false;
 
   // Decorator
   @ViewChild(DatatableComponent) table: DatatableComponent;
@@ -82,6 +67,10 @@ export class SubAdminListComponent implements OnInit {
     public httpService: CoreHttpService,
     private router: Router,
     private _toastrService: ToastrService,
+    public modalService: NgbModal,
+    public modalsService:ModalsService,
+
+    
   ) {
     this._unsubscribeAll = new Subject();
   }
@@ -95,10 +84,8 @@ export class SubAdminListComponent implements OnInit {
    * @param event
    */
   filterUpdate(event) {
-    // Reset ng-select on search
-    this.selectedRole = this.selectRole[0];
-    this.selectedPlan = this.selectPlan[0];
-    this.selectedGender = this.selectGender[0];
+
+    this.selectedChurch = this.selectChurch[0];
 
     const val = event.target.value.toLowerCase();
 
@@ -151,7 +138,7 @@ export class SubAdminListComponent implements OnInit {
    *
    * @param event
    */
-  filterByGender(event) {
+  filterByChurch(event) {
     // console.log("event.valie",event.value);
     if (event == undefined) {
       this.temp = this.totalrows;
@@ -159,46 +146,35 @@ export class SubAdminListComponent implements OnInit {
     }
     else{
     const filter = event ? event.value : "";
-    this.previousGenderFilter = filter;
+    this.previousChurchFilter = filter;
     this.temp = this.filterRows(filter);
     this.rows = this.temp;
     }
     
   }
 
-  /**
-   * Filter Rows
-   *
-   * @param roleFilter
-   * @param planFilter
-   * @param statusFilter
-   */
-  filterRows(genderFilter: string): any[] {
+
+  filterRows(churchFilter: string): any[] {
     // Reset search on select change
     this.searchValue = "";
-    genderFilter = genderFilter.toLowerCase();
+    churchFilter = churchFilter.toLowerCase();
 
     return this.tempData.filter((row) => {
-      const isExactGenderMatch = row.gender.toLowerCase() === genderFilter;
-      return isExactGenderMatch;
+      const isPartialNameMatch =
+        row.church_name.toLowerCase().indexOf(churchFilter) !== -1 ||
+        !churchFilter;
+      return isPartialNameMatch;
     });
   }
 
-  // Lifecycle Hooks
-  // -----------------------------------------------------------------------------------------------------
-  /**
-   * On init
-   */
+
   ngOnInit(): void {
     this.apiUrl = environment.apiUrl;
     this.getAdmins();
   }
 
-  /**
-   * On destroy
-   */
+
   ngOnDestroy(): void {
-    // Unsubscribe from all subscriptions
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
   }
@@ -237,6 +213,16 @@ updateUserList(newUser: any) {
             this.pending_users = res.pending_users;
             this.active_users = res.active_users;
             console.log("rows", this.rows);
+            const nameSet = new Set();
+            this.rows.forEach((church) => {
+              if (!nameSet.has(church.church_name)) {
+                this.selectChurch.push({
+                  name: church.church_name,
+                  value: church.church_name,
+                });
+                nameSet.add(church.church_name);
+              }
+            });
           }
         }
       },
@@ -265,11 +251,51 @@ updateUserList(newUser: any) {
               toastClass: "toast ngx-toastr",
               closeButton: true,
             });
+            this.modalService.dismissAll();
             this.getAdmins();
           }
         }
       },
       (error: any) => {}
+    );
+  }
+  modalOpenDanger(modalDanger,item:any) {
+    this.item=item;
+    this.modalService.open(modalDanger, {
+      centered: true,
+      windowClass: 'modal modal-danger'
+    });
+  }
+  sendInvitation(item:any){
+    this.sentLoading=true;
+    let request = {
+      params:  item,
+      action_url: "send_sub_admin_invitation",
+      method: "POST",
+    };
+    this.httpService.doHttp(request).subscribe(
+      (res: any) => {
+        if (res == "nonet") {
+        } else {
+          if (res.status == false) {
+            this._toastrService.error(res.msg, "Failed", {
+              toastClass: "toast ngx-toastr",
+              closeButton: true,
+            });
+          } else if (res.status == true) {
+            this._toastrService.success(res.msg, "Success", {
+              toastClass: "toast ngx-toastr",
+              closeButton: true,
+            });
+            this.modalService.dismissAll();
+            this.getAdmins();
+          }
+        }
+        this.sentLoading=false;
+      },
+      (error: any) => {
+        this.sentLoading=false;
+      }
     );
   }
 }

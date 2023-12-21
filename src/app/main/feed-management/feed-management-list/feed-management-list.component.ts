@@ -10,6 +10,8 @@ import { UserListService } from "./user-list.service";
 import { CoreHttpService } from "@core/services/http.service";
 import { environment } from "environments/environment";
 import { ToastrService } from "ngx-toastr";
+import { ModalsService } from "@core/services/modals.service";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 // import { UserListService } from 'app/main/apps/user/user-list/user-list.service';
 // UserListService
 
@@ -17,7 +19,7 @@ import { ToastrService } from "ngx-toastr";
   selector: "app-feed-management-list",
   templateUrl: "./feed-management-list.component.html",
   styleUrls: ["./feed-management-list.component.scss"],
- 
+  encapsulation: ViewEncapsulation.None,
 })
 export class FeedManagementListComponent implements OnInit {
   // Public
@@ -58,6 +60,8 @@ export class FeedManagementListComponent implements OnInit {
     private _coreConfigService: CoreConfigService,
     public httpService: CoreHttpService,
     private _toastrService: ToastrService,
+    public modalsService:ModalsService,
+    public modalService: NgbModal,
   ) {
     this._unsubscribeAll = new Subject();
   }
@@ -145,8 +149,7 @@ export class FeedManagementListComponent implements OnInit {
   filterRows(churchFilter, authorFilter): any[] {
     // Reset search on select change
     this.searchValue = "";
-    console.log("churchFilter", churchFilter);
-    console.log("authorFilter", authorFilter);
+  
 
     churchFilter = churchFilter.toLowerCase();
     authorFilter = authorFilter.toLowerCase();
@@ -259,6 +262,7 @@ export class FeedManagementListComponent implements OnInit {
               toastClass: "toast ngx-toastr",
               closeButton: true,
             });
+            this.modalService.dismissAll();
             this.getFeeds();
           }
         }

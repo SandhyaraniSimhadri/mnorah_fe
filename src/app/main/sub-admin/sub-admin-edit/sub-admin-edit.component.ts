@@ -45,6 +45,8 @@ export class SubAdminEditComponent implements OnInit, OnDestroy {
   public image: any;
   public loading: boolean = false;
   public buttonLoading: boolean = false;
+  public churcesData: any;
+
   @ViewChild("accountForm") accountForm: NgForm;
 
   public birthDateOptions: FlatpickrOptions = {
@@ -188,31 +190,33 @@ export class SubAdminEditComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Lifecycle Hooks
-  // -----------------------------------------------------------------------------------------------------
-  /**
-   * On init
-   */
-  // ngOnInit(): void {
 
-  //   this.currentRow = {
-  //     "id": 1,
-  //     "user_name": "Galen Slixby",
-  //     "city": "El Salvador",
-  //     "contact": "(479) 232-9151",
-  //     "email": "gslixby0@abc.net.au",
-  //     "avatar": "",
-  //     "dob":'12-12-2012',
-  //     "gender":"Female",
-  // };
-  //   this.avatarImage = this.currentRow.avatar;
-  //   this.tempRow = cloneDeep(this.currentRow);
-  // }
   ngOnInit(): void {
     this.apiUrl = environment.apiUrl;
+    this.getData();
     this.getSingleAdmin();
   }
-
+  getData() {
+    console.log("@gb getdata called ");
+    let request = {
+      params: null,
+      action_url: "get_churches",
+      method: "GET",
+    };
+    this.httpService.doHttp(request).subscribe(
+      (res: any) => {
+        if (res == "nonet") {
+        } else {
+          if (res.status == false) {
+          } else if (res.status == true) {
+            this.churcesData = res.data;
+            console.log("rowss", this.churcesData);
+          }
+        }
+      },
+      (error: any) => {}
+    );
+  }
   getSingleAdmin() {
     this.loading = true;
     let request;

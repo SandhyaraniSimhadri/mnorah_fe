@@ -56,7 +56,7 @@
                       </div>
                     </ng-template>
                     <div class="media-body mt-50">
-                      <h4>{{ currentRow.event_name }}</h4>
+                      <h4 style="word-break: break-all;">{{ currentRow.event_name }}</h4>
                       <div class="col-12 d-flex mt-1 px-0">
                         <label
                           class="btn btn-primary mr-75 mb-0"
@@ -94,7 +94,8 @@
                     <div class="row">
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label>Event Name</label>
+                          <label>Event Name <span *ngIf="accountForm.submitted && EveNameRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !EveNameRef.invalid">*</span></label>
                           <input
                             type="text"
                             class="form-control"
@@ -123,7 +124,8 @@
 
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="company">Event Type</label>
+                          <label for="company">Event Type <span *ngIf="accountForm.submitted && EventTyRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !EventTyRef.invalid">*</span></label>
 
                           <select
                             [(ngModel)]="currentRow.event_type"
@@ -159,9 +161,10 @@
                       </div>
 
                       <div class="col-md-4">
-                        <div class="form-group mb-2">
+                        <div class="form-group">
                           <label class="form-label" for="user-plan"
-                            >Select Church</label
+                            >Select Church <span *ngIf="accountForm.submitted && ChurchRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !ChurchRef.invalid">*</span></label
                           >
                           <select
                             class="form-control"
@@ -197,7 +200,8 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label>Event Date</label>
+                          <label>Event Date <span *ngIf="accountForm.submitted && EveDateRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !EveDateRef.invalid">*</span></label>
                           <input
                             type="date"
                             class="form-control"
@@ -205,13 +209,29 @@
                             placeholder="Event Date"
                             id="event-date"
                             name="event-date"
+                            [class.error]="
+                              accountForm.submitted && EveDateRef.invalid
+                            "
+                            #EveDateRef="ngModel"
+                            required
                           />
+                          <span
+                            *ngIf="accountForm.submitted && EveDateRef.invalid"
+                            class="invalid-form"
+                          >
+                            <small
+                              class="form-text text-danger"
+                              *ngIf="EveDateRef.errors.required"
+                              >This field is required!</small
+                            >
+                          </span>
                         </div>
                       </div>
 
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="company">Event Time</label>
+                          <label for="company">Event Time <span *ngIf="accountForm.submitted && EveTimeRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !EveTimeRef.invalid">*</span></label>
                           <input
                             type="time"
                             class="form-control"
@@ -219,12 +239,28 @@
                             placeholder="Event Time"
                             id="event-time"
                             name="event-time"
-                          />
+                            [class.error]="
+                            accountForm.submitted && EveTimeRef.invalid
+                          "
+                          #EveTimeRef="ngModel"
+                          required
+                        />
+                        <span
+                          *ngIf="accountForm.submitted && EveTimeRef.invalid"
+                          class="invalid-form"
+                        >
+                          <small
+                            class="form-text text-danger"
+                            *ngIf="EveTimeRef.errors.required"
+                            >This field is required!</small
+                          >
+                        </span>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="company">Venue</label>
+                          <label for="company">Venue <span *ngIf="accountForm.submitted && VenueRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !VenueRef.invalid">*</span></label>
                           <input
                             type="text"
                             class="form-control"
@@ -232,7 +268,22 @@
                             placeholder="Venue"
                             id="venue"
                             name="venue"
-                          />
+                            [class.error]="
+                            accountForm.submitted && VenueRef.invalid
+                          "
+                          #VenueRef="ngModel"
+                          required
+                        />
+                        <span
+                          *ngIf="accountForm.submitted && VenueRef.invalid"
+                          class="invalid-form"
+                        >
+                          <small
+                            class="form-text text-danger"
+                            *ngIf="VenueRef.errors.required"
+                            >This field is required!</small
+                          >
+                        </span>
                         </div>
                       </div>
                       <div class="col-md-4">
@@ -250,7 +301,8 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label>Contact Person</label>
+                          <label>Contact Person <span *ngIf="accountForm.submitted && ConPerRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !ConPerRef.invalid">*</span></label>
                           <input
                             type="text"
                             class="form-control"
@@ -258,7 +310,22 @@
                             placeholder="Contact Person"
                             id="contact_person"
                             name="contact_person"
-                          />
+                            [class.error]="
+                            accountForm.submitted && ConPerRef.invalid
+                          "
+                          #ConPerRef="ngModel"
+                          required
+                        />
+                        <span
+                          *ngIf="accountForm.submitted && ConPerRef.invalid"
+                          class="invalid-form"
+                        >
+                          <small
+                            class="form-text text-danger"
+                            *ngIf="ConPerRef.errors.required"
+                            >This field is required!</small
+                          >
+                        </span>
                         </div>
                       </div>
 

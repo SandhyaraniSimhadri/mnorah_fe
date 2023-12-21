@@ -11,6 +11,9 @@ import { CoreHttpService } from '@core/services/http.service';
 import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
 import { ToastrService } from 'ngx-toastr';
+import { ModalsService } from '@core/services/modals.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-member-management-list',
@@ -25,17 +28,19 @@ export class MemberManagementListComponent implements OnInit {
   public selectedOption = 10;
   public ColumnMode = ColumnMode;
   public temp = [];
-  public previousRoleFilter = '';
-  public previousPlanFilter = '';
+  public previousChurchFilter = '';
   public previousGenderFilter = '';
   public pending_users:any='';
   public active_users:any='';
   public loading:boolean=false;
   public apiUrl:any;
+  public selectChurch: any = [];
+  api_url:any;
+
+  
 
 
   public selectGender: any = [
-    { name: 'Select', value: '' },
     { name: 'Female', value: 'Female' },
     { name: 'Male', value: 'Male' },
     { name: 'Others', value: 'Others' }
@@ -65,7 +70,11 @@ export class MemberManagementListComponent implements OnInit {
     private _coreConfigService: CoreConfigService,
     public httpService: CoreHttpService,   private router: Router,
     private _toastrService: ToastrService,
+    public modalsService:ModalsService,
+    public modalService: NgbModal,
+    private http: HttpClient
   ) {
+    this.api_url=environment.apiUrl;
     this._unsubscribeAll = new Subject();
   }
 
@@ -135,10 +144,18 @@ export class MemberManagementListComponent implements OnInit {
   filterByGender(event) {
     const filter = event ? event.value : '';
     this.previousGenderFilter = filter;
-    this.temp = this.filterRows( filter);
+    this.temp = this.filterRows( filter,this.previousChurchFilter);
     this.rows = this.temp;
   }
-
+  filterByChurch(event) {
+    const filter = event ? event.value : "";
+    this.previousChurchFilter = filter;
+    this.temp = this.filterRows(
+      this.previousGenderFilter,
+      filter
+    );
+    this.rows = this.temp;
+  }
   /**
    * Filter Rows
    *
@@ -146,14 +163,21 @@ export class MemberManagementListComponent implements OnInit {
    * @param planFilter
    * @param statusFilter
    */
-  filterRows(genderFilter): any[] {
+  filterRows(genderFilter,churchFilter): any[] {
     // Reset search on select change
     this.searchValue = '';
     genderFilter = genderFilter.toLowerCase();
+    churchFilter = churchFilter.toLowerCase();
 
     return this.tempData.filter(row => {
-      const isPartialGenderMatch = row.gender.toLowerCase().indexOf(genderFilter) !== -1 || !genderFilter;
-      return isPartialGenderMatch;
+      const isFullGenderMatch = row.gender.toLowerCase() === genderFilter.toLowerCase() || !genderFilter;
+
+      const isPartialNameMatch =
+      row.church_name.toLowerCase().indexOf(churchFilter) !== -1 ||
+      !churchFilter;
+      return (
+        isFullGenderMatch && isPartialNameMatch
+      );
     }
     
     );
@@ -196,6 +220,16 @@ export class MemberManagementListComponent implements OnInit {
             this.tempData=this.rows;
             this.pending_users=res.pending_users;
             this.active_users=res.active_users;
+            const nameSet = new Set();
+            this.rows.forEach((feed) => {
+              if (!nameSet.has(feed.church_name)) {
+                this.selectChurch.push({
+                  name: feed.church_name,
+                  value: feed.church_name,
+                });
+                nameSet.add(feed.church_name);
+              }
+            });
           }
         }
         this.loading=false;
@@ -230,11 +264,26 @@ export class MemberManagementListComponent implements OnInit {
               toastClass: "toast ngx-toastr",
               closeButton: true,
             });
+            this.modalService.dismissAll();
             this.getMembers();
           }
         }
       },
       (error: any) => {}
     );
+  }
+  generateDownloadLink() {
+    console.log("link");
+
+    const jwtToken = this.httpService.APIToken
+    const downloadUrl = `${this.api_url}api/get_members_report?type=csv&jwt_token=${jwtToken}`;
+
+    this.http.post(downloadUrl, { rows: this.rows }, { responseType: 'blob' as 'json' })
+    .subscribe((blob: any) => {
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'reports.csv';
+      link.click();
+    });
   }
 }

@@ -1,0 +1,29 @@
+<ng-template #modalDanger let-modal>
+  <div style="height: 300px !important" class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="myModalLabel160">Delete ?</h5>
+    </div>
+    <div class="modal-body" tabindex="0" ngbAutofocus>
+      Do you really want to delete it ?
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn"
+        (click)="modal.dismiss('Cross click')"
+        rippleEffect
+      >
+        Cancel
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger"
+        (click)="delete(itemId)"
+        rippleEffect
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+</ng-template>
+<!-- <p>hi</p> -->

@@ -56,7 +56,7 @@
                       </div>
                     </ng-template>
                     <div class="media-body mt-50">
-                      <h4>{{ currentRow.testimony }}</h4>
+                      <h4 style="word-break: break-all;">{{ currentRow.testimony }}</h4>
                       <div class="col-12 d-flex mt-1 px-0">
                         <label
                           class="btn btn-primary mr-75 mb-0"
@@ -94,7 +94,8 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label for="company">Testimony</label>
+                          <label for="company">Testimony <span *ngIf="accountForm.submitted && TestimonyRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !TestimonyRef.invalid">*</span></label>
                           <textarea
                             type="text"
                             class="form-control"
@@ -115,9 +116,10 @@
                       </div>
                      
                       <div class="col-md-6">
-                        <div class="form-group mb-2">
+                        <div class="form-group">
                           <label class="form-label" for="user-plan"
-                            >Select Church</label
+                            >Select Church <span *ngIf="accountForm.submitted && ChurchRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !ChurchRef.invalid">*</span></label
                           >
                           <select   class="form-control"
                           id="church"

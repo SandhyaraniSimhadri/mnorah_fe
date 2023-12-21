@@ -10,6 +10,8 @@ import { UserListService } from "./user-list.service";
 import { CoreHttpService } from "@core/services/http.service";
 import { environment } from "environments/environment";
 import { ToastrService } from "ngx-toastr";
+import { ModalsService } from "@core/services/modals.service";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 // import { UserListService } from 'app/main/apps/user/user-list/user-list.service';
 // UserListService
 
@@ -17,6 +19,7 @@ import { ToastrService } from "ngx-toastr";
   selector: "app-event-management-list",
   templateUrl: "./event-management-list.component.html",
   styleUrls: ["./event-management-list.component.scss"],
+  encapsulation: ViewEncapsulation.None,
  
 })
 export class EventManagementListComponent implements OnInit {
@@ -60,6 +63,8 @@ export class EventManagementListComponent implements OnInit {
     private _coreConfigService: CoreConfigService,
     public httpService: CoreHttpService,
     private _toastrService: ToastrService,
+    public modalsService:ModalsService,
+    public modalService: NgbModal,
   ) {
     this._unsubscribeAll = new Subject();
   }
@@ -256,6 +261,7 @@ export class EventManagementListComponent implements OnInit {
               toastClass: "toast ngx-toastr",
               closeButton: true,
             });
+            this.modalService.dismissAll();
             this.getEvents();
           }
         }

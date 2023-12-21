@@ -113,6 +113,7 @@ export class TestimonyManagementEditComponent implements OnInit, OnDestroy {
    */
   submit(form) {
     this.buttonLoading=true;
+    console.log("valid",form.valid);
     if (form.valid) {
       const formData = new FormData();
       formData.append("image", this.image);

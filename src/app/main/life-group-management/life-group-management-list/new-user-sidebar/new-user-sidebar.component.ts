@@ -27,7 +27,6 @@ export class NewUserSidebarComponent implements OnInit {
   public apiUrl: any;
   public imageval: any;
   public members_list:any=[];
-  // public customTagselected;
   public customTag: any[] = [];
   public customTagNames = ['Uber'];
   public SelectTag;

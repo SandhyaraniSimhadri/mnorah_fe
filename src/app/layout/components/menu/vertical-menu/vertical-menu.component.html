@@ -7,7 +7,7 @@
         <span class="brand-logo">
           <img src="{{ coreConfig.app.appLogoImage }}" alt="brand-logo" />
         </span>
-        <h2 class="brand-text mb-0">{{ coreConfig.app.appName }}</h2>
+        <!-- <h2 class="brand-text mb-0">{{ coreConfig.app.appName }}</h2> -->
       </a>
     </li>
 
@@ -32,6 +32,6 @@
 
 <!-- Main menu -->
 <div class="main-menu-content" [perfectScrollbar] (scroll)="onSidebarScroll()">
-  <ul class="navigation navigation-main" layout="vertical" core-menu></ul>
+  <ul class="navigation navigation-main" layout="vertical" core-menu style="margin-top: 28px !important;"></ul>
 </div>
 <!--/ Main menu -->

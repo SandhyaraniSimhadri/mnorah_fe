@@ -55,8 +55,8 @@
                         </div>
                       </div>
                     </ng-template>
-                    <div class="media-body mt-50">
-                      <h4>{{ currentRow.church_name }}</h4>
+                    <div class="media-body mt-50" >
+                        <h4 style="word-break: break-all;">{{ currentRow.church_name }}</h4>
                       <div class="col-12 d-flex mt-1 px-0">
                         <label
                           class="btn btn-primary mr-75 mb-0"
@@ -94,7 +94,8 @@
                     <div class="row">
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="company">Church name</label>
+                          <label for="company">Church name <span *ngIf="accountForm.submitted && ChurchNameRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !ChurchNameRef.invalid">*</span></label>
                           <input
                             type="text"
                             class="form-control"
@@ -115,38 +116,35 @@
                       </div>
 
                       <div class="col-md-4">
-                        <div class="form-group mb-2">
+                        <div class="form-group">
                           <label class="form-label" for="user-plan"
                             >Select Admin</label
                           >
-                          <select   class="form-control"
-                          id="admin"
-                          name="admin"
-                          [class.error]="accountForm.submitted && AdminRef.invalid"
-                          #AdminRef="ngModel"
-                          required
-                            [(ngModel)]="currentRow.admin_id"
-                            [ngModelOptions]="{ standalone: true }"
-                          >
-                            <option value="">Select</option>
-                            <option
-                              *ngFor="let admin of adminsData"
-                              [value]="admin.id"
-                            >
-                              {{ admin.user_name }}
-                            </option>
-                          </select>
-                          <span *ngIf="accountForm.submitted && AdminRef.invalid" class="invalid-form">
-                            <small class="form-text text-danger" *ngIf="AdminRef.errors.required"
-                              >This field is required!</small
-                            >
-                          </span>
+            
+
+                          <ng-select
+                          [items]="customTag"
+                          [hideSelected]="true"
+                          multiple="true"
+                          bindLabel="name"
+                          [(ngModel)]="customTagselected" [ngModelOptions]="{standalone: true}"
+                        >
+                          <ng-template *ngIf="customTag.length>0" ng-label-tmp let-item="item" let-clear="clear">
+                            <span class="ng-value-label"> {{ item.name }}</span>
+                            <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                          </ng-template>
+                          <ng-template *ngIf="customTag.length==0" ng-label-tmp let-item="item" let-clear="clear">
+                            <span class="ng-value-label"> Not found</span>
+                           
+                          </ng-template>
+                        </ng-select>
                         </div>
                       </div>
 
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="company">Pastor name</label>
+                          <label for="company">Pastor name <span *ngIf="accountForm.submitted && PastorNameRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !PastorNameRef.invalid">*</span></label>
                           <input
                             type="text"
                             class="form-control"
@@ -167,7 +165,8 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="company">Location</label>
+                          <label for="company">Location <span *ngIf="accountForm.submitted && LocRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !LocRef.invalid">*</span></label>
                           <input
                             type="text"
                             class="form-control"
@@ -175,12 +174,21 @@
                             placeholder="Location"
                             id="location"
                             name="location"
+                            [class.error]="accountForm.submitted && LocRef.invalid"
+                            #LocRef="ngModel"
+                            required
                           />
+                          <span *ngIf="accountForm.submitted && LocRef.invalid" class="invalid-form">
+                            <small class="form-text text-danger" *ngIf="LocRef.errors.required"
+                              >This field is required!</small
+                            >
+                          </span>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="company">No. of Users</label>
+                          <label for="company">No. of Users <span *ngIf="accountForm.submitted && UNameRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !UNameRef.invalid">*</span></label>
                           <input
                             type="text"
                             class="form-control"
@@ -188,12 +196,21 @@
                             placeholder="No. of users"
                             id="users"
                             name="users"
+                            [class.error]="accountForm.submitted && UNameRef.invalid"
+                            #UNameRef="ngModel"
+                            required
                           />
+                          <span *ngIf="accountForm.submitted && UNameRef.invalid" class="invalid-form">
+                            <small class="form-text text-danger" *ngIf="UNameRef.errors.required"
+                              >This field is required!</small
+                            >
+                          </span>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="company">Denomination</label>
+                          <label for="company">Denomination <span *ngIf="accountForm.submitted && DenRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !DenRef.invalid">*</span></label>
                           <input
                             type="text"
                             class="form-control"
@@ -201,12 +218,21 @@
                             placeholder="Denomination"
                             id="denomination"
                             name="denomination"
+                            [class.error]="accountForm.submitted && DenRef.invalid"
+                            #DenRef="ngModel"
+                            required
                           />
+                          <span *ngIf="accountForm.submitted && DenRef.invalid" class="invalid-form">
+                            <small class="form-text text-danger" *ngIf="DenRef.errors.required"
+                              >This field is required!</small
+                            >
+                          </span>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="company">Language</label>
+                          <label for="company">Language <span *ngIf="accountForm.submitted && LangRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !LangRef.invalid">*</span></label>
                           <input
                             type="text"
                             class="form-control"
@@ -214,13 +240,22 @@
                             placeholder="Language"
                             id="language"
                             name="language"
+                            [class.error]="accountForm.submitted && LangRef.invalid"
+                            #LangRef="ngModel"
+                            required
                           />
+                          <span *ngIf="accountForm.submitted && LangRef.invalid" class="invalid-form">
+                            <small class="form-text text-danger" *ngIf="LangRef.errors.required"
+                              >This field is required!</small
+                            >
+                          </span>
                         </div>
                       </div>
 
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="company">Country</label>
+                          <label for="company">Country <span *ngIf="accountForm.submitted && CountryRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !CountryRef.invalid">*</span></label>
                           <input
                             type="text"
                             class="form-control"
@@ -228,12 +263,21 @@
                             placeholder="Country"
                             id="country"
                             name="country"
+                            [class.error]="accountForm.submitted && CountryRef.invalid"
+                            #CountryRef="ngModel"
+                            required
                           />
+                          <span *ngIf="accountForm.submitted && CountryRef.invalid" class="invalid-form">
+                            <small class="form-text text-danger" *ngIf="CountryRef.errors.required"
+                              >This field is required!</small
+                            >
+                          </span>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="company">City</label>
+                          <label for="company">City <span *ngIf="accountForm.submitted && CityRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !CityRef.invalid">*</span></label>
                           <input
                             type="text"
                             class="form-control"
@@ -241,25 +285,43 @@
                             placeholder="City"
                             id="city"
                             name="city"
+                            [class.error]="accountForm.submitted && CityRef.invalid"
+                            #CityRef="ngModel"
+                            required
                           />
+                          <span *ngIf="accountForm.submitted && CityRef.invalid" class="invalid-form">
+                            <small class="form-text text-danger" *ngIf="CityRef.errors.required"
+                              >This field is required!</small
+                            >
+                          </span>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="company">Church address</label>
+                          <label for="company">Address <span *ngIf="accountForm.submitted && AddRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !AddRef.invalid">*</span></label>
                           <input
                             type="text"
                             class="form-control"
-                            [(ngModel)]="currentRow.church_address"
-                            placeholder="Church address"
-                            id="church_address"
-                            name="church_address"
+                            [(ngModel)]="currentRow.address"
+                            placeholder="Address"
+                            id="address"
+                            name="address"
+                            [class.error]="accountForm.submitted && AddRef.invalid"
+                            #AddRef="ngModel"
+                            required
                           />
+                          <span *ngIf="accountForm.submitted && AddRef.invalid" class="invalid-form">
+                            <small class="form-text text-danger" *ngIf="AddRef.errors.required"
+                              >This field is required!</small
+                            >
+                          </span>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="company">Contact number</label>
+                          <label for="company">Contact number <span *ngIf="accountForm.submitted && ConNumRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !ConNumRef.invalid">*</span></label>
                           <input
                             type="text"
                             class="form-control"
@@ -267,12 +329,21 @@
                             placeholder="Contact number"
                             id="contact_number"
                             name="contact_number"
+                            [class.error]="accountForm.submitted && ConNumRef.invalid"
+                            #ConNumRef="ngModel"
+                            required
                           />
+                          <span *ngIf="accountForm.submitted && ConNumRef.invalid" class="invalid-form">
+                            <small class="form-text text-danger" *ngIf="ConNumRef.errors.required"
+                              >This field is required!</small
+                            >
+                          </span>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="company">Website</label>
+                          <label for="company">Website <span *ngIf="accountForm.submitted && WebsiteRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !WebsiteRef.invalid">*</span></label>
                           <input
                             type="text"
                             class="form-control"
@@ -280,7 +351,15 @@
                             placeholder="Website"
                             id="website"
                             name="website"
+                            [class.error]="accountForm.submitted && WebsiteRef.invalid"
+                            #WebsiteRef="ngModel"
+                            required
                           />
+                          <span *ngIf="accountForm.submitted && WebsiteRef.invalid" class="invalid-form">
+                            <small class="form-text text-danger" *ngIf="WebsiteRef.errors.required"
+                              >This field is required!</small
+                            >
+                          </span>
                         </div>
                       </div>
 
