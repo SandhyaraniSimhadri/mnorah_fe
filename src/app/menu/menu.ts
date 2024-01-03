@@ -12,6 +12,15 @@ export const menu: CoreMenu[] = [
   //   icon: 'home',
   //   url: 'dashboard'
   // },
+ 
+  {
+    id: 'dashboard',
+    title: 'Dashboard',
+    translate: 'MENU.DASHBOARD.DASHBOARD',
+    type: 'item',
+    icon: 'home',
+    url: 'dashboard'
+  },
   {
     id: 'church-management',
     title: 'Church',
@@ -42,7 +51,7 @@ export const menu: CoreMenu[] = [
     title: 'Feed',
     translate: 'MENU.FEED_MANAGEMENT.FEED_MANAGEMENT',
     type: 'item',
-    icon: 'book-open',
+    icon: 'film',
     url: 'feed-management'
   },
   {
@@ -58,7 +67,7 @@ export const menu: CoreMenu[] = [
     title: 'Visitor',
     translate: 'MENU.VISITOR_MANAGEMENT.VISITOR_MANAGEMENT',
     type: 'item',
-    icon: 'user',
+    icon: 'link',
     url: 'visitor-management'
   },
 
@@ -67,7 +76,7 @@ export const menu: CoreMenu[] = [
     title: 'Testimony',
     translate: 'MENU.TESTIMONY_MANAGEMENT.TESTIMONY_MANAGEMENT',
     type: 'item',
-    icon: 'book-open',
+    icon: 'feather',
     url: 'testimony-management'
   },
 
@@ -76,7 +85,7 @@ export const menu: CoreMenu[] = [
     title: 'Life Group',
     translate: 'MENU.LIFE_GROUP_MANAGEMENT.LIFE_GROUP_MANAGEMENT',
     type: 'item',
-    icon: 'book-open',
+    icon: 'life-buoy',
     url: 'life-group-management'
   },
 
@@ -85,7 +94,7 @@ export const menu: CoreMenu[] = [
     title: 'Prayer Request',
     translate: 'MENU.PRAYER_REQUEST_MANAGEMENT.PRAYER_REQUEST_MANAGEMENT',
     type: 'item',
-    icon: 'book-open',
+    icon: 'zap',
     url: 'prayer-request-management'
   },
 

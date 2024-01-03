@@ -107,7 +107,7 @@
                               accountForm.submitted && countryRef.invalid
                             "
                             #countryRef="ngModel"
-                            required
+                            required   (ngModelChange)="checkFormModified()"
                           />
                           <span
                             *ngIf="accountForm.submitted && countryRef.invalid"
@@ -136,7 +136,7 @@
                               accountForm.submitted && cityRef.invalid
                             "
                             #cityRef="ngModel"
-                            required
+                            required  (ngModelChange)="checkFormModified()"
                           />
                           <span
                             *ngIf="accountForm.submitted && cityRef.invalid"
@@ -166,7 +166,7 @@
                             #ChurchRef="ngModel"
                             required
                             [(ngModel)]="currentRow.church_id"
-                            [ngModelOptions]="{ standalone: true }"
+                            [ngModelOptions]="{ standalone: true }"  (ngModelChange)="checkFormModified()"
                           >
                             <option value="">Select</option>
                             <option
@@ -204,7 +204,7 @@
                               accountForm.submitted && areaRef.invalid
                             "
                             #areaRef="ngModel"
-                            required
+                            required  (ngModelChange)="checkFormModified()" 
                           />
                           <span
                             *ngIf="accountForm.submitted && areaRef.invalid"
@@ -258,7 +258,7 @@
                               multiple="true"
                               bindLabel="name"
                               [(ngModel)]="customTagselected"
-                              [ngModelOptions]="{ standalone: true }"
+                              [ngModelOptions]="{ standalone: true }"  (ngModelChange)="checkFormModified()"
                             >
                               <ng-template
                                 ng-label-tmp
@@ -282,7 +282,7 @@
 
                       <div class="col-12 d-flex flex-sm-row flex-column mt-2">
                         <button
-                          [disabled]="buttonLoading"
+                        [disabled]="!formModified || buttonLoading"
                           type="submit"
                           (click)="submit(accountForm)"
                           class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"

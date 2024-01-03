@@ -105,7 +105,7 @@
                             name="title"
                             [class.error]="accountForm.submitted && TitleNameRef.invalid"
                             #TitleNameRef="ngModel"
-                            required
+                            required (ngModelChange)="checkFormModified()"
                           />
                           <span *ngIf="accountForm.submitted && TitleNameRef.invalid" class="invalid-form">
                             <small class="form-text text-danger" *ngIf="TitleNameRef.errors.required"
@@ -123,7 +123,7 @@
                             [(ngModel)]="currentRow.author"
                             placeholder="Author name"
                             id="author"
-                            name="author"
+                            name="author" (ngModelChange)="checkFormModified()"
                         
                           />
                           <!-- <span *ngIf="accountForm.submitted && AuthorRef.invalid" class="invalid-form">
@@ -146,7 +146,7 @@
                           #ChurchRef="ngModel"
                           required
                             [(ngModel)]="currentRow.church_id"
-                            [ngModelOptions]="{ standalone: true }"
+                            [ngModelOptions]="{ standalone: true }" (ngModelChange)="checkFormModified()"
                           >
                             <option value="">Select</option>
                             <option
@@ -177,7 +177,7 @@
                             name="description"
                             [class.error]="accountForm.submitted && DescRef.invalid"
                             #DescRef="ngModel"
-                            required
+                            required (ngModelChange)="checkFormModified()"
                           />
                           <span *ngIf="accountForm.submitted && DescRef.invalid" class="invalid-form">
                             <small class="form-text text-danger" *ngIf="DescRef.errors.required"
@@ -188,7 +188,7 @@
                       </div>
 
                       <div class="col-12 d-flex flex-sm-row flex-column mt-2">
-                        <button [disabled]="buttonLoading"
+                        <button  [disabled]="!formModified || buttonLoading"
                           type="submit"
                           (click)="submit(accountForm)"
                           class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"

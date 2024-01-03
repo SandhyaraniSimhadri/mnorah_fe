@@ -19,6 +19,8 @@ import { CoreHttpService } from "@core/services/http.service";
 import { environment } from "environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { ToastrService } from "ngx-toastr";
+import { ModalsService } from "@core/services/modals.service";
+import { isEqual } from 'lodash';
 
 @Component({
   selector: "app-member-management-edit",
@@ -51,6 +53,9 @@ export class MemberManagementEditComponent implements OnInit, OnDestroy {
   public enableAttending: any = false;
   public loading: boolean = false;
   public buttonLoading: boolean = false;
+  public originalFormValues: any;
+  public formModified: boolean = false;
+
   public selectGroup = [
     {
       name: "I am interested in becoming a member.",
@@ -130,7 +135,9 @@ export class MemberManagementEditComponent implements OnInit, OnDestroy {
     private _userEditService: UserEditService,
     public httpService: CoreHttpService,
     private http: HttpClient,
-    private _toastrService: ToastrService
+    private _toastrService: ToastrService,
+    public modalsService:ModalsService,
+
   ) {
     this._unsubscribeAll = new Subject();
     this.urlLastValue = this.url.substr(this.url.lastIndexOf("/") + 1);
@@ -144,6 +151,8 @@ export class MemberManagementEditComponent implements OnInit, OnDestroy {
    */
   resetFormWithDefaultValues() {
     this.accountForm.resetForm(this.tempRow);
+    this.formModified = false;
+
   }
 
   /**
@@ -163,6 +172,8 @@ export class MemberManagementEditComponent implements OnInit, OnDestroy {
       this.currentRow.avatar = event.target.files[0].name;
       this.image = event.target.files[0];
     }
+    this.checkFormModified();
+
   }
 
   /**
@@ -209,12 +220,12 @@ export class MemberManagementEditComponent implements OnInit, OnDestroy {
 
     if (form.valid) {
       this.buttonLoading=true;
-      const dateString = this.currentRow.dob;
-      const parts = dateString.split("/");
-      this.dob = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`)
-        .toISOString()
-        .slice(0, 10);
-      this.currentRow.dob = this.dob;
+      // const dateString = this.currentRow.dob;
+      // const parts = dateString.split("/");
+      // this.dob = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`)
+      //   .toISOString()
+      //   .slice(0, 10);
+      // this.currentRow.dob = this.dob;
       const formData = new FormData();
       formData.append("image", this.image);
       this.currentRow.invovlement = this.selectMultiGroupSelected.toString();
@@ -279,26 +290,7 @@ export class MemberManagementEditComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Lifecycle Hooks
-  // -----------------------------------------------------------------------------------------------------
-  /**
-   * On init
-   */
-  // ngOnInit(): void {
 
-  //   this.currentRow = {
-  //     "id": 1,
-  //     "user_name": "Galen Slixby",
-  //     "city": "El Salvador",
-  //     "contact": "(479) 232-9151",
-  //     "email": "gslixby0@abc.net.au",
-  //     "avatar": "",
-  //     "dob":'12-12-2012',
-  //     "gender":"Female",
-  // };
-  //   this.avatarImage = this.currentRow.avatar;
-  //   this.tempRow = cloneDeep(this.currentRow);
-  // }
   ngOnInit(): void {
     this.apiUrl = environment.apiUrl;
     this.getData();
@@ -320,7 +312,9 @@ export class MemberManagementEditComponent implements OnInit, OnDestroy {
         } else {
           if (res.status == false) {
           } else if (res.status == true) {
-            this.currentRow = res.data;
+            this.currentRow = this.modalsService.replaceNullsWithEmptyStrings(res.data);
+            this.originalFormValues = { ...this.currentRow };
+
             this.currentRow.invovlement_interest = null;
             this.selectMultiGroupSelected =[]
           
@@ -389,9 +383,17 @@ export class MemberManagementEditComponent implements OnInit, OnDestroy {
         this.enableAttending = false;
       }
     }
+    this.checkFormModified();
     console.log("item", this.selectMultiGroupSelected);
     // Access the selected item using the event object
     // const selectedItem = event.item;
     // console.log(selectedItem);
+  }
+  checkFormModified() {
+    console.log("current row",this.currentRow);
+    console.log("original form row",this.originalFormValues);
+
+    this.formModified = !isEqual(this.currentRow, this.originalFormValues);
+    console.log("this.modified",this.formModified);
   }
 }

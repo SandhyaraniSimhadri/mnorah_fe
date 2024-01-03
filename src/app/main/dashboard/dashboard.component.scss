@@ -1,16 +1,2 @@
-@import '@core/scss/angular/libs/datatables.component.scss';
-@import '@core/scss/base/pages/dashboard-ecommerce.scss';
 @import '@core/scss/base/plugins/charts/chart-apex.scss';
 @import '@core/scss/angular/libs/toastr.component.scss';
-
-.datatable-scroll {
-  width: auto !important;
-}
-.btn-new-record{
-    border-color: #3329e4 !important;
-  background-color: #3329e4 !important;
-  color: #fff !important;
-  padding-left:30px;
-  padding-right: 30px;
-  float: right;
-}

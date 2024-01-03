@@ -101,7 +101,19 @@
                       <div class="col-md-4">
                         <div class="form-group mb-2">
                           <label class="form-label" for="user-plan"
-                            >Select Church</label
+                            >Select Church<span
+                              *ngIf="
+                                accountForm.submitted && ChurchIdRef.invalid
+                              "
+                              class="text-danger"
+                              >*</span
+                            >
+                            <span
+                              *ngIf="
+                                !accountForm.submitted || !ChurchIdRef.invalid
+                              "
+                              >*</span
+                            ></label
                           >
                           <select
                             [(ngModel)]="currentRow.church_id"
@@ -113,7 +125,7 @@
                               accountForm.submitted && ChurchIdRef.invalid
                             "
                             #ChurchIdRef="ngModel"
-                            required
+                            required (ngModelChange)="checkFormModified()"
                           >
                             <option
                               *ngFor="let church of churchesData"
@@ -137,12 +149,27 @@
 
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="username">Visitor first name</label>
+                          <label for="username"
+                            >Visitor first name
+                            <span
+                              *ngIf="
+                                accountForm.submitted && UserFNameRef.invalid
+                              "
+                              class="text-danger"
+                              >*</span
+                            >
+                            <span
+                              *ngIf="
+                                !accountForm.submitted || !UserFNameRef.invalid
+                              "
+                              >*</span
+                            ></label
+                          >
                           <input
                             type="text"
                             id="userFname"
                             class="form-control"
-                            placeholder="UserFname"
+                            placeholder="User first name"
                             name="userFname"
                             [(ngModel)]="currentRow.first_name"
                             [ngModelOptions]="{ standalone: true }"
@@ -150,7 +177,7 @@
                               accountForm.submitted && UserFNameRef.invalid
                             "
                             #UserFNameRef="ngModel"
-                            required
+                            required (ngModelChange)="checkFormModified()"
                           />
                           <span
                             *ngIf="
@@ -169,12 +196,27 @@
 
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label >Visitor last name</label>
+                          <label
+                            >Visitor last name
+                            <span
+                              *ngIf="
+                                accountForm.submitted && UserLNameRef.invalid
+                              "
+                              class="text-danger"
+                              >*</span
+                            >
+                            <span
+                              *ngIf="
+                                !accountForm.submitted || !UserLNameRef.invalid
+                              "
+                              >*</span
+                            ></label
+                          >
                           <input
                             type="text"
                             id="userLname"
                             class="form-control"
-                            placeholder="UserLname"
+                            placeholder="User last name"
                             name="userLname"
                             [(ngModel)]="currentRow.last_name"
                             [ngModelOptions]="{ standalone: true }"
@@ -182,7 +224,7 @@
                               accountForm.submitted && UserLNameRef.invalid
                             "
                             #UserLNameRef="ngModel"
-                            required
+                            required (ngModelChange)="checkFormModified()"
                           />
                           <span
                             *ngIf="
@@ -209,7 +251,7 @@
                             [ngModelOptions]="{ standalone: true }"
                             placeholder="Spouse name"
                             id="spouse"
-                            name="spouse"
+                            name="spouse" (ngModelChange)="checkFormModified()"
                           />
                         </div>
                       </div>
@@ -224,7 +266,7 @@
                             [ngModelOptions]="{ standalone: true }"
                             placeholder="Child1 name"
                             id="child1"
-                            name="child1"
+                            name="child1" (ngModelChange)="checkFormModified()"
                           />
                         </div>
                       </div>
@@ -239,7 +281,7 @@
                             [ngModelOptions]="{ standalone: true }"
                             placeholder="Child2 name"
                             id="child2"
-                            name="child2"
+                            name="child2" (ngModelChange)="checkFormModified()"
                           />
                         </div>
                       </div>
@@ -254,7 +296,7 @@
                             [ngModelOptions]="{ standalone: true }"
                             placeholder="Child3 name"
                             id="child3"
-                            name="child3"
+                            name="child3" (ngModelChange)="checkFormModified()"
                           />
                         </div>
                       </div>
@@ -269,14 +311,27 @@
                             [ngModelOptions]="{ standalone: true }"
                             placeholder="Child4 name"
                             id="child4"
-                            name="child4"
+                            name="child4" (ngModelChange)="checkFormModified()"
                           />
                         </div>
                       </div>
 
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="email">E-mail</label>
+                          <label for="email"
+                            >E-mail
+                            <span
+                              *ngIf="accountForm.submitted && EmailRef.invalid"
+                              class="text-danger"
+                              >*</span
+                            >
+                            <span
+                              *ngIf="
+                                !accountForm.submitted || !EmailRef.invalid
+                              "
+                              >*</span
+                            ></label
+                          >
                           <input
                             type="email"
                             id="email"
@@ -284,12 +339,12 @@
                             placeholder="Email"
                             name="email"
                             [(ngModel)]="currentRow.email"
-                            [ngModelOptions]="{ standalone: true }"
+                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                             [class.error]="
                               accountForm.submitted && EmailRef.invalid
                             "
                             #EmailRef="ngModel"
-                            required
+                            required (ngModelChange)="checkFormModified()"
                           />
                           <span
                             *ngIf="accountForm.submitted && EmailRef.invalid"
@@ -297,8 +352,8 @@
                           >
                             <small
                               class="form-text text-danger"
-                              *ngIf="EmailRef.errors.required"
-                              >This field is required!</small
+                              *ngIf="EmailRef.invalid && accountForm.submitted"
+                              >Must be a valid email!</small
                             >
                           </span>
                         </div>
@@ -306,7 +361,20 @@
 
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="company">Phone number</label>
+                          <label for="company"
+                            >Phone number
+                            <span
+                              *ngIf="accountForm.submitted && PhoNumRef.invalid"
+                              class="text-danger"
+                              >*</span
+                            >
+                            <span
+                              *ngIf="
+                                !accountForm.submitted || !PhoNumRef.invalid
+                              "
+                              >*</span
+                            ></label
+                          >
                           <input
                             type="text"
                             class="form-control"
@@ -319,7 +387,7 @@
                               accountForm.submitted && PhoNumRef.invalid
                             "
                             #PhoNumRef="ngModel"
-                            required
+                            required (ngModelChange)="checkFormModified()"
                           />
 
                           <span
@@ -335,24 +403,20 @@
                         </div>
                       </div>
 
-                      <div class="col-md-8">
-                        <div class="form-group">
-                          <label for="company">Address</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            [(ngModel)]="currentRow.address"
-                            [ngModelOptions]="{ standalone: true }"
-                            placeholder="Address"
-                            id="address"
-                            name="address"
-                          />
-                        </div>
-                      </div>
-
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label>City</label>
+                          <label for="company"
+                            >City
+                            <span
+                              *ngIf="accountForm.submitted && CityRef.invalid"
+                              class="text-danger"
+                              >*</span
+                            >
+                            <span
+                              *ngIf="!accountForm.submitted || !CityRef.invalid"
+                              >*</span
+                            ></label
+                          >
                           <input
                             type="text"
                             class="form-control"
@@ -361,20 +425,33 @@
                             placeholder="City"
                             id="city"
                             name="city"
+                            [class.error]="
+                              accountForm.submitted && CityRef.invalid
+                            "
+                            #CityRef="ngModel"
+                            required (ngModelChange)="checkFormModified()"
                           />
+                          <span
+                            *ngIf="accountForm.submitted && CityRef.invalid"
+                            class="invalid-form"
+                          >
+                            <small
+                              class="form-text text-danger"
+                              *ngIf="CityRef.errors.required"
+                              >This field is required!</small
+                            >
+                          </span>
                         </div>
                       </div>
 
-                   
-
-                      <div class="col-md-8">
+                      <div class="col-md-12">
                         <div class="form-group mb-2">
                           <label>Connection Card</label><br />
                           <span style="font-size: 12px"
-                >We would love to connect with you and provide more information
-                about <b>{{ selectedChurchName }}</b>. Please check the appropriate
-                boxes</span
-              >
+                            >We would love to connect with you and provide more
+                            information about <b>{{ selectedChurchName }}</b
+                            >. Please check the appropriate boxes</span
+                          >
                           <ng-select
                             [multiple]="true"
                             [closeOnSelect]="false"
@@ -400,7 +477,7 @@
                             id="user-plan"
                             class="form-control"
                             [(ngModel)]="currentRow.hear_about"
-                            [ngModelOptions]="{ standalone: true }"
+                            [ngModelOptions]="{ standalone: true }" (ngModelChange)="checkFormModified()"
                           >
                             <option
                               value="Invited by a friend or family member"
@@ -423,7 +500,7 @@
                               [ngModelOptions]="{ standalone: true }"
                               placeholder="Type here.."
                               id="hear-about"
-                              name="hear-about"
+                              name="hear-about" (ngModelChange)="checkFormModified()"
                             />
                           </div>
                         </div>
@@ -439,23 +516,10 @@
                             placeholder="visit-date"
                             name="visit-date"
                             [(ngModel)]="currentRow.visit_date"
-                            [ngModelOptions]="{ standalone: true }"
-                            [class.error]="
-                              accountForm.submitted && VstDtRef.invalid
-                            "
-                            #VstDtRef="ngModel"
-                            required
+                            [ngModelOptions]="{ standalone: true }" (ngModelChange)="checkFormModified()"
+                           
                           />
-                          <span
-                            *ngIf="accountForm.submitted && VstDtRef.invalid"
-                            class="invalid-form"
-                          >
-                            <small
-                              class="form-text text-danger"
-                              *ngIf="VstDtRef.errors.required"
-                              >This field is required!</small
-                            >
-                          </span>
+                        
                         </div>
                       </div>
                       <div class="col-md-4">
@@ -467,7 +531,7 @@
                             id="user-plan"
                             class="form-control"
                             [(ngModel)]="currentRow.experience"
-                            [ngModelOptions]="{ standalone: true }"
+                            [ngModelOptions]="{ standalone: true }" (ngModelChange)="checkFormModified()"
                           >
                             <option value="Excellent">Excellent</option>
                             <option value="Good">Good</option>
@@ -490,7 +554,7 @@
                             [(ngModel)]="currentRow.about_visit"
                             [ngModelOptions]="{ standalone: true }"
                             type="text"
-                            class="form-control"
+                            class="form-control" (ngModelChange)="checkFormModified()"
                           ></textarea>
                         </div>
                       </div>
@@ -508,7 +572,7 @@
                             [(ngModel)]="currentRow.suggestions"
                             [ngModelOptions]="{ standalone: true }"
                             type="text"
-                            class="form-control"
+                            class="form-control" (ngModelChange)="checkFormModified()"
                           ></textarea>
                         </div>
                       </div>
@@ -530,7 +594,7 @@
                             [(ngModel)]="currentRow.prayer_request"
                             [ngModelOptions]="{ standalone: true }"
                             type="text"
-                            class="form-control"
+                            class="form-control " (ngModelChange)="checkFormModified()"
                           ></textarea>
                         </div>
                       </div>
@@ -539,8 +603,12 @@
                         <div class="form-group">
                           <label class="form-label" for="user-plan"
                             >Additional Comments</label
-                          ><br/>
-                          <span style="font-size: 12px;">Is there anything else you would like to share with us or any specific information you are seeking?</span>
+                          ><br />
+                          <span style="font-size: 12px"
+                            >Is there anything else you would like to share with
+                            us or any specific information you are
+                            seeking?</span
+                          >
                           <textarea
                             rows="4"
                             placeholder="Comments"
@@ -549,14 +617,14 @@
                             [(ngModel)]="currentRow.comments"
                             [ngModelOptions]="{ standalone: true }"
                             type="text"
-                            class="form-control"
+                            class="form-control" (ngModelChange)="checkFormModified()"
                           ></textarea>
                         </div>
                       </div>
 
                       <div class="col-12 d-flex flex-sm-row flex-column mt-2">
                         <button
-                          [disabled]="buttonLoading"
+                        [disabled]="!formModified || buttonLoading"
                           type="submit"
                           (click)="submit(accountForm)"
                           class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"

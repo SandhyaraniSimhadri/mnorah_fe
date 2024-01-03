@@ -2,7 +2,8 @@ import {
   Component,
   OnInit,
   OnDestroy,
-  ViewChild
+  ViewChild,
+  ViewEncapsulation
 } from "@angular/core";
 import { Router } from "@angular/router";
 import { NgForm } from "@angular/forms";
@@ -14,11 +15,14 @@ import { CoreHttpService } from "@core/services/http.service";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "environments/environment";
 import { ToastrService } from "ngx-toastr";
+import { ModalsService } from "@core/services/modals.service";
+import { isEqual } from 'lodash';
 
 @Component({
   selector: "app-life-group-management-edit",
   templateUrl: "./life-group-management-edit.component.html",
   styleUrls: ["./life-group-management-edit.component.scss"],
+  encapsulation: ViewEncapsulation.None
  
 })
 export class LifeGroupManagementEditComponent implements OnInit, OnDestroy {
@@ -38,7 +42,8 @@ export class LifeGroupManagementEditComponent implements OnInit, OnDestroy {
   public customTag: any[] = [];
   public members_list:any=[];
 
-
+  public originalFormValues: any;
+  public formModified: boolean = false;
   @ViewChild("accountForm") accountForm: NgForm;
 
   public birthDateOptions: FlatpickrOptions = {
@@ -71,7 +76,9 @@ export class LifeGroupManagementEditComponent implements OnInit, OnDestroy {
     private http: HttpClient,
     public httpService: CoreHttpService,
     private _toastrService: ToastrService,
-    private _router: Router
+    private _router: Router,
+    public modalsService:ModalsService,
+
   ) {
     this._unsubscribeAll = new Subject();
     this.urlLastValue = this.url.substr(this.url.lastIndexOf("/") + 1);
@@ -85,6 +92,8 @@ export class LifeGroupManagementEditComponent implements OnInit, OnDestroy {
    */
   resetFormWithDefaultValues() {
     this.accountForm.resetForm(this.tempRow);
+    this.formModified = false;
+
   }
 
   /**
@@ -106,6 +115,8 @@ export class LifeGroupManagementEditComponent implements OnInit, OnDestroy {
       this.image = event.target.files[0];
     }
     this.loading=false;
+    this.checkFormModified();
+
   }
 
   /**
@@ -226,7 +237,8 @@ export class LifeGroupManagementEditComponent implements OnInit, OnDestroy {
         } else {
           if (res.status == false) {
           } else if (res.status == true) {
-            this.currentRow = res.data;
+            this.currentRow = this.modalsService.replaceNullsWithEmptyStrings(res.data);
+
             if(this.currentRow.avatar){
             this.avatarImage = this.apiUrl+this.currentRow.avatar;}
             this.tempRow = cloneDeep(this.currentRow);
@@ -236,6 +248,8 @@ export class LifeGroupManagementEditComponent implements OnInit, OnDestroy {
             this.currentRow.members.forEach((c, i) => {
               this.customTagselected.push({ id: c ,name:this.currentRow.userNames[i]});
             });
+            this.originalFormValues = { ...this.currentRow };
+
             
           }
         }
@@ -275,5 +289,12 @@ export class LifeGroupManagementEditComponent implements OnInit, OnDestroy {
       },
       (error: any) => {}
     );
+  }
+  checkFormModified() {
+    console.log("current row",this.currentRow);
+    console.log("original form row",this.originalFormValues);
+
+    this.formModified = !isEqual(this.currentRow, this.originalFormValues);
+    console.log("this.modified",this.formModified);
   }
 }

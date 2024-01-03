@@ -70,7 +70,7 @@
           <div class="form-group">
             <label class="form-label" for="basic-icon-default-firstname"
               >Full Name <span *ngIf="newUserForm.submitted && FiNameRef.invalid && LsNameRef.invalid" class="text-danger">*</span>
-              <span *ngIf="!newUserForm.submitted || !FiNameRef.invalid || LsNameRef.invalid">*</span></label
+              <span *ngIf="!newUserForm.submitted || !FiNameRef.invalid || !LsNameRef.invalid">*</span></label
             >
             <div class="row">
               <div class="col-md-6">
@@ -209,7 +209,7 @@
           <div class="form-group">
             <label class="form-label" for="basic-icon-default-phone-number"
               >Contact Information <span *ngIf="newUserForm.submitted && PhoneRef.invalid && FEmailRef.invalid" class="text-danger">*</span>
-              <span *ngIf="!newUserForm.submitted || !PhoneRef.invalid || FEmailRef.invalid">*</span></label
+              <span *ngIf="!newUserForm.submitted || !PhoneRef.invalid || !FEmailRef.invalid">*</span></label
             >
             <div class="row">
               <!-- First Name Input -->
@@ -250,6 +250,7 @@
                   aria-describedby="basic-icon-default-email"
                   name="user-email"
                   [(ngModel)]="visitorForm.email"
+                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                   [class.error]="newUserForm.submitted && FEmailRef.invalid"
                   #FEmailRef="ngModel"
                   required
@@ -258,22 +259,20 @@
                   *ngIf="newUserForm.submitted && FEmailRef.invalid"
                   class="invalid-form"
                 >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="FEmailRef.errors.required"
-                    >This field is required!</small
-                  >
+                <small
+                class="form-text text-danger"
+                *ngIf="FEmailRef.invalid && newUserForm.submitted"
+                >Must be a valid email!</small
+              >
                 </span>
-                <small class="form-text text-muted">
-                  You can use letters, numbers & periods
-                </small>
+              
               </div>
             </div>
           </div>
 
           <div class="form-group">
             <label class="form-label" for="basic-icon-default-city"
-              >Address <span *ngIf="newUserForm.submitted && CityRef.invalid" class="text-danger">*</span>
+              >City <span *ngIf="newUserForm.submitted && CityRef.invalid" class="text-danger">*</span>
               <span *ngIf="!newUserForm.submitted || !CityRef.invalid">*</span></label
             >
             <div class="row">
@@ -330,24 +329,12 @@
                   groupBy="group"
                   [(ngModel)]="selectMultiGroupSelected"
                   (click)="checkOther($event)"
-                  [class.error]="newUserForm.submitted && InvlRef.invalid"
-                  #InvlRef="ngModel"
-                  required
                 >
                   <ng-template ng-optgroup-tmp let-item="item">
                     {{ item.group || "Unnamed group" }}
                   </ng-template>
                 </ng-select>
-                <span
-                  *ngIf="newUserForm.submitted && InvlRef.invalid"
-                  class="invalid-form"
-                >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="InvlRef.errors.required"
-                    >This field is required!</small
-                  >
-                </span>
+    
                 <!-- <br />
                 <small>Selected: {{ selectMultiGroupSelected | json }}</small> -->
               </div>
@@ -366,9 +353,7 @@
               aria-label=""
               aria-describedby="basic-icon-default-hear-about"
               name="hear-about"
-              [class.error]="newUserForm.submitted && HearAbtRef.invalid"
-              #HearAbtRef="ngModel"
-              required
+            
             >
               <option value="">Select</option>
               <option value="Invited by a friend or family member">
@@ -379,16 +364,7 @@
               <option value="Advertisement">Advertisement</option>
               <option value="Other">Other</option>
             </select>
-            <span
-              *ngIf="newUserForm.submitted && HearAbtRef.invalid"
-              class="invalid-form"
-            >
-              <small
-                class="form-text text-danger"
-                *ngIf="HearAbtRef.errors.required"
-                >This field is required!</small
-              >
-            </span>
+   
             <div class="form-group" *ngIf="visitorForm.hear_about == 'Other'">
               <input
                 type="text"
@@ -399,20 +375,9 @@
                 aria-describedby="basic-icon-default-hear-about-other"
                 name="hear-about-other"
                 [(ngModel)]="visitorForm.hear_about_other"
-                [class.error]="newUserForm.submitted && HearAbtOthrRef.invalid"
-                #HearAbtOthrRef="ngModel"
-                required
+               
               />
-              <span
-                *ngIf="newUserForm.submitted && HearAbtOthrRef.invalid"
-                class="invalid-form"
-              >
-                <small
-                  class="form-text text-danger"
-                  *ngIf="HearAbtOthrRef.errors.required"
-                  >This field is required!</small
-                >
-              </span>
+    
             </div>
           </div>
 
@@ -430,20 +395,9 @@
                   aria-describedby="basic-icon-default-visit"
                   name="visit"
                   [(ngModel)]="visitorForm.visit_date"
-                  [class.error]="newUserForm.submitted && VisitRef.invalid"
-                  #VisitRef="ngModel"
-                  required
+                
                 />
-                <span
-                  *ngIf="newUserForm.submitted && VisitRef.invalid"
-                  class="invalid-form"
-                >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="VisitRef.errors.required"
-                    >This field is required!</small
-                  >
-                </span>
+              
               </div>
             </div>
             <div class="col-6">
@@ -458,9 +412,6 @@
                   aria-label=""
                   aria-describedby="basic-icon-default-experience"
                   name="experience"
-                  [class.error]="newUserForm.submitted && ExperRef.invalid"
-                  #ExperRef="ngModel"
-                  required
                 >
                   <option value="">Select</option>
                   <option value="Excellent">Excellent</option>
@@ -468,16 +419,7 @@
                   <option value="Average">Average</option>
                   <option value="Below Average">Below Average</option>
                 </select>
-                <span
-                  *ngIf="newUserForm.submitted && ExperRef.invalid"
-                  class="invalid-form"
-                >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="ExperRef.errors.required"
-                    >This field is required!</small
-                  >
-                </span>
+     
               </div>
             </div>
           </div>
@@ -496,20 +438,9 @@
                   aria-describedby="basic-icon-default-about-visit"
                   name="about-visit"
                   [(ngModel)]="visitorForm.about_visit"
-                  [class.error]="newUserForm.submitted && AbtVtRef.invalid"
-                  #AbtVtRef="ngModel"
-                  required
+               
                 ></textarea>
-                <span
-                  *ngIf="newUserForm.submitted && AbtVtRef.invalid"
-                  class="invalid-form"
-                >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="AbtVtRef.errors?.required"
-                    >This field is required!</small
-                  >
-                </span>
+   
               </div>
             </div>
 
@@ -526,20 +457,9 @@
                   aria-describedby="basic-icon-default-suggestions"
                   name="suggestions"
                   [(ngModel)]="visitorForm.suggestions"
-                  [class.error]="newUserForm.submitted && SuggestRef.invalid"
-                  #SuggestRef="ngModel"
-                  required
+               
                 ></textarea>
-                <span
-                  *ngIf="newUserForm.submitted && SuggestRef.invalid"
-                  class="invalid-form"
-                >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="SuggestRef.errors?.required"
-                    >This field is required!</small
-                  >
-                </span>
+               
               </div>
             </div>
           </div>
@@ -563,20 +483,9 @@
                   aria-describedby="basic-icon-default-prayer-request"
                   name="prayer-request"
                   [(ngModel)]="visitorForm.prayer_request"
-                  [class.error]="newUserForm.submitted && PryrRqstRef.invalid"
-                  #PryrRqstRef="ngModel"
-                  required
+                 
                 ></textarea>
-                <span
-                  *ngIf="newUserForm.submitted && PryrRqstRef.invalid"
-                  class="invalid-form"
-                >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="PryrRqstRef.errors?.required"
-                    >This field is required!</small
-                  >
-                </span>
+               
               </div>
             </div>
 
@@ -597,20 +506,9 @@
                   aria-describedby="basic-icon-default-comments"
                   name="comments"
                   [(ngModel)]="visitorForm.comments"
-                  [class.error]="newUserForm.submitted && CommentRef.invalid"
-                  #CommentRef="ngModel"
-                  required
+                 
                 ></textarea>
-                <span
-                  *ngIf="newUserForm.submitted && CommentRef.invalid"
-                  class="invalid-form"
-                >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="CommentRef.errors?.required"
-                    >This field is required!</small
-                  >
-                </span>
+        
               </div>
             </div>
           </div>

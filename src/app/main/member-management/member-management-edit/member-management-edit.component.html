@@ -99,7 +99,8 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="form-label" for="user-plan"
-                            >Select Church</label
+                            >Select Church <span *ngIf="accountForm.submitted && ChurchIdRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !ChurchIdRef.invalid">*</span></label
                           >
                           <select
                             [(ngModel)]="currentRow.church_id"
@@ -149,7 +150,7 @@
                               accountForm.submitted && UserNameRef.invalid
                             "
                             #UserNameRef="ngModel"
-                            required
+                            required  (ngModelChange)="checkFormModified()"
                           />
                           <span
                             *ngIf="accountForm.submitted && UserNameRef.invalid"
@@ -179,7 +180,7 @@
                               accountForm.submitted && EmailRef.invalid
                             "
                             #EmailRef="ngModel"
-                            required
+                            required  (ngModelChange)="checkFormModified()"
                           />
                           <span
                             *ngIf="accountForm.submitted && EmailRef.invalid"
@@ -220,7 +221,7 @@
                             [ngModelOptions]="{ standalone: true }"
                             placeholder="Phone number"
                             id="contact"
-                            name="contact"
+                            name="contact"  (ngModelChange)="checkFormModified()"
                           />
                         </div>
                       </div>
@@ -234,7 +235,7 @@
                             [ngModelOptions]="{ standalone: true }"
                             placeholder="Date of birth"
                             id="dob"
-                            name="dob"
+                            name="dob"  (ngModelChange)="checkFormModified()"
                           />
                         </div>
                       </div>
@@ -248,7 +249,7 @@
                             [ngModelOptions]="{ standalone: true }"
                             placeholder="City name"
                             id="city"
-                            name="city"
+                            name="city"  (ngModelChange)="checkFormModified()"
                           />
                         </div>
                       </div>
@@ -265,7 +266,7 @@
                             [ngModelOptions]="{ standalone: true }"
                             placeholder="State"
                             id="state"
-                            name="state"
+                            name="state"  (ngModelChange)="checkFormModified()"
                           />
                         </div>
                       </div>
@@ -279,7 +280,7 @@
                             id="user-plan"
                             class="form-control"
                             [(ngModel)]="currentRow.membership_status"
-                            [ngModelOptions]="{ standalone: true }"
+                            [ngModelOptions]="{ standalone: true }"  (ngModelChange)="checkFormModified()"
                           >
                             <option value="New Member">New Member</option>
                             <option value="Returning Member">
@@ -300,6 +301,7 @@
                               placeholder="Membership status"
                               id="membership"
                               name="membership"
+                              (ngModelChange)="checkFormModified()"
                             />
                           </div>
                         </div>
@@ -314,7 +316,7 @@
                             id="user-plan"
                             class="form-control"
                             [(ngModel)]="currentRow.hear_about_church"
-                            [ngModelOptions]="{ standalone: true }"
+                            [ngModelOptions]="{ standalone: true }"  (ngModelChange)="checkFormModified()"
                           >
                             <option value="Word of Mouth">Word of Mouth</option>
                             <option value="Website">Website</option>
@@ -333,7 +335,7 @@
                               [ngModelOptions]="{ standalone: true }"
                               placeholder="Type here.. "
                               id="hearaboutchurch"
-                              name="hearaboutchurch"
+                              name="hearaboutchurch"  (ngModelChange)="checkFormModified()"
                             />
                           </div>
                         </div>
@@ -351,7 +353,7 @@
                             bindLabel="name"
                             groupBy="country"
                             [(ngModel)]="selectMultiGroupSelected"
-                            (click)="checkOther($event)"
+                            (click)="checkOther($event)" 
                           >
                             <ng-template ng-optgroup-tmp let-item="item">
                               {{ item.country || "Unnamed group" }}
@@ -369,7 +371,7 @@
                             [ngModelOptions]="{ standalone: true }"
                             placeholder="Type here.. "
                             id="volunteering_other"
-                            name="volunteering_other"
+                            name="volunteering_other"  (ngModelChange)="checkFormModified()"
                           />
                         </div>
                       </div>
@@ -383,7 +385,7 @@
                             [ngModelOptions]="{ standalone: true }"
                             placeholder="Type here.. "
                             id="attending_other"
-                            name="attending_other"
+                            name="attending_other"  (ngModelChange)="checkFormModified()"
                           />
                         </div>
                       </div>
@@ -401,13 +403,13 @@
                             [(ngModel)]="currentRow.comments"
                             [ngModelOptions]="{ standalone: true }"
                             type="text"
-                            class="form-control"
+                            class="form-control"  (ngModelChange)="checkFormModified()"
                           ></textarea>
                         </div>
                       </div>
 
                       <div class="col-12 d-flex flex-sm-row flex-column mt-2">
-                        <button [disabled]="buttonLoading"
+                        <button [disabled]="!formModified || buttonLoading"
                           type="submit"
                           (click)="submit(accountForm)"
                           class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"

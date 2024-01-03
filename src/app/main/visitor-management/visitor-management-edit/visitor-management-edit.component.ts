@@ -19,6 +19,9 @@ import { CoreHttpService } from "@core/services/http.service";
 import { environment } from "environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { ToastrService } from "ngx-toastr";
+import { ModalsService } from "@core/services/modals.service";
+
+import { isEqual } from 'lodash';
 
 @Component({
   selector: "app-visitor-management-edit",
@@ -48,6 +51,8 @@ export class VisitorManagementEditComponent implements OnInit, OnDestroy {
   public selectedChurchName:any;
   public loading: boolean = false;
   public buttonLoading: boolean = false;
+  public originalFormValues: any;
+  public formModified: boolean = false;
   public selectGroup = [
     {
       name: " I am a first-time visitor.",
@@ -87,7 +92,9 @@ export class VisitorManagementEditComponent implements OnInit, OnDestroy {
     private router: Router,
     public httpService: CoreHttpService,
     private http: HttpClient,
-    private _toastrService: ToastrService
+    private _toastrService: ToastrService,
+    public modalsService:ModalsService,
+
   ) {
     this._unsubscribeAll = new Subject();
     this.urlLastValue = this.url.substr(this.url.lastIndexOf("/") + 1);
@@ -101,6 +108,7 @@ export class VisitorManagementEditComponent implements OnInit, OnDestroy {
    */
   resetFormWithDefaultValues() {
     this.accountForm.resetForm(this.tempRow);
+    this.formModified = false;
   }
 
   /**
@@ -120,11 +128,14 @@ export class VisitorManagementEditComponent implements OnInit, OnDestroy {
       this.currentRow.avatar = event.target.files[0].name;
       this.image = event.target.files[0];
     }
+    this.checkFormModified();
+
   }
 
 
 
   submit(form) {
+    console.log("validddddd",form.valid);
     if (form.valid) {
       this.buttonLoading = true;
       if(this.selectMultiGroupSelected.length>0){
@@ -136,28 +147,27 @@ export class VisitorManagementEditComponent implements OnInit, OnDestroy {
       formData.append("id", this.currentRow.id);
       formData.append("church_id", this.currentRow.church_id);
 
-      formData.append("first_name", this.currentRow.first_name);
-      formData.append("last_name", this.currentRow.last_name);
-      formData.append("spouse_name", this.currentRow.spouse_name);
-      formData.append("child1_name", this.currentRow.child1_name);
-      formData.append("child2_name", this.currentRow.child2_name);
-      formData.append("child3_name", this.currentRow.child3_name);
-      formData.append("child4_name", this.currentRow.child4_name);
-      formData.append("phone_number", this.currentRow.phone_number);
-      formData.append("email", this.currentRow.email);
-      formData.append("address", this.currentRow.address);
-      formData.append("city", this.currentRow.city);
-      formData.append("connection", this.currentRow.connection);
-      formData.append("hear_about", this.currentRow.hear_about);
-      formData.append("hear_about_other", this.currentRow.hear_about_other);
-      formData.append("visit_date", this.currentRow.visit_date);
-      formData.append("experience", this.currentRow.experience);
-      formData.append("about_visit", this.currentRow.about_visit);
-      formData.append("suggestions", this.currentRow.suggestions);
-      formData.append("prayer_request", this.currentRow.prayer_request);
-
-      formData.append("comments", this.currentRow.comments);
-
+      formData.append("first_name", this.currentRow.first_name ?? null);
+      formData.append("last_name", this.currentRow.last_name ?? null);
+      formData.append("spouse_name", this.currentRow.spouse_name ?? null);
+      formData.append("child1_name", this.currentRow.child1_name ?? null);
+      formData.append("child2_name", this.currentRow.child2_name ?? null);
+      formData.append("child3_name", this.currentRow.child3_name ?? null);
+      formData.append("child4_name", this.currentRow.child4_name ?? null);
+      formData.append("phone_number", this.currentRow.phone_number ?? null);
+      formData.append("email", this.currentRow.email ?? null);
+      formData.append("address", this.currentRow.address ?? null);
+      formData.append("city", this.currentRow.city ?? null);
+      formData.append("connection", this.currentRow.connection ?? null);
+      formData.append("hear_about", this.currentRow.hear_about ?? null);
+      formData.append("hear_about_other", this.currentRow.hear_about_other ?? null);
+      formData.append("visit_date", this.currentRow.visit_date ?? null);
+      formData.append("experience", this.currentRow.experience ?? null);
+      formData.append("about_visit", this.currentRow.about_visit ?? null);
+      formData.append("suggestions", this.currentRow.suggestions ?? null);
+      formData.append("prayer_request", this.currentRow.prayer_request ?? null);
+      formData.append("comments", this.currentRow.comments ?? null);
+        // console.log("dataaaa",formData.forEach(dd => console.log(dd)));
       this.currentRow.image = this.image;
       this.http
         .post<any>(this.apiUrl + "api/update_visitor", formData)
@@ -208,7 +218,9 @@ export class VisitorManagementEditComponent implements OnInit, OnDestroy {
         } else {
           if (res.status == false) {
           } else if (res.status == true) {
-            this.currentRow = res.data;
+            this.currentRow = this.replaceNullsWithEmptyStrings(res.data);
+            this.originalFormValues = { ...this.currentRow };
+
             this.selectMultiGroupSelected = [];
 
             console.log("valuessss", this.selectMultiGroupSelected);
@@ -275,7 +287,28 @@ export class VisitorManagementEditComponent implements OnInit, OnDestroy {
       this.selectMultiGroupSelected.splice(idx, 1);
      
     }
+    this.checkFormModified();
     console.log("item", this.selectMultiGroupSelected);
    
   }
+  replaceNullsWithEmptyStrings(obj: any): any {
+    const updatedObj: any = {};
+  
+    for (const key in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        const value = obj[key];
+        updatedObj[key] = value === null ? '' : value;
+      }
+    }
+  
+    return updatedObj;
+  }
+  checkFormModified() {
+    console.log("current row",this.currentRow);
+    console.log("original form row",this.originalFormValues);
+
+    this.formModified = !isEqual(this.currentRow, this.originalFormValues);
+    console.log("this.modified",this.formModified);
+  }
+
 }

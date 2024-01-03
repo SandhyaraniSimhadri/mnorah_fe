@@ -19,6 +19,8 @@ import { CoreHttpService } from "@core/services/http.service";
 import { environment } from "environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { ToastrService } from "ngx-toastr";
+import { isEqual } from 'lodash';
+import { ModalsService } from "@core/services/modals.service";
 
 @Component({
   selector: "app-sub-admin-edit",
@@ -46,6 +48,7 @@ export class SubAdminEditComponent implements OnInit, OnDestroy {
   public loading: boolean = false;
   public buttonLoading: boolean = false;
   public churcesData: any;
+  public originalFormValues: any;
 
   @ViewChild("accountForm") accountForm: NgForm;
 
@@ -63,6 +66,7 @@ export class SubAdminEditComponent implements OnInit, OnDestroy {
     "Sanskrit",
   ];
   public selectMultiLanguagesSelected = [];
+  public formModified: boolean = false;
 
   // Private
   private _unsubscribeAll: Subject<any>;
@@ -79,7 +83,9 @@ export class SubAdminEditComponent implements OnInit, OnDestroy {
     public httpService: CoreHttpService,
     private http: HttpClient,
     private _router: Router,
-    private _toastrService: ToastrService
+    private _toastrService: ToastrService,
+    public modalsService:ModalsService,
+
   ) {
     this._unsubscribeAll = new Subject();
     this.urlLastValue = this.url.substr(this.url.lastIndexOf("/") + 1);
@@ -93,6 +99,8 @@ export class SubAdminEditComponent implements OnInit, OnDestroy {
    */
   resetFormWithDefaultValues() {
     this.accountForm.resetForm(this.tempRow);
+    this.formModified = false;
+
   }
 
   /**
@@ -114,6 +122,8 @@ export class SubAdminEditComponent implements OnInit, OnDestroy {
       this.image = event.target.files[0];
     }
     this.buttonLoading = false;
+    this.checkFormModified();
+
   }
 
   /**
@@ -126,17 +136,18 @@ export class SubAdminEditComponent implements OnInit, OnDestroy {
   
     if (form.valid) {
       this.buttonLoading=true;
-      const dateString = this.currentRow.dob;
-      const parts = dateString.split("/");
-      this.dob = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`)
-        .toISOString()
-        .slice(0, 10);
-      this.currentRow.dob = this.dob;
+      // const dateString = this.currentRow.dob;
+      // const parts = dateString.split("/");
+      // this.dob = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`)
+      //   .toISOString()
+      //   .slice(0, 10);
+      // this.currentRow.dob = this.dob;
       const formData = new FormData();
       formData.append("image", this.image);
 
       // Append form data fields
       formData.append("id", this.currentRow.id);
+      formData.append("church_id",this.currentRow.church_id)
       formData.append("dob", this.currentRow.dob);
       formData.append("email", this.currentRow.email);
       formData.append("gender", this.currentRow.gender);
@@ -232,10 +243,11 @@ export class SubAdminEditComponent implements OnInit, OnDestroy {
         } else {
           if (res.status == false) {
           } else if (res.status == true) {
-            this.currentRow = res.data;
+            this.currentRow = this.modalsService.replaceNullsWithEmptyStrings(res.data);
             if (this.currentRow.avatar) {
               this.avatarImage = this.apiUrl + this.currentRow.avatar;
             }
+            this.originalFormValues = { ...this.currentRow };
             this.tempRow = cloneDeep(this.currentRow);
             console.log("rows values", this.avatarImage);
           }
@@ -255,4 +267,12 @@ export class SubAdminEditComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
   }
+  checkFormModified() {
+    console.log("current row",this.currentRow);
+    console.log("original form row",this.originalFormValues);
+
+    this.formModified = !isEqual(this.currentRow, this.originalFormValues);
+    console.log("this.modified",this.formModified);
+  }
+ 
 }

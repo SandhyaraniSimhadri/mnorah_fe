@@ -36,7 +36,6 @@ const appRoutes: Routes = [
   {
     path: 'dashboard',
     loadChildren: () => import('./main/dashboard/dashboard.module').then(m => m.DashboardModule),
-    canActivate: [AuthGuard]
   },
   {
     path: 'church-management',
@@ -123,10 +122,15 @@ const appRoutes: Routes = [
     loadChildren: () => import('./main/charts-and-maps/charts-and-maps.module').then(m => m.ChartsAndMapsModule),
     canActivate: [AuthGuard]
   },
+  // {
+  //   path: '',
+  //   redirectTo: '/church-management',
+  //   pathMatch: 'full',
+  // },
   {
     path: '',
-    redirectTo: '/church-management',
-    pathMatch: 'full',
+    redirectTo: '/dashboard',
+    pathMatch: 'full'
   },
   {
     path: '**',

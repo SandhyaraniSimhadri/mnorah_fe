@@ -81,7 +81,7 @@
                             [(ngModel)]="currentRow.user_name"
                             [class.error]="accountForm.submitted && UserNameRef.invalid"
                             #UserNameRef="ngModel"
-                            required
+                            required  (ngModelChange)="checkFormModified()"
                           />
                           <span *ngIf="accountForm.submitted && UserNameRef.invalid" class="invalid-form">
                             <small class="form-text text-danger" *ngIf="UserNameRef.errors.required"
@@ -107,7 +107,7 @@
                               accountForm.submitted && ChurchIdRef.invalid
                             "
                             #ChurchIdRef="ngModel"
-                            required
+                            required  (ngModelChange)="checkFormModified()"
                           >
                           
                             <option
@@ -141,14 +141,17 @@
                             placeholder="Email"
                             name="email"
                             [(ngModel)]="currentRow.email"
+                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                             [class.error]="accountForm.submitted && EmailRef.invalid"
                             #EmailRef="ngModel"
-                            required
+                            required  (ngModelChange)="checkFormModified()"
                           />
                           <span *ngIf="accountForm.submitted && EmailRef.invalid" class="invalid-form">
-                            <small class="form-text text-danger" *ngIf="EmailRef.errors.required"
-                              >This field is required!</small
-                            >
+                            <small
+                            class="form-text text-danger"
+                            *ngIf="EmailRef.invalid && accountForm.submitted"
+                            >Must be a valid email!</small
+                          >
                           </span>
                         </div>
                       </div>
@@ -159,7 +162,7 @@
                           <label for="company">Gender</label>
                       
 
-                          <select id="user-plan" class="form-control"   [(ngModel)]="currentRow.gender" [ngModelOptions]="{standalone: true}">
+                          <select id="user-plan" class="form-control"   [(ngModel)]="currentRow.gender" [ngModelOptions]="{standalone: true}"  (ngModelChange)="checkFormModified()">
                             <option value="Female">Female</option>
                             <option value="Male">Male</option>
                             <option value="Others">Others</option>
@@ -180,7 +183,7 @@
                             name="contact"
                             [class.error]="accountForm.submitted && PhoneRef.invalid"
                             #PhoneRef="ngModel"
-                            required
+                            required  (ngModelChange)="checkFormModified()"
                           />
                           <span *ngIf="accountForm.submitted && PhoneRef.invalid" class="invalid-form">
                             <small class="form-text text-danger" *ngIf="PhoneRef.errors.required"
@@ -198,7 +201,7 @@
                             [(ngModel)]="currentRow.dob"
                             placeholder="Date of birth"
                             id="dob"
-                            name="dob"
+                            name="dob"  (ngModelChange)="checkFormModified()"
                           />
                         </div>
                       </div>
@@ -215,7 +218,7 @@
                             name="city"
                             [class.error]="accountForm.submitted && CityRef.invalid"
                             #CityRef="ngModel"
-                            required
+                            required  (ngModelChange)="checkFormModified()"
                           />
                           <span *ngIf="accountForm.submitted && CityRef.invalid" class="invalid-form">
                             <small class="form-text text-danger" *ngIf="CityRef.errors.required"
@@ -225,7 +228,7 @@
                         </div>
                       </div>
                       <div class="col-12 d-flex flex-sm-row flex-column mt-2">
-                        <button [disabled]="buttonLoading"
+                        <button [disabled]="!formModified || buttonLoading"
                           type="submit"
                           (click)="submit(accountForm)"
                           class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"

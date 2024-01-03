@@ -107,7 +107,7 @@
                               accountForm.submitted && EveNameRef.invalid
                             "
                             #EveNameRef="ngModel"
-                            required
+                            required (ngModelChange)="checkFormModified()"
                           />
                           <span
                             *ngIf="accountForm.submitted && EveNameRef.invalid"
@@ -137,7 +137,7 @@
                               accountForm.submitted && EventTyRef.invalid
                             "
                             #EventTyRef="ngModel"
-                            required
+                            required (ngModelChange)="checkFormModified()"
                           >
                             <option value="Church Service">
                               Church Service
@@ -176,7 +176,7 @@
                             #ChurchRef="ngModel"
                             required
                             [(ngModel)]="currentRow.church_id"
-                            [ngModelOptions]="{ standalone: true }"
+                            [ngModelOptions]="{ standalone: true }" (ngModelChange)="checkFormModified()"
                           >
                             <option value="">Select</option>
                             <option
@@ -213,7 +213,7 @@
                               accountForm.submitted && EveDateRef.invalid
                             "
                             #EveDateRef="ngModel"
-                            required
+                            required (ngModelChange)="checkFormModified()"
                           />
                           <span
                             *ngIf="accountForm.submitted && EveDateRef.invalid"
@@ -243,7 +243,7 @@
                             accountForm.submitted && EveTimeRef.invalid
                           "
                           #EveTimeRef="ngModel"
-                          required
+                          required (ngModelChange)="checkFormModified()"
                         />
                         <span
                           *ngIf="accountForm.submitted && EveTimeRef.invalid"
@@ -272,7 +272,7 @@
                             accountForm.submitted && VenueRef.invalid
                           "
                           #VenueRef="ngModel"
-                          required
+                          required (ngModelChange)="checkFormModified()"
                         />
                         <span
                           *ngIf="accountForm.submitted && VenueRef.invalid"
@@ -295,7 +295,7 @@
                             [(ngModel)]="currentRow.speakers"
                             placeholder="Speakers"
                             id="speakers"
-                            name="speakers"
+                            name="speakers" (ngModelChange)="checkFormModified()"
                           />
                         </div>
                       </div>
@@ -314,7 +314,7 @@
                             accountForm.submitted && ConPerRef.invalid
                           "
                           #ConPerRef="ngModel"
-                          required
+                          required (ngModelChange)="checkFormModified()"
                         />
                         <span
                           *ngIf="accountForm.submitted && ConPerRef.invalid"
@@ -344,7 +344,7 @@
                               accountForm.submitted && FreqRef.invalid
                             "
                             #FreqRef="ngModel"
-                            required
+                            required (ngModelChange)="checkFormModified()"
                           >
                           <option value="Daily">Daily</option>
                           <option value="Bi-weekly">Bi-weekly</option>
@@ -374,7 +374,7 @@
                             [(ngModel)]="currentRow.event_description"
                             placeholder="Event Description"
                             id="event-description"
-                            name="event-description"
+                            name="event-description" (ngModelChange)="checkFormModified()"
                           />
                         </div>
                       </div>
@@ -388,7 +388,7 @@
                             [(ngModel)]="currentRow.agenda"
                             placeholder="Agenda/Schedule"
                             id="agenda"
-                            name="agenda"
+                            name="agenda" (ngModelChange)="checkFormModified()"
                           />
                         </div>
                       </div>
@@ -402,7 +402,7 @@
                             [(ngModel)]="currentRow.reg_info"
                             placeholder="Registration Information"
                             id="reg_info"
-                            name="reg_info"
+                            name="reg_info" (ngModelChange)="checkFormModified()"
                           />
                         </div>
                       </div>
@@ -416,7 +416,7 @@
                             [(ngModel)]="currentRow.special_req"
                             placeholder="Special Requirements (if any)"
                             id="special_req"
-                            name="special_req"
+                            name="special_req" (ngModelChange)="checkFormModified()"
                           />
                         </div>
                       </div>
@@ -430,14 +430,14 @@
                             [(ngModel)]="currentRow.additional_info"
                             placeholder="Additional Information (if any)"
                             id="additional_info"
-                            name="additional_info"
+                            name="additional_info" (ngModelChange)="checkFormModified()"
                           />
                         </div>
                       </div>
 
                       <div class="col-12 d-flex flex-sm-row flex-column mt-2">
                         <button
-                          [disabled]="buttonLoading"
+                        [disabled]="!formModified || buttonLoading"
                           type="submit"
                           (click)="submit(accountForm)"
                           class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"

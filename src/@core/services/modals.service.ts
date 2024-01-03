@@ -21,4 +21,16 @@ item:any;
           windowClass: 'modal modal-danger'
         });
       }
+      replaceNullsWithEmptyStrings(obj: any): any {
+        const updatedObj: any = {};
+      
+        for (const key in obj) {
+          if (Object.prototype.hasOwnProperty.call(obj, key)) {
+            const value = obj[key];
+            updatedObj[key] = value === null ? '' : value;
+          }
+        }
+      
+        return updatedObj;
+      }
 }

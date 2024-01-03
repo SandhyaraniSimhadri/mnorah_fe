@@ -14,6 +14,8 @@ import { CoreHttpService } from "@core/services/http.service";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "environments/environment";
 import { ToastrService } from "ngx-toastr";
+import { ModalsService } from "@core/services/modals.service";
+import { isEqual } from 'lodash';
 
 @Component({
   selector: "app-testimony-management-edit",
@@ -34,6 +36,8 @@ export class TestimonyManagementEditComponent implements OnInit, OnDestroy {
   public loading:boolean=false;
   public churchData:any;
   public buttonLoading:boolean=false;
+  public originalFormValues: any;
+  public formModified: boolean = false;
   @ViewChild("accountForm") accountForm: NgForm;
 
   public birthDateOptions: FlatpickrOptions = {
@@ -65,7 +69,9 @@ export class TestimonyManagementEditComponent implements OnInit, OnDestroy {
     private http: HttpClient,
     public httpService: CoreHttpService,
     private _toastrService: ToastrService,
-    private _router: Router
+    private _router: Router,
+    public modalsService:ModalsService,
+
   ) {
     this._unsubscribeAll = new Subject();
     this.urlLastValue = this.url.substr(this.url.lastIndexOf("/") + 1);
@@ -79,6 +85,8 @@ export class TestimonyManagementEditComponent implements OnInit, OnDestroy {
    */
   resetFormWithDefaultValues() {
     this.accountForm.resetForm(this.tempRow);
+    this.formModified = false;
+
   }
 
   /**
@@ -100,6 +108,8 @@ export class TestimonyManagementEditComponent implements OnInit, OnDestroy {
       this.image = event.target.files[0];
     }
     this.loading=false;
+    this.checkFormModified();
+
   }
 
   /**
@@ -177,7 +187,9 @@ export class TestimonyManagementEditComponent implements OnInit, OnDestroy {
         } else {
           if (res.status == false) {
           } else if (res.status == true) {
-            this.currentRow = res.data;
+            this.currentRow = this.modalsService.replaceNullsWithEmptyStrings(res.data);
+            this.originalFormValues = { ...this.currentRow };
+
             if(this.currentRow.avatar){
             this.avatarImage = this.apiUrl+this.currentRow.avatar;}
             this.tempRow = cloneDeep(this.currentRow);
@@ -221,4 +233,12 @@ export class TestimonyManagementEditComponent implements OnInit, OnDestroy {
       (error: any) => {}
     );
   }
+  checkFormModified() {
+    console.log("current row",this.currentRow);
+    console.log("original form row",this.originalFormValues);
+
+    this.formModified = !isEqual(this.currentRow, this.originalFormValues);
+    console.log("this.modified",this.formModified);
+  }
+
 }

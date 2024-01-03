@@ -105,7 +105,7 @@
                             name="testimony"
                             [class.error]="accountForm.submitted && TestimonyRef.invalid"
                             #TestimonyRef="ngModel"
-                            required
+                            required  (ngModelChange)="checkFormModified()"
                           ></textarea>
                           <span *ngIf="accountForm.submitted && TestimonyRef.invalid" class="invalid-form">
                             <small class="form-text text-danger" *ngIf="TestimonyRef.errors.required"
@@ -128,7 +128,7 @@
                           #ChurchRef="ngModel"
                           required
                             [(ngModel)]="currentRow.church_id"
-                            [ngModelOptions]="{ standalone: true }"
+                            [ngModelOptions]="{ standalone: true }"  (ngModelChange)="checkFormModified()"
                           >
                             <option value="">Select</option>
                             <option
@@ -149,7 +149,7 @@
                      
 
                       <div class="col-12 d-flex flex-sm-row flex-column mt-2">
-                        <button [disabled]="buttonLoading"
+                        <button   [disabled]="!formModified || buttonLoading"
                           type="submit"
                           (click)="submit(accountForm)"
                           class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"

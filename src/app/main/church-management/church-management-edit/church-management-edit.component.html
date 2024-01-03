@@ -28,8 +28,8 @@
                   <div class="media mb-2">
                     <div
                       *ngIf="
-                        currentRow.avatar != NULL &&
-                          currentRow.avatar.length > 0;
+                        currentRow.image != NULL &&
+                          currentRow.image.length > 0;
                         else customAvatar
                       "
                     >
@@ -70,6 +70,7 @@
                             hidden
                             accept="image/png, image/jpeg, image/jpg"
                             (change)="uploadImage($event)"
+                            
                           />
                           <span class="d-block d-sm-none">
                             <i class="mr-0" data-feather="edit"></i>
@@ -106,6 +107,7 @@
                             [class.error]="accountForm.submitted && ChurchNameRef.invalid"
                             #ChurchNameRef="ngModel"
                             required
+                            (ngModelChange)="checkFormModified()"
                           />
                           <span *ngIf="accountForm.submitted && ChurchNameRef.invalid" class="invalid-form">
                             <small class="form-text text-danger" *ngIf="ChurchNameRef.errors.required"
@@ -127,7 +129,7 @@
                           [hideSelected]="true"
                           multiple="true"
                           bindLabel="name"
-                          [(ngModel)]="customTagselected" [ngModelOptions]="{standalone: true}"
+                          [(ngModel)]="customTagselected" [ngModelOptions]="{standalone: true}" (ngModelChange)="checkFormModified()"
                         >
                           <ng-template *ngIf="customTag.length>0" ng-label-tmp let-item="item" let-clear="clear">
                             <span class="ng-value-label"> {{ item.name }}</span>
@@ -154,7 +156,7 @@
                             name="pastor_name"
                             [class.error]="accountForm.submitted && PastorNameRef.invalid"
                             #PastorNameRef="ngModel"
-                            required
+                            required (ngModelChange)="checkFormModified()"
                           />
                           <span *ngIf="accountForm.submitted && PastorNameRef.invalid" class="invalid-form">
                             <small class="form-text text-danger" *ngIf="PastorNameRef.errors.required"
@@ -176,7 +178,7 @@
                             name="location"
                             [class.error]="accountForm.submitted && LocRef.invalid"
                             #LocRef="ngModel"
-                            required
+                            required (ngModelChange)="checkFormModified()"
                           />
                           <span *ngIf="accountForm.submitted && LocRef.invalid" class="invalid-form">
                             <small class="form-text text-danger" *ngIf="LocRef.errors.required"
@@ -198,7 +200,7 @@
                             name="users"
                             [class.error]="accountForm.submitted && UNameRef.invalid"
                             #UNameRef="ngModel"
-                            required
+                            required (ngModelChange)="checkFormModified()"
                           />
                           <span *ngIf="accountForm.submitted && UNameRef.invalid" class="invalid-form">
                             <small class="form-text text-danger" *ngIf="UNameRef.errors.required"
@@ -220,7 +222,7 @@
                             name="denomination"
                             [class.error]="accountForm.submitted && DenRef.invalid"
                             #DenRef="ngModel"
-                            required
+                            required (ngModelChange)="checkFormModified()"
                           />
                           <span *ngIf="accountForm.submitted && DenRef.invalid" class="invalid-form">
                             <small class="form-text text-danger" *ngIf="DenRef.errors.required"
@@ -242,7 +244,7 @@
                             name="language"
                             [class.error]="accountForm.submitted && LangRef.invalid"
                             #LangRef="ngModel"
-                            required
+                            required (ngModelChange)="checkFormModified()"
                           />
                           <span *ngIf="accountForm.submitted && LangRef.invalid" class="invalid-form">
                             <small class="form-text text-danger" *ngIf="LangRef.errors.required"
@@ -265,7 +267,7 @@
                             name="country"
                             [class.error]="accountForm.submitted && CountryRef.invalid"
                             #CountryRef="ngModel"
-                            required
+                            required (ngModelChange)="checkFormModified()"
                           />
                           <span *ngIf="accountForm.submitted && CountryRef.invalid" class="invalid-form">
                             <small class="form-text text-danger" *ngIf="CountryRef.errors.required"
@@ -287,7 +289,7 @@
                             name="city"
                             [class.error]="accountForm.submitted && CityRef.invalid"
                             #CityRef="ngModel"
-                            required
+                            required (ngModelChange)="checkFormModified()"
                           />
                           <span *ngIf="accountForm.submitted && CityRef.invalid" class="invalid-form">
                             <small class="form-text text-danger" *ngIf="CityRef.errors.required"
@@ -309,7 +311,7 @@
                             name="address"
                             [class.error]="accountForm.submitted && AddRef.invalid"
                             #AddRef="ngModel"
-                            required
+                            required (ngModelChange)="checkFormModified()"
                           />
                           <span *ngIf="accountForm.submitted && AddRef.invalid" class="invalid-form">
                             <small class="form-text text-danger" *ngIf="AddRef.errors.required"
@@ -331,7 +333,7 @@
                             name="contact_number"
                             [class.error]="accountForm.submitted && ConNumRef.invalid"
                             #ConNumRef="ngModel"
-                            required
+                            required (ngModelChange)="checkFormModified()"
                           />
                           <span *ngIf="accountForm.submitted && ConNumRef.invalid" class="invalid-form">
                             <small class="form-text text-danger" *ngIf="ConNumRef.errors.required"
@@ -353,7 +355,7 @@
                             name="website"
                             [class.error]="accountForm.submitted && WebsiteRef.invalid"
                             #WebsiteRef="ngModel"
-                            required
+                            required (ngModelChange)="checkFormModified()"
                           />
                           <span *ngIf="accountForm.submitted && WebsiteRef.invalid" class="invalid-form">
                             <small class="form-text text-danger" *ngIf="WebsiteRef.errors.required"
@@ -364,7 +366,7 @@
                       </div>
 
                       <div class="col-12 d-flex flex-sm-row flex-column mt-2">
-                        <button [disabled]="buttonLoading"
+                        <button [disabled]="!formModified || buttonLoading"
                           type="submit"
                           (click)="submit(accountForm)"
                           class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"

@@ -17,6 +17,8 @@ import { CoreHttpService } from "@core/services/http.service";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "environments/environment";
 import { ToastrService } from "ngx-toastr";
+import { ModalsService } from "@core/services/modals.service";
+import { isEqual } from 'lodash';
 
 @Component({
   selector: "app-prayer-request-management-edit",
@@ -39,7 +41,8 @@ export class PrayerRequestManagementEditComponent implements OnInit, OnDestroy {
   public buttonLoading:boolean=false;
   @ViewChild("accountForm") accountForm: NgForm;
   public membersData: any;
-
+  public originalFormValues: any;
+  public formModified: boolean = false;
   public birthDateOptions: FlatpickrOptions = {
     altInput: true,
   };
@@ -71,6 +74,8 @@ export class PrayerRequestManagementEditComponent implements OnInit, OnDestroy {
     public httpService: CoreHttpService,
     private _toastrService: ToastrService,
     private _router: Router,
+    public modalsService:ModalsService,
+
   ) {
     this._unsubscribeAll = new Subject();
     this.urlLastValue = this.url.substr(this.url.lastIndexOf("/") + 1);
@@ -84,6 +89,8 @@ export class PrayerRequestManagementEditComponent implements OnInit, OnDestroy {
    */
   resetFormWithDefaultValues() {
     this.accountForm.resetForm(this.tempRow);
+    this.formModified = false;
+
   }
 
   /**
@@ -105,6 +112,8 @@ export class PrayerRequestManagementEditComponent implements OnInit, OnDestroy {
       this.image = event.target.files[0];
     }
     this.loading=false;
+    this.checkFormModified();
+
   }
 
   /**
@@ -184,6 +193,7 @@ export class PrayerRequestManagementEditComponent implements OnInit, OnDestroy {
             this.membersData = res.data;
             console.log("churches data", this.churchData);
           }
+          this.checkFormModified();
         }
       },
       (error: any) => {}
@@ -216,7 +226,7 @@ export class PrayerRequestManagementEditComponent implements OnInit, OnDestroy {
         } else {
           if (res.status == false) {
           } else if (res.status == true) {
-            this.currentRow = res.data;
+            this.currentRow = this.modalsService.replaceNullsWithEmptyStrings(res.data);
             console.log("prayer request",this.currentRow);
             if(this.currentRow.prayer_request=='null'){
               this.currentRow.prayer_request=undefined;
@@ -269,5 +279,12 @@ export class PrayerRequestManagementEditComponent implements OnInit, OnDestroy {
       },
       (error: any) => {}
     );
+  }
+  checkFormModified() {
+    console.log("current row",this.currentRow);
+    console.log("original form row",this.originalFormValues);
+
+    this.formModified = !isEqual(this.currentRow, this.originalFormValues);
+    console.log("this.modified",this.formModified);
   }
 }

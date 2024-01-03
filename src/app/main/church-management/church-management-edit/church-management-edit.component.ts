@@ -17,6 +17,7 @@ import { CoreHttpService } from "@core/services/http.service";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "environments/environment";
 import { ToastrService } from "ngx-toastr";
+import { isEqual } from 'lodash';
 
 @Component({
   selector: "app-church-management-edit",
@@ -40,11 +41,11 @@ export class ChurchManagementEditComponent implements OnInit, OnDestroy {
   public customTag: any[] = [];
   public customTagselected: any = [];
   public admins_list: any=[];
-
+  public originalFormValues: any;
   public birthDateOptions: FlatpickrOptions = {
     altInput: true,
   };
-
+  formModified: boolean = false;
   public selectMultiLanguages = [
     "English",
     "Spanish",
@@ -85,6 +86,7 @@ export class ChurchManagementEditComponent implements OnInit, OnDestroy {
    */
   resetFormWithDefaultValues() {
     this.accountForm.resetForm(this.tempRow);
+    this.formModified = false;
   }
 
   /**
@@ -102,10 +104,11 @@ export class ChurchManagementEditComponent implements OnInit, OnDestroy {
       };
 
       reader.readAsDataURL(event.target.files[0]);
-      this.currentRow.avatar = event.target.files[0].name;
+      this.currentRow.image = event.target.files[0].name;
       this.image = event.target.files[0];
     }
     this.loading = false;
+    this.checkFormModified();
   }
 
   /**
@@ -128,7 +131,7 @@ export class ChurchManagementEditComponent implements OnInit, OnDestroy {
       // Append form data fields
       formData.append("id", this.currentRow.id);
       formData.append("admins", this.currentRow.admin_id);
-      formData.append("avatar", this.currentRow.avatar);
+      formData.append("avatar", this.currentRow.image);
       formData.append("address", this.currentRow.address);
       formData.append("church_name", this.currentRow.church_name);
       formData.append("city", this.currentRow.city);
@@ -175,6 +178,7 @@ export class ChurchManagementEditComponent implements OnInit, OnDestroy {
               }
             }
             this.buttonLoading = false;
+            this.formModified = false;
           },
           (error: any) => {
             this.buttonLoading = false;
@@ -185,11 +189,18 @@ export class ChurchManagementEditComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Lifecycle Hooks
-  // -----------------------------------------------------------------------------------------------------
-  /**
-   * On init
-   */
+
+
+  checkFormModified() {
+    console.log("current row",this.currentRow);
+    console.log("original form row",this.originalFormValues);
+
+    this.formModified = !isEqual(this.currentRow, this.originalFormValues);
+    console.log("this.modified",this.formModified);
+  }
+  // isEqual(obj1: any, obj2: any): boolean {
+  //   return JSON.stringify(obj1) === JSON.stringify(obj2);
+  // }
   ngOnInit(): void {
     this.apiUrl = environment.apiUrl;
     this.getAdmins();
@@ -211,14 +222,14 @@ export class ChurchManagementEditComponent implements OnInit, OnDestroy {
           if (res.status == false) {
           } else if (res.status == true) {
             this.currentRow = res.data;
-            if (this.currentRow.avatar) {
-              this.avatarImage = this.apiUrl + this.currentRow.avatar;
+            if (this.currentRow.image) {
+              this.avatarImage = this.apiUrl + this.currentRow.image;
             }
             this.tempRow = cloneDeep(this.currentRow);
             if(this.currentRow.admin_ids){
             this.currentRow.admin_ids = this.currentRow.admin_ids.split(",");
             this.currentRow.admins = this.currentRow.admins.split(",");
-
+            this.originalFormValues = { ...this.currentRow };
             console.log("rows values 12", this.currentRow);
             this.currentRow.admin_ids.forEach((c, i) => {
               this.customTagselected.push({
@@ -227,6 +238,9 @@ export class ChurchManagementEditComponent implements OnInit, OnDestroy {
               });
               this.customTag.push({ id: c, name: this.currentRow.admins[i] });
             });
+          }
+          else{
+            this.originalFormValues = { ...this.currentRow };
           }
             console.log("rows values", this.currentRow);
           }

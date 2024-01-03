@@ -16,8 +16,6 @@ import { CoreCommonModule } from '@core/common.module';
 import { InvoiceModule } from 'app/main/apps/invoice/invoice.module';
 import { InvoiceListService } from 'app/main/apps/invoice/invoice-list/invoice-list.service';
 
-import { DashboardService } from 'app/main/dashboard/dashboard.service';
-
 import { DatatablesService } from '../tables/datatables/datatables.service';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { DashboardComponent } from './dashboard.component';
@@ -27,6 +25,10 @@ const routes = [
   //   path: 'dashboard',
   //   loadChildren: () => import('./../dashboard/dashboard.module').then(m => m.DashboardModule),
   // }
+  // {
+  //   path: '',
+  //   component: DashboardComponent
+  // },
   {
     path: '',
     component: DashboardComponent
@@ -47,7 +49,7 @@ const routes = [
     NgxDatatableModule,
     FormsModule
   ],
-  providers: [DashboardService, InvoiceListService,DatatablesService],
+  providers: [ InvoiceListService,DatatablesService],
   exports: [DashboardComponent]
 })
 export class DashboardModule {}

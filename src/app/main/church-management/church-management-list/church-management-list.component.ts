@@ -19,6 +19,7 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
   selector: "app-church-management-list",
   templateUrl: "./church-management-list.component.html",
   styleUrls: ["./church-management-list.component.scss"],
+  encapsulation: ViewEncapsulation.None
  
 })
 export class ChurchManagementListComponent implements OnInit {

@@ -108,7 +108,7 @@
                             name="request"
                             [class.error]="accountForm.submitted && ReqRef.invalid"
                             #ReqRef="ngModel"
-                            required
+                            required (ngModelChange)="checkFormModified()"
                           >
                            
                             <option value="Health and Healing">
@@ -149,7 +149,7 @@
                               [(ngModel)]="currentRow.prayer_request_other"
                               [class.error]="accountForm.submitted && ReqOthrRef.invalid"
                               #ReqOthrRef="ngModel"
-                              required
+                              required (ngModelChange)="checkFormModified()"
                             ></textarea>
                             <span
                               *ngIf="accountForm.submitted && ReqOthrRef.invalid"
@@ -178,7 +178,7 @@
                           #ChurchRef="ngModel"
                           required
                             [(ngModel)]="currentRow.church_id"
-                            [ngModelOptions]="{ standalone: true }"
+                            [ngModelOptions]="{ standalone: true }" 
                             (ngModelChange)="getMembers()"
                           >
                             <option value="">Select</option>
@@ -211,7 +211,7 @@
                           #MemberRef="ngModel"
                           required
                           [(ngModel)]="currentRow.member_id"
-                          [ngModelOptions]="{ standalone: true }"
+                          [ngModelOptions]="{ standalone: true }" (ngModelChange)="checkFormModified()"
                         >
                         
                           <option *ngFor="let member of membersData" [value]="member.id">
@@ -232,7 +232,7 @@
                      </div>
 
                       <div class="col-12 d-flex flex-sm-row flex-column mt-2">
-                        <button [disabled]="buttonLoading"
+                        <button          [disabled]="!formModified || buttonLoading"
                           type="submit"
                           (click)="submit(accountForm)"
                           class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
