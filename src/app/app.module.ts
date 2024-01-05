@@ -36,6 +36,7 @@ const appRoutes: Routes = [
   {
     path: 'dashboard',
     loadChildren: () => import('./main/dashboard/dashboard.module').then(m => m.DashboardModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'church-management',
