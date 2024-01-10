@@ -328,11 +328,21 @@ export class DashboardComponent implements OnInit {
     console.log("loading", this.loading);
     this.loading = true;
     let request;
+    console.log("rolee",this.httpService.USERINFO.role);
+    if(this.httpService.USERINFO.role=='Super Admin'){
     request = {
       params: null,
-      action_url: "get_dashboard_members",
+      action_url: "get_superadmin_dashboard_data",
       method: "GET",
     };
+  }
+  if(this.httpService.USERINFO.role=='Sub Admin'){
+    request = {
+      params: null,
+      action_url: "get_subadmin_dashboard_data",
+      method: "GET",
+    };
+  }
     this.httpService.doHttp(request).subscribe(
       (res: any) => {
         if (res == "nonet") {
@@ -375,7 +385,8 @@ export class DashboardComponent implements OnInit {
               { name: "life_group_members", data: this.life_group_members.weekly_life_group_members },
             ];
            
-
+            if(this.httpService.USERINFO.role=='Super Admin'){
+              
             this.churches = res.churches;
             this.churches.series = [
               { name: "churches", data: this.churches.weekly_churches },
@@ -385,7 +396,7 @@ export class DashboardComponent implements OnInit {
             this.admins = res.admins;
             this.admins.series = [
               { name: "admins", data: this.admins.weekly_admins },
-            ];
+            ];}
 
           }
         }

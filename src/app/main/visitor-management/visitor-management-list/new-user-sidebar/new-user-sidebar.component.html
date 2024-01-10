@@ -48,11 +48,7 @@
               [ngModelOptions]="{ standalone: true }"
               (ngModelChange)="churchName($event)"
             >
-              <!-- <option value="Female">Female</option>
-              <option value="Male">Male</option>
-              <option value="Others">Others</option> -->
-              <option value="">Select</option>
-              <option *ngFor="let church of churcesData" [ngValue]="church">
+              <option *ngFor="let church of churcesData" [ngValue]="church.id">
                 {{ church.church_name }}
               </option>
             </select>

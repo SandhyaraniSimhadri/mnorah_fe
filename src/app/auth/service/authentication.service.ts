@@ -72,6 +72,11 @@ export class AuthenticationService {
             const loginData = user?.data;
             // login successful if there's a jwt token in the response
             if (loginData && loginData.token) {
+              if(user.data.user_type==1){
+                user.data.role='Super Admin';
+              }else{
+                user.data.role='Sub Admin';
+              }
               this.currentUserSubject.next(user.data);
             }
 

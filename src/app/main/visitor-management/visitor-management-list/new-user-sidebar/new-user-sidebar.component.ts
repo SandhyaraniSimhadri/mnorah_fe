@@ -90,7 +90,12 @@ export class NewUserSidebarComponent implements OnInit {
     public httpService: CoreHttpService,
     private router: Router,
     private _toastrService: ToastrService
-  ) {}
+  ) {
+    if(this.httpService.USERINFO.role=='Sub Admin'){
+      console.log("service data",this.httpService.USERINFO);
+    this.visitorForm.church_id = this.httpService.USERINFO.church_id;
+  console.log("member id",this.visitorForm.church_id)}
+  }
 
   /**
    * Toggle the sidebar
@@ -114,6 +119,7 @@ export class NewUserSidebarComponent implements OnInit {
           if (res.status == false) {
           } else if (res.status == true) {
             this.churcesData = res.data;
+            console.log("church data",this.churcesData)
             this.status = true;
           }
         }
@@ -127,7 +133,7 @@ export class NewUserSidebarComponent implements OnInit {
    * @param form
    */
   submit(form:any) {
-    this.visitorForm.church_id=this.visitorForm.church_id.id;
+    // this.visitorForm.church_id=this.visitorForm.church_id.id;
     console.log("valuess",this.selectMultiGroupSelected);
     if(this.selectMultiGroupSelected.length>0){
       this.visitorForm.connection = this.selectMultiGroupSelected.toString();}

@@ -232,7 +232,7 @@
       </div>
 
 
-      <div class="col-lg-3 col-sm-6 col-12">
+      <div class="col-lg-3 col-sm-6 col-12" *ngIf="httpService.USERINFO.role=='Super Admin'">
         <div class="card">
           <div class="card-header d-flex flex-column align-items-start pb-0">
             <div class="avatar bg-light-muted p-50 m-0">
@@ -269,7 +269,7 @@
         </div>
       </div>
    
-      <div class="col-lg-3 col-sm-6 col-12">
+      <div class="col-lg-3 col-sm-6 col-12" *ngIf="httpService.USERINFO.role=='Super Admin'">
         <div class="card">
           <div class="card-header d-flex flex-column align-items-start pb-0">
             <div class="avatar bg-light-danger p-50 m-0">

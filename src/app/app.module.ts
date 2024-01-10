@@ -30,8 +30,9 @@ import { ContextMenuComponent } from 'app/main/extensions/context-menu/context-m
 import { AnimatedCustomContextMenuComponent } from './main/extensions/context-menu/custom-context-menu/animated-custom-context-menu/animated-custom-context-menu.component';
 import { BasicCustomContextMenuComponent } from './main/extensions/context-menu/custom-context-menu/basic-custom-context-menu/basic-custom-context-menu.component';
 import { SubMenuCustomContextMenuComponent } from './main/extensions/context-menu/custom-context-menu/sub-menu-custom-context-menu/sub-menu-custom-context-menu.component';
-import { FormsModule } from '@angular/forms';
-
+// import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './main/login/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 const appRoutes: Routes = [
   {
     path: 'dashboard',
@@ -124,6 +125,11 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard]
   },
   // {
+  //   path: 'login',
+  //   loadChildren: () => import('./main/login/login.module').then(m => m.LoginModule),
+  //   // canActivate: [AuthGuard]
+  // },
+  // {
   //   path: '',
   //   redirectTo: '/church-management',
   //   pathMatch: 'full',
@@ -134,6 +140,11 @@ const appRoutes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'login',
+    component: LoginComponent,
+    pathMatch: 'full'
+  },
+  {
     path: '**',
     redirectTo: '/pages/miscellaneous/error' //Error 404 - Page not found
   }
@@ -141,6 +152,7 @@ const appRoutes: Routes = [
 
 @NgModule({
     declarations: [
+        LoginComponent,
         AppComponent,
         ContextMenuComponent,
         BasicCustomContextMenuComponent,
@@ -153,6 +165,7 @@ const appRoutes: Routes = [
         BrowserAnimationsModule,
         HttpClientModule,
         FormsModule,
+        ReactiveFormsModule,
         HttpClientInMemoryWebApiModule.forRoot(FakeDbService, {
             delay: 0,
             passThruUnknownUrl: true

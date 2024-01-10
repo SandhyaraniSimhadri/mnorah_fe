@@ -135,7 +135,7 @@ export class AuthRegisterV2Component implements OnInit {
         } else {
           if (res.status == false) {
           } else if (res.status == true) {
-            this.router.navigate(["/pages/authentication/login-v2"]);
+            this.router.navigate(["/login"]);
           }
         }
       },

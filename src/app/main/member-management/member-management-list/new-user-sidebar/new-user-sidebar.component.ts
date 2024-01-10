@@ -100,7 +100,12 @@ export class NewUserSidebarComponent implements OnInit {
     public httpService: CoreHttpService,
     private router: Router,
     private _toastrService: ToastrService
-  ) {}
+  ) {
+    if(this.httpService.USERINFO.role=='Sub Admin'){
+      console.log("service data",this.httpService.USERINFO);
+    this.memberForm.church_id = this.httpService.USERINFO.church_id;
+  console.log("member id",this.memberForm.church_id)}
+  }
 
   /**
    * Toggle the sidebar

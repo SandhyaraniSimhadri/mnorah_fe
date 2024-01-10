@@ -67,6 +67,6 @@ export class NotAuthorizedComponent implements OnInit {
   }
   backToHome(){
     this._authenticationService.logout();
-    this._router.navigate(['/pages/authentication/login-v2']);
+    this._router.navigate(['/login']);
   }
 }

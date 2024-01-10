@@ -31,7 +31,6 @@
               [(ngModel)]="church_id"
               [ngModelOptions]="{ standalone: true }"
             >
-              <option value="">Select</option>
               <option *ngFor="let church of churchData" [value]="church.id">
                 {{ church.church_name }}
               </option>

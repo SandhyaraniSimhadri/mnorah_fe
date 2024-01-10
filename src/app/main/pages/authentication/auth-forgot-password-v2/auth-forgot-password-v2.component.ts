@@ -272,7 +272,7 @@ export class AuthForgotPasswordV2Component implements OnInit {
                 toastClass: "toast ngx-toastr",
                 closeButton: true,
               });
-              this._router.navigate(["/pages/authentication/login-v2"]);
+              this._router.navigate(["/login"]);
             }
            
           }
