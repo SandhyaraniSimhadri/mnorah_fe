@@ -238,6 +238,8 @@ export class MemberManagementEditComponent implements OnInit, OnDestroy {
       formData.append("mobile_no", this.currentRow.mobile_no);
       formData.append("user_name", this.currentRow.user_name);
       formData.append("state", this.currentRow.state);
+      formData.append("comments", this.currentRow.comments);
+
       formData.append(
         "invovlement_interest",
         this.currentRow.invovlement

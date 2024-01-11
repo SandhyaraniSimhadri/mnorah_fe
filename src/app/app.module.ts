@@ -33,6 +33,9 @@ import { SubMenuCustomContextMenuComponent } from './main/extensions/context-men
 // import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './main/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TruncatePipe } from './main/truncate.pipe';
+
+
 const appRoutes: Routes = [
   {
     path: 'dashboard',
@@ -158,6 +161,7 @@ const appRoutes: Routes = [
         BasicCustomContextMenuComponent,
         AnimatedCustomContextMenuComponent,
         SubMenuCustomContextMenuComponent,
+        TruncatePipe
 
     ],
     imports: [

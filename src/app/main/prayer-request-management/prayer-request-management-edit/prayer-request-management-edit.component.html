@@ -56,7 +56,9 @@
                       </div>
                     </ng-template>
                     <div class="media-body mt-50">
-                      <h4 style="word-break: break-all;">{{ currentRow.teprayer_requeststimony }}</h4>
+                      <h4 style="word-break: break-all">
+                        {{ currentRow.teprayer_requeststimony }}
+                      </h4>
                       <div class="col-12 d-flex mt-1 px-0">
                         <label
                           class="btn btn-primary mr-75 mb-0"
@@ -95,8 +97,16 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="form-label" for="user-plan"
-                            >Prayer Request <span *ngIf="accountForm.submitted && ReqRef.invalid" class="text-danger">*</span>
-                            <span *ngIf="!accountForm.submitted || !ReqRef.invalid ">*</span></label
+                            >Prayer Request
+                            <span
+                              *ngIf="accountForm.submitted && ReqRef.invalid"
+                              class="text-danger"
+                              >*</span
+                            >
+                            <span
+                              *ngIf="!accountForm.submitted || !ReqRef.invalid"
+                              >*</span
+                            ></label
                           >
                           <select
                             [(ngModel)]="currentRow.prayer_request"
@@ -106,25 +116,41 @@
                             aria-label=""
                             aria-describedby="basic-icon-default-request"
                             name="request"
-                            [class.error]="accountForm.submitted && ReqRef.invalid"
+                            [class.error]="
+                              accountForm.submitted && ReqRef.invalid
+                            "
                             #ReqRef="ngModel"
-                            required (ngModelChange)="checkFormModified()"
+                            required
+                            (ngModelChange)="checkFormModified()"
                           >
-                           
                             <option value="Health and Healing">
                               Health and Healing
                             </option>
-                            <option value="Family and Relationships">Family and Relationships</option>
-                            <option value="Financial stability">Financial stability</option>
+                            <option value="Family and Relationships">
+                              Family and Relationships
+                            </option>
+                            <option value="Financial stability">
+                              Financial stability
+                            </option>
                             <option value="Advertisement">Advertisement</option>
                             <option value="Work">Work</option>
                             <option value="Grief">Grief</option>
-                            <option value="Spiritual Growth">Spiritual Growth</option>
-                            <option value="Personal Struggles">Personal Struggles</option>
-                            <option value="Prayers for peace">Prayers for peace</option>
+                            <option value="Spiritual Growth">
+                              Spiritual Growth
+                            </option>
+                            <option value="Personal Struggles">
+                              Personal Struggles
+                            </option>
+                            <option value="Prayers for peace">
+                              Prayers for peace
+                            </option>
                             <option value="Global Issues">Global Issues</option>
-                            <option value="Guidance and Decision-Making">Guidance and Decision-Making</option>
-                            <option value="Mission and Outreach">Mission and Outreach</option>
+                            <option value="Guidance and Decision-Making">
+                              Guidance and Decision-Making
+                            </option>
+                            <option value="Mission and Outreach">
+                              Mission and Outreach
+                            </option>
                             <option value="Other">Other</option>
                           </select>
                           <span
@@ -137,48 +163,77 @@
                               >This field is required!</small
                             >
                           </span>
-                          <div class="form-group" *ngIf="currentRow.prayer_request == 'Other'">
-                            <textarea
-                              type="text"
-                              id="basic-icon-default-request-other"
-                              class="form-control dt-request-other"
-                              placeholder="Type here..."
-                              aria-label=""
-                              aria-describedby="basic-icon-default-request-other"
-                              name="request-other"
-                              [(ngModel)]="currentRow.prayer_request_other"
-                              [class.error]="accountForm.submitted && ReqOthrRef.invalid"
-                              #ReqOthrRef="ngModel"
-                              required (ngModelChange)="checkFormModified()"
-                            ></textarea>
-                            <span
-                              *ngIf="accountForm.submitted && ReqOthrRef.invalid"
-                              class="invalid-form"
-                            >
-                              <small
-                                class="form-text text-danger"
-                                *ngIf="ReqOthrRef.errors.required"
-                                >This field is required!</small
-                              >
-                            </span>
-                          </div>
                         </div>
                       </div>
-                     
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="form-label" for="user-plan"
-                            >Select Church <span *ngIf="accountForm.submitted && ChurchRef.invalid" class="text-danger">*</span>
-                            <span *ngIf="!accountForm.submitted || !ChurchRef.invalid">*</span></label
+                            >Description<span
+                              *ngIf="accountForm.submitted && ReqRef.invalid"
+                              class="text-danger"
+                              >*</span
+                            >
+                            <span
+                              *ngIf="!accountForm.submitted || !ReqRef.invalid"
+                              >*</span
+                            ></label
                           >
-                          <select   class="form-control"
-                          id="church"
-                          name="church"
-                          [class.error]="accountForm.submitted && ChurchRef.invalid"
-                          #ChurchRef="ngModel"
-                          required
+                          <textarea
+                            type="text"
+                            id="basic-icon-default-description"
+                            class="form-control dt-description"
+                            placeholder=""
+                            aria-label=""
+                            aria-describedby="basic-icon-default-description"
+                            name="description"
+                            [(ngModel)]="currentRow.description"
+                            [class.error]="
+                              accountForm.submitted && DescRef.invalid
+                            "
+                            #DescRef="ngModel"
+                            required
+                            (ngModelChange)="checkFormModified()"
+                          ></textarea>
+                          <span
+                            *ngIf="accountForm.submitted && DescRef.invalid"
+                            class="invalid-form"
+                          >
+                            <small
+                              class="form-text text-danger"
+                              *ngIf="DescRef.errors.required"
+                              >This field is required!</small
+                            >
+                          </span>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="form-label" for="user-plan"
+                            >Select Church
+                            <span
+                              *ngIf="accountForm.submitted && ChurchRef.invalid"
+                              class="text-danger"
+                              >*</span
+                            >
+                            <span
+                              *ngIf="
+                                !accountForm.submitted || !ChurchRef.invalid
+                              "
+                              >*</span
+                            ></label
+                          >
+                          <select
+                            class="form-control"
+                            id="church"
+                            name="church"
+                            [class.error]="
+                              accountForm.submitted && ChurchRef.invalid
+                            "
+                            #ChurchRef="ngModel"
+                            required
                             [(ngModel)]="currentRow.church_id"
-                            [ngModelOptions]="{ standalone: true }" 
+                            [ngModelOptions]="{ standalone: true }"
                             (ngModelChange)="getMembers()"
                           >
                             <option value="">Select</option>
@@ -189,56 +244,82 @@
                               {{ church.church_name }}
                             </option>
                           </select>
-                          <span *ngIf="accountForm.submitted && ChurchRef.invalid" class="invalid-form">
-                            <small class="form-text text-danger" *ngIf="ChurchRef.errors.required"
+                          <span
+                            *ngIf="accountForm.submitted && ChurchRef.invalid"
+                            class="invalid-form"
+                          >
+                            <small
+                              class="form-text text-danger"
+                              *ngIf="ChurchRef.errors.required"
                               >This field is required!</small
                             >
                           </span>
                         </div>
                       </div>
 
-                     <div class="col-md-6">
-                      <div class="form-group">
-                        <label class="form-label">Select Member <span *ngIf="accountForm.submitted && MemberRef.invalid" class="text-danger">*</span>
-                          <span *ngIf="!accountForm.submitted || !MemberRef.invalid">*</span></label>
-                        <select
-                          id="basic-icon-default-member"
-                          class="form-control dt-member"
-                          aria-label=""
-                          aria-describedby="basic-icon-default-member"
-                          name="member"
-                          [class.error]="accountForm.submitted && MemberRef.invalid"
-                          #MemberRef="ngModel"
-                          required
-                          [(ngModel)]="currentRow.member_id"
-                          [ngModelOptions]="{ standalone: true }" (ngModelChange)="checkFormModified()"
-                        >
-                        
-                          <option *ngFor="let member of membersData" [value]="member.id">
-                            {{ member.user_name }}
-                          </option>
-                        </select>
-                        <span
-                          *ngIf="accountForm.submitted && MemberRef.invalid"
-                          class="invalid-form"
-                        >
-                          <small
-                            class="form-text text-danger"
-                            *ngIf="MemberRef.errors.required"
-                            >This field is required!</small
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="form-label"
+                            >Select Member
+                            <span
+                              *ngIf="accountForm.submitted && MemberRef.invalid"
+                              class="text-danger"
+                              >*</span
+                            >
+                            <span
+                              *ngIf="
+                                !accountForm.submitted || !MemberRef.invalid
+                              "
+                              >*</span
+                            ></label
                           >
-                        </span>
+                          <select
+                            id="basic-icon-default-member"
+                            class="form-control dt-member"
+                            aria-label=""
+                            aria-describedby="basic-icon-default-member"
+                            name="member"
+                            [class.error]="
+                              accountForm.submitted && MemberRef.invalid
+                            "
+                            #MemberRef="ngModel"
+                            required
+                            [(ngModel)]="currentRow.member_id"
+                            [ngModelOptions]="{ standalone: true }"
+                            (ngModelChange)="checkFormModified()"
+                          >
+                            <option
+                              *ngFor="let member of membersData"
+                              [value]="member.id"
+                            >
+                              {{ member.user_name }}
+                            </option>
+                          </select>
+                          <span
+                            *ngIf="accountForm.submitted && MemberRef.invalid"
+                            class="invalid-form"
+                          >
+                            <small
+                              class="form-text text-danger"
+                              *ngIf="MemberRef.errors.required"
+                              >This field is required!</small
+                            >
+                          </span>
+                        </div>
                       </div>
-                     </div>
-
+</div>
                       <div class="col-12 d-flex flex-sm-row flex-column mt-2">
-                        <button          [disabled]="!formModified || buttonLoading"
+                        <button
+                          [disabled]="!formModified || buttonLoading"
                           type="submit"
                           (click)="submit(accountForm)"
                           class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
                           rippleEffect
                         >
-                        <span *ngIf="buttonLoading" class="spinner-border spinner-border-sm mr-1"></span>
+                          <span
+                            *ngIf="buttonLoading"
+                            class="spinner-border spinner-border-sm mr-1"
+                          ></span>
                           Save Changes
                         </button>
                         <button
@@ -249,7 +330,7 @@
                           Reset
                         </button>
                       </div>
-                    </div>
+                      
                   </form>
                   <!-- users edit account form ends -->
                 </div>

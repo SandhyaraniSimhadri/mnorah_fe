@@ -22,6 +22,7 @@ export class NewUserSidebarComponent implements OnInit {
   public image: any;
   public apiUrl: any;
   public imageval: any;
+  public title;
 
   /**
    * Constructor
@@ -61,6 +62,8 @@ export class NewUserSidebarComponent implements OnInit {
     formData.append("image", this.image);
     formData.append("church_id", this.church_id);
     formData.append("testimony", this.testimony);
+    formData.append("title", this.title);
+
     if (form.valid) {
       console.log("form values", this.form);
 

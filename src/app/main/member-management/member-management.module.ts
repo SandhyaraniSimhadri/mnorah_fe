@@ -24,6 +24,8 @@ import { MemberManagementEditComponent } from './member-management-edit/member-m
 import { MemberManagementViewComponent } from './member-management-view/member-management-view.component';
 import { UserEditService } from './member-management-edit/user-edit.service';
 import { UserViewService } from './member-management-view/user-view.service';
+import { TruncatePipe } from '../truncate.pipe';
+
 const routes: Routes = [
   {
     path: 'member-management',
@@ -70,7 +72,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [MemberManagementListComponent, 
+  declarations: [MemberManagementListComponent, TruncatePipe,
     MemberManagementViewComponent, MemberManagementEditComponent, 
     NewUserSidebarComponent],
   imports: [

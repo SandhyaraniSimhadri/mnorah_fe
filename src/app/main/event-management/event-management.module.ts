@@ -23,6 +23,7 @@ import { UserListService } from './event-management-list/user-list.service';
 import { EventManagementViewComponent } from './event-management-view/event-management-view.component';
 import { UserViewService } from './event-management-view/user-view.service';
 import { NewUserSidebarComponent } from './event-management-list/new-user-sidebar/new-user-sidebar.component';
+import { TruncatePipe } from '../truncate.pipe';
 
 // routing
 const routes: Routes = [
@@ -71,7 +72,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [EventManagementListComponent, 
+  declarations: [EventManagementListComponent, TruncatePipe,
     EventManagementViewComponent, EventManagementEditComponent, 
     NewUserSidebarComponent],
   imports: [

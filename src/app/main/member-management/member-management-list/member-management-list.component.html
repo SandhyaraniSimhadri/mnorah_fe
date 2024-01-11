@@ -171,7 +171,7 @@
                     routerLink="./member-management-view/{{ row.id }}"
                     class="font-medium-1 d-block"
                     ><span class="font-weight-bold white-space">{{
-                      name
+                      name | truncate: 20 
                     }}</span></a
                   >
                 </div>
@@ -192,7 +192,7 @@
             <div class="d-flex align-items-center">
               <div class="cell-line-height d-block">
                 <span class="font-weight-bold white-space">{{
-                    name
+                    name | truncate: 20 
                   }}</span>
               </div>
             </div>
@@ -215,7 +215,7 @@
             <div class="d-flex align-items-center">
               <div class="cell-line-height d-block">
                 <span class="font-weight-bold white-space">{{
-                    name
+                    name | truncate: 20 
                   }}</span>
               </div>
             </div>
@@ -234,7 +234,7 @@
             <div class="d-flex align-items-center">
               <div class="cell-line-height d-block">
                 <span class="font-weight-bold white-space">{{
-                    name
+                    name | truncate: 20 
                   }}</span>
               </div>
             </div>
@@ -252,7 +252,7 @@
           <div class="d-flex align-items-center">
             <div class="cell-line-height d-block">
               <span class="font-weight-bold white-space">{{
-                  name
+                  name | truncate: 20 
                 }}</span>
             </div>
           </div>

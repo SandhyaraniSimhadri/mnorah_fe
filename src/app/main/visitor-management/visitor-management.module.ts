@@ -23,6 +23,8 @@ import { VisitorManagementEditComponent } from './visitor-management-edit/visito
 import { VisitorManagementViewComponent } from './visitor-management-view/visitor-management-view.component';
 import { UserEditService } from './visitor-management-edit/user-edit.service';
 import { UserViewService } from './visitor-management-view/user-view.service';
+import { TruncatePipe } from '../truncate.pipe';
+
 const routes: Routes = [
   {
     path: 'visitor-management',
@@ -69,7 +71,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [VisitorManagementListComponent, 
+  declarations: [VisitorManagementListComponent, TruncatePipe,
     VisitorManagementViewComponent, VisitorManagementEditComponent, 
     NewUserSidebarComponent],
   imports: [

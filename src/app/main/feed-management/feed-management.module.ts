@@ -34,6 +34,7 @@ import { UserListService } from './feed-management-list/user-list.service';
 import { FeedManagementViewComponent } from './feed-management-view/feed-management-view.component';
 import { UserViewService } from './feed-management-view/user-view.service';
 import { NewUserSidebarComponent } from './feed-management-list/new-user-sidebar/new-user-sidebar.component';
+import { TruncatePipe } from '../truncate.pipe';
 
 // routing
 const routes: Routes = [
@@ -82,7 +83,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [FeedManagementListComponent, 
+  declarations: [FeedManagementListComponent, TruncatePipe,
     FeedManagementViewComponent, FeedManagementEditComponent, 
     NewUserSidebarComponent],
   imports: [

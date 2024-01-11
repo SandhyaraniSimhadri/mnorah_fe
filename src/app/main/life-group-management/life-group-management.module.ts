@@ -22,6 +22,7 @@ import { UserListService } from './life-group-management-list/user-list.service'
 import { LifeGroupManagementViewComponent } from './life-group-management-view/life-group-management-view.component';
 import { UserViewService } from './life-group-management-view/user-view.service';
 import { NewUserSidebarComponent } from './life-group-management-list/new-user-sidebar/new-user-sidebar.component';
+import { TruncatePipe } from '../truncate.pipe';
 
 // routing
 const routes: Routes = [
@@ -70,7 +71,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [LifeGroupManagementListComponent, 
+  declarations: [LifeGroupManagementListComponent, TruncatePipe,
     LifeGroupManagementViewComponent, LifeGroupManagementEditComponent, 
     NewUserSidebarComponent],
   imports: [

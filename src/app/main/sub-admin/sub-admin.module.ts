@@ -24,6 +24,7 @@ import { SubAdminEditComponent } from './sub-admin-edit/sub-admin-edit.component
 import { UserEditService } from './sub-admin-edit/user-edit.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { TruncatePipe } from '../truncate.pipe';
 
 // routing
 const routes: Routes = [
@@ -72,7 +73,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [SubAdminListComponent, 
+  declarations: [SubAdminListComponent, TruncatePipe,
     SubAdminViewComponent, SubAdminEditComponent, 
     NewUserSidebarComponent],
   imports: [

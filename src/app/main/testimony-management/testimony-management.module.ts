@@ -34,6 +34,7 @@ import { UserListService } from './testimony-management-list/user-list.service';
 import { TestimonyManagementViewComponent } from './testimony-management-view/testimony-management-view.component';
 import { UserViewService } from './testimony-management-view/user-view.service';
 import { NewUserSidebarComponent } from './testimony-management-list/new-user-sidebar/new-user-sidebar.component';
+import { TruncatePipe } from '../truncate.pipe';
 
 // routing
 const routes: Routes = [
@@ -82,7 +83,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [TestimonyManagementListComponent, 
+  declarations: [TestimonyManagementListComponent, TruncatePipe,
     TestimonyManagementViewComponent, TestimonyManagementEditComponent, 
     NewUserSidebarComponent],
   imports: [

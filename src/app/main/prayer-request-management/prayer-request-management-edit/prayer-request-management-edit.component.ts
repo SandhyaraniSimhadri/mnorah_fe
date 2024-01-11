@@ -137,7 +137,7 @@ export class PrayerRequestManagementEditComponent implements OnInit, OnDestroy {
       formData.append("church_id", this.currentRow.church_id);
       formData.append("member_id", this.currentRow.member_id);
       formData.append("prayer_request", this.currentRow.prayer_request);
-      formData.append("prayer_request_other", this.currentRow.prayer_request_other);
+      formData.append("description", this.currentRow.description);
 
       this.currentRow.image = this.image;
       this.http
@@ -230,16 +230,7 @@ export class PrayerRequestManagementEditComponent implements OnInit, OnDestroy {
 
             this.currentRow = this.modalsService.replaceNullsWithEmptyStrings(res.data);
             this.originalFormValues = { ...this.currentRow };
-
             console.log("prayer request",this.currentRow);
-            if(this.currentRow.prayer_request=='null'){
-              this.currentRow.prayer_request=undefined;
-            }
-            if(this.currentRow.prayer_request_other=='null'){
-              this.currentRow.prayer_request_other=undefined;
-            }
-            console.log("prayer request after",this.currentRow);
-
             this.getMembers();
             if(this.currentRow.avatar){
             this.avatarImage = this.apiUrl+this.currentRow.avatar;}

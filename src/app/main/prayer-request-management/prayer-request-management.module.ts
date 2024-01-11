@@ -23,6 +23,7 @@ import { UserListService } from "./prayer-request-management-list/user-list.serv
 import { PrayerRequestManagementViewComponent } from "./prayer-request-management-view/prayer-request-management-view.component";
 import { UserViewService } from "./prayer-request-management-view/user-view.service";
 import { NewUserSidebarComponent } from "./prayer-request-management-list/new-user-sidebar/new-user-sidebar.component";
+import { TruncatePipe } from "../truncate.pipe";
 
 // routing
 const routes: Routes = [
@@ -77,7 +78,7 @@ const routes: Routes = [
     PrayerRequestManagementListComponent,
     PrayerRequestManagementViewComponent,
     PrayerRequestManagementEditComponent,
-    NewUserSidebarComponent,
+    NewUserSidebarComponent,TruncatePipe
   ],
   imports: [
     CommonModule,

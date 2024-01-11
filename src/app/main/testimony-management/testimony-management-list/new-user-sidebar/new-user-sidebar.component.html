@@ -56,6 +56,36 @@
           </div>
 
           <div class="form-group">
+            <label class="form-label" for="basic-icon-default-title"
+              >Title <span *ngIf="newUserForm.submitted && TitleRef.invalid" class="text-danger">*</span>
+              <span *ngIf="!newUserForm.submitted || !TitleRef.invalid">*</span></label
+            >
+            <input
+              type="text"
+              class="form-control dt-title"
+              id="basic-icon-default-title"
+              placeholder=""
+              name="user-title"
+              [(ngModel)]="title"
+              [class.error]="newUserForm.submitted && TitleRef.invalid"
+              #TitleRef="ngModel"
+              required
+              aria-label=""
+              aria-describedby="basic-icon-default-title"
+            />
+            <span
+              *ngIf="newUserForm.submitted && TitleRef.invalid"
+              class="invalid-form"
+            >
+              <small
+                class="form-text text-danger"
+                *ngIf="TitleRef.errors.required"
+                >This field is required!</small
+              >
+            </span>
+          </div>
+
+          <div class="form-group">
             <label class="form-label" for="basic-icon-default-testimony"
               >Testimony <span *ngIf="newUserForm.submitted && TNameRef.invalid" class="text-danger">*</span>
               <span *ngIf="!newUserForm.submitted || !TNameRef.invalid">*</span></label

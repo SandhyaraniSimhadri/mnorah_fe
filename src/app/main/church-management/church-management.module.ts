@@ -35,6 +35,7 @@ import { ChurchManagementViewComponent } from './church-management-view/church-m
 import { UserViewService } from './church-management-view/user-view.service';
 import { NewUserSidebarComponent } from './church-management-list/new-user-sidebar/new-user-sidebar.component';
 import { DeleteDailogueBoxComponent } from '../components/delete-dailogue-box/delete-dailogue-box.component';
+import { TruncatePipe } from '../truncate.pipe';
 
 // routing
 const routes: Routes = [
@@ -83,7 +84,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ChurchManagementListComponent, 
+  declarations: [ChurchManagementListComponent, TruncatePipe,
     ChurchManagementViewComponent, ChurchManagementEditComponent, 
     NewUserSidebarComponent,DeleteDailogueBoxComponent],
   imports: [

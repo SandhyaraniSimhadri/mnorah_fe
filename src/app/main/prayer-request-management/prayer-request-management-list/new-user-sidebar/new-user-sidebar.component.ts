@@ -22,7 +22,7 @@ export class NewUserSidebarComponent implements OnInit {
   public apiUrl: any;
   public imageval: any;
   public prayer_request: any;
-  public prayer_request_other: any;
+  public description: any;
 
   /**
    * Constructor
@@ -63,7 +63,7 @@ export class NewUserSidebarComponent implements OnInit {
     formData.append("church_id", this.church_id);
     formData.append("member_id", this.member_id);
     formData.append("prayer_request", this.prayer_request);
-    formData.append("prayer_request_other", this.prayer_request_other);
+    formData.append("description", this.description);
     if (form.valid) {
       console.log("form values", this.form);
 
@@ -136,7 +136,7 @@ export class NewUserSidebarComponent implements OnInit {
     this.membersData = [];
     this.member_id = "";
     this.prayer_request = "";
-    this.prayer_request_other = "";
+    this.description = "";
     console.log("@gb getdata called ");
     let request = {
       params: { church_id: this.church_id },

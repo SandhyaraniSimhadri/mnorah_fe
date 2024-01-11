@@ -132,32 +132,37 @@
                 >This field is required!</small
               >
             </span>
-            <div class="form-group" *ngIf="prayer_request == 'Other'">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="user-plan"
+              >Description<span *ngIf="newUserForm.submitted && DescRef.invalid" class="text-danger">*</span>
+              <span *ngIf="!newUserForm.submitted || !DescRef.invalid ">*</span></label
+            >
               <textarea
                 type="text"
                 id="basic-icon-default-request-other"
                 class="form-control dt-request-other"
-                placeholder="Type here..."
+                placeholder=""
                 aria-label=""
                 aria-describedby="basic-icon-default-request-other"
                 name="request-other"
-                [(ngModel)]="prayer_request_other"
-                [class.error]="newUserForm.submitted && ReqOthrRef.invalid"
-                #ReqOthrRef="ngModel"
+                [(ngModel)]="description"
+                [class.error]="newUserForm.submitted && DescRef.invalid"
+                #DescRef="ngModel"
                 required
               ></textarea>
               <span
-                *ngIf="newUserForm.submitted && ReqOthrRef.invalid"
+                *ngIf="newUserForm.submitted && DescRef.invalid"
                 class="invalid-form"
               >
                 <small
                   class="form-text text-danger"
-                  *ngIf="ReqOthrRef.errors.required"
+                  *ngIf="DescRef.errors.required"
                   >This field is required!</small
                 >
               </span>
             </div>
-          </div>
+         
           <div class="d-flex justify-content-between mt-2">
           <button
             [disabled]="loading"
