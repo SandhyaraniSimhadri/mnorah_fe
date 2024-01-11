@@ -76,8 +76,8 @@ export class FeedManagementListComponent implements OnInit {
    */
   filterUpdate(event) {
     // Reset ng-select on search
-    this.selectedChurch = this.selectChurch[0];
-    this.selectedAuthors = this.selectAuthors[0];
+    // this.selectedChurch = this.selectChurch[0];
+    // this.selectedAuthors = this.selectAuthors[0];
 
     const val = event.target.value.toLowerCase();
 

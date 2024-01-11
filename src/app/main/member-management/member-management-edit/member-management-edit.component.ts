@@ -312,6 +312,7 @@ export class MemberManagementEditComponent implements OnInit, OnDestroy {
         } else {
           if (res.status == false) {
           } else if (res.status == true) {
+            res.data.church_id=res.data.church_id.toString();
             this.currentRow = this.modalsService.replaceNullsWithEmptyStrings(res.data);
             this.originalFormValues = { ...this.currentRow };
 
@@ -383,7 +384,8 @@ export class MemberManagementEditComponent implements OnInit, OnDestroy {
         this.enableAttending = false;
       }
     }
-    this.checkFormModified();
+    // this.checkFormModified();
+    this.formModified=true;
     console.log("item", this.selectMultiGroupSelected);
     // Access the selected item using the event object
     // const selectedItem = event.item;

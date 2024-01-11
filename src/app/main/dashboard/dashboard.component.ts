@@ -409,43 +409,7 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  getVisitors() {
-    console.log("loading", this.loading);
-    // this.loading=true;
-    let request;
-    request = {
-      params: null,
-      action_url: "get_dashboard_visitors",
-      method: "GET",
-    };
-    this.httpService.doHttp(request).subscribe(
-      (res: any) => {
-        if (res == "nonet") {
-        } else {
-          if (res.status == false) {
-          } else if (res.status == true) {
-            console.log("resss", res);
-            this.visitors = res.visitor_data;
-            console.log("rows", this.visitors);
-            this.visitors.series = [
-              { name: "visitors", data: this.visitors.weekly_visitors },
-            ];
-           
-            this.feeds=res.feed_data;
-            this.feeds.series = [
-              { name: "feeds", data: this.feeds.weekly_feeds },
-            ];
-            console.log("rows data feeds", this.feeds);
-          }
-        }
-        this.loading = false;
-        console.log("loading value", this.loading);
-      },
-      (error: any) => {
-        this.loading = false;
-      }
-    );
-  }
+
   ngAfterViewInit() {
     // Subscribe to core config changes
     this._coreConfigService.getConfig().subscribe((config) => {

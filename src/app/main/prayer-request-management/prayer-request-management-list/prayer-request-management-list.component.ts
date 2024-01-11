@@ -77,14 +77,14 @@ export class PrayerRequestManagementListComponent implements OnInit {
    */
   filterUpdate(event) {
     // Reset ng-select on search
-    this.selectedChurch = this.selectChurch[0];
-    this.selectedAuthors = this.selectAuthors[0];
+    // this.selectedChurch = this.selectChurch[0];
+    // this.selectedAuthors = this.selectAuthors[0];
 
     const val = event.target.value.toLowerCase();
 
     // Filter Our Data
     const temp = this.tempData.filter(function (d) {
-      return d.title.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.prayer_request.toLowerCase().indexOf(val) !== -1 || !val;
     });
 
     // Update The Rows

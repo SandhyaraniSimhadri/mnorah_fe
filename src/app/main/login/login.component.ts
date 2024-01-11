@@ -113,15 +113,20 @@ export class LoginComponent implements OnInit {
           const user = data;
           if (data.status) {
             localStorage.setItem("currentUser", JSON.stringify(user.data));
-
+            let user_data = JSON.parse(localStorage.getItem('currentUser'));
+            this.httpService.USERINFO = user_data;
+            this.httpService.APIToken = user_data.token;
+            this.httpService.loginuserid = user_data.user_id;
             setTimeout(() => {
               this._toastrService.success(
                 "You have successfully logged in. Now you can start to explore. Enjoy! 🎉",
                 "👋 Welcome !",
                 { toastClass: "toast ngx-toastr", closeButton: true }
               );
-            }, 2500);
+            }, 4500);
+            // setTimeout(() => {
             this._router.navigate([this.returnUrl]);
+          // }, 3000);
           } else {
             setTimeout(() => {
               this._toastrService.error(

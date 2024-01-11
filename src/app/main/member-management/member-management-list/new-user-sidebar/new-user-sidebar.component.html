@@ -24,7 +24,8 @@
         </div>
         <div class="modal-body flex-grow-1">
           <div class="form-group">
-            <label class="form-label" for="user-plan">Select Church</label>
+            <label class="form-label" for="user-plan">Select Church <span *ngIf="newUserForm.submitted && ChurchRef.invalid" class="text-danger">*</span>
+              <span *ngIf="!newUserForm.submitted || !ChurchRef.invalid">*</span></label>
             <select
               id="basic-icon-default-church"
               class="form-control dt-church"
@@ -37,10 +38,7 @@
               [(ngModel)]="memberForm.church_id"
               [ngModelOptions]="{ standalone: true }"
             >
-              <!-- <option value="Female">Female</option>
-              <option value="Male">Male</option>
-              <option value="Others">Others</option> -->
-              <!-- <option value="">Select</option> -->
+        
               <option *ngFor="let church of churcesData" [value]="church.id">
                 {{ church.church_name }}
               </option>
@@ -58,7 +56,8 @@
           </div>
           <div class="form-group">
             <label class="form-label" for="basic-icon-default-fullname"
-              >Full Name</label
+              >Full Name <span *ngIf="newUserForm.submitted && FNameRef.invalid" class="text-danger">*</span>
+              <span *ngIf="!newUserForm.submitted || !FNameRef.invalid">*</span></label
             >
             <input
               type="text"
@@ -87,7 +86,8 @@
           <div class="row">
             <div class="col-6">
               <div class="form-group">
-                <label class="form-label" for="user-plan">Select Gender</label>
+                <label class="form-label" for="user-plan">Select Gender <span *ngIf="newUserForm.submitted && GenderRef.invalid" class="text-danger">*</span>
+                  <span *ngIf="!newUserForm.submitted || !GenderRef.invalid">*</span></label>
                 <select
                   [(ngModel)]="memberForm.gender"
                   [ngModelOptions]="{ standalone: true }"
@@ -130,20 +130,10 @@
                   aria-describedby="basic-icon-default-dob"
                   name="dob"
                   [(ngModel)]="memberForm.dob"
-                  [class.error]="newUserForm.submitted && DOBRef.invalid"
-                  #DOBRef="ngModel"
-                  required
+                
+                
                 />
-                <span
-                  *ngIf="newUserForm.submitted && DOBRef.invalid"
-                  class="invalid-form"
-                >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="DOBRef.errors.required"
-                    >This field is required!</small
-                  >
-                </span>
+               
               </div>
             </div>
           </div>
@@ -151,7 +141,8 @@
             <div class="col-6">
               <div class="form-group">
                 <label class="form-label" for="basic-icon-default-phone-number"
-                  >Phone number</label
+                  >Phone number <span *ngIf="newUserForm.submitted && PhoneRef.invalid" class="text-danger">*</span>
+                  <span *ngIf="!newUserForm.submitted || !PhoneRef.invalid">*</span></label
                 >
                 <input
                   type="text"
@@ -181,7 +172,8 @@
             <div class="col-6">
               <div class="form-group">
                 <label class="form-label" for="basic-icon-default-email"
-                  >Email</label
+                  >Email <span *ngIf="newUserForm.submitted && FEmailRef.invalid" class="text-danger">*</span>
+                  <span *ngIf="!newUserForm.submitted || !FEmailRef.invalid">*</span></label
                 >
                 <input
                   type="text"
@@ -225,20 +217,9 @@
                   aria-describedby="basic-icon-default-city"
                   name="city"
                   [(ngModel)]="memberForm.city"
-                  [class.error]="newUserForm.submitted && CityRef.invalid"
-                  #CityRef="ngModel"
-                  required
+                 
                 />
-                <span
-                  *ngIf="newUserForm.submitted && CityRef.invalid"
-                  class="invalid-form"
-                >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="CityRef.errors.required"
-                    >This field is required!</small
-                  >
-                </span>
+               
               </div>
             </div>
 
@@ -256,20 +237,9 @@
                   aria-describedby="basic-icon-default-state"
                   name="state"
                   [(ngModel)]="memberForm.state"
-                  [class.error]="newUserForm.submitted && StateRef.invalid"
-                  #StateRef="ngModel"
-                  required
+                
                 />
-                <span
-                  *ngIf="newUserForm.submitted && StateRef.invalid"
-                  class="invalid-form"
-                >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="StateRef.errors.required"
-                    >This field is required!</small
-                  >
-                </span>
+               
               </div>
             </div>
           </div>
@@ -288,9 +258,7 @@
                   aria-label=""
                   aria-describedby="basic-icon-default-member-status"
                   name="member-status"
-                  [class.error]="newUserForm.submitted && MemStsRef.invalid"
-                  #MemStsRef="ngModel"
-                  required
+                
                 >
                   <option value="">Select</option>
                   <option value="New Member">New Member</option>
@@ -298,16 +266,7 @@
                   <option value="Visitor">Visitor</option>
                   <option value="Other">Other</option>
                 </select>
-                <span
-                  *ngIf="newUserForm.submitted && MemStsRef.invalid"
-                  class="invalid-form"
-                >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="MemStsRef.errors.required"
-                    >This field is required!</small
-                  >
-                </span>
+                
                 <div
                   class="form-group"
                   *ngIf="memberForm.membership == 'Other'"
@@ -321,20 +280,9 @@
                     aria-describedby="basic-icon-default-state"
                     name="state"
                     [(ngModel)]="memberForm.membership_others"
-                    [class.error]="newUserForm.submitted && MemberRef.invalid"
-                    #MemberRef="ngModel"
-                    required
+                   
                   />
-                  <span
-                    *ngIf="newUserForm.submitted && MemberRef.invalid"
-                    class="invalid-form"
-                  >
-                    <small
-                      class="form-text text-danger"
-                      *ngIf="MemberRef.errors.required"
-                      >This field is required!</small
-                    >
-                  </span>
+                  
                 </div>
               </div>
             </div>
@@ -351,9 +299,7 @@
                   aria-label=""
                   aria-describedby="basic-icon-default-hear-about-church"
                   name="hear-about-church"
-                  [class.error]="newUserForm.submitted && HACRef.invalid"
-                  #HACRef="ngModel"
-                  required
+                
                 >
                   <option value="">Select</option>
                   <option value="Word of Mouth">Word of Mouth</option>
@@ -362,16 +308,7 @@
                   <option value="Invitation">Invitation</option>
                   <option value="Other">Other</option>
                 </select>
-                <span
-                  *ngIf="newUserForm.submitted && HACRef.invalid"
-                  class="invalid-form"
-                >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="HACRef.errors.required"
-                    >This field is required!</small
-                  >
-                </span>
+                
                 <div
                   class="form-group"
                   *ngIf="memberForm.hear_about_church == 'Other'"
@@ -385,20 +322,9 @@
                     aria-describedby="basic-icon-default-state"
                     name="state"
                     [(ngModel)]="memberForm.hear_about_church_other"
-                    [class.error]="newUserForm.submitted && HCRef.invalid"
-                    #HCrRef="ngModel"
-                    required
+                 
                   />
-                  <span
-                    *ngIf="newUserForm.submitted && HCRef.invalid"
-                    class="invalid-form"
-                  >
-                    <small
-                      class="form-text text-danger"
-                      *ngIf="HCRef.errors.required"
-                      >This field is required!</small
-                    >
-                  </span>
+                 
                 </div>
               </div>
             </div>
@@ -417,24 +343,13 @@
                   groupBy="country"
                   [(ngModel)]="selectMultiGroupSelected"
                   (click)="checkOther($event)"
-                  [class.error]="newUserForm.submitted && InvlRef.invalid"
-                  #InvlRef="ngModel"
-                  required
+              
                 >
                   <ng-template ng-optgroup-tmp let-item="item">
                     {{ item.country || "Unnamed group" }}
                   </ng-template>
                 </ng-select>
-                <span
-                  *ngIf="newUserForm.submitted && InvlRef.invalid"
-                  class="invalid-form"
-                >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="InvlRef.errors.required"
-                    >This field is required!</small
-                  >
-                </span>
+               
               </div>
             </div>
           </div>
@@ -450,20 +365,9 @@
                   aria-describedby="basic-icon-default-state"
                   name="state"
                   [(ngModel)]="memberForm.volunteering_other"
-                  [class.error]="newUserForm.submitted && VRef.invalid"
-                  #VRef="ngModel"
-                  required
+                 
                 />
-                <span
-                  *ngIf="newUserForm.submitted && VRef.invalid"
-                  class="invalid-form"
-                >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="VRef.errors.required"
-                    >This field is required!</small
-                  >
-                </span>
+            
               </div>
             </div>
 
@@ -478,20 +382,9 @@
                   aria-describedby="basic-icon-default-state"
                   name="state"
                   [(ngModel)]="memberForm.attending_other"
-                  [class.error]="newUserForm.submitted && VRef.invalid"
-                  #VRef="ngModel"
-                  required
+                 
                 />
-                <span
-                  *ngIf="newUserForm.submitted && VRef.invalid"
-                  class="invalid-form"
-                >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="VRef.errors.required"
-                    >This field is required!</small
-                  >
-                </span>
+           
               </div>
             </div>
           </div>
@@ -510,20 +403,9 @@
                   aria-describedby="basic-icon-default-comments"
                   name="comments"
                   [(ngModel)]="memberForm.comments"
-                  [class.error]="newUserForm.submitted && CommentRef.invalid"
-                  #CommentRef="ngModel"
-                  required
+                 
                 ></textarea>
-                <span
-                  *ngIf="newUserForm.submitted && CommentRef.invalid"
-                  class="invalid-form"
-                >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="CommentRef.errors?.required"
-                    >This field is required!</small
-                  >
-                </span>
+               
               </div>
           
 

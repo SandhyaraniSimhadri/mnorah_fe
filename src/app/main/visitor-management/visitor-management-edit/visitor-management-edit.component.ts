@@ -218,6 +218,8 @@ export class VisitorManagementEditComponent implements OnInit, OnDestroy {
         } else {
           if (res.status == false) {
           } else if (res.status == true) {
+            res.data.church_id=res.data.church_id.toString();
+
             this.currentRow = this.replaceNullsWithEmptyStrings(res.data);
             this.originalFormValues = { ...this.currentRow };
 
@@ -287,7 +289,7 @@ export class VisitorManagementEditComponent implements OnInit, OnDestroy {
       this.selectMultiGroupSelected.splice(idx, 1);
      
     }
-    this.checkFormModified();
+    this.formModified=true;
     console.log("item", this.selectMultiGroupSelected);
    
   }

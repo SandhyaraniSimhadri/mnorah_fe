@@ -57,6 +57,7 @@ export class CoreHttpService {
     console.log("constructor 1");
 
         if (localStorage.getItem('currentUser')) {
+            console.log("user yes");
             let user = JSON.parse(localStorage.getItem('currentUser'));
             this.USERINFO = user;
             this.APIToken = user.token;

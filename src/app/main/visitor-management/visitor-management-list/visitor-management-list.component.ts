@@ -80,8 +80,7 @@ public selectCity:any=[];
    * @param event
    */
   filterUpdate(event) {
-
-    this.selectedCity = this.selectCity[0];
+    // this.selectedCity = this.selectCity[0];
 
     const val = event.target.value.toLowerCase();
 

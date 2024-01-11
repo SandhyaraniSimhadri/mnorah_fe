@@ -11,10 +11,10 @@
         <div class="card-body">
           <ul ngbNav #nav="ngbNav" class="nav nav-pills">
             <li ngbNavItem>
-              <a ngbNavLink class="d-flex align-items-center"
+              <!-- <a ngbNavLink class="d-flex align-items-center"
                 ><i data-feather="user" class="mr-sm-50"></i
                 ><span class="d-none d-sm-block">Account</span></a
-              >
+              > -->
               <ng-template ngbNavContent>
                 <!-- Account Tab starts -->
                 <div
@@ -112,7 +112,7 @@
                               accountForm.submitted && ChurchIdRef.invalid
                             "
                             #ChurchIdRef="ngModel"
-                            required
+                            required (ngModelChange)="checkFormModified()"
                           >
                           
                             <option
@@ -137,7 +137,8 @@
 
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="username">Username</label>
+                          <label for="username">Full name <span *ngIf="accountForm.submitted && UserNameRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !UserNameRef.invalid">*</span></label>
                           <input
                             type="text"
                             id="username"
@@ -150,7 +151,8 @@
                               accountForm.submitted && UserNameRef.invalid
                             "
                             #UserNameRef="ngModel"
-                            required  (ngModelChange)="checkFormModified()"
+                            required  
+                            (ngModelChange)="checkFormModified()"
                           />
                           <span
                             *ngIf="accountForm.submitted && UserNameRef.invalid"
@@ -167,7 +169,19 @@
 
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="email">E-mail</label>
+                          <label for="email">E-mail <span
+                            *ngIf="
+                              accountForm.submitted && EmailRef.invalid
+                            "
+                            class="text-danger"
+                            >*</span
+                          >
+                          <span
+                            *ngIf="
+                              !accountForm.submitted || !EmailRef.invalid
+                            "
+                            >*</span
+                          ></label>
                           <input
                             type="email"
                             id="email"
@@ -197,32 +211,83 @@
 
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="company">Gender</label>
+                          <label for="company">Gender <span
+                            *ngIf="
+                              accountForm.submitted && GenderRef.invalid
+                            "
+                            class="text-danger"
+                            >*</span
+                          >
+                          <span
+                            *ngIf="
+                              !accountForm.submitted || !GenderRef.invalid
+                            "
+                            >*</span
+                          ></label>
 
                           <select
                             id="user-plan"
                             class="form-control"
                             [(ngModel)]="currentRow.gender"
                             [ngModelOptions]="{ standalone: true }"
+                            [class.error]="accountForm.submitted && GenderRef.invalid"
+                            #GenderRef="ngModel"
+                            required (ngModelChange)="checkFormModified()"
                           >
                             <option value="Female">Female</option>
                             <option value="Male">Male</option>
                             <option value="Others">Others</option>
                           </select>
+                          <span
+                          *ngIf="accountForm.submitted && GenderRef.invalid"
+                          class="invalid-form"
+                        >
+                          <small
+                            class="form-text text-danger"
+                            *ngIf="GenderRef.errors.required"
+                            >This field is required!</small>
+                        </span>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="company">Phone number</label>
+                          <label for="company">Phone number <span
+                            *ngIf="
+                              accountForm.submitted && PhoneRef.invalid
+                            "
+                            class="text-danger"
+                            >*</span
+                          >
+                          <span
+                            *ngIf="
+                              !accountForm.submitted || !PhoneRef.invalid
+                            "
+                            >*</span
+                          ></label>
                           <input
+                     
                             type="text"
-                            class="form-control"
+                            id="basic-icon-default-phone-number"
+                            class="form-control dt-phone-number"
+                            placeholder=""
+                            aria-label=""
+                            aria-describedby="basic-icon-default-phone-number"
+                            name="phone-number"
                             [(ngModel)]="currentRow.mobile_no"
-                            [ngModelOptions]="{ standalone: true }"
-                            placeholder="Phone number"
-                            id="contact"
-                            name="contact"  (ngModelChange)="checkFormModified()"
+                            [class.error]="accountForm.submitted && PhoneRef.invalid"
+                            #PhoneRef="ngModel"
+                            required (ngModelChange)="checkFormModified()"
                           />
+                          <span
+                          *ngIf="accountForm.submitted && PhoneRef.invalid"
+                          class="invalid-form"
+                        >
+                          <small
+                            class="form-text text-danger"
+                            *ngIf="PhoneRef.errors.required"
+                            >This field is required!</small
+                          >
+                        </span>
                         </div>
                       </div>
                       <div class="col-md-4">

@@ -79,9 +79,9 @@ export class EventManagementListComponent implements OnInit {
    */
   filterUpdate(event) {
     // Reset ng-select on search
-    this.selectedChurch = this.selectChurch[0];
-    this.selectedUsers = this.selectDate[0];
-    this.selectedLanguage = this.selectLanguage[0];
+    // this.selectedChurch = this.selectChurch[0];
+    // this.selectedUsers = this.selectDate[0];
+    // this.selectedLanguage = this.selectLanguage[0];
 
     const val = event.target.value.toLowerCase();
 

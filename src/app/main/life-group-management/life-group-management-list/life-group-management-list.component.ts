@@ -70,9 +70,9 @@ export class LifeGroupManagementListComponent implements OnInit {
    */
   filterUpdate(event) {
     // Reset ng-select on search
-    this.selectedCity = this.selectCity[0];
-    this.selectedArea = this.selectArea[0];
-    this.selectedMembers = this.selectMembers[0];
+    // this.selectedCity = this.selectCity[0];
+    // this.selectedArea = this.selectArea[0];
+    // this.selectedMembers = this.selectMembers[0];
 
 
     const val = event.target.value.toLowerCase();

@@ -8,8 +8,8 @@
     <!-- Card Advance -->
     <div class="row match-height">
 
-      <div class="col-lg-3 col-sm-6 col-12">
-        <div class="card">
+      <div class="col-lg-3 col-sm-6 col-12  pointer-on-hover" routerLink="/visitor-management">
+        <div class="card" >
           <div class="card-header d-flex flex-column align-items-start pb-0">
             <div class="avatar bg-light-warning p-50 m-0">
               <div class="avatar-content">
@@ -45,7 +45,7 @@
         </div>
       </div>
 
-      <div class="col-lg-3 col-sm-6 col-12">
+      <div class="col-lg-3 col-sm-6 col-12 pointer-on-hover" routerLink="/member-management">
         <div class="card">
           <div class="card-header d-flex flex-column align-items-start pb-0">
             <div class="avatar bg-light-primary p-50 m-0">
@@ -82,7 +82,7 @@
         </div>
       </div>
 
-      <div class="col-lg-3 col-sm-6 col-12">
+      <div class="col-lg-3 col-sm-6 col-12 pointer-on-hover" routerLink="/prayer-request-management">
         <div class="card">
           <div class="card-header d-flex flex-column align-items-start pb-0">
             <div class="avatar bg-light-secondary p-50 m-0">
@@ -119,7 +119,7 @@
         </div>
       </div>
    
-      <div class="col-lg-3 col-sm-6 col-12">
+      <div class="col-lg-3 col-sm-6 col-12 pointer-on-hover" routerLink="/testimony-management">
         <div class="card">
           <div class="card-header d-flex flex-column align-items-start pb-0">
             <div class="avatar bg-light-info p-50 m-0">
@@ -157,7 +157,7 @@
       </div>
    
 
-      <div class="col-lg-3 col-sm-6 col-12">
+      <div class="col-lg-3 col-sm-6 col-12 pointer-on-hover" routerLink="/feed-management">
         <div class="card">
           <div class="card-header d-flex flex-column align-items-start pb-0">
             <div class="avatar bg-light-success p-50 m-0">
@@ -194,7 +194,7 @@
         </div>
       </div>
    
-      <div class="col-lg-3 col-sm-6 col-12">
+      <div class="col-lg-3 col-sm-6 col-12 pointer-on-hover" routerLink="/life-group-management">
         <div class="card">
           <div class="card-header d-flex flex-column align-items-start pb-0">
             <div class="avatar bg-light-info p-50 m-0">
@@ -232,7 +232,7 @@
       </div>
 
 
-      <div class="col-lg-3 col-sm-6 col-12" *ngIf="httpService.USERINFO.role=='Super Admin'">
+      <div class="col-lg-3 col-sm-6 col-12 pointer-on-hover" *ngIf="httpService.USERINFO.role=='Super Admin'" routerLink="/church-management">
         <div class="card">
           <div class="card-header d-flex flex-column align-items-start pb-0">
             <div class="avatar bg-light-muted p-50 m-0">
@@ -269,7 +269,7 @@
         </div>
       </div>
    
-      <div class="col-lg-3 col-sm-6 col-12" *ngIf="httpService.USERINFO.role=='Super Admin'">
+      <div class="col-lg-3 col-sm-6 col-12 pointer-on-hover" *ngIf="httpService.USERINFO.role=='Super Admin'" routerLink="/sub-admin">
         <div class="card">
           <div class="card-header d-flex flex-column align-items-start pb-0">
             <div class="avatar bg-light-danger p-50 m-0">

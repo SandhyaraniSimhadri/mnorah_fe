@@ -85,7 +85,7 @@ export class SubAdminListComponent implements OnInit {
    */
   filterUpdate(event) {
 
-    this.selectedChurch = this.selectChurch[0];
+    // this.selectedChurch = this.selectChurch[0];
 
     const val = event.target.value.toLowerCase();
 

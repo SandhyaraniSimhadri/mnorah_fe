@@ -192,6 +192,7 @@ export class FeedManagementEditComponent implements OnInit, OnDestroy {
         } else {
           if (res.status == false) {
           } else if (res.status == true) {
+            res.data.church_id=res.data.church_id.toString();
             this.currentRow = this.modalsService.replaceNullsWithEmptyStrings(res.data);
             this.originalFormValues = { ...this.currentRow };
 

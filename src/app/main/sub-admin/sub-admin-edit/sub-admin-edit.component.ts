@@ -243,6 +243,7 @@ export class SubAdminEditComponent implements OnInit, OnDestroy {
         } else {
           if (res.status == false) {
           } else if (res.status == true) {
+            res.data.church_id=res.data.church_id.toString();
             this.currentRow = this.modalsService.replaceNullsWithEmptyStrings(res.data);
             if (this.currentRow.avatar) {
               this.avatarImage = this.apiUrl + this.currentRow.avatar;

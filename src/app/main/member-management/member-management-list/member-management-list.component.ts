@@ -88,13 +88,13 @@ export class MemberManagementListComponent implements OnInit {
    */
   filterUpdate(event) {
 
-    this.selectedGender = this.selectGender[0];
+    // this.selectedGender = this.selectGender[0];
 
     const val = event.target.value.toLowerCase();
 
     // Filter Our Data
     const temp = this.tempData.filter(function (d) {
-      return d.fullName.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.user_name.toLowerCase().indexOf(val) !== -1 || !val;
     });
 
     // Update The Rows

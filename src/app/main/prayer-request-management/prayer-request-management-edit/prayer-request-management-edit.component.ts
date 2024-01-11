@@ -226,7 +226,11 @@ export class PrayerRequestManagementEditComponent implements OnInit, OnDestroy {
         } else {
           if (res.status == false) {
           } else if (res.status == true) {
+            res.data.church_id=res.data.church_id.toString();
+
             this.currentRow = this.modalsService.replaceNullsWithEmptyStrings(res.data);
+            this.originalFormValues = { ...this.currentRow };
+
             console.log("prayer request",this.currentRow);
             if(this.currentRow.prayer_request=='null'){
               this.currentRow.prayer_request=undefined;
