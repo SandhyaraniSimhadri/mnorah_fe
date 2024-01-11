@@ -24,6 +24,7 @@ import { VisitorManagementViewComponent } from './visitor-management-view/visito
 import { UserEditService } from './visitor-management-edit/user-edit.service';
 import { UserViewService } from './visitor-management-view/user-view.service';
 import { TruncatePipe } from '../truncate.pipe';
+import { SharedModule } from '../shared.module';
 
 const routes: Routes = [
   {
@@ -71,10 +72,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [VisitorManagementListComponent, TruncatePipe,
+  declarations: [VisitorManagementListComponent, 
     VisitorManagementViewComponent, VisitorManagementEditComponent, 
     NewUserSidebarComponent],
   imports: [
+    SharedModule,
     NgbModule,
     NgbNavModule,
     CommonModule,

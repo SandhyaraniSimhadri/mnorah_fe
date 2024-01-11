@@ -24,6 +24,7 @@ import { EventManagementViewComponent } from './event-management-view/event-mana
 import { UserViewService } from './event-management-view/user-view.service';
 import { NewUserSidebarComponent } from './event-management-list/new-user-sidebar/new-user-sidebar.component';
 import { TruncatePipe } from '../truncate.pipe';
+import { SharedModule } from '../shared.module';
 
 // routing
 const routes: Routes = [
@@ -72,10 +73,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [EventManagementListComponent, TruncatePipe,
+  declarations: [EventManagementListComponent, 
     EventManagementViewComponent, EventManagementEditComponent, 
     NewUserSidebarComponent],
   imports: [
+    SharedModule,
     CommonModule,
     RouterModule.forChild(routes),
     CoreCommonModule,

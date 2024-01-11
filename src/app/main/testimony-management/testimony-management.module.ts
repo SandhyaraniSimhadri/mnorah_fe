@@ -35,6 +35,7 @@ import { TestimonyManagementViewComponent } from './testimony-management-view/te
 import { UserViewService } from './testimony-management-view/user-view.service';
 import { NewUserSidebarComponent } from './testimony-management-list/new-user-sidebar/new-user-sidebar.component';
 import { TruncatePipe } from '../truncate.pipe';
+import { SharedModule } from '../shared.module';
 
 // routing
 const routes: Routes = [
@@ -83,10 +84,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [TestimonyManagementListComponent, TruncatePipe,
+  declarations: [TestimonyManagementListComponent,
     TestimonyManagementViewComponent, TestimonyManagementEditComponent, 
     NewUserSidebarComponent],
   imports: [
+    SharedModule,
     CommonModule,
     RouterModule.forChild(routes),
     CoreCommonModule,

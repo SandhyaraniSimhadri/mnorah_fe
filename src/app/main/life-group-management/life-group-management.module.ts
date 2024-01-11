@@ -23,6 +23,7 @@ import { LifeGroupManagementViewComponent } from './life-group-management-view/l
 import { UserViewService } from './life-group-management-view/user-view.service';
 import { NewUserSidebarComponent } from './life-group-management-list/new-user-sidebar/new-user-sidebar.component';
 import { TruncatePipe } from '../truncate.pipe';
+import { SharedModule } from '../shared.module';
 
 // routing
 const routes: Routes = [
@@ -71,10 +72,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [LifeGroupManagementListComponent, TruncatePipe,
+  declarations: [LifeGroupManagementListComponent,
     LifeGroupManagementViewComponent, LifeGroupManagementEditComponent, 
     NewUserSidebarComponent],
   imports: [
+    SharedModule,
     CommonModule,
     RouterModule.forChild(routes),
     CoreCommonModule,

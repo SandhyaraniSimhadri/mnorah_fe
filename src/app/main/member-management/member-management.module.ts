@@ -25,6 +25,7 @@ import { MemberManagementViewComponent } from './member-management-view/member-m
 import { UserEditService } from './member-management-edit/user-edit.service';
 import { UserViewService } from './member-management-view/user-view.service';
 import { TruncatePipe } from '../truncate.pipe';
+import { SharedModule } from '../shared.module';
 
 const routes: Routes = [
   {
@@ -72,10 +73,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [MemberManagementListComponent, TruncatePipe,
+  declarations: [MemberManagementListComponent,
     MemberManagementViewComponent, MemberManagementEditComponent, 
     NewUserSidebarComponent],
   imports: [
+    SharedModule,
     NgbModule,
     NgbNavModule,
     CommonModule,

@@ -24,6 +24,7 @@ import { PrayerRequestManagementViewComponent } from "./prayer-request-managemen
 import { UserViewService } from "./prayer-request-management-view/user-view.service";
 import { NewUserSidebarComponent } from "./prayer-request-management-list/new-user-sidebar/new-user-sidebar.component";
 import { TruncatePipe } from "../truncate.pipe";
+import { SharedModule } from "../shared.module";
 
 // routing
 const routes: Routes = [
@@ -78,9 +79,10 @@ const routes: Routes = [
     PrayerRequestManagementListComponent,
     PrayerRequestManagementViewComponent,
     PrayerRequestManagementEditComponent,
-    NewUserSidebarComponent,TruncatePipe
+    NewUserSidebarComponent
   ],
   imports: [
+    SharedModule,
     CommonModule,
     RouterModule.forChild(routes),
     CoreCommonModule,
