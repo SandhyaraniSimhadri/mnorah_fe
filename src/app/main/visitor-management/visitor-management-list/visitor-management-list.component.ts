@@ -13,7 +13,8 @@ import { environment } from 'environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import { ModalsService } from '@core/services/modals.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
+import { FileUploader } from 'ng2-file-upload';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-visitor-management-list',
   templateUrl: './visitor-management-list.component.html',
@@ -32,6 +33,9 @@ export class VisitorManagementListComponent implements OnInit {
   public active_users:any='';
   public loading:boolean=false;
   public apiUrl:any;
+  public file:any;
+  public api_url: any;
+
 
 
   // public selectGender: any = [
@@ -67,8 +71,11 @@ public selectCity:any=[];
     private _toastrService: ToastrService,
     public modalsService:ModalsService,
     public modalService: NgbModal,
+    private http: HttpClient
   ) {
     this._unsubscribeAll = new Subject();
+    this.api_url = environment.apiUrl+'api/';
+
   }
 
   // Public Methods
@@ -243,6 +250,43 @@ public selectCity:any=[];
         }
       },
       (error: any) => {}
+    );
+  }
+  modalOpenForm(modalForm) {
+    this.modalService.open(modalForm);
+  }
+  uploadImage(event: any) {
+    this.loading = true;
+    this.file = event.target.files[0];
+    this.loading = false;
+    console.log("file",this.file);
+  }
+  uploadFile() {
+    const formData = new FormData();
+    formData.append('file', this.file);
+
+    this.http.post(this.apiUrl + "api/file_import", formData).subscribe(
+      (res:any) => {
+        if (res == "nonet") {
+        }else{
+          if (res.status == false) {
+            this._toastrService.error(res.msg, "Failed", {
+              toastClass: "toast ngx-toastr",
+              closeButton: true,
+            });
+          } else if (res.status == true) {
+            this._toastrService.success(res.msg+ ', '+res.count+ ' visitors added', "Success", {
+              toastClass: "toast ngx-toastr",
+              closeButton: true,
+            });
+            this.modalService.dismissAll();
+            this.getVisitors();
+          }}
+      },
+      (error) => {
+        console.error('Error uploading file', error);
+        // Handle error, e.g., show an error message
+      }
     );
   }
 }

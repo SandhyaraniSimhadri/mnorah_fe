@@ -24,14 +24,7 @@
          
         </div>
         <div class="modal-body flex-grow-1">
-          <h6 style="font-size: 12px; font-weight: 200">
-            <b>Welcome to
-            <span *ngIf="selectedChurchName">{{ selectedChurchName }}</span>
-            <span *ngIf="!selectedChurchName">[Church Name]</span>
-
-            ! We're delighted to have you worship with us. Please take a moment
-            to provide some information about yourself.</b>
-          </h6>
+         
           <div class="form-group">
             <label class="form-label" for="user-plan">Select Church <span *ngIf="newUserForm.submitted && ChurchRef.invalid" class="text-danger">*</span>
               <span *ngIf="!newUserForm.submitted || !ChurchRef.invalid">*</span></label>
@@ -304,15 +297,7 @@
           <div class="row">
             <div class="col-12">
               <label>Connection Card</label><br />
-              <span style="font-size: 12px"
-                >We would love to connect with you and provide more information
-                about  
-                  <span *ngIf="selectedChurchName">{{ selectedChurchName }}</span>
-                  <span *ngIf="!selectedChurchName">[Church Name]</span>
-      
-                 . Please check the appropriate
-                boxes</span
-              >
+              
 
               <div class="form-group">
                 <!-- Select Group by item -->
