@@ -35,17 +35,13 @@ export class MemberManagementListComponent implements OnInit {
   public loading:boolean=false;
   public apiUrl:any;
   public selectChurch: any = [];
-  api_url:any;
-
-  
-
-
+  public api_url: any;
   public selectGender: any = [
     { name: 'Female', value: 'Female' },
     { name: 'Male', value: 'Male' },
     { name: 'Others', value: 'Others' }
   ];
-
+  public file:any;
 
   public selectedGender = [];
   public searchValue = '';
@@ -65,17 +61,16 @@ export class MemberManagementListComponent implements OnInit {
    * @param {CoreSidebarService} _coreSidebarService
    */
   constructor(
-    private _userListService: UserListService,
     private _coreSidebarService: CoreSidebarService,
-    private _coreConfigService: CoreConfigService,
     public httpService: CoreHttpService,   private router: Router,
     private _toastrService: ToastrService,
     public modalsService:ModalsService,
     public modalService: NgbModal,
     private http: HttpClient
   ) {
-    this.api_url=environment.apiUrl;
+    this.api_url = environment.apiUrl+'api/';
     this._unsubscribeAll = new Subject();
+    
   }
 
   // Public Methods
@@ -286,5 +281,42 @@ export class MemberManagementListComponent implements OnInit {
       link.download = 'reports.csv';
       link.click();
     });
+  }
+  modalOpenForm(modalForm) {
+    this.modalService.open(modalForm);
+  }
+  uploadImage(event: any) {
+    this.loading = true;
+    this.file = event.target.files[0];
+    this.loading = false;
+    console.log("file",this.file);
+  }
+  uploadFile() {
+    const formData = new FormData();
+    formData.append('file', this.file);
+
+    this.http.post(this.apiUrl + "api/member_file_import", formData).subscribe(
+      (res:any) => {
+        if (res == "nonet") {
+        }else{
+          if (res.status == false) {
+            this._toastrService.error(res.msg, "Failed", {
+              toastClass: "toast ngx-toastr",
+              closeButton: true,
+            });
+          } else if (res.status == true) {
+            this._toastrService.success(res.msg+ ', '+res.count+ ' members added', "Success", {
+              toastClass: "toast ngx-toastr",
+              closeButton: true,
+            });
+            this.modalService.dismissAll();
+            this.getMembers();
+          }}
+      },
+      (error) => {
+        console.error('Error uploading file', error);
+        // Handle error, e.g., show an error message
+      }
+    );
   }
 }

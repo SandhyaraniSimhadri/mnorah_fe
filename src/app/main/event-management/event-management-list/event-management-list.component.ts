@@ -14,6 +14,7 @@ import { ModalsService } from "@core/services/modals.service";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 // import { UserListService } from 'app/main/apps/user/user-list/user-list.service';
 // UserListService
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: "app-event-management-list",
@@ -42,7 +43,8 @@ export class EventManagementListComponent implements OnInit {
   public selectedUsers = [];
   public selectedLanguage = [];
   public buttonLoading:any=false
-
+  public file:any;
+  public api_url: any;
   // Decorator
   @ViewChild(DatatableComponent) table: DatatableComponent;
 
@@ -65,8 +67,12 @@ export class EventManagementListComponent implements OnInit {
     private _toastrService: ToastrService,
     public modalsService:ModalsService,
     public modalService: NgbModal,
+    private http: HttpClient
+
   ) {
     this._unsubscribeAll = new Subject();
+    this.api_url = environment.apiUrl+'api/';
+
   }
 
   // Public Methods
@@ -270,6 +276,43 @@ export class EventManagementListComponent implements OnInit {
       (error: any) => {
     this.buttonLoading=false;
 
+      }
+    );
+  }
+  modalOpenForm(modalForm) {
+    this.modalService.open(modalForm);
+  }
+  uploadImage(event: any) {
+    this.loading = true;
+    this.file = event.target.files[0];
+    this.loading = false;
+    console.log("file",this.file);
+  }
+  uploadFile() {
+    const formData = new FormData();
+    formData.append('file', this.file);
+
+    this.http.post(this.apiUrl + "api/event_file_import", formData).subscribe(
+      (res:any) => {
+        if (res == "nonet") {
+        }else{
+          if (res.status == false) {
+            this._toastrService.error(res.msg, "Failed", {
+              toastClass: "toast ngx-toastr",
+              closeButton: true,
+            });
+          } else if (res.status == true) {
+            this._toastrService.success(res.msg+ ', '+res.count+ ' events added', "Success", {
+              toastClass: "toast ngx-toastr",
+              closeButton: true,
+            });
+            this.modalService.dismissAll();
+            this.getEvents();
+          }}
+      },
+      (error) => {
+        console.error('Error uploading file', error);
+        // Handle error, e.g., show an error message
       }
     );
   }

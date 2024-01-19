@@ -265,7 +265,7 @@ public selectCity:any=[];
     const formData = new FormData();
     formData.append('file', this.file);
 
-    this.http.post(this.apiUrl + "api/file_import", formData).subscribe(
+    this.http.post(this.apiUrl + "api/visitor_file_import", formData).subscribe(
       (res:any) => {
         if (res == "nonet") {
         }else{

@@ -51,12 +51,12 @@
                         }"
                       >
                         <div class="rounded p-3">
-                          {{ currentRow.testimony | initials }}
+                          {{ currentRow.title | initials }}
                         </div>
                       </div>
                     </ng-template>
                     <div class="media-body mt-50">
-                      <h4 style="word-break: break-all;">{{ currentRow.testimony }}</h4>
+                      <h4 style="word-break: break-all;">{{ currentRow.title }}</h4>
                       <div class="col-12 d-flex mt-1 px-0">
                         <label
                           class="btn btn-primary mr-75 mb-0"
@@ -94,27 +94,26 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label for="company">Testimony <span *ngIf="accountForm.submitted && TestimonyRef.invalid" class="text-danger">*</span>
-                            <span *ngIf="!accountForm.submitted || !TestimonyRef.invalid">*</span></label>
-                          <textarea
+                          <label for="company">Title <span *ngIf="accountForm.submitted && TitleRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !TitleRef.invalid">*</span></label>
+                          <input
                             type="text"
                             class="form-control"
-                            [(ngModel)]="currentRow.testimony"
-                            placeholder="Testimony"
-                            id="testimony"
-                            name="testimony"
-                            [class.error]="accountForm.submitted && TestimonyRef.invalid"
-                            #TestimonyRef="ngModel"
+                            [(ngModel)]="currentRow.title"
+                            placeholder="Title"
+                            id="title"
+                            name="title"
+                            [class.error]="accountForm.submitted && TitleRef.invalid"
+                            #TitleRef="ngModel"
                             required  (ngModelChange)="checkFormModified()"
-                          ></textarea>
-                          <span *ngIf="accountForm.submitted && TestimonyRef.invalid" class="invalid-form">
-                            <small class="form-text text-danger" *ngIf="TestimonyRef.errors.required"
+                          />
+                          <span *ngIf="accountForm.submitted && TitleRef.invalid" class="invalid-form">
+                            <small class="form-text text-danger" *ngIf="TitleRef.errors.required"
                               >This field is required!</small
                             >
                           </span>
                         </div>
                       </div>
-                     
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="form-label" for="user-plan"
@@ -145,6 +144,30 @@
                           </span>
                         </div>
                       </div>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label for="company">Testimony <span *ngIf="accountForm.submitted && TestimonyRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !TestimonyRef.invalid">*</span></label>
+                          <textarea
+                            type="text"
+                            class="form-control"
+                            [(ngModel)]="currentRow.testimony"
+                            placeholder="Testimony"
+                            id="testimony"
+                            name="testimony"
+                            [class.error]="accountForm.submitted && TestimonyRef.invalid"
+                            #TestimonyRef="ngModel"
+                            required  (ngModelChange)="checkFormModified()"
+                          ></textarea>
+                          <span *ngIf="accountForm.submitted && TestimonyRef.invalid" class="invalid-form">
+                            <small class="form-text text-danger" *ngIf="TestimonyRef.errors.required"
+                              >This field is required!</small
+                            >
+                          </span>
+                        </div>
+                      </div>
+                     
+                   
 
                      
 

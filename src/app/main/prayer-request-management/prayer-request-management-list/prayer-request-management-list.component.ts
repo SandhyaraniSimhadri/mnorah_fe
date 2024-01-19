@@ -14,6 +14,7 @@ import { ModalsService } from "@core/services/modals.service";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 // import { UserListService } from 'app/main/apps/user/user-list/user-list.service';
 // UserListService
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: "app-prayer-request-management-list",
@@ -40,6 +41,9 @@ export class PrayerRequestManagementListComponent implements OnInit {
   public selectedChurch = [];
   public selectedAuthors = [];
   public buttonLoading:any=false
+  public file:any;
+  public api_url: any;
+  public members_data:any;
 
   // Decorator
   @ViewChild(DatatableComponent) table: DatatableComponent;
@@ -63,8 +67,12 @@ export class PrayerRequestManagementListComponent implements OnInit {
     private _toastrService: ToastrService,
     public modalsService:ModalsService,
     public modalService: NgbModal,
+    private http: HttpClient
+
   ) {
     this._unsubscribeAll = new Subject();
+    this.api_url = environment.apiUrl+'api/';
+
   }
 
   // Public Methods
@@ -176,9 +184,35 @@ export class PrayerRequestManagementListComponent implements OnInit {
    */
   ngOnInit(): void {
     this.apiUrl = environment.apiUrl;
+    this.getMembers();
     this.getRequests();
   }
-
+  getMembers(){
+    console.log("loading",this.loading);
+    this.loading=true;
+    let request;
+    request = {
+      params: null,
+      action_url: "get_members_ids",
+      method: "GET",
+    };
+    this.httpService.doHttp(request).subscribe(
+      (res: any) => {
+        if (res == "nonet") {
+        } else {
+          if (res.status == false) {
+          } else if (res.status == true) {
+            this.members_data=res.data;
+         
+          }
+        }
+        this.loading=false;
+      },
+      (error: any) => {
+        this.loading=false;
+      }
+    );
+  }
   /**
    * On destroy
    */
@@ -265,6 +299,43 @@ export class PrayerRequestManagementListComponent implements OnInit {
       (error: any) => {
     this.buttonLoading=false;
 
+      }
+    );
+  }
+  modalOpenForm(modalForm) {
+    this.modalService.open(modalForm);
+  }
+  uploadImage(event: any) {
+    this.loading = true;
+    this.file = event.target.files[0];
+    this.loading = false;
+    console.log("file",this.file);
+  }
+  uploadFile() {
+    const formData = new FormData();
+    formData.append('file', this.file);
+
+    this.http.post(this.apiUrl + "api/prayer_request_file_import", formData).subscribe(
+      (res:any) => {
+        if (res == "nonet") {
+        }else{
+          if (res.status == false) {
+            this._toastrService.error(res.msg, "Failed", {
+              toastClass: "toast ngx-toastr",
+              closeButton: true,
+            });
+          } else if (res.status == true) {
+            this._toastrService.success(res.msg+ ', '+res.count+ ' prayer requests added', "Success", {
+              toastClass: "toast ngx-toastr",
+              closeButton: true,
+            });
+            this.modalService.dismissAll();
+            this.getRequests();
+          }}
+      },
+      (error) => {
+        console.error('Error uploading file', error);
+        // Handle error, e.g., show an error message
       }
     );
   }

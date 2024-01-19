@@ -7,6 +7,7 @@ import { environment } from "environments/environment";
 import { ToastrService } from "ngx-toastr";
 import { ModalsService } from "@core/services/modals.service";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: "app-life-group-management-list",
@@ -34,7 +35,10 @@ export class LifeGroupManagementListComponent implements OnInit {
   public selectedArea = [];
   public selectedMembers = [];
 
-  public buttonLoading:any=false
+  public buttonLoading:any=false;
+  public file:any;
+  public api_url: any;
+  public members_data:any;
 
   // Decorator
   @ViewChild(DatatableComponent) table: DatatableComponent;
@@ -55,11 +59,41 @@ export class LifeGroupManagementListComponent implements OnInit {
     public httpService: CoreHttpService,
     private _toastrService: ToastrService,
     public modalsService:ModalsService,
-    public modalService: NgbModal
+    public modalService: NgbModal,
+    private http: HttpClient
+
   ) {
     this._unsubscribeAll = new Subject();
+    this.api_url = environment.apiUrl+'api/';
+this.getMembers();
   }
 
+  getMembers(){
+    console.log("loading",this.loading);
+    this.loading=true;
+    let request;
+    request = {
+      params: null,
+      action_url: "get_members_ids",
+      method: "GET",
+    };
+    this.httpService.doHttp(request).subscribe(
+      (res: any) => {
+        if (res == "nonet") {
+        } else {
+          if (res.status == false) {
+          } else if (res.status == true) {
+            this.members_data=res.data;
+         
+          }
+        }
+        this.loading=false;
+      },
+      (error: any) => {
+        this.loading=false;
+      }
+    );
+  }
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
 
@@ -306,4 +340,43 @@ export class LifeGroupManagementListComponent implements OnInit {
       }
     );
   }
+
+  modalOpenForm(modalForm) {
+    this.modalService.open(modalForm);
+  }
+  uploadImage(event: any) {
+    this.loading = true;
+    this.file = event.target.files[0];
+    this.loading = false;
+    console.log("file",this.file);
+  }
+  uploadFile() {
+    const formData = new FormData();
+    formData.append('file', this.file);
+
+    this.http.post(this.apiUrl + "api/lifegroup_file_import", formData).subscribe(
+      (res:any) => {
+        if (res == "nonet") {
+        }else{
+          if (res.status == false) {
+            this._toastrService.error(res.msg, "Failed", {
+              toastClass: "toast ngx-toastr",
+              closeButton: true,
+            });
+          } else if (res.status == true) {
+            this._toastrService.success(res.msg+ ', '+res.count+ ' lifegroups added', "Success", {
+              toastClass: "toast ngx-toastr",
+              closeButton: true,
+            });
+            this.modalService.dismissAll();
+            this.getLifeGroups();
+          }}
+      },
+      (error) => {
+        console.error('Error uploading file', error);
+        // Handle error, e.g., show an error message
+      }
+    );
+  }
+
 }
