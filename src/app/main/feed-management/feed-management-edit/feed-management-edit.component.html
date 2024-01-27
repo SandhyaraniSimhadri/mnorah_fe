@@ -168,7 +168,7 @@
                         <div class="form-group">
                           <label for="company">Description <span *ngIf="accountForm.submitted && DescRef.invalid" class="text-danger">*</span>
                             <span *ngIf="!accountForm.submitted || !DescRef.invalid">*</span></label>
-                          <input
+                          <textarea
                             type="text"
                             class="form-control"
                             [(ngModel)]="currentRow.description"
@@ -178,7 +178,7 @@
                             [class.error]="accountForm.submitted && DescRef.invalid"
                             #DescRef="ngModel"
                             required (ngModelChange)="checkFormModified()"
-                          />
+                          ></textarea>
                           <span *ngIf="accountForm.submitted && DescRef.invalid" class="invalid-form">
                             <small class="form-text text-danger" *ngIf="DescRef.errors.required"
                               >This field is required!</small

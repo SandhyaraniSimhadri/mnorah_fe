@@ -81,7 +81,7 @@
           <div class="form-group">
             <label class="form-label" for="basic-icon-default-description">Description <span *ngIf="newUserForm.submitted && DecRef.invalid" class="text-danger">*</span>
               <span *ngIf="!newUserForm.submitted || !DecRef.invalid">*</span></label>
-            <input
+            <textarea
               type="text"
               class="form-control dt-description"
               id="basic-icon-default-description"
@@ -93,7 +93,7 @@
               required
               aria-label=""
               aria-describedby="basic-icon-default-description"
-            />
+            ></textarea>
             <span *ngIf="newUserForm.submitted && DecRef.invalid" class="invalid-form">
               <small class="form-text text-danger" *ngIf="DecRef.errors.required">This field is required!</small>
             </span>

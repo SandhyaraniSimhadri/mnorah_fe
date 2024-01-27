@@ -318,4 +318,18 @@ export class FeedManagementListComponent implements OnInit {
     this.loading = false;
     console.log("file",this.file);
   }
+  generateDownloadLink() {
+    console.log("link");
+
+    const jwtToken = this.httpService.APIToken
+    const downloadUrl = `${this.api_url}get_feeds_report?type=csv&jwt_token=${jwtToken}`;
+
+    this.http.post(downloadUrl, { rows: this.rows }, { responseType: 'blob' as 'json' })
+    .subscribe((blob: any) => {
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'reports.csv';
+      link.click();
+    });
+  }
 }

@@ -56,16 +56,19 @@
                     ></ng-select>
                   </fieldset>
                 </div>
-                <div class="col-12 col-md-2">
-                <!-- <button
+                <div class="col-12 col-md-3">
+                  <!-- <button
                 class="btn btn-primary d-flex w-100  justify-content-center align-items-center"
                 rippleEffect
               > -->
-            <button  class="btn btn-primary d-flex w-100  justify-content-center align-items-center"
-              (click)="generateDownloadLink()">Download 
-            csv</button>
-              <!-- </button> -->
-              </div>
+                  <button
+                    class="btn btn-primary d-flex w-100 justify-content-center align-items-center"
+                    (click)="generateDownloadLink()"
+                  >
+                    Download csv
+                  </button>
+                  <!-- </button> -->
+                </div>
               </div>
             </form>
           </div>
@@ -96,70 +99,76 @@
               class="d-flex align-items-center justify-content-end pr-1 pb-1 pb-md-0"
             >
               <label class="d-flex align-items-center ml-1 ml-md-0"
-                >Search:</label><input
-                  [(ngModel)]="searchValue"
-                  name="searchValue"
-                  type="search"
-                  class="form-control ml-25"
-                  (keyup)="filterUpdate($event)"
-                  (search)="filterUpdate($event)"
+                >Search:</label
+              ><input
+                [(ngModel)]="searchValue"
+                name="searchValue"
+                type="search"
+                class="form-control ml-25"
+                (keyup)="filterUpdate($event)"
+                (search)="filterUpdate($event)"
               />
               <button
-              class="btn btn-primary ml-1 d-flex w-100 justify-content-center align-items-center"
-              rippleEffect (click)="modalOpenForm(modalForm)"
-             
-            >
-           <span class="d-none d-sm-inline-block">Bulk Upload</span>
-            </button>
-            <ng-template #modalForm let-modal>
-              <div class="modal-header">
-               
-                <h4 class="modal-title" id="myModalLabel1">Upload CSV</h4>
-                <!-- <button  class="btn btn-primary ml-1 d-flex w-100 justify-content-center align-items-center"
+                class="btn btn-primary ml-1 d-flex w-100 justify-content-center align-items-center"
+                rippleEffect
+                (click)="modalOpenForm(modalForm)"
+              >
+                <span class="d-none d-sm-inline-block">Bulk Upload</span>
+              </button>
+              <ng-template #modalForm let-modal>
+                <div class="modal-header">
+                  <h4 class="modal-title" id="myModalLabel1">Upload CSV</h4>
+                  <!-- <button  class="btn btn-primary ml-1 d-flex w-100 justify-content-center align-items-center"
                 rippleEffect >
                 
                 
                 </button> -->
-                <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body" tabindex="0" ngbAutofocus>
-                <form >
-                
-                  
-                  <div class="form-group">
-                    <label class="form-label" for="basic-icon-default-author"
-                      >Select the file to upload:</label
-                    >
-                    <input
-                      type="file"
-                      class="form-control dt-author"
-                      id="basic-icon-default-author"
-                      placeholder=""
-                      name="author"
-                      [(ngModel)]="imageval"
-                      (change)="uploadImage($event)"
-                     
-                    
-                    />
-                    <span style="font-size: 12px;">
-                    Click here to  <a style="" [href]="api_url+'download_member_sample'">  Download Sample<br/>
-                    </a>
-                    </span>
-                  </div>
-                  
-                  
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary" (click)="uploadFile()" rippleEffect>
-                  Upload
-                </button>
-              </div>
-            </ng-template>
+                  <button
+                    type="button"
+                    class="close"
+                    (click)="modal.dismiss('Cross click')"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body" tabindex="0" ngbAutofocus>
+                  <form>
+                    <div class="form-group">
+                      <label class="form-label" for="basic-icon-default-author"
+                        >Select the file to upload:</label
+                      >
+                      <input
+                        type="file"
+                        class="form-control dt-author"
+                        id="basic-icon-default-author"
+                        placeholder=""
+                        name="author"
+                        [(ngModel)]="imageval"
+                        (change)="uploadImage($event)"
+                      />
+                      <span style="font-size: 12px">
+                        Click here to
+                        <a style="" [href]="api_url + 'download_member_sample'">
+                          Download Sample<br />
+                        </a>
+                      </span>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    (click)="uploadFile()"
+                    rippleEffect
+                  >
+                    Upload
+                  </button>
+                </div>
+              </ng-template>
               <button
-                class="btn btn-primary ml-1 d-flex w-100  justify-content-center align-items-center"
+                class="btn btn-primary ml-1 d-flex w-100 justify-content-center align-items-center"
                 rippleEffect
                 (click)="toggleSidebar('new-user-sidebar')"
               >
@@ -225,7 +234,7 @@
                     routerLink="./member-management-view/{{ row.id }}"
                     class="font-medium-1 d-block"
                     ><span class="font-weight-bold white-space">{{
-                      name | truncate: 20 
+                      name | truncate : 20
                     }}</span></a
                   >
                 </div>
@@ -233,85 +242,68 @@
             </ng-template>
           </ngx-datatable-column>
 
-
-          <ngx-datatable-column
-          name="Church name"
-          prop="church_name"
-        >
-          <ng-template
-            let-row="row"
-            let-name="value"
-            ngx-datatable-cell-template
-          >
-            <div class="d-flex align-items-center">
-              <div class="cell-line-height d-block">
-                <span class="font-weight-bold white-space">{{
-                    name | truncate: 20 
+          <ngx-datatable-column name="Church name" prop="church_name">
+            <ng-template
+              let-row="row"
+              let-name="value"
+              ngx-datatable-cell-template
+            >
+              <div class="d-flex align-items-center">
+                <div class="cell-line-height d-block">
+                  <span class="font-weight-bold white-space">{{
+                    name | truncate : 20
                   }}</span>
+                </div>
               </div>
-            </div>
-          </ng-template>
-        </ngx-datatable-column>
+            </ng-template>
+          </ngx-datatable-column>
 
-     
-
-      
-
-          <ngx-datatable-column
-          name="Email"
-          prop="email"
-        >
-          <ng-template
-            let-row="row"
-            let-name="value"
-            ngx-datatable-cell-template
-          >
-            <div class="d-flex align-items-center">
-              <div class="cell-line-height d-block">
-                <span class="font-weight-bold white-space">{{
-                    name | truncate: 20 
+          <ngx-datatable-column name="Email" prop="email">
+            <ng-template
+              let-row="row"
+              let-name="value"
+              ngx-datatable-cell-template
+            >
+              <div class="d-flex align-items-center">
+                <div class="cell-line-height d-block">
+                  <span class="font-weight-bold white-space">{{
+                    name | truncate : 20
                   }}</span>
+                </div>
               </div>
-            </div>
-          </ng-template>
-        </ngx-datatable-column>
+            </ng-template>
+          </ngx-datatable-column>
 
-          <ngx-datatable-column
-          name="Gender"
-          prop="gender"
-        >
-          <ng-template
-            let-row="row"
-            let-name="value"
-            ngx-datatable-cell-template
-          >
-            <div class="d-flex align-items-center">
-              <div class="cell-line-height d-block">
-                <span class="font-weight-bold white-space">{{
-                    name | truncate: 20 
+          <ngx-datatable-column name="Gender" prop="gender">
+            <ng-template
+              let-row="row"
+              let-name="value"
+              ngx-datatable-cell-template
+            >
+              <div class="d-flex align-items-center">
+                <div class="cell-line-height d-block">
+                  <span class="font-weight-bold white-space">{{
+                    name | truncate : 20
                   }}</span>
+                </div>
               </div>
-            </div>
-          </ng-template>
-        </ngx-datatable-column>
-        <ngx-datatable-column
-        name="Phone number"
-        prop="mobile_no"
-      >
-        <ng-template
-          let-row="row"
-          let-name="value"
-          ngx-datatable-cell-template
-        >
-          <div class="d-flex align-items-center">
-            <div class="cell-line-height d-block">
-              <span class="font-weight-bold white-space">{{
-                  name | truncate: 20 
-                }}</span>
-            </div>
-          </div>
-        </ng-template>
-      </ngx-datatable-column>
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Phone number" prop="mobile_no">
+            <ng-template
+              let-row="row"
+              let-name="value"
+              ngx-datatable-cell-template
+            >
+              <div class="d-flex align-items-center">
+                <div class="cell-line-height d-block">
+                  <span class="font-weight-bold white-space">{{
+                    name | truncate : 20
+                  }}</span>
+                </div>
+              </div>
+            </ng-template>
+          </ngx-datatable-column>
           <ngx-datatable-column name="Actions" [width]="40" [sortable]="false">
             <ng-template ngx-datatable-cell-template let-row="row">
               <div ngbDropdown container="body">
@@ -347,7 +339,9 @@
                     ></span>
                     Edit</a
                   >
-                  <a  (click)="modalsService.modalOpenDanger(modalDanger, row)" ngbDropdownItem
+                  <a
+                    (click)="modalsService.modalOpenDanger(modalDanger, row)"
+                    ngbDropdownItem
                     ><span
                       [data-feather]="'trash'"
                       [size]="16"
@@ -372,14 +366,27 @@
       </button> -->
     </div>
     <div class="modal-body" tabindex="0" ngbAutofocus>
-      Are you sure you want to delete member - {{modalsService.item.user_name}}?<br/>
-    <span class="f-size-class"> This item will be deleted immediately. You can't undo this action.</span>
+      Are you sure you want to delete member -
+      {{ modalsService.item.user_name }}?<br />
+      <span class="f-size-class">
+        This item will be deleted immediately. You can't undo this action.</span
+      >
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn" (click)="modal.dismiss('Cross click')" rippleEffect>
+      <button
+        type="button"
+        class="btn"
+        (click)="modal.dismiss('Cross click')"
+        rippleEffect
+      >
         No
       </button>
-      <button type="button" class="btn btn-danger" (click)="delete(modalsService.item.id)" rippleEffect>
+      <button
+        type="button"
+        class="btn btn-danger"
+        (click)="delete(modalsService.item.id)"
+        rippleEffect
+      >
         Yes
       </button>
     </div>

@@ -15,7 +15,7 @@
           <div class="users-list-filter">
             <form>
               <div class="row">
-                <div class="col-12 col-md-4">
+                <div class="col-12 col-md-3">
                   <fieldset class="form-group">
                     <ng-select
                       [items]="selectCity"
@@ -27,7 +27,7 @@
                     ></ng-select>
                   </fieldset>
                 </div>
-                <div class="col-12 col-md-4">
+                <div class="col-12 col-md-3">
                   <fieldset class="form-group">
                     <ng-select
                       [items]="selectArea"
@@ -40,7 +40,7 @@
                   </fieldset>
                 </div>
 
-                <div class="col-12 col-md-4">
+                <div class="col-12 col-md-3">
                   <fieldset class="form-group">
                     <ng-select
                       [items]="selectMembers"
@@ -51,6 +51,19 @@
                       (change)="filterByMembers($event)"
                     ></ng-select>
                   </fieldset>
+                </div>
+                <div class="col-12 col-md-3">
+                  <!-- <button
+                class="btn btn-primary d-flex w-100  justify-content-center align-items-center"
+                rippleEffect
+              > -->
+                  <button
+                    class="btn btn-primary d-flex w-100 justify-content-center align-items-center"
+                    (click)="generateDownloadLink()"
+                  >
+                    Download csv
+                  </button>
+                  <!-- </button> -->
                 </div>
               </div>
             </form>
