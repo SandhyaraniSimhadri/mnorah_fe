@@ -69,7 +69,6 @@ this.getMembers();
   }
 
   getMembers(){
-    console.log("loading",this.loading);
     this.loading=true;
     let request;
     request = {
@@ -188,16 +187,12 @@ this.getMembers();
   filterRows(cityFilter, areaFilter,membersFilter): any[] {
     // Reset search on select change
     this.searchValue = "";
-    console.log("cityFilter", cityFilter);
-    console.log("areaFilter", areaFilter);
-    console.log("membersFilter", membersFilter);
 
 
     // cityFilter = cityFilter;
     // areaFilter = areaFilter;
     // membersFilter = membersFilter;
 
-    console.log("tempdata", this.tempData);
     const filters = {
       city: cityFilter,
       area: areaFilter,
@@ -209,7 +204,6 @@ this.getMembers();
     //   });
     // });
     return this.tempData.filter((row) => {
-      console.log("rows data",row);
       const isPartialCityMatch =
         row.city.toLowerCase().indexOf(cityFilter) !== -1 ||
         !cityFilter;
@@ -261,7 +255,6 @@ this.getMembers();
           } else if (res.status == true) {
             this.rows = res.data;
             this.tempData = this.rows;
-            console.log("rowss", this.rows);
             const citySet = new Set();
             this.rows.forEach((lifegroup) => {
               if (!citySet.has(lifegroup.city)) {
@@ -303,7 +296,6 @@ this.getMembers();
     );
   }
   updateLifeGroupList(newGroup: any) {
-    console.log("called");
     this.loading=true;
     this.getLifeGroups(); 
   }
@@ -348,7 +340,6 @@ this.getMembers();
     this.loading = true;
     this.file = event.target.files[0];
     this.loading = false;
-    console.log("file",this.file);
   }
   uploadFile() {
     const formData = new FormData();
@@ -379,7 +370,6 @@ this.getMembers();
     );
   }
   generateDownloadLink() {
-    console.log("link");
 
     const jwtToken = this.httpService.APIToken
     const downloadUrl = `${this.api_url}get_life_groups_report?type=csv&jwt_token=${jwtToken}`;

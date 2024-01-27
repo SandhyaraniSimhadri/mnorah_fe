@@ -45,9 +45,8 @@ export class NewUserSidebarComponent implements OnInit {
     private http: HttpClient
   ) {
     if(this.httpService.USERINFO.role=='Sub Admin'){
-      console.log("service data",this.httpService.USERINFO);
     this.church_id = this.httpService.USERINFO.church_id;
-  console.log("member id",this.church_id)}
+}
   }
 
   /**
@@ -66,7 +65,6 @@ export class NewUserSidebarComponent implements OnInit {
    * @param form
    */
   submit(form) {
-    console.log("selected values",this.customTagselected);
     var i=0;
     if (Array.isArray(this.customTagselected)) {
       for (var i = 0; i < this.customTagselected.length; i++) {
@@ -74,28 +72,21 @@ export class NewUserSidebarComponent implements OnInit {
       }
     }
     
-    console.log("listttt", this.members_list);
     this.loading = true;
     const formData = new FormData();
-    // formData.append("image", this.image);
     formData.append("church_id", this.church_id);
     formData.append("country", this.country);
     formData.append("city", this.city);
     formData.append("area", this.area);
-    // formData.append("members_count", this.members_count);
-    // formData.append("members", this.members_list);
     formData.append("members_count", this.customTagselected.length);
     formData.append("members",this.members_list);
 
     if (form.valid) {
-      // console.log("form values", this.form);
 
 
       this.http.post<any>(this.apiUrl + "api/add_life_group", formData).subscribe(
         (res: any) => {
-          console.log("res", res);
 
-          console.log(res);
           if (res == "nonet") {
           } else {
             if (res.status == false) {
@@ -104,7 +95,6 @@ export class NewUserSidebarComponent implements OnInit {
                 closeButton: true,
               });
             } else if (res.status == true) {
-              console.log("data", res.msg);
               this.onGroupAdded.emit(res.data);
 
               this._toastrService.success(res.msg, "Success", {
@@ -133,7 +123,6 @@ export class NewUserSidebarComponent implements OnInit {
     this.getMembers();
   }
   getData() {
-    console.log("@gb getdata called ");
     let request = {
       params: null,
       action_url: "get_churches",
@@ -146,7 +135,6 @@ export class NewUserSidebarComponent implements OnInit {
           if (res.status == false) {
           } else if (res.status == true) {
             this.churchData = res.data;
-            console.log("churches data",this.churchData);
           }
         }
       },
@@ -154,7 +142,6 @@ export class NewUserSidebarComponent implements OnInit {
     );
   }
   getMembers(){
-    console.log("loading",this.loading);
     this.loading=true;
     let request;
     request = {
@@ -175,7 +162,6 @@ export class NewUserSidebarComponent implements OnInit {
             this.members_data.forEach((c, i) => {
               this.customTag.push({ id: c.id ,name:c.user_name});
             });
-           console.log("customs data",this.customTag);
           }
         }
         this.loading=false;

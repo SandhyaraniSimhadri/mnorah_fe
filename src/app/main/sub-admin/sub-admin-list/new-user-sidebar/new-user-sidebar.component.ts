@@ -71,7 +71,6 @@ export class NewUserSidebarComponent implements OnInit {
     };
     if (form.valid) {
       this.loading = true;
-      console.log("form values", this.form);
       let request;
 
       request = {
@@ -79,13 +78,9 @@ export class NewUserSidebarComponent implements OnInit {
         action_url: "add_subadmin",
         method: "POST",
       };
-      console.log("request", request);
       this.httpService.doHttp(request).subscribe(
         (res: any) => {
           this.loading = false;
-          console.log("res", res);
-
-          console.log(res);
           if (res == "nonet") {
           } else {
             if (res.status == false) {
@@ -94,7 +89,6 @@ export class NewUserSidebarComponent implements OnInit {
                 closeButton: true,
               });
             } else if (res.status == true) {
-              console.log("data", res.msg);
                this.onUserAdded.emit(res.data);
               this._toastrService.success(res.msg, "Success", {
                 toastClass: "toast ngx-toastr",
@@ -131,7 +125,6 @@ export class NewUserSidebarComponent implements OnInit {
           if (res.status == false) {
           } else if (res.status == true) {
             this.churcesData = res.data;
-            console.log("rowss", this.rows);
             this.status = true;
           }
         }

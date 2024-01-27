@@ -55,8 +55,6 @@ export class LifeGroupManagementViewComponent implements OnInit, OnDestroy {
           if (res.status == false) {
           } else if (res.status == true) {
             this.data=res.data;
-            // this.data.userNames;
-            console.log("rows",this.data);
 
           }
         }

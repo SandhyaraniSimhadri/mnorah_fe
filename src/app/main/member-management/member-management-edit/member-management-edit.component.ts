@@ -163,7 +163,6 @@ export class MemberManagementEditComponent implements OnInit, OnDestroy {
   uploadImage(event: any) {
     if (event.target.files && event.target.files[0]) {
       let reader = new FileReader();
-      console.log("file", event.target.files[0]);
       reader.onload = (event: any) => {
         this.avatarImage = event.target.result;
       };
@@ -181,51 +180,13 @@ export class MemberManagementEditComponent implements OnInit, OnDestroy {
    *
    * @param form
    */
-  // submit(form) {
-  //   if (form.valid) {
-  //     const dateString = this.currentRow.dob;
-  //     const parts = dateString.split('/');
-  //     this.dob = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`).toISOString().slice(0, 10);
-  //       this.currentRow.dob=this.dob
-  //         if (form.valid) {
-  //           console.log("form values",this.currentRow);
-  //           let request;
-
-  //           request = {
-  //             params: this.currentRow,
-  //             action_url: "update_subadmin",
-  //             method: "POST",
-  //           };
-  //           console.log("request", request);
-  //           this.httpService.doHttp(request).subscribe(
-  //             (res: any) => {
-  //               console.log("res", res);
-
-  //               console.log(res);
-  //               if (res == "nonet") {
-  //               } else {
-  //                 if (res.status == false) {
-  //                 } else if (res.status == true) {
-  //                 }
-  //               }
-  //             },
-  //             (error: any) => {}
-  //           );
-
-  //         }
-  //   }
-  // }
+  
 
   submit(form) {
 
     if (form.valid) {
       this.buttonLoading=true;
-      // const dateString = this.currentRow.dob;
-      // const parts = dateString.split("/");
-      // this.dob = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`)
-      //   .toISOString()
-      //   .slice(0, 10);
-      // this.currentRow.dob = this.dob;
+
       const formData = new FormData();
       formData.append("image", this.image);
       this.currentRow.invovlement = this.selectMultiGroupSelected.toString();
@@ -321,10 +282,8 @@ export class MemberManagementEditComponent implements OnInit, OnDestroy {
             this.currentRow.invovlement_interest = null;
             this.selectMultiGroupSelected =[]
           
-            console.log("valuessss", this.selectMultiGroupSelected);
             this.avatarImage = this.apiUrl + this.currentRow.avatar;
             this.tempRow = cloneDeep(this.currentRow);
-            console.log("rows values", this.currentRow);
           }
         }
         this.loading = false;
@@ -343,7 +302,6 @@ export class MemberManagementEditComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.complete();
   }
   getData() {
-    console.log("@gb getdata called ");
     let request = {
       params: null,
       action_url: "get_churches",
@@ -356,7 +314,6 @@ export class MemberManagementEditComponent implements OnInit, OnDestroy {
           if (res.status == false) {
           } else if (res.status == true) {
             this.churcesData = res.data;
-            console.log("rowss", this.churcesData);
           }
         }
       },
@@ -364,7 +321,6 @@ export class MemberManagementEditComponent implements OnInit, OnDestroy {
     );
   }
   checkOther(event: any) {
-    console.log("event item", event.target.innerText);
 
     if (!this.selectMultiGroupSelected.includes(event.target.innerText)) {
       if (event.target.innerText !== "") {
@@ -388,16 +344,10 @@ export class MemberManagementEditComponent implements OnInit, OnDestroy {
     }
     // this.checkFormModified();
     this.formModified=true;
-    console.log("item", this.selectMultiGroupSelected);
-    // Access the selected item using the event object
-    // const selectedItem = event.item;
-    // console.log(selectedItem);
+
   }
   checkFormModified() {
-    console.log("current row",this.currentRow);
-    console.log("original form row",this.originalFormValues);
-
+   
     this.formModified = !isEqual(this.currentRow, this.originalFormValues);
-    console.log("this.modified",this.formModified);
   }
 }

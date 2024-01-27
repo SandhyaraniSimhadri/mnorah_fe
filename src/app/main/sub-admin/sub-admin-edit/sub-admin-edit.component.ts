@@ -112,7 +112,6 @@ export class SubAdminEditComponent implements OnInit, OnDestroy {
     this.buttonLoading = true;
     if (event.target.files && event.target.files[0]) {
       let reader = new FileReader();
-      console.log("file", event.target.files[0]);
       reader.onload = (event: any) => {
         this.avatarImage = event.target.result;
       };
@@ -162,14 +161,10 @@ export class SubAdminEditComponent implements OnInit, OnDestroy {
         action_url: "update_subadmin",
         method: "POST",
       };
-      console.log("request", request);
       this.http
         .post<any>(this.apiUrl + "api/update_subadmin", formData)
         .subscribe(
           (res: any) => {
-            console.log("res", res);
-
-            console.log(res);
             if (res == "nonet") {
             } else {
               if (res.status == false) {
@@ -208,7 +203,6 @@ export class SubAdminEditComponent implements OnInit, OnDestroy {
     this.getSingleAdmin();
   }
   getData() {
-    console.log("@gb getdata called ");
     let request = {
       params: null,
       action_url: "get_churches",
@@ -221,7 +215,6 @@ export class SubAdminEditComponent implements OnInit, OnDestroy {
           if (res.status == false) {
           } else if (res.status == true) {
             this.churcesData = res.data;
-            console.log("rowss", this.churcesData);
           }
         }
       },
@@ -250,7 +243,6 @@ export class SubAdminEditComponent implements OnInit, OnDestroy {
             }
             this.originalFormValues = { ...this.currentRow };
             this.tempRow = cloneDeep(this.currentRow);
-            console.log("rows values", this.avatarImage);
           }
         }
         this.loading = false;
@@ -269,11 +261,8 @@ export class SubAdminEditComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.complete();
   }
   checkFormModified() {
-    console.log("current row",this.currentRow);
-    console.log("original form row",this.originalFormValues);
 
     this.formModified = !isEqual(this.currentRow, this.originalFormValues);
-    console.log("this.modified",this.formModified);
   }
  
 }

@@ -125,21 +125,11 @@ export class SubAdminListComponent implements OnInit {
    * Filter By Plan
    *
    * @param event
-  //  */
-  // filterByPlan(event) {
-  //   const filter = event ? event.value : '';
-  //   this.previousPlanFilter = filter;
-  //   this.temp = this.filterRows(this.previousRoleFilter, filter, this.previousStatusFilter);
-  //   this.rows = this.temp;
-  // }
 
-  /**
-   * Filter By Status
    *
    * @param event
    */
   filterByChurch(event) {
-    // console.log("event.valie",event.value);
     if (event == undefined) {
       this.temp = this.totalrows;
       this.rows = this.temp;
@@ -185,14 +175,12 @@ getAdmins1() {
 
 updateUserList(newUser: any) {
   this.loading=true;
-  console.log("users list updated");
   this.getAdmins();
 
 }
   getAdmins() {
 
     this.loading = true;
-    console.log("@data getAdmins()");
     let request;
 
     request = {
@@ -212,7 +200,6 @@ updateUserList(newUser: any) {
             this.tempData = this.rows;
             this.pending_users = res.pending_users;
             this.active_users = res.active_users;
-            console.log("rows", this.rows);
             const nameSet = new Set();
             this.rows.forEach((church) => {
               if (!nameSet.has(church.church_name)) {
