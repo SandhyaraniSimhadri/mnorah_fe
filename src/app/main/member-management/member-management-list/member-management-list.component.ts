@@ -212,7 +212,6 @@ export class MemberManagementListComponent implements OnInit {
           if (res.status == false) {
           } else if (res.status == true) {
             this.rows=res.data;
-            console.log("valuess members",this.rows[0].avatar);
             this.tempData=this.rows;
             this.pending_users=res.pending_users;
             this.active_users=res.active_users;

@@ -59,7 +59,6 @@ export class ChurchManagementViewComponent implements OnInit, OnDestroy {
           } else if (res.status == true) {
             this.data=res.data;
           
-            console.log("rows",this.data);
 
           }
         }

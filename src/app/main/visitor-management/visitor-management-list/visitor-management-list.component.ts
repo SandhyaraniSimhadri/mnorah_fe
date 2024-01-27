@@ -184,7 +184,6 @@ public selectCity:any=[];
     this._unsubscribeAll.complete();
   }
   getVisitors(){
-    console.log("loading",this.loading);
     this.loading=true;
     let request;
     request = {
@@ -259,7 +258,6 @@ public selectCity:any=[];
     this.loading = true;
     this.file = event.target.files[0];
     this.loading = false;
-    console.log("file",this.file);
   }
   uploadFile() {
     const formData = new FormData();
@@ -290,7 +288,6 @@ public selectCity:any=[];
     );
   }
   generateDownloadLink() {
-    console.log("link");
 
     const jwtToken = this.httpService.APIToken
     const downloadUrl = `${this.api_url}get_visitors_report?type=csv&jwt_token=${jwtToken}`;

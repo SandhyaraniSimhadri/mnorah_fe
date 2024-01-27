@@ -40,7 +40,6 @@ export class DeleteDailogueBoxComponent implements OnInit {
   constructor(private _coreSidebarService: CoreSidebarService, 
      public httpService: CoreHttpService,   private router: Router,
      private _toastrService: ToastrService) {
-        console.log("@hiii");
      }
 
   /**
@@ -64,7 +63,6 @@ export class DeleteDailogueBoxComponent implements OnInit {
     denomination:this.denomination,language:this.language,city:this.city,country:this.country,
   church_address:this.church_address,contact_number:this.contact_number,address:this.address,website:this.website};
     if (form.valid) {
-      console.log("form values",this.form);
       let request;
 
       request = {
@@ -72,19 +70,14 @@ export class DeleteDailogueBoxComponent implements OnInit {
         action_url: "add_church",
         method: "POST",
       };
-      console.log("request", request);
       this.httpService.doHttp(request).subscribe(
         (res: any) => {
-          console.log("res", res);
   
-          console.log(res);
           if (res == "nonet") {
           } else {
             if (res.status == false) {
               this._toastrService.error(res.msg,'Failed',       { toastClass: 'toast ngx-toastr', closeButton: true });
             } else if (res.status == true) {
-              console.log("data",res.msg);
-            //   this.onUserAdded.emit(res.data);
 
               this._toastrService.success(
                 res.msg,
@@ -111,7 +104,6 @@ export class DeleteDailogueBoxComponent implements OnInit {
     this.getData();
   }
   getData() {
-    console.log("@gb getdata called ");
     let request = {
       params: null,
       action_url: "get_admins",

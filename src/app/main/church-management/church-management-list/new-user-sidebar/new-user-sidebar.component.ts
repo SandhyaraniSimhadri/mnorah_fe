@@ -62,7 +62,6 @@ export class NewUserSidebarComponent implements OnInit {
    * @param form
    */
   submit(form) {
-    console.log("selected values", this.customTagselected);
     var i = 0;
     if (Array.isArray(this.customTagselected)) {
       for (var i = 0; i < this.customTagselected.length; i++) {
@@ -88,7 +87,6 @@ export class NewUserSidebarComponent implements OnInit {
       admins_list: this.admins_list,
     };
     if (form.valid) {
-      console.log("form values", this.form);
       let request;
 
       request = {
@@ -96,12 +94,9 @@ export class NewUserSidebarComponent implements OnInit {
         action_url: "add_church",
         method: "POST",
       };
-      console.log("request", request);
       this.httpService.doHttp(request).subscribe(
         (res: any) => {
-          console.log("res", res);
 
-          console.log(res);
           if (res == "nonet") {
           } else {
             if (res.status == false) {
@@ -110,7 +105,6 @@ export class NewUserSidebarComponent implements OnInit {
                 closeButton: true,
               });
             } else if (res.status == true) {
-              console.log("data", res.msg);
               this.onUserAdded.emit(res.data);
 
               this._toastrService.success(res.msg, "Success", {
@@ -135,7 +129,6 @@ export class NewUserSidebarComponent implements OnInit {
     this.getAdmins();
   }
   getAdmins() {
-    console.log("@gb getdata called ");
     let request = {
       params: null,
       action_url: "get_admins_for_new_church",
@@ -152,7 +145,6 @@ export class NewUserSidebarComponent implements OnInit {
             this.adminsData.forEach((c, i) => {
               this.customTag.push({ id: c.id, name: c.user_name });
             });
-            console.log("customs data", this.customTag);
           }
         }
         this.status = true;

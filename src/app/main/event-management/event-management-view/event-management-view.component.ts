@@ -58,9 +58,6 @@ export class EventManagementViewComponent implements OnInit, OnDestroy {
           if (res.status == false) {
           } else if (res.status == true) {
             this.data=res.data;
-          
-            console.log("rows",this.data);
-
           }
         }
         this.loading=false;

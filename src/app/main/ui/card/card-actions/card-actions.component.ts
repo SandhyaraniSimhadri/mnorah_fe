@@ -17,7 +17,6 @@ export class CardActionsComponent implements OnInit {
    * @param $event
    */
   emittedEvents($event) {
-    console.log('Action : ', $event);
   }
 
   /**
@@ -28,11 +27,11 @@ export class CardActionsComponent implements OnInit {
   reload($event) {
     // This is fake API call example for reload
     if ($event === 'reload') {
-      console.log($event, ': Start');
+    
       this.isReload = true;
       setTimeout(() => {
         this.isReload = false;
-        console.log($event, ': End');
+    
       }, 5000);
     }
   }

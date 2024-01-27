@@ -325,10 +325,8 @@ export class DashboardComponent implements OnInit {
    * After View Init
    */
   getMembers() {
-    console.log("loading", this.loading);
     this.loading = true;
     let request;
-    console.log("rolee",this.httpService.USERINFO.role);
     if(this.httpService.USERINFO.role=='Super Admin'){
     request = {
       params: null,
@@ -349,7 +347,6 @@ export class DashboardComponent implements OnInit {
         } else {
           if (res.status == false) {
           } else if (res.status == true) {
-            console.log("resss", res);
             this.rows = res.members;
             this.rows.series = [
               { name: "members", data: this.rows.weekly_active_users },
@@ -401,7 +398,6 @@ export class DashboardComponent implements OnInit {
           }
         }
         this.loading=false;
-        console.log("loading value", this.loading);
       },
       (error: any) => {
         this.loading = false;

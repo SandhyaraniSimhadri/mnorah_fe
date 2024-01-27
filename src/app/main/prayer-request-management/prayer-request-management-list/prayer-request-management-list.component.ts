@@ -158,12 +158,9 @@ export class PrayerRequestManagementListComponent implements OnInit {
   filterRows(churchFilter, authorFilter): any[] {
     // Reset search on select change
     this.searchValue = "";
-    console.log("churchFilter", churchFilter);
-    console.log("authorFilter", authorFilter);
 
     churchFilter = churchFilter.toLowerCase();
     authorFilter = authorFilter.toLowerCase();
-    console.log("tempdata", this.tempData);
     return this.tempData.filter((row) => {
       const isPartialNameMatch =
         row.church_name.toLowerCase().indexOf(churchFilter) !== -1 ||
@@ -188,7 +185,6 @@ export class PrayerRequestManagementListComponent implements OnInit {
     this.getRequests();
   }
   getMembers(){
-    console.log("loading",this.loading);
     this.loading=true;
     let request;
     request = {
@@ -240,7 +236,6 @@ export class PrayerRequestManagementListComponent implements OnInit {
           } else if (res.status == true) {
             this.rows = res.data;
             this.tempData = this.rows;
-            console.log("rowss", this.rows);
             const nameSet = new Set();
             this.rows.forEach((request) => {
               if (!nameSet.has(request.church_name)) {
@@ -263,7 +258,6 @@ export class PrayerRequestManagementListComponent implements OnInit {
     );
   }
   updateRequestList(newRequest: any) {
-    console.log("called");
     this.loading=true;
     this.rows.push(newRequest);
     this.getRequests(); 
@@ -309,7 +303,6 @@ export class PrayerRequestManagementListComponent implements OnInit {
     this.loading = true;
     this.file = event.target.files[0];
     this.loading = false;
-    console.log("file",this.file);
   }
   uploadFile() {
     const formData = new FormData();
@@ -340,7 +333,6 @@ export class PrayerRequestManagementListComponent implements OnInit {
     );
   }
   generateDownloadLink() {
-    console.log("link");
 
     const jwtToken = this.httpService.APIToken
     const downloadUrl = `${this.api_url}get_prayer_requests_report?type=csv&jwt_token=${jwtToken}`;

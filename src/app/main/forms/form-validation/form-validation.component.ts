@@ -49,7 +49,6 @@ export class FormValidationComponent implements OnInit {
     if (this.ReactiveUserDetailsForm.invalid) {
       return;
     }
-    console.log(this.ReactiveUserDetailsForm.value);
     alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.ReactiveUserDetailsForm.value));
   }
 

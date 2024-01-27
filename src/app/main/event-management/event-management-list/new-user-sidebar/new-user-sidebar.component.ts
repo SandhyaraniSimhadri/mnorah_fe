@@ -42,9 +42,8 @@ export class NewUserSidebarComponent implements OnInit {
      public httpService: CoreHttpService,   private router: Router,
      private _toastrService: ToastrService) {
       if(this.httpService.USERINFO.role=='Sub Admin'){
-        console.log("service data",this.httpService.USERINFO);
       this.church_id = this.httpService.USERINFO.church_id;
-    console.log("member id",this.church_id)}
+  }
      }
 
   /**
@@ -68,7 +67,6 @@ export class NewUserSidebarComponent implements OnInit {
       venue:this.venue,contact_person:this.contact_person,frequency:this.frequency,event_description:this.event_description,agenda:this.agenda,
       reg_info:this.reg_info,speakers:this.speakers,special_req:this.special_req,dress_code:this.dress_code,additional_info:this.additional_info};
     if (form.valid) {
-      console.log("form values",this.form);
       let request;
 
       request = {
@@ -76,18 +74,14 @@ export class NewUserSidebarComponent implements OnInit {
         action_url: "add_event",
         method: "POST",
       };
-      console.log("request", request);
       this.httpService.doHttp(request).subscribe(
         (res: any) => {
-          console.log("res", res);
   
-          console.log(res);
           if (res == "nonet") {
           } else {
             if (res.status == false) {
               this._toastrService.error(res.msg,'Failed',       { toastClass: 'toast ngx-toastr', closeButton: true });
             } else if (res.status == true) {
-              console.log("data",res.msg);
               this.onEventAdded.emit(res.data);
 
               this._toastrService.success(
@@ -115,7 +109,6 @@ export class NewUserSidebarComponent implements OnInit {
     this.getData();
   }
   getData() {
-    console.log("@gb getdata called ");
     let request = {
       params: null,
       action_url: "get_churches",

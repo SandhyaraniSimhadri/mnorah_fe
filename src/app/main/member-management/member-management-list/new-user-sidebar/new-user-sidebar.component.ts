@@ -102,9 +102,8 @@ export class NewUserSidebarComponent implements OnInit {
     private _toastrService: ToastrService
   ) {
     if(this.httpService.USERINFO.role=='Sub Admin'){
-      console.log("service data",this.httpService.USERINFO);
     this.memberForm.church_id = this.httpService.USERINFO.church_id;
-  console.log("member id",this.memberForm.church_id)}
+}
   }
 
   /**
@@ -129,7 +128,6 @@ export class NewUserSidebarComponent implements OnInit {
           if (res.status == false) {
           } else if (res.status == true) {
             this.churcesData = res.data;
-            console.log("rowss", this.rows);
             this.status = true;
           }
         }
@@ -143,14 +141,11 @@ export class NewUserSidebarComponent implements OnInit {
    * @param form
    */
   submit(form:any) {
- console.log("selected invo",this.selectGroupselected);
  if(this.selectMultiGroupSelected.length>0){
     this.memberForm.invovlement = this.selectMultiGroupSelected.toString();}
- console.log("selected invo final", this.memberForm.invovlement );
 
     if (form.valid) {
       this.loading = true;
-      console.log("form values", this.form);
       let request;
 
       request = {
@@ -158,12 +153,9 @@ export class NewUserSidebarComponent implements OnInit {
         action_url: "add_member",
         method: "POST",
       };
-      console.log("request", request);
       this.httpService.doHttp(request).subscribe(
         (res: any) => {
-          console.log("res", res);
 
-          console.log(res);
           if (res == "nonet") {
           } else {
             if (res.status == false) {
@@ -196,7 +188,6 @@ export class NewUserSidebarComponent implements OnInit {
     this.getData();
   }
   checkOther(event: any) {
-    console.log("event item", event.target.innerText);
 
     if (!this.selectMultiGroupSelected.includes(event.target.innerText)) {
       if (event.target.innerText !== "") {
@@ -218,9 +209,5 @@ export class NewUserSidebarComponent implements OnInit {
         this.enableAttending = false;
       }
     }
-    console.log("item", this.selectMultiGroupSelected);
-    // Access the selected item using the event object
-    // const selectedItem = event.item;
-    // console.log(selectedItem);
   }
 }

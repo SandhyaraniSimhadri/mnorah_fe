@@ -34,7 +34,6 @@ export class CoreHttpService {
     constructor(private http: HttpClient,
                 //private transfer: FileTransfer,
                ) {
-    console.log("constructor");
         if (localStorage.getItem('currentUser')) {
             let user = JSON.parse(localStorage.getItem('currentUser'));
             this.USERINFO = user;
@@ -54,10 +53,8 @@ export class CoreHttpService {
 
 
     public doHttp(request) {
-    console.log("constructor 1");
 
         if (localStorage.getItem('currentUser')) {
-            console.log("user yes");
             let user = JSON.parse(localStorage.getItem('currentUser'));
             this.USERINFO = user;
             this.APIToken = user.token;
@@ -65,17 +62,13 @@ export class CoreHttpService {
         }
         
 
-        console.log("request11",request);
         let headers;
 
         let api_url = this.APIUrl;
-        console.log("token 1",this.APIToken);
         api_url = api_url + 'api/';
-        // console.log("api_url",api_url);
 
         let method = (request.method).toLowerCase();
         if (this.APIToken != '') {
-            console.log("token 2",this.APIToken);
             headers = new HttpHeaders()
                 .set('Content-Type', 'application/json')
                 .set('Access-Control-Allow-Origin', '*')
@@ -101,16 +94,13 @@ export class CoreHttpService {
             return simpleObservable;
             //this.shared.toastMsgShow("No network connection.",2000)
         } else if (method === 'get' || method==='GET') {
-            console.log("headersss 1",headers)
             let params = '';
             return this.http.get(api_url + request.action_url + params, {
                 headers: headers
             });
         } else if (method === 'post' || method==="POST") {
-            console.log("headersss 2",headers)
             let params = request.params;
             if (request.params != null) params = request.params;
-            console.log("api_url + request.action_url",api_url + request.action_url);
             return this.http.post(api_url + request.action_url, params, {
                 headers: headers
             });

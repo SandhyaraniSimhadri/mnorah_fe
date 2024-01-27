@@ -98,7 +98,6 @@ export class ChurchManagementEditComponent implements OnInit, OnDestroy {
     this.loading = true;
     if (event.target.files && event.target.files[0]) {
       let reader = new FileReader();
-      console.log("file", event.target.files[0]);
       reader.onload = (event: any) => {
         this.avatarImage = event.target.result;
       };
@@ -154,14 +153,11 @@ export class ChurchManagementEditComponent implements OnInit, OnDestroy {
         action_url: "update_church",
         method: "POST",
       };
-      console.log("request", request);
       this.http
         .post<any>(this.apiUrl + "api/update_church", formData)
         .subscribe(
           (res: any) => {
-            console.log("res", res);
 
-            console.log(res);
             if (res == "nonet") {
             } else {
               if (res.status == false) {
@@ -192,11 +188,8 @@ export class ChurchManagementEditComponent implements OnInit, OnDestroy {
 
 
   checkFormModified() {
-    console.log("current row",this.currentRow);
-    console.log("original form row",this.originalFormValues);
 
     this.formModified = !isEqual(this.currentRow, this.originalFormValues);
-    console.log("this.modified",this.formModified);
   }
   // isEqual(obj1: any, obj2: any): boolean {
   //   return JSON.stringify(obj1) === JSON.stringify(obj2);
@@ -230,7 +223,6 @@ export class ChurchManagementEditComponent implements OnInit, OnDestroy {
             this.currentRow.admin_ids = this.currentRow.admin_ids.split(",");
             this.currentRow.admins = this.currentRow.admins.split(",");
             this.originalFormValues = { ...this.currentRow };
-            console.log("rows values 12", this.currentRow);
             this.currentRow.admin_ids.forEach((c, i) => {
               this.customTagselected.push({
                 id: c,
@@ -242,7 +234,6 @@ export class ChurchManagementEditComponent implements OnInit, OnDestroy {
           else{
             this.originalFormValues = { ...this.currentRow };
           }
-            console.log("rows values", this.currentRow);
           }
         }
         this.loading = false;
@@ -262,7 +253,6 @@ export class ChurchManagementEditComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.complete();
   }
   getAdmins() {
-    console.log("@gb getdata called ");
     let request = {
       params: null,
       action_url: "get_admins_for_new_church",
@@ -279,7 +269,6 @@ export class ChurchManagementEditComponent implements OnInit, OnDestroy {
             this.adminsData.forEach((c, i) => {
               this.customTag.push({ id: c.id, name: c.user_name });
             });
-            console.log("customs data", this.customTag);
           }
         }
       },

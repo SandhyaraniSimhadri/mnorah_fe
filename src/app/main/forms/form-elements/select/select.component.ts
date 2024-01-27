@@ -171,7 +171,6 @@ export class SelectComponent implements OnInit {
    * @param name
    */
   selectAddTagMethod(name) {
-    console.log('@gb 1: ', name);
     return { name: name, tag: true };
   }
 

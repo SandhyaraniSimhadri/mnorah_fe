@@ -36,9 +36,8 @@ export class NewUserSidebarComponent implements OnInit {
     private http: HttpClient
   ) {
     if(this.httpService.USERINFO.role=='Sub Admin'){
-      console.log("service data",this.httpService.USERINFO);
     this.church_id = this.httpService.USERINFO.church_id;
-  console.log("member id",this.church_id)}
+}
   }
 
   /**
@@ -65,13 +64,10 @@ export class NewUserSidebarComponent implements OnInit {
     formData.append("title", this.title);
 
     if (form.valid) {
-      console.log("form values", this.form);
 
       this.http.post<any>(this.apiUrl + "api/add_testimony", formData).subscribe(
         (res: any) => {
-          console.log("res", res);
 
-          console.log(res);
           if (res == "nonet") {
           } else {
             if (res.status == false) {
@@ -80,7 +76,6 @@ export class NewUserSidebarComponent implements OnInit {
                 closeButton: true,
               });
             } else if (res.status == true) {
-              console.log("data", res.msg);
               this.onTestimonyAdded.emit(res.data);
 
               this._toastrService.success(res.msg, "Success", {
@@ -106,7 +101,6 @@ export class NewUserSidebarComponent implements OnInit {
     this.getData();
   }
   getData() {
-    console.log("@gb getdata called ");
     let request = {
       params: null,
       action_url: "get_churches",
@@ -119,7 +113,6 @@ export class NewUserSidebarComponent implements OnInit {
           if (res.status == false) {
           } else if (res.status == true) {
             this.churchData = res.data;
-            console.log("churches data",this.churchData);
           }
         }
       },

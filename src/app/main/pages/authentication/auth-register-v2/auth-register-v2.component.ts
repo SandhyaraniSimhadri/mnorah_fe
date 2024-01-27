@@ -90,7 +90,6 @@ export class AuthRegisterV2Component implements OnInit {
     }
 
     let user_val = this.registerForm.value;
-    console.log("user val", user_val);
     let email = user_val.email;
     let pwd = user_val.password;
     let username = user_val.username;
@@ -125,12 +124,8 @@ export class AuthRegisterV2Component implements OnInit {
       action_url: "register",
       method: "POST",
     };
-    console.log("request", request);
     this.httpService.doHttp(request).subscribe(
       (res: any) => {
-        console.log("res", res);
-
-        console.log(res);
         if (res == "nonet") {
         } else {
           if (res.status == false) {
@@ -182,13 +177,5 @@ export class AuthRegisterV2Component implements OnInit {
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
   }
-  // signUpWithGoogle(): void {
-  //   this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(user => {
-  //     this.user = user;
-  //     console.log("user",this.user);
-  //     // Here, you can send the user's data (e.g., user.email, user.name) to your server for registration.
-  //     // You can also check if the user is already registered in your system and handle the logic accordingly.
-  //   });
-  // }
 
 }

@@ -152,13 +152,10 @@ export class EventManagementListComponent implements OnInit {
   filterRows(churchFilter, dateFilter): any[] {
     // Reset search on select change
     this.searchValue = "";
-    console.log("churchFilter", churchFilter);
-    console.log("dateFilter", dateFilter);
    
 
     churchFilter = churchFilter.toLowerCase();
     dateFilter = dateFilter.toLowerCase();
-    console.log("tempdata", this.tempData);
     return this.tempData.filter((row) => {
       const isPartialNameMatch =
         row.church_name.toLowerCase().indexOf(churchFilter) !== -1 ||
@@ -209,7 +206,6 @@ export class EventManagementListComponent implements OnInit {
           } else if (res.status == true) {
             this.rows = res.data;
             this.tempData = this.rows;
-            console.log("rowss", this.rows);
             const nameSet = new Set();
             this.rows.forEach((event) => {
               if (!nameSet.has(event.church_name)) {
@@ -232,7 +228,6 @@ export class EventManagementListComponent implements OnInit {
             });
           }
         }
-        console.log("datesss",this.selectDate);
         this.loading=false;
       },
       (error: any) => {
@@ -241,7 +236,6 @@ export class EventManagementListComponent implements OnInit {
     );
   }
   updateEventList(newUser: any) {
-    console.log("called");
     this.loading=true;
     this.rows.push(newUser);
     this.getEvents(); 
@@ -286,7 +280,6 @@ export class EventManagementListComponent implements OnInit {
     this.loading = true;
     this.file = event.target.files[0];
     this.loading = false;
-    console.log("file",this.file);
   }
   uploadFile() {
     const formData = new FormData();
@@ -317,7 +310,6 @@ export class EventManagementListComponent implements OnInit {
     );
   }
   generateDownloadLink() {
-    console.log("link");
 
     const jwtToken = this.httpService.APIToken
     const downloadUrl = `${this.api_url}get_events_report?type=csv&jwt_token=${jwtToken}`;

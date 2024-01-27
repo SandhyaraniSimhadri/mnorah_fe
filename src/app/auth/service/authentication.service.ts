@@ -61,14 +61,12 @@ export class AuthenticationService {
    * @returns user
    */
   login(email: string, password: string) {
-    console.log("@log 5");
     return (
       this._http
         // .post<any>(`${environment.apiUrl}/users/authenticate`, { email, password })
         .post<any>(`${environment.apiUrl}api/verify_user`, { email, password })
         .pipe(
           map((user) => {
-            console.log("@log 4: ", user);
             const loginData = user?.data;
             // login successful if there's a jwt token in the response
             if (loginData && loginData.token) {

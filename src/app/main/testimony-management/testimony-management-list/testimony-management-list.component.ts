@@ -152,12 +152,9 @@ export class TestimonyManagementListComponent implements OnInit {
   filterRows(churchFilter, authorFilter): any[] {
     // Reset search on select change
     this.searchValue = "";
-    console.log("churchFilter", churchFilter);
-    console.log("authorFilter", authorFilter);
 
     churchFilter = churchFilter.toLowerCase();
     authorFilter = authorFilter.toLowerCase();
-    console.log("tempdata", this.tempData);
     return this.tempData.filter((row) => {
       const isPartialNameMatch =
         row.church_name.toLowerCase().indexOf(churchFilter) !== -1 ||
@@ -208,7 +205,6 @@ export class TestimonyManagementListComponent implements OnInit {
           } else if (res.status == true) {
             this.rows = res.data;
             this.tempData = this.rows;
-            console.log("rowss", this.rows);
             const nameSet = new Set();
             this.rows.forEach((testimony) => {
               if (!nameSet.has(testimony.church_name)) {
@@ -231,7 +227,6 @@ export class TestimonyManagementListComponent implements OnInit {
     );
   }
   updateTestimonyList(newTestimony: any) {
-    console.log("called");
     this.loading=true;
     this.rows.push(newTestimony);
     this.getTestimony(); 
@@ -276,7 +271,6 @@ export class TestimonyManagementListComponent implements OnInit {
     this.loading = true;
     this.file = event.target.files[0];
     this.loading = false;
-    console.log("file",this.file);
   }
   uploadFile() {
     const formData = new FormData();
@@ -307,7 +301,6 @@ export class TestimonyManagementListComponent implements OnInit {
     );
   }
   generateDownloadLink() {
-    console.log("link");
 
     const jwtToken = this.httpService.APIToken
     const downloadUrl = `${this.api_url}get_testimonies_report?type=csv&jwt_token=${jwtToken}`;

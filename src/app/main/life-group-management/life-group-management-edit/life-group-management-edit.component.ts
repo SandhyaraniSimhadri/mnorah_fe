@@ -105,7 +105,6 @@ export class LifeGroupManagementEditComponent implements OnInit, OnDestroy {
     this.loading=true;
     if (event.target.files && event.target.files[0]) {
       let reader = new FileReader();
-      console.log("file", event.target.files[0]);
       reader.onload = (event: any) => {
         this.avatarImage = event.target.result;
       };
@@ -148,9 +147,6 @@ export class LifeGroupManagementEditComponent implements OnInit, OnDestroy {
         .post<any>(this.apiUrl+"api/update_life_group", formData)
         .subscribe(
           (res: any) => {
-            console.log("res", res);
-
-            console.log(res);
             if (res == "nonet") {
             } else {
               if (res.status == false) {
@@ -191,7 +187,6 @@ export class LifeGroupManagementEditComponent implements OnInit, OnDestroy {
     this.getMembers();
   }
   getMembers(){
-    console.log("loading",this.loading);
     this.loading=true;
     let request;
     request = {
@@ -212,7 +207,6 @@ export class LifeGroupManagementEditComponent implements OnInit, OnDestroy {
             this.members_data.forEach((c, i) => {
               this.customTag.push({ id: c.id ,name:c.user_name});
             });
-           console.log("customs data",this.customTag);
           }
         }
         this.loading=false;
@@ -244,9 +238,7 @@ export class LifeGroupManagementEditComponent implements OnInit, OnDestroy {
             if(this.currentRow.avatar){
             this.avatarImage = this.apiUrl+this.currentRow.avatar;}
             this.tempRow = cloneDeep(this.currentRow);
-            console.log("rows values", this.currentRow);
             this.currentRow.members=this.currentRow.members.split(',');
-            console.log("rows values 12", this.currentRow);
             this.currentRow.members.forEach((c, i) => {
               this.customTagselected.push({ id: c ,name:this.currentRow.userNames[i]});
             });
@@ -272,7 +264,6 @@ export class LifeGroupManagementEditComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.complete();
   }
   getData() {
-    console.log("@gb getdata called ");
     let request = {
       params: null,
       action_url: "get_churches",
@@ -285,7 +276,6 @@ export class LifeGroupManagementEditComponent implements OnInit, OnDestroy {
           if (res.status == false) {
           } else if (res.status == true) {
             this.churchData = res.data;
-            console.log("rowss", this.churchData);
           }
         }
       },
@@ -293,10 +283,7 @@ export class LifeGroupManagementEditComponent implements OnInit, OnDestroy {
     );
   }
   checkFormModified() {
-    console.log("current row",this.currentRow);
-    console.log("original form row",this.originalFormValues);
 
     this.formModified = !isEqual(this.currentRow, this.originalFormValues);
-    console.log("this.modified",this.formModified);
   }
 }

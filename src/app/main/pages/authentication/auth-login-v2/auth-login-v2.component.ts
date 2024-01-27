@@ -94,7 +94,6 @@ export class AuthLoginV2Component implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
-    console.log("@log loginForm: ", this.loginForm.value);
 
     // Login
     this.loading = true;
@@ -106,7 +105,6 @@ export class AuthLoginV2Component implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          console.log("data", data);
           const user = data;
           if (data.status) {
             localStorage.setItem("currentUser", JSON.stringify(user.data));
@@ -131,7 +129,6 @@ export class AuthLoginV2Component implements OnInit {
           this.loading=false;
         },
         (error) => {
-          console.log("@log error: ", error);
           this.error = error;
           this.loading = false;
         }

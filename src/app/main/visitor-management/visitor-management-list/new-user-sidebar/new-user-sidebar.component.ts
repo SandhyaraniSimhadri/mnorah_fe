@@ -92,9 +92,8 @@ export class NewUserSidebarComponent implements OnInit {
     private _toastrService: ToastrService
   ) {
     if(this.httpService.USERINFO.role=='Sub Admin'){
-      console.log("service data",this.httpService.USERINFO);
     this.visitorForm.church_id = this.httpService.USERINFO.church_id;
-  console.log("member id",this.visitorForm.church_id)}
+}
   }
 
   /**
@@ -119,7 +118,6 @@ export class NewUserSidebarComponent implements OnInit {
           if (res.status == false) {
           } else if (res.status == true) {
             this.churcesData = res.data;
-            console.log("church data",this.churcesData)
             this.status = true;
           }
         }
@@ -133,14 +131,10 @@ export class NewUserSidebarComponent implements OnInit {
    * @param form
    */
   submit(form:any) {
-    // this.visitorForm.church_id=this.visitorForm.church_id.id;
-    console.log("valuess",this.selectMultiGroupSelected);
     if(this.selectMultiGroupSelected.length>0){
       this.visitorForm.connection = this.selectMultiGroupSelected.toString();}
-   console.log("selected invo final", this.visitorForm.connection );
     if (form.valid) {
       this.loading = true;
-      console.log("form values", this.form);
       let request;
 
       request = {
@@ -148,12 +142,8 @@ export class NewUserSidebarComponent implements OnInit {
         action_url: "add_visitor",
         method: "POST",
       };
-      console.log("request", request);
       this.httpService.doHttp(request).subscribe(
         (res: any) => {
-          console.log("res", res);
-
-          console.log(res);
           if (res == "nonet") {
           } else {
             if (res.status == false) {
@@ -190,15 +180,12 @@ export class NewUserSidebarComponent implements OnInit {
   }
  
   churchName(event){
-    console.log("valuesss",event);
     this.selectedChurchName=event.church_name;
   }
   selectAddTagMethod(name) {
-    console.log('@gb dd:  ', name);
     return { name: name, tag: true };
   }
   checkOther(event: any) {
-    console.log("event item", event.target.innerText);
 
     if (!this.selectMultiGroupSelected.includes(event.target.innerText)) {
       if (event.target.innerText !== "") {
@@ -210,7 +197,6 @@ export class NewUserSidebarComponent implements OnInit {
       this.selectMultiGroupSelected.splice(idx, 1);
      
     }
-    console.log("item", this.selectMultiGroupSelected);
    
   }
 }

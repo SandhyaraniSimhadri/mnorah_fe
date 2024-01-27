@@ -84,7 +84,6 @@ export class ChurchManagementListComponent implements OnInit {
     // this.selectedLanguage = this.selectLanguage[0];
 
     const val = event.target.value.toLowerCase();
-    console.log('@dd: ', val);
     // Filter Our Data
     const temp = this.tempData.filter(function (d) {
       return d.church_name.toLowerCase().indexOf(val) !== -1 || !val;
@@ -145,7 +144,6 @@ export class ChurchManagementListComponent implements OnInit {
   filterByLanguage(event) {
     const filter = event ? event.value : "";
     this.previousStatusFilter = filter;
-    console.log("prev", this.previousStatusFilter);
     this.temp = this.filterRows(
       this.previousRoleFilter,
       this.previousPlanFilter,
@@ -164,15 +162,10 @@ export class ChurchManagementListComponent implements OnInit {
   filterRows(churchFilter, usersFilter, languageFilter): any[] {
     // Reset search on select change
     this.searchValue = "";
-    // console.log("churchFilter", churchFilter);
-    // console.log("usersFilter", usersFilter);
-    // console.log("languageFilter", languageFilter);
 
     churchFilter = churchFilter.toLowerCase();
     usersFilter = usersFilter.toLowerCase();
     languageFilter = languageFilter.toLowerCase();
-    // console.log("tempdata", this.tempData);
-    // 
     return this.tempData.filter((row) => {
       const isPartialNameMatch =
         row.church_name.toLowerCase().indexOf(churchFilter) !== -1 ||
@@ -225,7 +218,6 @@ export class ChurchManagementListComponent implements OnInit {
           } else if (res.status == true) {
             this.rows = res.data;
             this.tempData = this.rows;
-            console.log("rowss", this.rows);
             const nameSet = new Set();
             this.rows.forEach((church) => {
               if (!nameSet.has(church.church_name)) {
@@ -266,7 +258,6 @@ export class ChurchManagementListComponent implements OnInit {
     );
   }
   updateUserList(newUser: any) {
-    console.log("called");
     this.loading=true;
     this.rows.push(newUser);
     this.getChurches(); 

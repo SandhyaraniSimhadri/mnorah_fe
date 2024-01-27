@@ -31,7 +31,6 @@ export class VisitorManagementViewComponent implements OnInit, OnDestroy {
    */
   constructor(private router: Router,   private _toastrService: ToastrService,  public httpService: CoreHttpService ) {
     this.lastValue = this.url.substr(this.url.lastIndexOf('/') + 1);
-    console.log("last value",this.lastValue);
   }
 
   // Lifecycle Hooks
@@ -59,8 +58,6 @@ export class VisitorManagementViewComponent implements OnInit, OnDestroy {
           if (res.status == false) {
           } else if (res.status == true) {
             this.data=res.data;
-          
-            console.log("rows",this.data);
 
           }
         }

@@ -119,7 +119,6 @@ export class VisitorManagementEditComponent implements OnInit, OnDestroy {
   uploadImage(event: any) {
     if (event.target.files && event.target.files[0]) {
       let reader = new FileReader();
-      console.log("file", event.target.files[0]);
       reader.onload = (event: any) => {
         this.avatarImage = event.target.result;
       };
@@ -135,7 +134,6 @@ export class VisitorManagementEditComponent implements OnInit, OnDestroy {
 
 
   submit(form) {
-    console.log("validddddd",form.valid);
     if (form.valid) {
       this.buttonLoading = true;
       if(this.selectMultiGroupSelected.length>0){
@@ -167,7 +165,6 @@ export class VisitorManagementEditComponent implements OnInit, OnDestroy {
       formData.append("suggestions", this.currentRow.suggestions ?? null);
       formData.append("prayer_request", this.currentRow.prayer_request ?? null);
       formData.append("comments", this.currentRow.comments ?? null);
-        // console.log("dataaaa",formData.forEach(dd => console.log(dd)));
       this.currentRow.image = this.image;
       this.http
         .post<any>(this.apiUrl + "api/update_visitor", formData)
@@ -225,18 +222,15 @@ export class VisitorManagementEditComponent implements OnInit, OnDestroy {
 
             this.selectMultiGroupSelected = [];
 
-            console.log("valuessss", this.selectMultiGroupSelected);
             this.avatarImage = this.apiUrl + this.currentRow.avatar;
          
             // this.selectMultiGroupSelected = this.currentRow.connection.split(',');
             this.tempRow = cloneDeep(this.currentRow);
-            console.log("rows values", this.currentRow);
             for(var i=0;i<this.churchesData.length;i++){
               if(this.churchesData[i].id==this.currentRow.church_id){
                 this.selectedChurchName=this.churchesData[i].church_name;
               }
             }
-            console.log("rowss church name", this.selectedChurchName);
           }
         }
         this.loading = false;
@@ -255,7 +249,6 @@ export class VisitorManagementEditComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.complete();
   }
   getData() {
-    console.log("@gb getdata called ");
     let request = {
       params: null,
       action_url: "get_churches",
@@ -268,7 +261,6 @@ export class VisitorManagementEditComponent implements OnInit, OnDestroy {
           if (res.status == false) {
           } else if (res.status == true) {
             this.churchesData = res.data;
-            console.log("church data",this.churchesData);
            
           }
         }
@@ -277,7 +269,6 @@ export class VisitorManagementEditComponent implements OnInit, OnDestroy {
     );
   }
   checkOther(event: any) {
-    console.log("event item", event.target.innerText);
 
     if (!this.selectMultiGroupSelected.includes(event.target.innerText)) {
       if (event.target.innerText !== "") {
@@ -290,7 +281,6 @@ export class VisitorManagementEditComponent implements OnInit, OnDestroy {
      
     }
     this.formModified=true;
-    console.log("item", this.selectMultiGroupSelected);
    
   }
   replaceNullsWithEmptyStrings(obj: any): any {
@@ -306,11 +296,8 @@ export class VisitorManagementEditComponent implements OnInit, OnDestroy {
     return updatedObj;
   }
   checkFormModified() {
-    console.log("current row",this.currentRow);
-    console.log("original form row",this.originalFormValues);
 
     this.formModified = !isEqual(this.currentRow, this.originalFormValues);
-    console.log("this.modified",this.formModified);
   }
 
 }
