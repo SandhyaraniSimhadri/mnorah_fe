@@ -99,5 +99,13 @@ export const menu: CoreMenu[] = [
     url: 'prayer-request-management'
   },
 
-
+  {
+    id: 'roles-and-permissions',
+    title: 'Roles & Permissions',
+    translate: 'MENU.ROLES_AND_PERMISSIONS.ROLES_AND_PERMISSIONS',
+    type: 'item',
+    icon: 'zap',
+    role:['Super Admin','Sub Admin'],
+    url: 'roles-and-permissions'
+  }
 ];

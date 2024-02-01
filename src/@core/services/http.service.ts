@@ -53,6 +53,7 @@ export class CoreHttpService {
 
 
     public doHttp(request) {
+        console.log("hiii");
 
         if (localStorage.getItem('currentUser')) {
             let user = JSON.parse(localStorage.getItem('currentUser'));
@@ -60,7 +61,7 @@ export class CoreHttpService {
             this.APIToken = user.token;
             this.loginuserid = user.user_id;
         }
-        
+        console.log("api tocket",this.APIToken);
 
         let headers;
 
@@ -99,6 +100,7 @@ export class CoreHttpService {
                 headers: headers
             });
         } else if (method === 'post' || method==="POST") {
+            console.log("request",headers);
             let params = request.params;
             if (request.params != null) params = request.params;
             return this.http.post(api_url + request.action_url, params, {

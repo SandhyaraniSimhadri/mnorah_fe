@@ -36,6 +36,9 @@ export const locale = {
       PRAYER_REQUEST_MANAGEMENT: {
         PRAYER_REQUEST_MANAGEMENT:'Prayer Request Management'    
       },
+      ROLES_AND_PERMISSIONS: {
+        ROLES_AND_PERMISSIONS:'Roles & Permissions'    
+      },
       LEAGUES: {
         COLLAPSIBLE: 'Leagues',
         BADGE: '2',

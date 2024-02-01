@@ -1,0 +1,382 @@
+<div class="slideout-content">
+  <!-- Modal to add new user starts-->
+  <div
+    class="modalsd modal-slide-in sdfade new-user-modal"
+    id="modals-slide-in"
+  >
+    <div class="modal-dialog">
+      <form
+        class="add-new-user modal-content pt-0"
+        (ngSubmit)="(newUserForm.form.valid)"
+        #newUserForm="ngForm"
+      >
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="toggleSidebar('new-user-sidebar')"
+        >
+          ×
+        </button>
+        <div class="modal-header mb-1">
+          <h5 class="modal-title" id="exampleModalLabel">New Role</h5>
+        </div>
+        <div class="modal-body flex-grow-1">
+          <div class="form-group">
+            <label class="form-label">Select Church <span *ngIf="newUserForm.submitted && ChurchRef.invalid" class="text-danger">*</span>
+              <span *ngIf="!newUserForm.submitted || !ChurchRef.invalid">*</span></label>
+            <select
+              id="basic-icon-default-church"
+              class="form-control dt-church"
+              aria-label=""
+              aria-describedby="basic-icon-default-church"
+              name="church"
+              [class.error]="newUserForm.submitted && ChurchRef.invalid"
+              #ChurchRef="ngModel"
+              required
+              [(ngModel)]="church_id"
+              [ngModelOptions]="{ standalone: true }"
+              (ngModelChange)="getMembers()"
+            >
+              <option *ngFor="let church of churchData" [value]="church.id">
+                {{ church.church_name }}
+              </option>
+            </select>
+            <span
+              *ngIf="newUserForm.submitted && ChurchRef.invalid"
+              class="invalid-form"
+            >
+              <small
+                class="form-text text-danger"
+                *ngIf="ChurchRef.errors.required"
+                >This field is required!</small
+              >
+            </span>
+          </div>
+
+
+          
+
+         
+            <div class="form-group">
+              <label class="form-label" for="user-plan"
+              >Role name: <span *ngIf="newUserForm.submitted && RoleRef.invalid" class="text-danger">*</span>
+              <span *ngIf="!newUserForm.submitted || !RoleRef.invalid ">*</span></label
+            >
+              <input
+                type="text"
+                id="basic-icon-default-request-other"
+                class="form-control dt-request-other"
+                placeholder=""
+                aria-label=""
+                aria-describedby="basic-icon-default-request-other"
+                name="request-other"
+                [(ngModel)]="role"
+                [class.error]="newUserForm.submitted && RoleRef.invalid"
+                #RoleRef="ngModel"
+                required
+              />
+              <span
+                *ngIf="newUserForm.submitted && RoleRef.invalid"
+                class="invalid-form"
+              >
+                <small
+                  class="form-text text-danger"
+                  *ngIf="RoleRef.errors.required"
+                  >This field is required!</small
+                >
+              </span>
+            </div>
+         
+<!-- Add FormsModule to your module imports -->
+<!-- import { FormsModule } from '@angular/forms'; -->
+<!-- 
+<div class="col-12">
+  <div class="table-responsive border rounded mt-1">
+    <h6 class="py-1 mx-1 mb-0 font-medium-2">
+      <i data-feather="lock" [size]="20" class="mr-25"></i>
+      <span class="align-middle">Permission</span>
+    </h6>
+    <table class="table table-striped table-borderless">
+      <thead class="thead-light">
+        <tr>
+          <th>Read</th>
+          <th>Write</th>
+          <th>Create</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+     
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="admin-read" checked />
+              <label class="custom-control-label"></label>
+            </div>
+          </td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" [(ngModel)]="modulesData[0].update" />
+              <label class="custom-control-label"></label>
+            </div>
+          </td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" [(ngModel)]="modulesData[0].create" />
+              <label class="custom-control-label"></label>
+            </div>
+          </td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" [(ngModel)]="modulesData[0].delete" />
+              <label class="custom-control-label"></label>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div> -->
+
+<div class="col-12">
+  <div class="table-responsive border rounded mt-1">
+    <h6 class="py-1 mx-1 mb-0 font-medium-2">
+      <i data-feather="lock" [size]="20" class="mr-25"></i>
+      <span class="align-middle">Permission</span>
+    </h6>
+    <table class="table table-striped table-borderless">
+      <thead class="thead-light">
+        <tr>
+          <th>Module</th>
+          <th>Read</th>
+          <th>Write</th>
+          <th>Create</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let module of modulesData; let i = index">
+          <td>{{module.module_name}}</td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" [id]="'read-' + module.module_name" (change)="onCheckboxChange('read',i)" />
+              <label class="custom-control-label" [for]="'read-' + module.module_name"></label>
+            </div>
+          </td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" [id]="'update-' + module.module_name" (change)="onCheckboxChange('update',i)"/>
+              <label class="custom-control-label" [for]="'update-' + module.module_name"></label>
+            </div>
+          </td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" [id]="'create-' + module.module_name" (change)="onCheckboxChange('create',i)"/>
+              <label class="custom-control-label" [for]="'create-' + module.module_name"></label>
+            </div>
+          </td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" [id]="'delete-' + module.module_name" (change)="onCheckboxChange('delete',i)"/>
+              <label class="custom-control-label" [for]="'delete-' + module.module_name"></label>
+            </div>
+          </td>
+        </tr>
+        <!-- <tr >
+          <td>Feed</td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="module2-read" [checked]="modulesData[1].read" />
+              <label class="custom-control-label" for="admin-read"></label>
+            </div>
+          </td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="module2-write" [checked]="modulesData[1].update" />
+              <label class="custom-control-label" for="admin-write"></label>
+            </div>
+          </td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="module2-create" [checked]="modulesData[1].create"  />
+              <label class="custom-control-label" for="admin-create"></label>
+            </div>
+          </td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="module2-delete" [checked]="modulesData[1].delete" />
+              <label class="custom-control-label" for="admin-delete"></label>
+            </div>
+          </td>
+        </tr>
+        <tr >
+          <td>Event</td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="module3-read" [checked]="modulesData[2].read" />
+              <label class="custom-control-label" for="admin-read"></label>
+            </div>
+          </td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="module3-write" [checked]="modulesData[2].update" />
+              <label class="custom-control-label" for="admin-write"></label>
+            </div>
+          </td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="module3-create" [checked]="modulesData[2].create"  />
+              <label class="custom-control-label" for="admin-create"></label>
+            </div>
+          </td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="module3-delete" [checked]="modulesData[2].delete" />
+              <label class="custom-control-label" for="admin-delete"></label>
+            </div>
+          </td>
+        </tr>
+        <tr >
+          <td>Visitor</td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="module4-read" [checked]="modulesData[3].read" />
+              <label class="custom-control-label" for="admin-read"></label>
+            </div>
+          </td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="module4-write" [checked]="modulesData[3].update" />
+              <label class="custom-control-label" for="admin-write"></label>
+            </div>
+          </td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="module4-create" [checked]="modulesData[3].create"  />
+              <label class="custom-control-label" for="admin-create"></label>
+            </div>
+          </td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="module4-delete" [checked]="modulesData[3].delete" />
+              <label class="custom-control-label" for="admin-delete"></label>
+            </div>
+          </td>
+        </tr>
+        <tr >
+          <td>Testimony</td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="module5-read" [checked]="modulesData[4].read" />
+              <label class="custom-control-label" for="admin-read"></label>
+            </div>
+          </td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="module5-write" [checked]="modulesData[4].update" />
+              <label class="custom-control-label" for="admin-write"></label>
+            </div>
+          </td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="module5-create" [checked]="modulesData[4].create"  />
+              <label class="custom-control-label" for="admin-create"></label>
+            </div>
+          </td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="module5-delete" [checked]="modulesData[4].delete" />
+              <label class="custom-control-label" for="admin-delete"></label>
+            </div>
+          </td>
+        </tr>
+        <tr >
+          <td>Life group</td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="module6-read" [checked]="modulesData[5].read" />
+              <label class="custom-control-label" for="admin-read"></label>
+            </div>
+          </td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="module6-write" [checked]="modulesData[5].update" />
+              <label class="custom-control-label" for="admin-write"></label>
+            </div>
+          </td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="module6-create" [checked]="modulesData[5].create"  />
+              <label class="custom-control-label" for="admin-create"></label>
+            </div>
+          </td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="module6-delete" [checked]="modulesData[5].delete" />
+              <label class="custom-control-label" for="admin-delete"></label>
+            </div>
+          </td>
+        </tr>
+        <tr >
+          <td>Prayer request</td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="module7-read" [checked]="modulesData[6].read" />
+              <label class="custom-control-label" for="admin-read"></label>
+            </div>
+          </td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="module7-write" [checked]="modulesData[6].update" />
+              <label class="custom-control-label" for="admin-write"></label>
+            </div>
+          </td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="module7-create" [checked]="modulesData[6].create"  />
+              <label class="custom-control-label" for="admin-create"></label>
+            </div>
+          </td>
+          <td>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="module7-delete" [checked]="modulesData[6].delete" />
+              <label class="custom-control-label" for="admin-delete"></label>
+            </div>
+          </td>
+        </tr> -->
+    
+      </tbody>
+    </table>
+  </div>
+</div>   
+          <div class="d-flex justify-content-between mt-2">
+          <button
+            [disabled]="loading"
+            type="submit"
+            class="btn btn-primary"
+            (click)="submit(newUserForm)"
+            rippleEffect
+          >
+            <span
+              *ngIf="loading"
+              class="spinner-border spinner-border-sm mr-1"
+            ></span>
+            Submit
+          </button>
+          <button
+            type="reset"
+            class="btn btn-outline-secondary"
+            (click)="toggleSidebar('new-user-sidebar')"
+            rippleEffect
+          >
+            Cancel
+          </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Modal to add new user Ends-->
+</div>

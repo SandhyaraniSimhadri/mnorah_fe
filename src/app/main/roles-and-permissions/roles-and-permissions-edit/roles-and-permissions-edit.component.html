@@ -51,13 +51,13 @@
                         }"
                       >
                         <div class="rounded p-3">
-                          {{ currentRow.prayer_request | initials }}
+                          {{ currentRow.role_name | initials }}
                         </div>
                       </div>
                     </ng-template>
                     <div class="media-body mt-50">
                       <h4 style="word-break: break-all">
-                        {{ currentRow.prayer_request }}
+                        {{ currentRow.role_name }}
                       </h4>
                       <div class="col-12 d-flex mt-1 px-0">
                         <label
@@ -94,113 +94,43 @@
                     #accountForm="ngForm"
                   >
                     <div class="row">
+                     
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="form-label" for="user-plan"
-                            >Prayer Request
-                            <span
-                              *ngIf="accountForm.submitted && ReqRef.invalid"
+                            >Role <span
+                              *ngIf="accountForm.submitted && RoleRef.invalid"
                               class="text-danger"
                               >*</span
                             >
                             <span
-                              *ngIf="!accountForm.submitted || !ReqRef.invalid"
+                              *ngIf="!accountForm.submitted || !RoleRef.invalid"
                               >*</span
                             ></label
                           >
-                          <select
-                            [(ngModel)]="currentRow.prayer_request"
-                            [ngModelOptions]="{ standalone: true }"
-                            id="basic-icon-default-request"
-                            class="form-control dt-request"
-                            aria-label=""
-                            aria-describedby="basic-icon-default-request"
-                            name="request"
-                            [class.error]="
-                              accountForm.submitted && ReqRef.invalid
-                            "
-                            #ReqRef="ngModel"
-                            required
-                            (ngModelChange)="checkFormModified()"
-                          >
-                            <option value="Health and Healing">
-                              Health and Healing
-                            </option>
-                            <option value="Family and Relationships">
-                              Family and Relationships
-                            </option>
-                            <option value="Financial stability">
-                              Financial stability
-                            </option>
-                            <option value="Advertisement">Advertisement</option>
-                            <option value="Work">Work</option>
-                            <option value="Grief">Grief</option>
-                            <option value="Spiritual Growth">
-                              Spiritual Growth
-                            </option>
-                            <option value="Personal Struggles">
-                              Personal Struggles
-                            </option>
-                            <option value="Prayers for peace">
-                              Prayers for peace
-                            </option>
-                            <option value="Global Issues">Global Issues</option>
-                            <option value="Guidance and Decision-Making">
-                              Guidance and Decision-Making
-                            </option>
-                            <option value="Mission and Outreach">
-                              Mission and Outreach
-                            </option>
-                            <option value="Other">Other</option>
-                          </select>
-                          <span
-                            *ngIf="accountForm.submitted && ReqRef.invalid"
-                            class="invalid-form"
-                          >
-                            <small
-                              class="form-text text-danger"
-                              *ngIf="ReqRef.errors.required"
-                              >This field is required!</small
-                            >
-                          </span>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="form-label" for="user-plan"
-                            >Description<span
-                              *ngIf="accountForm.submitted && ReqRef.invalid"
-                              class="text-danger"
-                              >*</span
-                            >
-                            <span
-                              *ngIf="!accountForm.submitted || !ReqRef.invalid"
-                              >*</span
-                            ></label
-                          >
-                          <textarea
+                          <input
                             type="text"
-                            id="basic-icon-default-description"
-                            class="form-control dt-description"
+                            id="basic-icon-default-role"
+                            class="form-control dt-role"
                             placeholder=""
                             aria-label=""
-                            aria-describedby="basic-icon-default-description"
-                            name="description"
-                            [(ngModel)]="currentRow.description"
+                            aria-describedby="basic-icon-default-role"
+                            name="role"
+                            [(ngModel)]="currentRow.role_name"
                             [class.error]="
-                              accountForm.submitted && DescRef.invalid
+                              accountForm.submitted && RoleRef.invalid
                             "
-                            #DescRef="ngModel"
+                            #RoleRef="ngModel"
                             required
                             (ngModelChange)="checkFormModified()"
-                          ></textarea>
+                          />
                           <span
-                            *ngIf="accountForm.submitted && DescRef.invalid"
+                            *ngIf="accountForm.submitted && RoleRef.invalid"
                             class="invalid-form"
                           >
                             <small
                               class="form-text text-danger"
-                              *ngIf="DescRef.errors.required"
+                              *ngIf="RoleRef.errors.required"
                               >This field is required!</small
                             >
                           </span>
@@ -256,57 +186,53 @@
                           </span>
                         </div>
                       </div>
-
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="form-label"
-                            >Select Member
-                            <span
-                              *ngIf="accountForm.submitted && MemberRef.invalid"
-                              class="text-danger"
-                              >*</span
-                            >
-                            <span
-                              *ngIf="
-                                !accountForm.submitted || !MemberRef.invalid
-                              "
-                              >*</span
-                            ></label
-                          >
-                          <select
-                            id="basic-icon-default-member"
-                            class="form-control dt-member"
-                            aria-label=""
-                            aria-describedby="basic-icon-default-member"
-                            name="member"
-                            [class.error]="
-                              accountForm.submitted && MemberRef.invalid
-                            "
-                            #MemberRef="ngModel"
-                            required
-                            [(ngModel)]="currentRow.member_id"
-                            [ngModelOptions]="{ standalone: true }"
-                            (ngModelChange)="checkFormModified()"
-                          >
-                            <option
-                              *ngFor="let member of membersData"
-                              [value]="member.id"
-                            >
-                              {{ member.user_name }}
-                            </option>
-                          </select>
-                          <span
-                            *ngIf="accountForm.submitted && MemberRef.invalid"
-                            class="invalid-form"
-                          >
-                            <small
-                              class="form-text text-danger"
-                              *ngIf="MemberRef.errors.required"
-                              >This field is required!</small
-                            >
-                          </span>
-                        </div>
+                      <div class="col-md-12">
+                        <label class="form-label" for="user-plan"
+                            >Permissions</label>
+                        <table class="table table-striped table-borderless">
+                          <thead >
+                            <tr>
+                              <th>Module Name</th>
+                             
+                              <th>Read</th>
+                              <th>Update</th>
+                              <th>Create</th>
+                              <th>Delete</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let module of currentRow.modules;let i=index">
+                              <td>{{ module.module_name }}</td>
+                              <td>
+                            
+                            
+                            
+                              <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" [id]="'read-' + module.module_name" (change)="onCheckboxChange('read',i)" [checked]="module.permissions[0].read"             />
+                                <label class="custom-control-label" [for]="'read-' + module.module_name"></label>
+                              </div>
+                            
+                            </td>
+                              <td> <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" [id]="'update-' + module.module_name" (change)="onCheckboxChange('update',i)" [checked]="module.permissions[0].update"/>
+                                <label class="custom-control-label" [for]="'update-' + module.module_name"></label>
+                              </div>
+                             </td>
+                              <td>  <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" [id]="'create-' + module.module_name" (change)="onCheckboxChange('create',i)" [checked]="module.permissions[0].create"/>
+                                <label class="custom-control-label" [for]="'create-' + module.module_name"></label>
+                              </div>
+                            </td>
+                              <td> <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" [id]="'delete-' + module.module_name" (change)="onCheckboxChange('delete',i)" [checked]="module.permissions[0].delete"/>
+                                <label class="custom-control-label" [for]="'delete-' + module.module_name"></label>
+                              </div></td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
+
+                    
 </div>
                       <div class="col-12 d-flex flex-sm-row flex-column mt-2">
                         <button
