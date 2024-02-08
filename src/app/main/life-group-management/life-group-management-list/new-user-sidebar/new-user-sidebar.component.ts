@@ -31,6 +31,8 @@ export class NewUserSidebarComponent implements OnInit {
   public SelectTag;
   public members_data:any;
   public customTagselected:any=[];
+  public membersData: any;
+  public leader: any;
 
 
   /**
@@ -80,6 +82,8 @@ export class NewUserSidebarComponent implements OnInit {
     formData.append("area", this.area);
     formData.append("members_count", this.customTagselected.length);
     formData.append("members",this.members_list);
+    formData.append("leader",this.leader);
+
 
     if (form.valid) {
 
@@ -176,4 +180,27 @@ export class NewUserSidebarComponent implements OnInit {
   //   this.image = event.target.files[0];
   //   this.loading = false;
   // }
+  getChurchMembers() {
+    this.membersData = [];
+    this.leader = "";
+
+    let request = {
+      params: { church_id: this.church_id },
+      action_url: "get_church_members",
+      method: "POST",
+    };
+
+    this.httpService.doHttp(request).subscribe(
+      (res: any) => {
+        if (res == "nonet") {
+        } else {
+          if (res.status == false) {
+          } else if (res.status == true) {
+            this.membersData = res.data;
+          }
+        }
+      },
+      (error: any) => {}
+    );
+  }
 }

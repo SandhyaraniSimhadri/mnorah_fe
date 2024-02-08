@@ -241,7 +241,21 @@
               </div>
             </ng-template>
           </ngx-datatable-column>
-
+          <ngx-datatable-column name="Member id" prop="member_id">
+            <!-- <ng-template
+              let-row="row"
+              let-name="value"
+              ngx-datatable-cell-template
+            >
+              <div class="d-flex align-items-center">
+                <div class="cell-line-height d-block">
+                  <span class="font-weight-bold white-space">{{
+                    name | truncate : 20
+                  }}</span>
+                </div>
+              </div>
+            </ng-template> -->
+          </ngx-datatable-column>
           <ngx-datatable-column name="Church name" prop="church_name">
             <ng-template
               let-row="row"
@@ -267,7 +281,7 @@
               <div class="d-flex align-items-center">
                 <div class="cell-line-height d-block">
                   <span class="font-weight-bold white-space">{{
-                    name | truncate : 20
+                    name | truncate : 15
                   }}</span>
                 </div>
               </div>

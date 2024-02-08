@@ -181,7 +181,7 @@ export class PrayerRequestManagementListComponent implements OnInit {
    */
   ngOnInit(): void {
     this.apiUrl = environment.apiUrl;
-    this.getMembers();
+    // this.getMembers();
     this.getRequests();
   }
   getMembers(){

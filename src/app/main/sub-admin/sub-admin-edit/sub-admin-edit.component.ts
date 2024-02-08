@@ -12,7 +12,7 @@ import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { FlatpickrOptions } from "ng2-flatpickr";
 import { cloneDeep } from "lodash";
-import { UserEditService } from "./user-edit.service";
+
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { NgbNavModule } from "@ng-bootstrap/ng-bootstrap";
 import { CoreHttpService } from "@core/services/http.service";
@@ -21,6 +21,7 @@ import { HttpClient } from "@angular/common/http";
 import { ToastrService } from "ngx-toastr";
 import { isEqual } from 'lodash';
 import { ModalsService } from "@core/services/modals.service";
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: "app-sub-admin-edit",
@@ -49,6 +50,7 @@ export class SubAdminEditComponent implements OnInit, OnDestroy {
   public buttonLoading: boolean = false;
   public churcesData: any;
   public originalFormValues: any;
+  public rolesData:any;
 
   @ViewChild("accountForm") accountForm: NgForm;
 
@@ -79,12 +81,12 @@ export class SubAdminEditComponent implements OnInit, OnDestroy {
    */
   constructor(
     private router: Router,
-    private _userEditService: UserEditService,
     public httpService: CoreHttpService,
     private http: HttpClient,
     private _router: Router,
     private _toastrService: ToastrService,
     public modalsService:ModalsService,
+    private cdRef: ChangeDetectorRef
 
   ) {
     this._unsubscribeAll = new Subject();
@@ -145,17 +147,24 @@ export class SubAdminEditComponent implements OnInit, OnDestroy {
       formData.append("image", this.image);
 
       // Append form data fields
-      formData.append("id", this.currentRow.id);
+      formData.append("id", this.currentRow.user.id);
       formData.append("church_id",this.currentRow.church_id)
-      formData.append("dob", this.currentRow.dob);
-      formData.append("email", this.currentRow.email);
-      formData.append("gender", this.currentRow.gender);
-      formData.append("location", this.currentRow.location);
-      formData.append("mobile_no", this.currentRow.mobile_no);
-      formData.append("user_name", this.currentRow.user_name);
+      formData.append("dob", this.currentRow.user.dob);
+      formData.append("email", this.currentRow.user.email);
+      formData.append("gender", this.currentRow.user.gender);
+      formData.append("location", this.currentRow.user.location);
+      formData.append("mobile_no", this.currentRow.user.mobile_no);
+      formData.append("user_name", this.currentRow.user.user_name);
+      if(this.currentRow.role_id=="Other"){
+        formData.append("role_id", '0');
+      }
+      else{
+      formData.append("role_id", this.currentRow.role_id);}
+      formData.append("role_name", this.currentRow.role_name);
+      formData.append("role_permissions", JSON.stringify(this.currentRow.modules));
 
       let request;
-      this.currentRow.image = this.image;
+      this.currentRow.user.image = this.image;
       request = {
         params: { row: this.currentRow, file: formData },
         action_url: "update_subadmin",
@@ -200,6 +209,7 @@ export class SubAdminEditComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.apiUrl = environment.apiUrl;
     this.getData();
+    this.getRoles();
     this.getSingleAdmin();
   }
   getData() {
@@ -215,6 +225,7 @@ export class SubAdminEditComponent implements OnInit, OnDestroy {
           if (res.status == false) {
           } else if (res.status == true) {
             this.churcesData = res.data;
+            console.log("churches data",this.churcesData);
           }
         }
       },
@@ -236,8 +247,8 @@ export class SubAdminEditComponent implements OnInit, OnDestroy {
         } else {
           if (res.status == false) {
           } else if (res.status == true) {
-            res.data.church_id=res.data.church_id.toString();
-            this.currentRow = this.modalsService.replaceNullsWithEmptyStrings(res.data);
+             res.data[0].church_id= res.data[0].church_id.toString();
+            this.currentRow = this.modalsService.replaceNullsWithEmptyStrings( res.data[0]);
             if (this.currentRow.avatar) {
               this.avatarImage = this.apiUrl + this.currentRow.avatar;
             }
@@ -245,6 +256,7 @@ export class SubAdminEditComponent implements OnInit, OnDestroy {
             this.tempRow = cloneDeep(this.currentRow);
           }
         }
+        console.log("total data console",this.currentRow);
         this.loading = false;
       },
       (error: any) => {
@@ -264,5 +276,51 @@ export class SubAdminEditComponent implements OnInit, OnDestroy {
 
     this.formModified = !isEqual(this.currentRow, this.originalFormValues);
   }
- 
+  getRoles(){
+    this.loading=true;
+    let request;
+    request = {
+      params: null,
+      action_url: "get_roles",
+      method: "GET",
+    };
+    this.httpService.doHttp(request).subscribe(
+      (res: any) => {
+        if (res == "nonet") {
+        } else {
+          if (res.status == false) {
+          } else if (res.status == true) {
+            this.rolesData=res.data;
+         
+          }
+        }
+        this.loading=false;
+      },
+      (error: any) => {
+        this.loading=false;
+      }
+    );
+  }
+  onCheckboxChange(type:any,index:any) {
+    // console.log("before", this.currentRow.modules[index].permissions[0].read);
+    // debugger;
+
+    if(type=='read'){
+      this.currentRow.modules[index].permissions[0].read=!this.currentRow.modules[index].permissions[0].read;
+
+
+    }else  if(type=='update'){
+      this.currentRow.modules[index].permissions[0].update=!this.currentRow.modules[index].permissions[0].update;
+
+    } else if(type=='create'){
+      this.currentRow.modules[index].permissions[0].create=!this.currentRow.modules[index].permissions[0].create;
+
+    }
+    else{
+      this.currentRow.modules[index].permissions[0].delete=!this.currentRow.modules[index].permissions[0].delete;
+
+    }
+    this.cdRef.detectChanges();
+    this.checkFormModified();
+  }
 }

@@ -166,9 +166,9 @@
                             #ChurchRef="ngModel"
                             required
                             [(ngModel)]="currentRow.church_id"
-                            [ngModelOptions]="{ standalone: true }"  (ngModelChange)="checkFormModified()"
+                            [ngModelOptions]="{ standalone: true }"   (ngModelChange)="getChurchMembers(currentRow.church_id)"
                           >
-                            <option value="">Select</option>
+                            <option value="" disabled>Select</option>
                             <option
                               *ngFor="let church of churchData"
                               [value]="church.id"
@@ -189,6 +189,58 @@
                         </div>
                       </div>
 
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="form-label"
+                            >Select Leader
+                            <span
+                              *ngIf="accountForm.submitted && LeaderRef.invalid"
+                              class="text-danger"
+                              >*</span
+                            >
+                            <span
+                              *ngIf="
+                                !accountForm.submitted || !LeaderRef.invalid
+                              "
+                              >*</span
+                            ></label
+                          >
+                          <select
+                            id="basic-icon-default-leader"
+                            class="form-control dt-leader"
+                            aria-label=""
+                            aria-describedby="basic-icon-default-leader"
+                            name="leader"
+                            [class.error]="
+                              accountForm.submitted && LeaderRef.invalid
+                            "
+                            #LeaderRef="ngModel"
+                            required
+                            [(ngModel)]="currentRow.leader"
+                            [ngModelOptions]="{ standalone: true }"
+                            (ngModelChange)="checkFormModified()"
+                          >
+                          <option value="" disabled>Select</option>
+
+                            <option
+                              *ngFor="let member of membersData"
+                              [value]="member.id"
+                            >
+                              {{ member.user_name }}
+                            </option>
+                          </select>
+                          <span
+                            *ngIf="accountForm.submitted && LeaderRef.invalid"
+                            class="invalid-form"
+                          >
+                            <small
+                              class="form-text text-danger"
+                              *ngIf="LeaderRef.errors.required"
+                              >This field is required!</small
+                            >
+                          </span>
+                        </div>
+                      </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="company">Area <span *ngIf="accountForm.submitted && areaRef.invalid" class="text-danger">*</span>

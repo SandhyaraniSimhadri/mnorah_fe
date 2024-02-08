@@ -17,11 +17,11 @@ import { InvoiceModule } from 'app/main/apps/invoice/invoice.module';
 
 import { SubAdminListComponent } from './sub-admin-list/sub-admin-list.component';
 import { NewUserSidebarComponent } from './sub-admin-list/new-user-sidebar/new-user-sidebar.component';
-import { UserListService } from './sub-admin-list/user-list.service';
+
 import { SubAdminViewComponent } from './sub-admin-view/sub-admin-view.component';
-import { UserViewService } from './sub-admin-view/user-view.service';
+
 import { SubAdminEditComponent } from './sub-admin-edit/sub-admin-edit.component';
-import { UserEditService } from './sub-admin-edit/user-edit.service';
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { TruncatePipe } from '../truncate.pipe';
@@ -32,24 +32,19 @@ const routes: Routes = [
   {
     path: 'sub-admin-management',
     component: SubAdminListComponent,
-    resolve: {
-      uls: UserListService
-    },
+  
     data: { animation: 'SubAdminListComponent' }
   },
   {
     path: '',
     component: SubAdminListComponent,
-    resolve: {
-      uls: UserListService
-    },
+  
     data: { animation: 'SubAdminListComponent' }
   },
   {
     path: 'sub-admin-view/:id',
     component: SubAdminViewComponent,
     resolve: {
-      data: UserViewService,
       InvoiceListService
     },
     data: { path: 'view/:id', animation: 'SubAdminViewComponent' }
@@ -58,9 +53,7 @@ const routes: Routes = [
     path: 'sub-admin-edit/:id',
     component: SubAdminEditComponent
     ,
-    resolve: {
-      ues: UserEditService
-    },
+   
     data: { animation: 'SubAdminEditComponent' }
   },
   {
@@ -93,9 +86,7 @@ const routes: Routes = [
     InvoiceModule,
     CoreSidebarModule
   ],
-  providers: [UserListService, 
-    UserViewService, 
-    UserEditService,
+  providers: [
   ]
 })
 export class SubAdminModule {}

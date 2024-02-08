@@ -37,6 +37,7 @@
               required
               [(ngModel)]="church_id"
               [ngModelOptions]="{ standalone: true }"
+              (ngModelChange)="getMembers()"
             >
               <option value="">Select</option>
               <option *ngFor="let church of churchData" [value]="church.id">
@@ -53,6 +54,28 @@
                 >This field is required!</small
               >
             </span>
+          </div>
+
+
+          <div class="form-group">
+            <label class="form-label">Select Member </label>
+            <select
+              id="basic-icon-default-member"
+              class="form-control dt-member"
+              aria-label=""
+              aria-describedby="basic-icon-default-member"
+              name="member"
+             
+              [(ngModel)]="member_id"
+              [ngModelOptions]="{ standalone: true }"
+            >
+            
+            <option disabled>Select</option>
+              <option *ngFor="let member of membersData" [value]="member.id">
+                {{ member.user_name }}
+              </option>
+            </select>
+            
           </div>
 
           <div class="form-group">

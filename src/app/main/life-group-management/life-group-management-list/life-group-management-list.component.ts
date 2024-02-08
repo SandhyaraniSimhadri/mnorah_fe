@@ -65,7 +65,7 @@ export class LifeGroupManagementListComponent implements OnInit {
   ) {
     this._unsubscribeAll = new Subject();
     this.api_url = environment.apiUrl+'api/';
-this.getMembers();
+// this.getMembers();
   }
 
   getMembers(){

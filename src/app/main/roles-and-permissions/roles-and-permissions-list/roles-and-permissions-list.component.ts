@@ -190,7 +190,7 @@ export class RolesAndPermissionsListComponent implements OnInit {
     request = {
       params: null,
       action_url: "get_roles",
-      method: "POST",
+      method: "GET",
     };
     this.httpService.doHttp(request).subscribe(
       (res: any) => {

@@ -6,7 +6,6 @@ import { takeUntil } from "rxjs/operators";
 
 import { CoreConfigService } from "@core/services/config.service";
 import { CoreSidebarService } from "@core/components/core-sidebar/core-sidebar.service";
-import { UserListService } from "./user-list.service";
 import { CoreHttpService } from "@core/services/http.service";
 import { Router } from "@angular/router";
 import { environment } from "environments/environment";
@@ -61,7 +60,7 @@ export class SubAdminListComponent implements OnInit {
    * @param {CoreSidebarService} _coreSidebarService
    */
   constructor(
-    private _userListService: UserListService,
+  
     private _coreSidebarService: CoreSidebarService,
     private _coreConfigService: CoreConfigService,
     public httpService: CoreHttpService,

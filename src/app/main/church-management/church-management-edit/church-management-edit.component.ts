@@ -56,6 +56,7 @@ export class ChurchManagementEditComponent implements OnInit, OnDestroy {
     "Sanskrit",
   ];
   public selectMultiLanguagesSelected = [];
+  public selectedMembers:any=[];
 
   // Private
   private _unsubscribeAll: Subject<any>;
@@ -188,8 +189,16 @@ export class ChurchManagementEditComponent implements OnInit, OnDestroy {
 
 
   checkFormModified() {
-
-    this.formModified = !isEqual(this.currentRow, this.originalFormValues);
+    let formModified1=false;
+    let formModified2 = false;
+  formModified1 = !isEqual(this.currentRow, this.originalFormValues);
+   formModified2 = !isEqual(this.customTagselected, this.selectedMembers);
+   if(formModified1 || formModified2){
+     this.formModified=true;
+   }else{
+     this.formModified=false;
+   }
+    // this.formModified = !isEqual(this.currentRow, this.originalFormValues);
   }
   // isEqual(obj1: any, obj2: any): boolean {
   //   return JSON.stringify(obj1) === JSON.stringify(obj2);
@@ -225,7 +234,7 @@ export class ChurchManagementEditComponent implements OnInit, OnDestroy {
             this.originalFormValues = { ...this.currentRow };
             this.currentRow.admin_ids.forEach((c, i) => {
               this.customTagselected.push({
-                id: c,
+                id: parseInt(c),
                 name: this.currentRow.admins[i],
               });
               this.customTag.push({ id: c, name: this.currentRow.admins[i] });
@@ -233,6 +242,7 @@ export class ChurchManagementEditComponent implements OnInit, OnDestroy {
           }
           else{
             this.originalFormValues = { ...this.currentRow };
+            this.selectedMembers = [...this.customTagselected];
           }
           }
         }

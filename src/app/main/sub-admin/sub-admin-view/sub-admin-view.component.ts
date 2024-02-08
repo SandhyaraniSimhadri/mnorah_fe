@@ -31,6 +31,7 @@ export class SubAdminViewComponent implements OnInit, OnDestroy {
    */
   constructor(private router: Router,   private _router: Router, private _toastrService: ToastrService,  public httpService: CoreHttpService ) {
     this.lastValue = this.url.substr(this.url.lastIndexOf('/') + 1);
+    console.log("views");
   }
 
   // Lifecycle Hooks
@@ -43,6 +44,7 @@ export class SubAdminViewComponent implements OnInit, OnDestroy {
   this.getSingleAdmin();
   }
   getSingleAdmin(){
+    console.log("admin value");
     this.loading=true;
     let request;
 
@@ -57,8 +59,8 @@ export class SubAdminViewComponent implements OnInit, OnDestroy {
         } else {
           if (res.status == false) {
           } else if (res.status == true) {
-            this.data=res.data;
-
+            this.data=res.data[0];
+            console.log("total data",this.data);
           }
         }
         this.loading=false;

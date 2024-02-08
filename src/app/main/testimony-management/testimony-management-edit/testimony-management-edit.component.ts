@@ -38,6 +38,8 @@ export class TestimonyManagementEditComponent implements OnInit, OnDestroy {
   public buttonLoading:boolean=false;
   public originalFormValues: any;
   public formModified: boolean = false;
+  public membersData: any;
+
   @ViewChild("accountForm") accountForm: NgForm;
 
   public birthDateOptions: FlatpickrOptions = {
@@ -75,6 +77,11 @@ export class TestimonyManagementEditComponent implements OnInit, OnDestroy {
   ) {
     this._unsubscribeAll = new Subject();
     this.urlLastValue = this.url.substr(this.url.lastIndexOf("/") + 1);
+    this.apiUrl = environment.apiUrl;
+
+    this.getData();
+    this.getSingleTestimony();
+
   }
 
   // Public Methods
@@ -123,6 +130,9 @@ export class TestimonyManagementEditComponent implements OnInit, OnDestroy {
       formData.append("image", this.image);
       formData.append("id", this.currentRow.id);
       formData.append("church_id", this.currentRow.church_id);
+      formData.append("member_id", this.currentRow.member_id);
+      formData.append("title",this.currentRow.title);
+
       formData.append("testimony",this.currentRow.testimony);
       this.currentRow.image = this.image;
       this.http
@@ -163,9 +173,7 @@ export class TestimonyManagementEditComponent implements OnInit, OnDestroy {
    * On init
    */
   ngOnInit(): void {
-    this.apiUrl = environment.apiUrl;
-    this.getData();
-    this.getSingleTestimony();
+  
   }
   getSingleTestimony() {
     this.loading=true;
@@ -189,6 +197,8 @@ export class TestimonyManagementEditComponent implements OnInit, OnDestroy {
             if(this.currentRow.avatar){
             this.avatarImage = this.apiUrl+this.currentRow.avatar;}
             this.tempRow = cloneDeep(this.currentRow);
+            this.getMembers(this.currentRow.church_id);
+
           }
         }
         this.loading=false;
@@ -230,5 +240,32 @@ export class TestimonyManagementEditComponent implements OnInit, OnDestroy {
 
     this.formModified = !isEqual(this.currentRow, this.originalFormValues);
   }
+  getMembers(id) {
 
+    // this.loading=true;
+    this.membersData = [];
+
+    let request = {
+      params: { church_id:id },
+      action_url: "get_church_members",
+      method: "POST",
+    };
+
+    this.httpService.doHttp(request).subscribe(
+      (res: any) => {
+        // this.loading=false;
+        if (res == "nonet") {
+        } else {
+          if (res.status == false) {
+          } else if (res.status == true) {
+            this.membersData = res.data;
+          }
+          this.checkFormModified();
+        }
+      },
+      (error: any) => {
+        // this.loading=false;
+      }
+    );
+  }
 }

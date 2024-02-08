@@ -29,7 +29,12 @@ export class NewUserSidebarComponent implements OnInit {
   public churcesData: any;
   public status: any = false;
   public church_id:any;
-
+  public role_id:any;
+  public rolesData:any;
+  public modulesData:any=[{module_pid:1,module_name:'Member',read:false,update:false,create:false,delete:false},{module_pid:2,module_name:'Feed',read:false,update:false,create:false,delete:false},{module_pid:3,module_name:'Event',read:false,update:false,create:false,delete:false},
+  {module_pid:4,module_name:'Visitor',read:false,update:false,create:false,delete:false},{module_pid:5,module_name:'Testimony',read:false,update:false,create:false,delete:false},{module_pid:6,module_name:'Life group',read:false,update:false,create:false,delete:false},{module_pid:7,module_name:'Prayer request',read:false,update:false,create:false,delete:false}];
+  public role: any;
+  
 
   /**
    * Constructor
@@ -59,7 +64,13 @@ export class NewUserSidebarComponent implements OnInit {
    */
   submit(form) {
     this.loading = true;
-   
+    let role=0;
+   if(this.role_id=='Other'){
+    role=0;
+   }
+   else{
+    role=this.role_id
+   }
     this.form = {
       full_name: this.fullname,
       gender: this.gender,
@@ -67,7 +78,10 @@ export class NewUserSidebarComponent implements OnInit {
       email: this.email,
       phone_number: this.phone_number,
       city: this.city,
-      church_id:this.church_id
+      church_id:this.church_id,
+      role_id:role,
+      role:this.role, role_permissions:JSON.stringify(this.modulesData)
+
     };
     if (form.valid) {
       this.loading = true;
@@ -134,7 +148,47 @@ export class NewUserSidebarComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getData();
-
+    this.getRoles();
   }
+  getRoles(){
+    this.loading=true;
+    let request;
+    request = {
+      params: null,
+      action_url: "get_roles",
+      method: "GET",
+    };
+    this.httpService.doHttp(request).subscribe(
+      (res: any) => {
+        if (res == "nonet") {
+        } else {
+          if (res.status == false) {
+          } else if (res.status == true) {
+            this.rolesData=res.data;
+         
+          }
+        }
+        this.loading=false;
+      },
+      (error: any) => {
+        this.loading=false;
+      }
+    );
+  }
+  onCheckboxChange(type:any,index:any) {
+    // debugger;
 
+    if(type=='read'){
+   
+      this.modulesData[index].read=!this.modulesData[index].read;
+
+    }else  if(type=='update'){
+      this.modulesData[index].update=!this.modulesData[index].update;
+    } else if(type=='create'){
+      this.modulesData[index].create=!this.modulesData[index].create;
+    }
+    else{
+      this.modulesData[index].delete=!this.modulesData[index].delete;
+    }
+  }
 }

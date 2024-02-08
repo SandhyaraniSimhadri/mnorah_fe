@@ -45,6 +45,7 @@ export class LifeGroupManagementEditComponent implements OnInit, OnDestroy {
   public originalFormValues: any;
   public formModified: boolean = false;
   @ViewChild("accountForm") accountForm: NgForm;
+  public membersData: any;
 
   public birthDateOptions: FlatpickrOptions = {
     altInput: true,
@@ -61,6 +62,8 @@ export class LifeGroupManagementEditComponent implements OnInit, OnDestroy {
   ];
   public selectMultiLanguagesSelected = [];
   public customTagselected:any=[];
+  public selectedMembers:any=[];
+
 
   // Private
   private _unsubscribeAll: Subject<any>;
@@ -141,6 +144,8 @@ export class LifeGroupManagementEditComponent implements OnInit, OnDestroy {
       formData.append("area", this.currentRow.area);
       formData.append("members_count", this.customTagselected.length);
       formData.append("members",this.members_list);
+      formData.append("leader",this.currentRow.leader);
+
 
       this.currentRow.image = this.image;
       this.http
@@ -239,11 +244,13 @@ export class LifeGroupManagementEditComponent implements OnInit, OnDestroy {
             this.avatarImage = this.apiUrl+this.currentRow.avatar;}
             this.tempRow = cloneDeep(this.currentRow);
             this.currentRow.members=this.currentRow.members.split(',');
+            console.log("members list all",this.currentRow.members);
             this.currentRow.members.forEach((c, i) => {
-              this.customTagselected.push({ id: c ,name:this.currentRow.userNames[i]});
+              this.customTagselected.push({ id: parseInt(c) ,name:this.currentRow.userNames[i]});
             });
             this.originalFormValues = { ...this.currentRow };
-
+            this.selectedMembers = [...this.customTagselected];
+            this.getChurchMembers(this.currentRow.church_id);
             
           }
         }
@@ -283,7 +290,45 @@ export class LifeGroupManagementEditComponent implements OnInit, OnDestroy {
     );
   }
   checkFormModified() {
+     let formModified1=false;
+     let formModified2 = false;
+   formModified1 = !isEqual(this.currentRow, this.originalFormValues);
+   console.log("modified values",this.customTagselected);
+   console.log("original values",this.selectedMembers);
 
-    this.formModified = !isEqual(this.currentRow, this.originalFormValues);
+    formModified2 = !isEqual(this.customTagselected, this.selectedMembers);
+    console.log("formmodified1",formModified1);
+    console.log("formmodified2",formModified2);
+
+    if(formModified1 || formModified2){
+      this.formModified=true;
+    }else{
+      this.formModified=false;
+    }
+
   }
+  getChurchMembers(id) {
+    this.membersData = [];
+
+    let request = {
+      params: { church_id: this.currentRow.church_id },
+      action_url: "get_church_members",
+      method: "POST",
+    };
+
+    this.httpService.doHttp(request).subscribe(
+      (res: any) => {
+        if (res == "nonet") {
+        } else {
+          if (res.status == false) {
+          } else if (res.status == true) {
+            this.membersData = res.data;
+          }
+          this.checkFormModified();
+        }
+      },
+      (error: any) => {}
+    );
+  }
+
 }

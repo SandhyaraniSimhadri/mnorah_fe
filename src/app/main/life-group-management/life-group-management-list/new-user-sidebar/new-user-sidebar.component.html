@@ -29,7 +29,7 @@
               #ChurchRef="ngModel" required
           
               [(ngModel)]="church_id"
-              [ngModelOptions]="{ standalone: true }"
+              [ngModelOptions]="{ standalone: true }"   (ngModelChange)="getChurchMembers()"
             >
               <option value="">Select</option>
               <option *ngFor="let church of churchData" [value]="church.id">
@@ -41,6 +41,41 @@
             </span>
          
          
+          </div>
+
+
+          
+
+          <div class="form-group">
+            <label class="form-label">Select Leader <span *ngIf="newUserForm.submitted && LeaderRef.invalid" class="text-danger">*</span>
+              <span *ngIf="!newUserForm.submitted || !LeaderRef.invalid">*</span></label>
+            <select
+              id="basic-icon-default-member"
+              class="form-control dt-member"
+              aria-label=""
+              aria-describedby="basic-icon-default-member"
+              name="member"
+              [class.error]="newUserForm.submitted && LeaderRef.invalid"
+              #LeaderRef="ngModel"
+              required
+              [(ngModel)]="leader"
+              [ngModelOptions]="{ standalone: true }"
+            >
+            
+              <option *ngFor="let member of membersData" [value]="member.id">
+                {{ member.user_name }}
+              </option>
+            </select>
+            <span
+              *ngIf="newUserForm.submitted && LeaderRef.invalid"
+              class="invalid-form"
+            >
+              <small
+                class="form-text text-danger"
+                *ngIf="LeaderRef.errors.required"
+                >This field is required!</small
+              >
+            </span>
           </div>
 
           <div class="form-group">
@@ -125,6 +160,7 @@
 
             </div>
       
+            
             <div class="d-flex justify-content-between mt-2">
           <button [disabled]="loading" type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" rippleEffect>
             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>  Submit</button>

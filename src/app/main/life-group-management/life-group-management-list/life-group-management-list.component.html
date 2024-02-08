@@ -148,7 +148,7 @@
                     </a>
                     </span>
                   </div>
-                  <br/>
+                  <!-- <br/>
                   <p><b>Members data</b></p>
                   <div class="table-responsive">
                     <table class="table">
@@ -175,7 +175,7 @@
                       </td>
                      </tr>
                     </table>
-                  </div>
+                  </div> -->
                   
                   
                 </form>
@@ -277,6 +277,24 @@
           </ng-template>
         </ngx-datatable-column>
 
+        <ngx-datatable-column
+        name="Leader"
+        prop="user_name"
+      >
+        <ng-template
+          let-row="row"
+          let-name="value"
+          ngx-datatable-cell-template
+        >
+          <div class="d-flex align-items-center">
+            <div class="cell-line-height d-block">
+              <span class="font-weight-bold white-space">{{
+                  name | truncate: 20
+                }}</span>
+            </div>
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
           <ngx-datatable-column
           name="City"
           prop="city"

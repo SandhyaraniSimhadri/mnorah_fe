@@ -23,6 +23,8 @@ export class NewUserSidebarComponent implements OnInit {
   public apiUrl: any;
   public imageval: any;
   public title;
+  public membersData: any;
+  public member_id: any;
 
   /**
    * Constructor
@@ -60,6 +62,7 @@ export class NewUserSidebarComponent implements OnInit {
     const formData = new FormData();
     formData.append("image", this.image);
     formData.append("church_id", this.church_id);
+    formData.append("member_id", this.member_id);
     formData.append("testimony", this.testimony);
     formData.append("title", this.title);
 
@@ -123,5 +126,29 @@ export class NewUserSidebarComponent implements OnInit {
     this.loading = true;
     this.image = event.target.files[0];
     this.loading = false;
+  }
+  getMembers() {
+    this.membersData = [];
+    this.member_id = "";
+    this.testimony="";
+    this.title="";
+    let request = {
+      params: { church_id: this.church_id },
+      action_url: "get_church_members",
+      method: "POST",
+    };
+
+    this.httpService.doHttp(request).subscribe(
+      (res: any) => {
+        if (res == "nonet") {
+        } else {
+          if (res.status == false) {
+          } else if (res.status == true) {
+            this.membersData = res.data;
+          }
+        }
+      },
+      (error: any) => {}
+    );
   }
 }
