@@ -50,7 +50,8 @@ export class LifeGroupManagementEditComponent implements OnInit, OnDestroy {
   public birthDateOptions: FlatpickrOptions = {
     altInput: true,
   };
-
+  public countriesData:any;
+  public citiesData: any;
   public selectMultiLanguages = [
     "English",
     "Spanish",
@@ -188,7 +189,9 @@ export class LifeGroupManagementEditComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.apiUrl = environment.apiUrl;
     this.getData();
+    this.getCountries();
     this.getSingleLifeGroup();
+  
     this.getMembers();
   }
   getMembers(){
@@ -239,6 +242,7 @@ export class LifeGroupManagementEditComponent implements OnInit, OnDestroy {
             res.data.church_id=res.data.church_id.toString();
 
             this.currentRow = this.modalsService.replaceNullsWithEmptyStrings(res.data);
+            this.getCities(this.currentRow.country);
 
             if(this.currentRow.avatar){
             this.avatarImage = this.apiUrl+this.currentRow.avatar;}
@@ -330,5 +334,47 @@ export class LifeGroupManagementEditComponent implements OnInit, OnDestroy {
       (error: any) => {}
     );
   }
-
+  getCountries() {
+    let request = {
+      params: null,
+      action_url: "get_countries",
+      method: "GET",
+    };
+    this.httpService.doHttp(request).subscribe(
+      (res: any) => {
+        if (res == "nonet") {
+        } else {
+          if (res.status == false) {
+          } else if (res.status == true) {
+            this.countriesData = res.data;
+           
+          }
+        }
+      },
+      (error: any) => {}
+    );
+  }
+  getCities(name) {
+    console.log("cities");
+    this.currentRow.city = '';
+    let request = {
+      params:  { countryCode: name },
+      action_url: "get_cities",
+      method: "POST",
+    };
+    this.httpService.doHttp(request).subscribe(
+      (res: any) => {
+        if (res == "nonet") {
+        } else {
+          if (res.status == false) {
+          } else if (res.status == true) {
+            this.citiesData = res.data;
+            console.log("data city",this.citiesData);
+            this.checkFormModified();
+          }
+        }
+      },
+      (error: any) => {}
+    );
+  }
 }

@@ -307,30 +307,29 @@
                           </span>
                         </div>
                       </div>
-</div>
-                      <div class="col-12 d-flex flex-sm-row flex-column mt-2">
-                        <button
-                          [disabled]="!formModified || buttonLoading"
-                          type="submit"
-                          (click)="submit(accountForm)"
-                          class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
-                          rippleEffect
-                        >
-                          <span
-                            *ngIf="buttonLoading"
-                            class="spinner-border spinner-border-sm mr-1"
-                          ></span>
-                          Save Changes
-                        </button>
-                        <button
-                          (click)="resetFormWithDefaultValues()"
-                          class="btn btn-outline-secondary"
-                          rippleEffect
-                        >
-                          Reset
-                        </button>
-                      </div>
-                      
+                    </div>
+                    <div class="col-12 d-flex flex-sm-row flex-column mt-2">
+                      <button
+                        [disabled]="!formModified || buttonLoading"
+                        type="submit"
+                        (click)="submit(accountForm)"
+                        class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
+                        rippleEffect
+                      >
+                        <span
+                          *ngIf="buttonLoading"
+                          class="spinner-border spinner-border-sm mr-1"
+                        ></span>
+                        Save Changes
+                      </button>
+                      <button
+                        (click)="resetFormWithDefaultValues()"
+                        class="btn btn-outline-secondary"
+                        rippleEffect
+                      >
+                        Reset
+                      </button>
+                    </div>
                   </form>
                   <!-- users edit account form ends -->
                 </div>

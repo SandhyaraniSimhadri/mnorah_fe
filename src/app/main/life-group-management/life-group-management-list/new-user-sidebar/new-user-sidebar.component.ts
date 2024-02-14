@@ -33,7 +33,9 @@ export class NewUserSidebarComponent implements OnInit {
   public customTagselected:any=[];
   public membersData: any;
   public leader: any;
-
+  public countriesData:any;
+  public citiesData: any;
+  public selected_country:any;
 
   /**
    * Constructor
@@ -125,6 +127,7 @@ export class NewUserSidebarComponent implements OnInit {
     this.apiUrl = environment.apiUrl;
     this.getData();
     this.getMembers();
+    this.getCountries();
   }
   getData() {
     let request = {
@@ -199,6 +202,49 @@ export class NewUserSidebarComponent implements OnInit {
             this.membersData = res.data;
           }
         }
+      },
+      (error: any) => {}
+    );
+  }
+  getCountries() {
+    let request = {
+      params: null,
+      action_url: "get_countries",
+      method: "GET",
+    };
+    this.httpService.doHttp(request).subscribe(
+      (res: any) => {
+        if (res == "nonet") {
+        } else {
+          if (res.status == false) {
+          } else if (res.status == true) {
+            this.countriesData = res.data;
+
+         
+          }
+        }
+      
+      },
+      (error: any) => {}
+    );
+  }
+  getCities() {
+    let request = {
+      params:  { countryCode: this.country },
+      action_url: "get_cities",
+      method: "POST",
+    };
+    this.httpService.doHttp(request).subscribe(
+      (res: any) => {
+        if (res == "nonet") {
+        } else {
+          if (res.status == false) {
+          } else if (res.status == true) {
+            this.citiesData = res.data;
+            console.log("data city",this.citiesData);
+          }
+        }
+     
       },
       (error: any) => {}
     );

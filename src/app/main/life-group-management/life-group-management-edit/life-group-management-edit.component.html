@@ -51,12 +51,12 @@
                         }"
                       >
                         <div class="rounded p-3">
-                          {{ currentRow.country | initials }}
+                          {{ currentRow.country_name | initials }}
                         </div>
                       </div>
                     </ng-template>
                     <div class="media-body mt-50">
-                      <h4>{{ currentRow.country }}</h4>
+                      <h4>{{ currentRow.country_name }}</h4>
                       <div class="col-12 d-flex mt-1 px-0">
                         <label
                           class="btn btn-primary mr-75 mb-0"
@@ -94,28 +94,27 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label for="company">Country <span *ngIf="accountForm.submitted && countryRef.invalid" class="text-danger">*</span>
-                            <span *ngIf="!accountForm.submitted || !countryRef.invalid">*</span></label>
-                          <input
-                            type="text"
-                            class="form-control"
+                          <label for="company">Country <span *ngIf="accountForm.submitted && CountryRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !CountryRef.invalid">*</span></label>
+                            <select
                             [(ngModel)]="currentRow.country"
-                            placeholder="Country"
-                            id="country"
+                            [class.error]="accountForm.submitted && CountryRef.invalid"
+                            #CountryRef="ngModel"
+                            (ngModelChange)="getCities(currentRow.country)"
+                            id="basic-icon-default-country"
+                            class="form-control dt-country"
+                            aria-label=""
+                            aria-describedby="basic-icon-default-country"
                             name="country"
-                            [class.error]="
-                              accountForm.submitted && countryRef.invalid
-                            "
-                            #countryRef="ngModel"
-                            required   (ngModelChange)="checkFormModified()"
-                          />
-                          <span
-                            *ngIf="accountForm.submitted && countryRef.invalid"
-                            class="invalid-form"
+                            required
                           >
-                            <small
-                              class="form-text text-danger"
-                              *ngIf="countryRef.errors.required"
+                            <option value="" disabled>Select</option>
+                            <option *ngFor="let country of countriesData" [value]="country.id">
+                              {{ country.country }}
+                            </option>
+                          </select>
+                          <span *ngIf="accountForm.submitted && CountryRef.invalid" class="invalid-form">
+                            <small class="form-text text-danger" *ngIf="CountryRef.errors.required"
                               >This field is required!</small
                             >
                           </span>
@@ -123,31 +122,24 @@
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label>City <span *ngIf="accountForm.submitted && cityRef.invalid" class="text-danger">*</span>
-                            <span *ngIf="!accountForm.submitted || !cityRef.invalid">*</span></label>
-                          <input
-                            type="text"
+                          <label for="company">City <span *ngIf="accountForm.submitted && CityRef.invalid" class="text-danger">*</span>
+                            <span *ngIf="!accountForm.submitted || !CityRef.invalid">*</span></label>
+                          <select
+                           
                             class="form-control"
                             [(ngModel)]="currentRow.city"
                             placeholder="City"
                             id="city"
                             name="city"
-                            [class.error]="
-                              accountForm.submitted && cityRef.invalid
-                            "
-                            #cityRef="ngModel"
-                            required  (ngModelChange)="checkFormModified()"
-                          />
-                          <span
-                            *ngIf="accountForm.submitted && cityRef.invalid"
-                            class="invalid-form"
+                            [class.error]="accountForm.submitted && CityRef.invalid"
+                            #CityRef="ngModel"
+                            required (ngModelChange)="checkFormModified()"
                           >
-                            <small
-                              class="form-text text-danger"
-                              *ngIf="cityRef.errors.required"
-                              >This field is required!</small
-                            >
-                          </span>
+                          <option value="" disabled>Select</option>
+                <option *ngFor="let city of citiesData" [value]="city.name">
+                  {{ city.name }}
+                </option>
+              </select>
                         </div>
                       </div>
                       <div class="col-md-6">

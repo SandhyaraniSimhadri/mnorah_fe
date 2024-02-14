@@ -17,28 +17,44 @@ import { CoreHttpService } from "@core/services/http.service";
 })
 export class DashboardComponent implements OnInit {
   // Decorator
-  @ViewChild("gainedChartRef") gainedChartRef: any;
+  @ViewChild("visitorsChartRef") visitorsChartRef: any;
   @ViewChild("orderChartRef") orderChartRef: any;
-  @ViewChild("avgSessionChartRef") avgSessionChartRef: any;
-  @ViewChild("supportChartRef") supportChartRef: any;
-  @ViewChild("salesChartRef") salesChartRef: any;
+
+  @ViewChild("membersChartRef") membersChartRef: any;
+  @ViewChild("requestsChartRef") requestsChartRef: any;
+  @ViewChild("testimoniesChartRef") testimoniesChartRef: any;
+  @ViewChild("feedsChartRef") feedsChartRef: any;
+  @ViewChild("lifegroupChartRef") lifegroupChartRef: any;
+  @ViewChild("churchesChartRef") churchesChartRef: any;
+  @ViewChild("adminsChartRef") adminsChartRef: any;
+
+
 
   // Public
   public data: any;
   public currentUser: any;
   public loading: boolean = false;
   public users: User[] = [];
-  public gainedChartoptions;
+  public visitorChartoptions;
+  public membersChartoptions;
+  public requestsChartoptions;
+  public testimoniesChartoptions;
+  public feedsChartoptions;
+  public adminsChartoptions;
+  public lifegroupsChartoptions;
+  public churchesChartoptions;
   public orderChartoptions;
-  public avgsessionChartoptions;
-  public supportChartoptions;
-  public salesChartoptions;
   public isMenuToggled = true;
 
   // Private
   private $primary = "#7367F0";
+  private $secondary = "#6c757d";
   private $warning = "#FF9F43";
   private $info = "#00cfe8";
+  private $success = "#28a745";
+  private $danger = "#dc3545";
+  private $mute = "#c3c3c3";
+
   private $info_light = "#1edec5";
   private $strok_color = "#b9c3cd";
   private $label_color = "#e7eef7";
@@ -52,6 +68,7 @@ export class DashboardComponent implements OnInit {
   public life_group_members: any;
   public churches: any;
   public admins: any;
+  public light = "#6c757d";
 
   /**
    * Constructor
@@ -66,22 +83,11 @@ export class DashboardComponent implements OnInit {
     private _coreConfigService: CoreConfigService,
     public httpService: CoreHttpService
   ) {
-    // Subscribers Gained chart
-    this.gainedChartoptions = {
-      chart: {
-        height: 100,
-        type: "area",
-        toolbar: {
-          show: false,
-        },
-        sparkline: {
-          enabled: true,
-        },
-      },
-      colors: [this.$primary],
-      dataLabels: {
-        enabled: false,
-      },
+  
+    this.visitorChartoptions = {
+
+      colors: [this.$warning],
+    
       stroke: {
         curve: "smooth",
         width: 2.5,
@@ -95,13 +101,134 @@ export class DashboardComponent implements OnInit {
           stops: [0, 80, 100],
         },
       },
-      tooltip: {
-        x: { show: false },
+     
+    };
+
+
+    this.membersChartoptions = {
+      colors: [this.$primary], 
+      stroke: {
+        curve: "smooth",
+        width: 2.5,
+      },
+      fill: {
+        type: "gradient",
+        gradient: {
+          shadeIntensity: 0.9,
+          opacityFrom: 0.7,
+          opacityTo: 0.5,
+          stops: [0, 80, 100],
+        },
       },
     };
 
-    // Order Received Chart
-    this.orderChartoptions = {
+    this.requestsChartoptions = {
+      colors: [this.$secondary], 
+      stroke: {
+        curve: "smooth",
+        width: 2.5,
+      },
+      fill: {
+        type: "gradient",
+        gradient: {
+          shadeIntensity: 0.9,
+          opacityFrom: 0.7,
+          opacityTo: 0.5,
+          stops: [0, 80, 100],
+        },
+      },
+    };
+
+    this.testimoniesChartoptions = {
+      colors: [this.$info], 
+      stroke: {
+        curve: "smooth",
+        width: 2.5,
+      },
+      fill: {
+        type: "gradient",
+        gradient: {
+          shadeIntensity: 0.9,
+          opacityFrom: 0.7,
+          opacityTo: 0.5,
+          stops: [0, 80, 100],
+        },
+      },
+    };
+
+
+    this.feedsChartoptions = {
+      colors: [this.$success], 
+      stroke: {
+        curve: "smooth",
+        width: 2.5,
+      },
+      fill: {
+        type: "gradient",
+        gradient: {
+          shadeIntensity: 0.9,
+          opacityFrom: 0.7,
+          opacityTo: 0.5,
+          stops: [0, 80, 100],
+        },
+      },
+    };
+
+
+    this.lifegroupsChartoptions = {
+      colors: [this.$info], 
+      stroke: {
+        curve: "smooth",
+        width: 2.5,
+      },
+      fill: {
+        type: "gradient",
+        gradient: {
+          shadeIntensity: 0.9,
+          opacityFrom: 0.7,
+          opacityTo: 0.5,
+          stops: [0, 80, 100],
+        },
+      },
+    };
+
+
+
+    this.churchesChartoptions = {
+      colors: [this.$mute], 
+      stroke: {
+        curve: "smooth",
+        width: 2.5,
+      },
+      fill: {
+        type: "gradient",
+        gradient: {
+          shadeIntensity: 0.9,
+          opacityFrom: 0.7,
+          opacityTo: 0.5,
+          stops: [0, 80, 100],
+        },
+      },
+    };
+
+    this.adminsChartoptions = {
+      colors: [this.$danger], 
+      stroke: {
+        curve: "smooth",
+        width: 2.5,
+      },
+      fill: {
+        type: "gradient",
+        gradient: {
+          shadeIntensity: 0.9,
+          opacityFrom: 0.7,
+          opacityTo: 0.5,
+          stops: [0, 80, 100],
+        },
+      },
+    };
+
+     this.orderChartoptions = {
       chart: {
         height: 100,
         type: "area",
@@ -140,158 +267,6 @@ export class DashboardComponent implements OnInit {
       },
     };
 
-    // Average Session Chart
-    this.avgsessionChartoptions = {
-      chart: {
-        type: "bar",
-        height: 200,
-        sparkline: { enabled: true },
-        toolbar: { show: false },
-      },
-      colors: [
-        this.$label_color,
-        this.$label_color,
-        this.$primary,
-        this.$label_color,
-        this.$label_color,
-        this.$label_color,
-      ],
-      grid: {
-        show: false,
-        padding: {
-          left: 0,
-          right: 0,
-        },
-      },
-      plotOptions: {
-        bar: {
-          columnWidth: "45%",
-          distributed: true,
-          endingShape: "rounded",
-        },
-      },
-      tooltip: {
-        x: { show: false },
-      },
-    };
-
-    // Support Tracker Chart
-    this.supportChartoptions = {
-      chart: {
-        height: 290,
-        type: "radialBar",
-        sparkline: {
-          enabled: false,
-        },
-      },
-      plotOptions: {
-        radialBar: {
-          offsetY: 20,
-          startAngle: -150,
-          endAngle: 150,
-          hollow: {
-            size: "65%",
-          },
-          track: {
-            background: this.$white,
-            strokeWidth: "100%",
-          },
-          dataLabels: {
-            name: {
-              offsetY: -5,
-              color: this.$textHeadingColor,
-              fontSize: "1rem",
-            },
-            value: {
-              offsetY: 15,
-              color: this.$textHeadingColor,
-              fontSize: "1.714rem",
-            },
-          },
-        },
-      },
-      colors: [colors.solid.danger],
-      fill: {
-        type: "gradient",
-        gradient: {
-          shade: "dark",
-          type: "horizontal",
-          shadeIntensity: 0.5,
-          gradientToColors: [colors.solid.primary],
-          inverseColors: true,
-          opacityFrom: 1,
-          opacityTo: 1,
-          stops: [0, 100],
-        },
-      },
-      stroke: {
-        dashArray: 8,
-      },
-      labels: ["Completed Tickets"],
-    };
-
-    // Sales Chart
-    this.salesChartoptions = {
-      chart: {
-        height: 330,
-        type: "radar",
-        dropShadow: {
-          enabled: true,
-          blur: 8,
-          left: 1,
-          top: 1,
-          opacity: 0.2,
-        },
-        toolbar: {
-          show: false,
-        },
-      },
-      stroke: {
-        width: 0,
-      },
-      colors: [this.$primary, this.$info],
-      plotOptions: {
-        radar: {
-          polygons: {
-            connectorColors: "transparent",
-          },
-        },
-      },
-      fill: {
-        type: "gradient",
-        gradient: {
-          shade: "dark",
-          gradientToColors: ["#9f8ed7", this.$info_light],
-          shadeIntensity: 1,
-          type: "horizontal",
-          opacityFrom: 1,
-          opacityTo: 1,
-          stops: [0, 100, 100, 100],
-        },
-      },
-      markers: {
-        size: 0,
-      },
-      legend: {
-        show: false,
-      },
-      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-      dataLabels: {
-        style: {
-          colors: [
-            this.$strok_color,
-            this.$strok_color,
-            this.$strok_color,
-            this.$strok_color,
-            this.$strok_color,
-            this.$strok_color,
-          ],
-        },
-      },
-      yaxis: {
-        show: false,
-      },
-    };
   }
 
   // Lifecycle Hooks
@@ -417,16 +392,30 @@ export class DashboardComponent implements OnInit {
         setTimeout(() => {
           // Get Dynamic Width for Charts
           this.isMenuToggled = false;
-          this.gainedChartoptions.chart.width =
-            this.gainedChartRef?.nativeElement.offsetWidth;
-          this.orderChartoptions.chart.width =
+          this.visitorChartoptions.chart.width =
+            this.visitorsChartRef?.nativeElement.offsetWidth;
+          this.membersChartoptions.chart.width =
+            this.membersChartRef?.nativeElement.offsetWidth;
+
+
+            this.requestsChartoptions.chart.width =
+            this.requestsChartRef?.nativeElement.offsetWidth;
+          this.testimoniesChartoptions.chart.width =
+            this.testimoniesChartRef?.nativeElement.offsetWidth;
+
+
+            this.feedsChartoptions.chart.width =
+            this.feedsChartRef?.nativeElement.offsetWidth;
+          this.lifegroupsChartoptions.chart.width =
+            this.lifegroupChartRef?.nativeElement.offsetWidth;
+
+            this.churchesChartoptions.chart.width =
+            this.churchesChartRef?.nativeElement.offsetWidth;
+          this.adminsChartoptions.chart.width =
+            this.adminsChartRef?.nativeElement.offsetWidth;
+   this.orderChartoptions.chart.width =
             this.orderChartRef?.nativeElement.offsetWidth;
-          this.avgsessionChartoptions.chart.width =
-            this.avgSessionChartRef?.nativeElement.offsetWidth;
-          this.supportChartoptions.chart.width =
-            this.supportChartRef?.nativeElement.offsetWidth;
-          this.salesChartoptions.chart.width =
-            this.salesChartRef?.nativeElement.offsetWidth;
+      
         }, 4000);
       }
     });

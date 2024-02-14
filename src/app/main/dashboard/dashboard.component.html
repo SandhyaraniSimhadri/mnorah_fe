@@ -21,12 +21,12 @@
           </div>
 
           <!-- Apexchart component-->
-          <div id="orderChartoptions" #orderChartRef>
+          <div id="visitorChartoptions" #visitorsChartRef>
             <apx-chart
               [series]="visitors.series"
               [chart]="{
                 height: 100,
-                width: isMenuToggled === true ? orderChartRef.offsetWidth : orderChartoptions.chart.width,
+                width: isMenuToggled === true ? visitorsChartRef.offsetWidth : visitorChartoptions.chart.width,
                 type: 'area',
                 toolbar: {
                   show: false
@@ -35,11 +35,10 @@
                   enabled: true
                 }
               }"
-              [stroke]="orderChartoptions.stroke"
-              [fill]="orderChartoptions.fill"
-              [tooltip]="orderChartoptions.tooltip"
-              [colors]="orderChartoptions.colors"
-              [dataLabels]="orderChartoptions.dataLabels"
+              [stroke]="visitorChartoptions.stroke"             
+              [colors]="visitorChartoptions.colors"
+              [fill]="visitorChartoptions.fill"
+            
             ></apx-chart>
           </div>
         </div>
@@ -58,12 +57,12 @@
           </div>
 
           <!-- Apexchart component-->
-          <div id="gainedChartoptions" #gainedChartRef>
+          <div id="membersChartoptions" #membersChartRef>
             <apx-chart
               [series]="rows.series"
               [chart]="{
                 height: 100,
-                width: isMenuToggled === true ? gainedChartRef.offsetWidth : gainedChartoptions.chart.width,
+                width: isMenuToggled === true ? membersChartRef.offsetWidth : membersChartoptions.chart.width,
                 type: 'area',
                 toolbar: {
                   show: false
@@ -72,11 +71,11 @@
                   enabled: true
                 }
               }"
-              [stroke]="gainedChartoptions.stroke"
-              [fill]="gainedChartoptions.fill"
-              [tooltip]="gainedChartoptions.tooltip"
-              [colors]="gainedChartoptions.colors"
-              [dataLabels]="gainedChartoptions.dataLabels"
+              [stroke]="membersChartoptions.stroke"
+              [fill]="membersChartoptions.fill"
+            
+              [colors]="membersChartoptions.colors"
+          
             ></apx-chart>
           </div>
         </div>
@@ -95,12 +94,12 @@
           </div>
 
           <!-- Apexchart component-->
-          <div id="orderChartoptions" #orderChartRef>
+          <div id="requestsChartoptions" #requestsChartRef>
             <apx-chart
               [series]="prayer_requests.series"
               [chart]="{
                 height: 100,
-                width: isMenuToggled === true ? orderChartRef.offsetWidth : orderChartoptions.chart.width,
+                width: isMenuToggled === true ? requestsChartRef.offsetWidth : requestsChartoptions.chart.width,
                 type: 'area',
                 toolbar: {
                   show: false
@@ -109,11 +108,10 @@
                   enabled: true
                 }
               }"
-              [stroke]="orderChartoptions.stroke"
-              [fill]="orderChartoptions.fill"
-              [tooltip]="orderChartoptions.tooltip"
-              [colors]="orderChartoptions.colors"
-              [dataLabels]="orderChartoptions.dataLabels"
+              [stroke]="requestsChartoptions.stroke"
+              [fill]="requestsChartoptions.fill"
+              [colors]="requestsChartoptions.colors"
+          
             ></apx-chart>
           </div>
         </div>
@@ -132,12 +130,12 @@
           </div>
 
           <!-- Apexchart component-->
-          <div id="orderChartoptions" #orderChartRef>
+          <div id="testimoniesChartoptions" #testimoniesChartRef>
             <apx-chart
               [series]="testimony.series"
               [chart]="{
                 height: 100,
-                width: isMenuToggled === true ? orderChartRef.offsetWidth : orderChartoptions.chart.width,
+                width: isMenuToggled === true ? testimoniesChartRef.offsetWidth : testimoniesChartoptions.chart.width,
                 type: 'area',
                 toolbar: {
                   show: false
@@ -146,11 +144,11 @@
                   enabled: true
                 }
               }"
-              [stroke]="orderChartoptions.stroke"
-              [fill]="orderChartoptions.fill"
-              [tooltip]="orderChartoptions.tooltip"
-              [colors]="orderChartoptions.colors"
-              [dataLabels]="orderChartoptions.dataLabels"
+              [stroke]="testimoniesChartoptions.stroke"
+              [fill]="testimoniesChartoptions.fill"
+            
+              [colors]="testimoniesChartoptions.colors"
+       
             ></apx-chart>
           </div>
         </div>
@@ -170,12 +168,12 @@
           </div>
 
           <!-- Apexchart component-->
-          <div id="orderChartoptions" #orderChartRef>
+          <div id="feedsChartoptions" #visitorsChartRef>
             <apx-chart
               [series]="feeds.series"
               [chart]="{
                 height: 100,
-                width: isMenuToggled === true ? orderChartRef.offsetWidth : orderChartoptions.chart.width,
+                width: isMenuToggled === true ? visitorsChartRef.offsetWidth : orderChartoptions.chart.width,
                 type: 'area',
                 toolbar: {
                   show: false
@@ -184,11 +182,11 @@
                   enabled: true
                 }
               }"
-              [stroke]="orderChartoptions.stroke"
-              [fill]="orderChartoptions.fill"
-              [tooltip]="orderChartoptions.tooltip"
-              [colors]="orderChartoptions.colors"
-              [dataLabels]="orderChartoptions.dataLabels"
+              [stroke]="feedsChartoptions.stroke"
+              [fill]="feedsChartoptions.fill"
+            
+              [colors]="feedsChartoptions.colors"
+           
             ></apx-chart>
           </div>
         </div>
@@ -207,12 +205,12 @@
           </div>
 
           <!-- Apexchart component-->
-          <div id="orderChartoptions" #orderChartRef>
+          <div id="lifegroupsChartoptions" #visitorsChartRef>
             <apx-chart
               [series]="life_group_members.series"
               [chart]="{
                 height: 100,
-                width: isMenuToggled === true ? orderChartRef.offsetWidth : orderChartoptions.chart.width,
+                width: isMenuToggled === true ? visitorsChartRef.offsetWidth : lifegroupsChartoptions.chart.width,
                 type: 'area',
                 toolbar: {
                   show: false
@@ -221,11 +219,11 @@
                   enabled: true
                 }
               }"
-              [stroke]="orderChartoptions.stroke"
-              [fill]="orderChartoptions.fill"
-              [tooltip]="orderChartoptions.tooltip"
-              [colors]="orderChartoptions.colors"
-              [dataLabels]="orderChartoptions.dataLabels"
+              [stroke]="lifegroupsChartoptions.stroke"
+              [fill]="lifegroupsChartoptions.fill"
+           
+              [colors]="lifegroupsChartoptions.colors"
+            
             ></apx-chart>
           </div>
         </div>
@@ -245,12 +243,12 @@
           </div>
 
           <!-- Apexchart component-->
-          <div id="orderChartoptions" #orderChartRef>
+          <div id="churchesChartoptions" #churchesChartRef>
             <apx-chart
               [series]="churches.series"
               [chart]="{
                 height: 100,
-                width: isMenuToggled === true ? orderChartRef.offsetWidth : orderChartoptions.chart.width,
+                width: isMenuToggled === true ? churchesChartRef.offsetWidth : churchesChartoptions.chart.width,
                 type: 'area',
                 toolbar: {
                   show: false
@@ -259,11 +257,11 @@
                   enabled: true
                 }
               }"
-              [stroke]="orderChartoptions.stroke"
-              [fill]="orderChartoptions.fill"
-              [tooltip]="orderChartoptions.tooltip"
-              [colors]="orderChartoptions.colors"
-              [dataLabels]="orderChartoptions.dataLabels"
+              [stroke]="churchesChartoptions.stroke"
+              [fill]="churchesChartoptions.fill"
+             
+              [colors]="churchesChartoptions.colors"
+        
             ></apx-chart>
           </div>
         </div>
@@ -282,12 +280,12 @@
           </div>
 
           <!-- Apexchart component-->
-          <div id="orderChartoptions" #orderChartRef>
+          <div id="adminsChartoptions" #adminsChartRef>
             <apx-chart
               [series]="admins.series"
               [chart]="{
                 height: 100,
-                width: isMenuToggled === true ? orderChartRef.offsetWidth : orderChartoptions.chart.width,
+                width: isMenuToggled === true ? adminsChartRef.offsetWidth : adminsChartoptions.chart.width,
                 type: 'area',
                 toolbar: {
                   show: false
@@ -296,11 +294,11 @@
                   enabled: true
                 }
               }"
-              [stroke]="orderChartoptions.stroke"
-              [fill]="orderChartoptions.fill"
-              [tooltip]="orderChartoptions.tooltip"
-              [colors]="orderChartoptions.colors"
-              [dataLabels]="orderChartoptions.dataLabels"
+              [stroke]="adminsChartoptions.stroke"
+              [fill]="adminsChartoptions.fill"
+
+              [colors]="adminsChartoptions.colors"
+           
             ></apx-chart>
           </div>
         </div>

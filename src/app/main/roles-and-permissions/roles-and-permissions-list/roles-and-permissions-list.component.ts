@@ -181,7 +181,7 @@ export class RolesAndPermissionsListComponent implements OnInit {
    */
   ngOnInit(): void {
     this.apiUrl = environment.apiUrl;
-    this.getRoles();
+    // this.getRoles();
     this.getRequests();
   }
   getRoles(){
@@ -199,7 +199,7 @@ export class RolesAndPermissionsListComponent implements OnInit {
           if (res.status == false) {
           } else if (res.status == true) {
             this.rolesData=res.data;
-         
+            this.rows=this.rolesData;
           }
         }
         this.loading=false;
@@ -225,7 +225,7 @@ export class RolesAndPermissionsListComponent implements OnInit {
     request = {
       params: null,
       action_url: "get_roles",
-      method: "post",
+      method: "get",
     };
     this.httpService.doHttp(request).subscribe(
       (res: any) => {

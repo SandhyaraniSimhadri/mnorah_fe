@@ -81,43 +81,67 @@
           <div class="form-group">
             <label class="form-label" for="basic-icon-default-country">Country <span *ngIf="newUserForm.submitted && countryRef.invalid" class="text-danger">*</span>
               <span *ngIf="!newUserForm.submitted || !countryRef.invalid">*</span></label>
-            <input
-              type="text"
-              class="form-control dt-country"
+      
+              <select
               id="basic-icon-default-country"
-              placeholder=""
-              name="country"
-              [(ngModel)]="country"
-              [class.error]="newUserForm.submitted && countryRef.invalid"
-              #countryRef="ngModel"
-              required
+              class="form-control dt-country"
               aria-label=""
               aria-describedby="basic-icon-default-country"
-            />
-            <span *ngIf="newUserForm.submitted && countryRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="countryRef.errors.required">This field is required!</small>
-            </span>
+              name="country"
+              [class.error]="newUserForm.submitted && CoNameRef.invalid"
+              #CoNameRef="ngModel"
+              required
+              [(ngModel)]="country"
+              [ngModelOptions]="{ standalone: true }"  (ngModelChange)="getCities()"
+            >
+              <option value="" disabled>Select</option>
+              <option *ngFor="let country of countriesData" [value]="country.id">
+                {{ country.country }}
+              </option>
+            </select>
+
+              <span
+                *ngIf="newUserForm.submitted && CoNameRef.invalid"
+                class="invalid-form"
+              >
+                <small
+                  class="form-text text-danger"
+                  *ngIf="CoNameRef.errors.required"
+                  >This field is required!</small
+                >
+              </span>
           </div>
 
           <div class="form-group">
             <label class="form-label" for="basic-icon-default-city">City <span *ngIf="newUserForm.submitted && cityRef.invalid" class="text-danger">*</span>
               <span *ngIf="!newUserForm.submitted || !cityRef.invalid">*</span></label>
-            <input
-              type="text"
-              class="form-control dt-city"
+              <select
               id="basic-icon-default-city"
-              placeholder=""
-              name="city"
-              [(ngModel)]="city"
-              [class.error]="newUserForm.submitted && cityRef.invalid"
-              #cityRef="ngModel"
-              required
+              class="form-control dt-city"
               aria-label=""
-              aria-describedby="basic-icon-default-author"
-            />
-            <span *ngIf="newUserForm.submitted && cityRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="cityRef.errors.required">This field is required!</small>
-            </span>
+              aria-describedby="basic-icon-default-city"
+              name="city"
+              [class.error]="newUserForm.submitted && CiNameRef.invalid"
+              #CiNameRef="ngModel"
+              required
+              [(ngModel)]="city"
+              [ngModelOptions]="{ standalone: true }"  
+            >
+              <option value="" disabled>Select</option>
+              <option *ngFor="let city of citiesData" [value]="city.name">
+                {{ city.name }}
+              </option>
+            </select>
+              <span
+                *ngIf="newUserForm.submitted && CiNameRef.invalid"
+                class="invalid-form"
+              >
+                <small
+                  class="form-text text-danger"
+                  *ngIf="CiNameRef.errors.required"
+                  >This field is required!</small
+                >
+              </span>
           </div>
           <div class="form-group">
             <label class="form-label" for="basic-icon-default-area">Area <span *ngIf="newUserForm.submitted && areaRef.invalid" class="text-danger">*</span>

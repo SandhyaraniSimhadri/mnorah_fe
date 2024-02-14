@@ -248,56 +248,33 @@
           </div>
 
           <div class="row">
-            <div class="col-6">
-              <div class="form-group">
-                <label class="form-label" for="basic-icon-default-city"
-                  >City <span *ngIf="newUserForm.submitted && CiNameRef.invalid" class="text-danger">*</span>
-                  <span *ngIf="!newUserForm.submitted || !CiNameRef.invalid">*</span></label
-                >
-                <input
-                  type="text"
-                  class="form-control dt-city"
-                  id="basic-icon-default-city"
-                  placeholder=""
-                  name="user-city"
-                  [(ngModel)]="city"
-                  [class.error]="newUserForm.submitted && CiNameRef.invalid"
-                  #CiNameRef="ngModel"
-                  required
-                  aria-label=""
-                  aria-describedby="basic-icon-default-city"
-                />
-                <span
-                  *ngIf="newUserForm.submitted && CiNameRef.invalid"
-                  class="invalid-form"
-                >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="CiNameRef.errors.required"
-                    >This field is required!</small
-                  >
-                </span>
-              </div>
-            </div>
+           
             <div class="col-6">
               <div class="form-group">
                 <label class="form-label" for="basic-icon-default-country"
                   >Country <span *ngIf="newUserForm.submitted && CoNameRef.invalid" class="text-danger">*</span>
                   <span *ngIf="!newUserForm.submitted || !CoNameRef.invalid">*</span></label
                 >
-                <input
-                  type="text"
-                  class="form-control dt-country"
-                  id="basic-icon-default-country"
-                  placeholder=""
-                  name="user-country"
-                  [(ngModel)]="country"
-                  [class.error]="newUserForm.submitted && CoNameRef.invalid"
-                  #CoNameRef="ngModel"
-                  required
-                  aria-label=""
-                  aria-describedby="basic-icon-default-country"
-                />
+
+
+                <select
+                id="basic-icon-default-country"
+                class="form-control dt-country"
+                aria-label=""
+                aria-describedby="basic-icon-default-country"
+                name="country"
+                [class.error]="newUserForm.submitted && CoNameRef.invalid"
+                #CoNameRef="ngModel"
+                required
+                [(ngModel)]="country"
+                [ngModelOptions]="{ standalone: true }"  (ngModelChange)="getCities()"
+              >
+                <option value="" disabled>Select</option>
+                <option *ngFor="let country of countriesData" [value]="country.id">
+                  {{ country.country }}
+                </option>
+              </select>
+
                 <span
                   *ngIf="newUserForm.submitted && CoNameRef.invalid"
                   class="invalid-form"
@@ -305,6 +282,45 @@
                   <small
                     class="form-text text-danger"
                     *ngIf="CoNameRef.errors.required"
+                    >This field is required!</small
+                  >
+                </span>
+              </div>
+            </div>
+
+
+            <div class="col-6">
+              <div class="form-group">
+                <label class="form-label" for="basic-icon-default-city"
+                  >City <span *ngIf="newUserForm.submitted && CiNameRef.invalid" class="text-danger">*</span>
+                  <span *ngIf="!newUserForm.submitted || !CiNameRef.invalid">*</span></label
+                >
+              
+
+                <select
+                id="basic-icon-default-city"
+                class="form-control dt-city"
+                aria-label=""
+                aria-describedby="basic-icon-default-city"
+                name="city"
+                [class.error]="newUserForm.submitted && CiNameRef.invalid"
+                #CiNameRef="ngModel"
+                required
+                [(ngModel)]="city"
+                [ngModelOptions]="{ standalone: true }"  
+              >
+                <option value="" disabled>Select</option>
+                <option *ngFor="let city of citiesData" [value]="city.name">
+                  {{ city.name }}
+                </option>
+              </select>
+                <span
+                  *ngIf="newUserForm.submitted && CiNameRef.invalid"
+                  class="invalid-form"
+                >
+                  <small
+                    class="form-text text-danger"
+                    *ngIf="CiNameRef.errors.required"
                     >This field is required!</small
                   >
                 </span>

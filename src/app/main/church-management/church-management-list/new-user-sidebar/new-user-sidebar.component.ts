@@ -33,6 +33,9 @@ export class NewUserSidebarComponent implements OnInit {
   public customTagselected: any = [];
   public admins_list: any;
   public status: boolean = false;
+  public countriesData:any;
+  public citiesData: any;
+  public selected_country:any;
 
   /**
    * Constructor
@@ -127,6 +130,32 @@ export class NewUserSidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAdmins();
+    this.getCountries();
+  }
+
+  getCountries() {
+    let request = {
+      params: null,
+      action_url: "get_countries",
+      method: "GET",
+    };
+    this.httpService.doHttp(request).subscribe(
+      (res: any) => {
+        if (res == "nonet") {
+        } else {
+          if (res.status == false) {
+          } else if (res.status == true) {
+            this.countriesData = res.data;
+
+            // this.adminsData.forEach((c, i) => {
+            //   this.customTag.push({ id: c.id, name: c.user_name });
+            // });
+          }
+        }
+        this.status = true;
+      },
+      (error: any) => {}
+    );
   }
   getAdmins() {
     let request = {
@@ -145,6 +174,28 @@ export class NewUserSidebarComponent implements OnInit {
             this.adminsData.forEach((c, i) => {
               this.customTag.push({ id: c.id, name: c.user_name });
             });
+          }
+        }
+        this.status = true;
+      },
+      (error: any) => {}
+    );
+  }
+
+  getCities() {
+    let request = {
+      params:  { countryCode: this.country },
+      action_url: "get_cities",
+      method: "POST",
+    };
+    this.httpService.doHttp(request).subscribe(
+      (res: any) => {
+        if (res == "nonet") {
+        } else {
+          if (res.status == false) {
+          } else if (res.status == true) {
+            this.citiesData = res.data;
+            console.log("data city",this.citiesData);
           }
         }
         this.status = true;

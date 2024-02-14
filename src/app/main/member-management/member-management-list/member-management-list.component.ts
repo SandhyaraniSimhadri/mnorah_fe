@@ -291,7 +291,7 @@ export class MemberManagementListComponent implements OnInit {
     const formData = new FormData();
     formData.append('file', this.file);
 
-    this.http.post(this.apiUrl + "api/member_file_import", formData).subscribe(
+    this.http.post(this.apiUrl + "api/upload_cities", formData).subscribe(
       (res:any) => {
         if (res == "nonet") {
         }else{
