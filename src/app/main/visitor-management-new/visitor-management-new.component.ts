@@ -12,6 +12,7 @@ import { environment } from 'environments/environment';
     selector: "app-visitor-management-new",
     templateUrl: "./visitor-management-new.component.html",
     styleUrls: ["./visitor-management-new.component.scss"],
+    encapsulation: ViewEncapsulation.None
   })
 export class VisitorManagementNewComponent implements OnInit {
   @Output() onUserAdded: EventEmitter<any> = new EventEmitter<any>();
@@ -165,7 +166,7 @@ this._coreConfigService.config = {
         action_url: "add_visitor"
       };
   
-      this._http.post<any>(environment.apiUrl+'/api/add_visitor', request).subscribe(
+      this._http.post<any>(environment.apiUrl+'api/add_visitor', request).subscribe(
         (res: any) => {
           if (res === "nonet") {
             // Handle 'nonet' response if needed
@@ -182,6 +183,30 @@ this._coreConfigService.config = {
                 closeButton: true,
               });
               this.toggleSidebar("new-user-sidebar");
+              this.visitorForm = {
+                first_name: "",
+                last_name:"",
+                spouse_name:"",
+                child1_name:"",
+                child2_name:"",
+                child3_name:"",
+                child4_name:"",
+                gender: "",
+                email: "",
+                phone_number: "",
+                address: "",
+                city: "",
+                church_id: "",
+                hear_about: "",
+                hear_about_other: "",
+                visit_date: "",
+                experience: "",
+                about_visit:"",
+                suggestions:"",
+                prayer_request:"",
+                comments:"",
+                connection:""
+              };
             }
           }
           this.loading = false;
