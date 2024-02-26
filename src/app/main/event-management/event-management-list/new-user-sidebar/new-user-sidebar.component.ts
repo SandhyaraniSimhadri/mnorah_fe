@@ -1,7 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { CoreHttpService } from '@core/services/http.service';
+import { environment } from 'environments/environment';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -31,7 +33,9 @@ export class NewUserSidebarComponent implements OnInit {
   public churchData:any;
   public loading:boolean=false;
   public form:any;
-
+  public event_image: any;
+  public imageval: any;
+  public apiUrl: any;
 
   /**
    * Constructor
@@ -39,8 +43,9 @@ export class NewUserSidebarComponent implements OnInit {
    * @param {CoreSidebarService} _coreSidebarService
    */
   constructor(private _coreSidebarService: CoreSidebarService, 
-     public httpService: CoreHttpService,   private router: Router,
+     public httpService: CoreHttpService,   private router: Router,private http: HttpClient,
      private _toastrService: ToastrService) {
+      this.apiUrl = environment.apiUrl;
       if(this.httpService.USERINFO.role=='Sub Admin'){
       this.church_id = this.httpService.USERINFO.church_id;
   }
@@ -63,9 +68,24 @@ export class NewUserSidebarComponent implements OnInit {
    */
   submit(form) {
     this.loading=true;
-    this.form={church_id:this.church_id,event_name:this.event_name,event_type:this.event_type,event_date:this.event_date,event_time:this.event_time,
-      venue:this.venue,contact_person:this.contact_person,frequency:this.frequency,event_description:this.event_description,agenda:this.agenda,
-      reg_info:this.reg_info,speakers:this.speakers,special_req:this.special_req,dress_code:this.dress_code,additional_info:this.additional_info};
+    const formData = new FormData();
+    formData.append("event_image", this.event_image);
+    formData.append("church_id", this.church_id);
+    formData.append("event_name", this.event_name);
+    formData.append("event_type", this.event_type);
+    formData.append("event_date", this.event_date);
+    formData.append("event_time", this.event_time);
+    formData.append("venue", this.venue);
+    formData.append("contact_person", this.contact_person);
+    formData.append("frequency", this.frequency);
+    formData.append("event_description", this.event_description);
+    formData.append("agenda", this.agenda);
+    formData.append("reg_info", this.reg_info);
+    formData.append("speakers", this.speakers);
+    formData.append("special_req", this.special_req);
+    formData.append("dress_code", this.dress_code);
+    formData.append("additional_info", this.additional_info);
+
     if (form.valid) {
       let request;
 
@@ -74,7 +94,7 @@ export class NewUserSidebarComponent implements OnInit {
         action_url: "add_event",
         method: "POST",
       };
-      this.httpService.doHttp(request).subscribe(
+      this.http.post<any>(this.apiUrl + "api/add_event", formData).subscribe(
         (res: any) => {
   
           if (res == "nonet") {
@@ -126,5 +146,10 @@ export class NewUserSidebarComponent implements OnInit {
       },
       (error: any) => {}
     );
+  }
+  uploadImage(event: any) {
+    this.loading = true;
+    this.event_image = event.target.files[0];
+    this.loading = false;
   }
 }

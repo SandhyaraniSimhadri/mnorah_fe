@@ -16,9 +16,9 @@ import { CoreConfig } from '@core/types';
 // prettier-ignore
 export const coreConfig: CoreConfig = {
   app: {
-    appName     : 'Mnorah',                                        // App Name
-    appTitle    : 'Mnorah - Launch your own Church App', // App Title
-    appLogoImage: 'assets/images/logo/logo_new.png',                  // App Logo
+    appName     : 'Mahyim',                                        // App Name
+    appTitle    : 'Mahyim - Launch your own Church App', // App Title
+    appLogoImage: 'assets/images/logo/new_logo.png',                  // App Logo
     appLanguage : 'en',                                           // App Default Language (en, fr, de, pt etc..)
   },
   layout: {

@@ -29,6 +29,8 @@ export class NewUserSidebarComponent implements OnInit {
   public customTagSelected: any = [];
   public selectMultiGroupSelected = [];
   public selectMultiSelected = [];
+  public firstDiv:any=true;
+  public secondDiv:any=false;
 
   public visitorForm: any = {
     first_name: "",
@@ -89,7 +91,8 @@ export class NewUserSidebarComponent implements OnInit {
     private _coreSidebarService: CoreSidebarService,
     public httpService: CoreHttpService,
     private router: Router,
-    private _toastrService: ToastrService
+    private _toastrService: ToastrService,
+
   ) {
     if(this.httpService.USERINFO.role=='Sub Admin'){
     this.visitorForm.church_id = this.httpService.USERINFO.church_id;
@@ -102,10 +105,13 @@ export class NewUserSidebarComponent implements OnInit {
    * @param name
    */
   toggleSidebar(name): void {
+    
+    this.secondDiv=false;
+    this.firstDiv=true;
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
   getData() {
-
+console.log("data");
     let request = {
       params: null,
       action_url: "get_churches",
@@ -198,5 +204,13 @@ export class NewUserSidebarComponent implements OnInit {
      
     }
    
+  }
+  next(){
+    this.secondDiv=true;
+    this.firstDiv=false;
+  }
+  prev(){
+    this.secondDiv=false;
+    this.firstDiv=true;
   }
 }

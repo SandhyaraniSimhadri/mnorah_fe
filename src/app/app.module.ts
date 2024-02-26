@@ -33,6 +33,7 @@ import { SubMenuCustomContextMenuComponent } from './main/extensions/context-men
 // import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './main/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { VisitorManagementNewComponent } from './main/visitor-management-new/visitor-management-new.component';
 
 
 
@@ -153,6 +154,11 @@ const appRoutes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'visitor-form',
+    component: VisitorManagementNewComponent,
+    pathMatch: 'full'
+  },
+  {
     path: '**',
     redirectTo: '/pages/miscellaneous/error' //Error 404 - Page not found
   }
@@ -161,6 +167,7 @@ const appRoutes: Routes = [
 @NgModule({
     declarations: [
         LoginComponent,
+        VisitorManagementNewComponent,
         AppComponent,
         ContextMenuComponent,
         BasicCustomContextMenuComponent,

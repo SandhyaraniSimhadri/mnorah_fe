@@ -171,6 +171,23 @@
                       </div>
                       <p class="card-text mb-0">{{ data.additional_info }}</p>
                     </div>
+
+                
+                  <div class="d-flex flex-wrap my-50" *ngIf="data.event_image">
+                    <div class="user-info-title">
+              
+                      <span class="card-text user-info-title font-weight-bold mb-0">Event Image</span>
+                    </div>
+                    <p class="card-text mb-0">
+                      <img
+                      class="mr-1"
+                      src="{{ apiUrl + data.event_image}}"
+                      height="250"
+                      width="250"
+                      alt="event-image"
+                    />
+                    </p>
+                  </div>
                   </div>
                 </div>
               </div>

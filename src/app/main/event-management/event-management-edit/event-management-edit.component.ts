@@ -41,6 +41,9 @@ export class EventManagementEditComponent implements OnInit, OnDestroy {
   public buttonLoading:boolean=false;
   public originalFormValues: any;
   public formModified: boolean = false;
+  public event_image: any;
+  public imageval: any;
+  public re_event_image:any;
   @ViewChild("accountForm") accountForm: NgForm;
 
 
@@ -119,6 +122,8 @@ export class EventManagementEditComponent implements OnInit, OnDestroy {
       formData.append("church_id", this.currentRow.church_id);
       formData.append("avatar", this.currentRow.avatar);
       formData.append("event_name", this.currentRow.event_name);
+      formData.append("event_image", this.event_image);
+
       formData.append("event_type", this.currentRow.event_type);
       formData.append("event_date", this.currentRow.event_date);
       formData.append("event_time", this.currentRow.event_time);
@@ -190,12 +195,17 @@ export class EventManagementEditComponent implements OnInit, OnDestroy {
         } else {
           if (res.status == false) {
           } else if (res.status == true) {
+            console.log("@currentdata",res.data);
             res.data.church_id=res.data.church_id.toString();
             this.currentRow = this.modalsService.replaceNullsWithEmptyStrings(res.data);
+            this.re_event_image=this.currentRow.event_image;
+
             this.originalFormValues = { ...this.currentRow };
 
             if(this.currentRow.avatar){
             this.avatarImage = this.apiUrl+this.currentRow.avatar;}
+            if(this.currentRow.event_image){
+            this.re_event_image = this.apiUrl+this.currentRow.event_image;}
             this.tempRow = cloneDeep(this.currentRow);
           }
         }
@@ -237,5 +247,27 @@ export class EventManagementEditComponent implements OnInit, OnDestroy {
   checkFormModified() {
 
     this.formModified = !isEqual(this.currentRow, this.originalFormValues);
+  }
+  uploadImage1(event: any) {
+    this.loading = true;
+    // this.event_image = event.target.files[0];
+    // this.currentRow.event_image=this.event_image;
+
+
+    if (event.target.files && event.target.files[0]) {
+      let reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.re_event_image = event.target.result;
+      };
+
+      reader.readAsDataURL(event.target.files[0]);
+      this.currentRow.event_image = event.target.files[0].name;
+      this.event_image = event.target.files[0];
+    }
+
+
+    this.checkFormModified();
+    this.loading = false;
+
   }
 }

@@ -407,34 +407,63 @@
                         </div>
                       </div>
 
-                      <div class="col-md-4">
+                      <div class="col-md-6">
                         <div class="form-group">
                           <label>Special Requirements (if any)</label>
-                          <input
+                          <textarea  rows="4"
                             type="text"
                             class="form-control"
                             [(ngModel)]="currentRow.special_req"
                             placeholder="Special Requirements (if any)"
                             id="special_req"
                             name="special_req" (ngModelChange)="checkFormModified()"
-                          />
+                          ></textarea>
                         </div>
                       </div>
 
-                      <div class="col-md-4">
+                      <div class="col-md-6">
                         <div class="form-group">
                           <label>Additional Information (if any)</label>
-                          <input
+                          <textarea  rows="4"
                             type="text"
                             class="form-control"
                             [(ngModel)]="currentRow.additional_info"
                             placeholder="Additional Information (if any)"
                             id="additional_info"
                             name="additional_info" (ngModelChange)="checkFormModified()"
-                          />
+                          ></textarea>
                         </div>
                       </div>
-
+                      
+                      <div class="col-md-6" >
+                        <div class="form-group">
+                          <label class="form-label" for="basic-icon-default-author"
+                            >Image</label
+                          >
+                          <input
+                            type="file"
+                            class="form-control dt-author"
+                            id="basic-icon-default-author"
+                            placeholder=""
+                            name="author"
+                            [(ngModel)]="imageval"
+                            (change)="uploadImage1($event)"
+                            accept="image/png, image/jpeg, image/jpg"
+                            #ImNameRef="ngModel"
+                            aria-label=""
+                            aria-describedby="basic-icon-default-author"
+                          />
+                        </div>
+                       
+                        <img *ngIf="re_event_image"
+                        class="user-avatar users-avatar-shadow rounded mr-2 my-25 "
+                        [src]="re_event_image"
+                        height="200"
+                        width="200"
+                        alt="User avatar"
+                      />
+                     
+                      </div>
                       <div class="col-12 d-flex flex-sm-row flex-column mt-2">
                         <button
                         [disabled]="!formModified || buttonLoading"

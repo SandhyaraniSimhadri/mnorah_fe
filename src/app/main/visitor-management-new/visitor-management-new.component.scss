@@ -1,0 +1,77 @@
+@import '@core/scss/base/bootstrap-extended/include'; // Bootstrap includes
+@import '@core/scss/base/pages/page-auth.scss';
+@import '@core/scss/angular/libs/toastr.component.scss';
+@import '@core/scss/angular/libs/datatables.component.scss';
+@import '@core/scss/base/pages/app-user.scss';
+@import '@core/scss/angular/libs/select.component.scss';
+.new-col{
+    padding-right: 0px !important;
+}
+.new-col1{
+    padding-left: 0px !important;
+}
+.row {
+    display: flex;
+  }
+  
+  .col-6 {
+    flex-grow: 1;
+  }
+  
+  .new-col img {
+    width: 100%;
+    height: auto;
+  }
+  .auth-help-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  
+  .signin-title{
+    font-weight: 200;
+  }
+
+  
+
+  .register{
+    color:#9B02FE;
+  }
+  .font-cls{
+    font-size: 12px;
+  }
+  
+  .img-fluid{
+   
+    padding: 0px !important;
+  }
+  .img-class{
+    padding: 0px !important;
+  
+  }
+
+
+  
+  .fa-user-circle-o{
+    color: gray;
+  }
+  .icon-cls{
+    margin-top:4px !important;
+    color:#9B02FE;
+  }
+
+  .avatar{
+    background-color: white !important;
+  }
+
+  // .image-container {
+  //   max-width: 100%;
+  //   height: auto;
+  // }
+  
+  // .dynamic-image {
+  //   width: 100%;
+  //   height: auto;
+  //   max-width: 100%;
+  //   object-fit: contain; /* Adjust the object-fit property as needed (e.g., contain, cover) */
+  // }
