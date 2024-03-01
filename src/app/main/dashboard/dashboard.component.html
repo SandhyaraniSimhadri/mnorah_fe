@@ -8,7 +8,7 @@
     <!-- Card Advance -->
     <div class="row match-height">
 
-      <div class="col-lg-3 col-sm-6 col-12  pointer-on-hover" routerLink="/visitor-management">
+      <div class="col-lg-3 col-sm-6 col-12  pointer-on-hover" routerLink="/visitor-management" *ngIf="hasVisitorManagementItem()">
         <div class="card" >
           <div class="card-header d-flex flex-column align-items-start pb-0">
             <div class="avatar bg-light-warning p-50 m-0">
@@ -44,7 +44,7 @@
         </div>
       </div>
 
-      <div class="col-lg-3 col-sm-6 col-12 pointer-on-hover" routerLink="/member-management">
+      <div class="col-lg-3 col-sm-6 col-12 pointer-on-hover" routerLink="/member-management" *ngIf="hasMemberManagementItem()">
         <div class="card">
           <div class="card-header d-flex flex-column align-items-start pb-0">
             <div class="avatar bg-light-primary p-50 m-0">
@@ -81,7 +81,7 @@
         </div>
       </div>
 
-      <div class="col-lg-3 col-sm-6 col-12 pointer-on-hover" routerLink="/prayer-request-management">
+      <div class="col-lg-3 col-sm-6 col-12 pointer-on-hover" routerLink="/prayer-request-management" *ngIf="hasPrayerRequestItem()">
         <div class="card">
           <div class="card-header d-flex flex-column align-items-start pb-0">
             <div class="avatar bg-light-secondary p-50 m-0">
@@ -117,7 +117,7 @@
         </div>
       </div>
    
-      <div class="col-lg-3 col-sm-6 col-12 pointer-on-hover" routerLink="/testimony-management">
+      <div class="col-lg-3 col-sm-6 col-12 pointer-on-hover" routerLink="/testimony-management"  *ngIf="hasTestimonyItem()">
         <div class="card">
           <div class="card-header d-flex flex-column align-items-start pb-0">
             <div class="avatar bg-light-info p-50 m-0">
@@ -155,7 +155,7 @@
       </div>
    
 
-      <div class="col-lg-3 col-sm-6 col-12 pointer-on-hover" routerLink="/feed-management">
+      <div class="col-lg-3 col-sm-6 col-12 pointer-on-hover" routerLink="/feed-management"  *ngIf="hasFeedItem()">
         <div class="card">
           <div class="card-header d-flex flex-column align-items-start pb-0">
             <div class="avatar bg-light-success p-50 m-0">
@@ -168,12 +168,12 @@
           </div>
 
           <!-- Apexchart component-->
-          <div id="feedsChartoptions" #visitorsChartRef>
+          <div id="feedsChartoptions" #feedsChartRef>
             <apx-chart
               [series]="feeds.series"
               [chart]="{
                 height: 100,
-                width: isMenuToggled === true ? visitorsChartRef.offsetWidth : orderChartoptions.chart.width,
+                width: isMenuToggled === true ? feedsChartRef.offsetWidth : orderChartoptions.chart.width,
                 type: 'area',
                 toolbar: {
                   show: false
@@ -192,7 +192,7 @@
         </div>
       </div>
    
-      <div class="col-lg-3 col-sm-6 col-12 pointer-on-hover" routerLink="/life-group-management">
+      <div class="col-lg-3 col-sm-6 col-12 pointer-on-hover" routerLink="/life-group-management" *ngIf="hasLifeGroupItem()">
         <div class="card">
           <div class="card-header d-flex flex-column align-items-start pb-0">
             <div class="avatar bg-light-info p-50 m-0">
@@ -205,12 +205,12 @@
           </div>
 
           <!-- Apexchart component-->
-          <div id="lifegroupsChartoptions" #visitorsChartRef>
+          <div id="lifegroupsChartoptions" #lifegroupChartRef>
             <apx-chart
               [series]="life_group_members.series"
               [chart]="{
                 height: 100,
-                width: isMenuToggled === true ? visitorsChartRef.offsetWidth : lifegroupsChartoptions.chart.width,
+                width: isMenuToggled === true ? lifegroupChartRef.offsetWidth : lifegroupsChartoptions.chart.width,
                 type: 'area',
                 toolbar: {
                   show: false

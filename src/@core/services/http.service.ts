@@ -19,7 +19,7 @@ export class CoreHttpService {
 
     public loginuserid;
     public USERINFO: any = {};
-  
+    public role_info:any;
   
 
 

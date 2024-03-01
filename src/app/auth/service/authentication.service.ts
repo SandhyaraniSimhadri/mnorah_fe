@@ -6,11 +6,13 @@ import { map } from "rxjs/operators";
 import { environment } from "environments/environment";
 import { User, Role } from "app/auth/models";
 import { ToastrService } from "ngx-toastr";
+import { CoreHttpService } from "@core/services/http.service";
 
 @Injectable({ providedIn: "root" })
 export class AuthenticationService {
   //public
   public currentUser: Observable<User>;
+  public role_data:any;
 
   //private
   private currentUserSubject: BehaviorSubject<User>;
@@ -22,7 +24,8 @@ export class AuthenticationService {
    */
   constructor(
     private _http: HttpClient,
-    private _toastrService: ToastrService
+    private _toastrService: ToastrService,
+    public httpService: CoreHttpService,
   ) {
     this.currentUserSubject = new BehaviorSubject<User>(
       JSON.parse(localStorage.getItem("currentUser"))
@@ -70,10 +73,46 @@ export class AuthenticationService {
             const loginData = user?.data;
             // login successful if there's a jwt token in the response
             if (loginData && loginData.token) {
+             
               if(user.data.user_type==1){
                 user.data.role='Super Admin';
               }else{
                 user.data.role='Sub Admin';
+              }
+              
+              localStorage.setItem("currentUser", JSON.stringify(user.data));
+              let user_data = JSON.parse(localStorage.getItem('currentUser'));
+              this.httpService.USERINFO = user_data;
+              this.httpService.APIToken = user_data.token;
+              this.httpService.loginuserid = user_data.user_id;
+              if(user.data.user_type==2){
+                let request;
+
+                request = {
+                  params: {id:user.data.role_id},
+                  action_url: "get_single_role",
+                  method: "POST",
+                };
+                this.httpService.doHttp(request).subscribe(
+                  (res: any) => {
+                    if (res == "nonet") {
+                    } else {
+                      if (res.status == false) {
+                      } else if (res.status == true) {
+                        this.role_data=res.data[0];
+                        this.httpService.role_info=this.role_data;
+                        localStorage.setItem("roleinfo", JSON.stringify(this.role_data));
+                        
+                        
+                        console.log("data",this.role_data);
+                      }
+                    }
+               
+                  },
+                  (error: any) => {
+                   
+                  }
+                );
               }
               this.currentUserSubject.next(user.data);
             }
@@ -83,6 +122,9 @@ export class AuthenticationService {
         )
     );
   }
+
+
+ 
 
   /**
    * User logout

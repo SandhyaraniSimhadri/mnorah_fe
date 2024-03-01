@@ -1,4 +1,10 @@
-import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewEncapsulation,
+} from "@angular/core";
 import { Router } from "@angular/router";
 import { CoreSidebarService } from "@core/components/core-sidebar/core-sidebar.service";
 import { CoreHttpService } from "@core/services/http.service";
@@ -6,7 +12,7 @@ import { ToastrService } from "ngx-toastr";
 @Component({
   selector: "app-new-user-sidebar",
   templateUrl: "./new-user-sidebar.component.html",
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class NewUserSidebarComponent implements OnInit {
   @Output() onUserAdded: EventEmitter<any> = new EventEmitter<any>();
@@ -23,23 +29,28 @@ export class NewUserSidebarComponent implements OnInit {
   public status: any = false;
   public enableVolunteering: any = false;
   public enableAttending: any = false;
-  public loading:boolean=false;
-  public customTagNames = ['Uber', 'Microsoft', 'Flexigen'];
-  public selectMulti=[{name:'I am a first-time visitor'}, {name:'I am interested in joining a small group'} ,{name:'I would like to receive updates and newsletters via email'} ,{name:'I am interested in volunteering'} ];  
+  public loading: boolean = false;
+  public customTagNames = ["Uber", "Microsoft", "Flexigen"];
+  public selectMulti = [
+    { name: "I am a first-time visitor" },
+    { name: "I am interested in joining a small group" },
+    { name: "I would like to receive updates and newsletters via email" },
+    { name: "I am interested in volunteering" },
+  ];
   public customTagSelected: any = [];
   public selectMultiGroupSelected = [];
   public selectMultiSelected = [];
-  public firstDiv:any=true;
-  public secondDiv:any=false;
+  public firstDiv: any = true;
+  public secondDiv: any = false;
 
   public visitorForm: any = {
     first_name: "",
-    last_name:"",
-    spouse_name:"",
-    child1_name:"",
-    child2_name:"",
-    child3_name:"",
-    child4_name:"",
+    last_name: "",
+    spouse_name: "",
+    child1_name: "",
+    child2_name: "",
+    child3_name: "",
+    child4_name: "",
     gender: "",
     email: "",
     phone_number: "",
@@ -50,13 +61,14 @@ export class NewUserSidebarComponent implements OnInit {
     hear_about_other: "",
     visit_date: "",
     experience: "",
-    about_visit:"",
-    suggestions:"",
-    prayer_request:"",
-    comments:"",
-    connection:""
+    about_visit: "",
+    suggestions: "",
+    prayer_request: "",
+    comments: "",
+    connection: "",
+    visiting_with: "",
   };
-  selectedChurchName:any='';
+  selectedChurchName: any = "";
   public customTag: any[] = [];
   public selectGroup = [
     {
@@ -75,10 +87,8 @@ export class NewUserSidebarComponent implements OnInit {
       name: "I am interested in volunteering.",
       group: "Connection Card",
     },
-   
-
   ];
-  
+
   // public customTag: any[] = [{name: 'Uber'}, {name: 'Microsoft'}, {name: 'Flexigen'}];
   // public cars = [{id: '1', name: 'BMW'}, {id: '2', name: 'Benz'}, {id: '3', name: 'Ferrari'}];
   // public selectedCar: any = [];
@@ -91,12 +101,11 @@ export class NewUserSidebarComponent implements OnInit {
     private _coreSidebarService: CoreSidebarService,
     public httpService: CoreHttpService,
     private router: Router,
-    private _toastrService: ToastrService,
-
+    private _toastrService: ToastrService
   ) {
-    if(this.httpService.USERINFO.role=='Sub Admin'){
-    this.visitorForm.church_id = this.httpService.USERINFO.church_id;
-}
+    if (this.httpService.USERINFO.role == "Sub Admin") {
+      this.visitorForm.church_id = this.httpService.USERINFO.church_id;
+    }
   }
 
   /**
@@ -105,13 +114,12 @@ export class NewUserSidebarComponent implements OnInit {
    * @param name
    */
   toggleSidebar(name): void {
-    
-    this.secondDiv=false;
-    this.firstDiv=true;
+    this.secondDiv = false;
+    this.firstDiv = true;
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
   getData() {
-console.log("data");
+    console.log("data");
     let request = {
       params: null,
       action_url: "get_churches",
@@ -136,9 +144,10 @@ console.log("data");
    *
    * @param form
    */
-  submit(form:any) {
-    if(this.selectMultiGroupSelected.length>0){
-      this.visitorForm.connection = this.selectMultiGroupSelected.toString();}
+  submit(form: any) {
+    if (this.selectMultiGroupSelected.length > 0) {
+      this.visitorForm.connection = this.selectMultiGroupSelected.toString();
+    }
     if (form.valid) {
       this.loading = true;
       let request;
@@ -169,7 +178,7 @@ console.log("data");
           this.loading = false;
         },
         (error: any) => {
-          this._toastrService.error('Fill all the details', "Failed", {
+          this._toastrService.error("Fill all the details", "Failed", {
             toastClass: "toast ngx-toastr",
             closeButton: true,
           });
@@ -184,33 +193,29 @@ console.log("data");
       this.customTag.push({ id: i, name: c });
     });
   }
- 
-  churchName(event){
-    this.selectedChurchName=event.church_name;
+
+  churchName(event) {
+    this.selectedChurchName = event.church_name;
   }
   selectAddTagMethod(name) {
     return { name: name, tag: true };
   }
   checkOther(event: any) {
-
     if (!this.selectMultiGroupSelected.includes(event.target.innerText)) {
       if (event.target.innerText !== "") {
         this.selectMultiGroupSelected.push(event.target.innerText);
-       
       }
     } else {
       let idx = this.selectMultiGroupSelected.indexOf(event.target.innerText);
       this.selectMultiGroupSelected.splice(idx, 1);
-     
     }
-   
   }
-  next(){
-    this.secondDiv=true;
-    this.firstDiv=false;
+  next() {
+    this.secondDiv = true;
+    this.firstDiv = false;
   }
-  prev(){
-    this.secondDiv=false;
-    this.firstDiv=true;
+  prev() {
+    this.secondDiv = false;
+    this.firstDiv = true;
   }
 }

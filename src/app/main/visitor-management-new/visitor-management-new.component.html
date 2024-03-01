@@ -1,582 +1,1118 @@
 <div class="auth-wrapper auth-v2">
-      <div class="auth-inner row m-0">
-        <!-- Brand logo-->
-        <!-- <a class="brand-logo" href="javascript:void(0);">
-          <img src="../../../../../assets/images/login/Group 411.png"alt="brand-logo" height="70" />
-          </a> -->
-        <!-- /Brand logo-->
-        <!-- Left Text-->
-        <div class="d-none d-lg-flex col-lg-6  img-class">
-          <div class="d-lg-flex  image-container">
+  <div class="auth-inner row m-0" id="desktop-only" style="display: none">
+    <div class="col-lg-6">
+      <img
+        class="img-fluid dynamic-image d-flex col-lg-6"
+        style="
+          width: 100%;
+          float: left;
+          height: 100%;
+          object-fit: cover;
+          height: 640px;
+        "
+        src="../../../../../assets/images/pages/pexels-erik-mclean-8910014_editted.jpg"
+        alt="Add visitor"
+      />
+    </div>
+    <div class="d-flex col-lg-6" style="float: right">
+      <div class="">
+        <div class="">
+          <form
+            *ngIf="status"
+            class="pt-0"
+            (ngSubmit)="(newUserForm.form.valid)"
+            #newUserForm="ngForm"
+          >
+            <div class="modal-header mb-1">
+              <h5 class="modal-title" id="exampleModalLabel">New Visitor</h5>
+            </div>
+            <div class="modal-body flex-grow-1">
+              <div *ngIf="firstDiv">
+                <div class="form-group">
+                  <label class="form-label" for="user-plan"
+                    >Select Church
+                    <span
+                      *ngIf="newUserForm.submitted && ChurchRef.invalid"
+                      class="text-danger"
+                      >*</span
+                    >
+                    <span *ngIf="!newUserForm.submitted || !ChurchRef.invalid"
+                      >*</span
+                    ></label
+                  >
+                  <select
+                    id="basic-icon-default-church"
+                    class="form-control dt-church"
+                    aria-label=""
+                    aria-describedby="basic-icon-default-church"
+                    name="church"
+                    [class.error]="newUserForm.submitted && ChurchRef.invalid"
+                    #ChurchRef="ngModel"
+                    required
+                    [(ngModel)]="visitorForm.church_id"
+                    [ngModelOptions]="{ standalone: true }"
+                    (ngModelChange)="churchName($event)"
+                  >
+                    <option
+                      *ngFor="let church of churcesData"
+                      [ngValue]="church.id"
+                    >
+                      {{ church.church_name }}
+                    </option>
+                  </select>
+                  <span
+                    *ngIf="newUserForm.submitted && ChurchRef.invalid"
+                    class="invalid-form"
+                  >
+                    <small
+                      class="form-text text-danger"
+                      *ngIf="ChurchRef.errors.required"
+                      >This field is required!</small
+                    >
+                  </span>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="basic-icon-default-firstname"
+                    >Full Name
+                    <span
+                      *ngIf="
+                        newUserForm.submitted &&
+                        FiNameRef.invalid &&
+                        LsNameRef.invalid
+                      "
+                      class="text-danger"
+                      >*</span
+                    >
+                    <span
+                      *ngIf="
+                        !newUserForm.submitted ||
+                        !FiNameRef.invalid ||
+                        !LsNameRef.invalid
+                      "
+                      >*</span
+                    ></label
+                  >
+                  <div class="row">
+                    <div class="col-md-6">
+                      <input
+                        type="text"
+                        class="form-control dt-first-name"
+                        id="basic-icon-default-firstname"
+                        placeholder="First Name"
+                        name="user-first"
+                        [(ngModel)]="visitorForm.first_name"
+                        [class.error]="
+                          newUserForm.submitted && FiNameRef.invalid
+                        "
+                        #FiNameRef="ngModel"
+                        required
+                        aria-label=""
+                        aria-describedby="basic-icon-default-firstname"
+                      />
+                      <span
+                        *ngIf="newUserForm.submitted && FiNameRef.invalid"
+                        class="invalid-form"
+                      >
+                        <small
+                          class="form-text text-danger"
+                          *ngIf="FiNameRef.errors.required"
+                          >This field is required!</small
+                        >
+                      </span>
+                    </div>
+
+                    <div class="col-md-6">
+                      <input
+                        type="text"
+                        class="form-control dt-last-name"
+                        id="basic-icon-default-lastname"
+                        placeholder="Last Name"
+                        name="user-first"
+                        [(ngModel)]="visitorForm.last_name"
+                        [class.error]="
+                          newUserForm.submitted && LsNameRef.invalid
+                        "
+                        #LsNameRef="ngModel"
+                        required
+                        aria-label=""
+                        aria-describedby="basic-icon-default-lastname"
+                      />
+                      <span
+                        *ngIf="newUserForm.submitted && LsNameRef.invalid"
+                        class="invalid-form"
+                      >
+                        <small
+                          class="form-text text-danger"
+                          *ngIf="LsNameRef.errors.required"
+                          >This field is required!</small
+                        >
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="basic-icon-default-spouse"
+                    >Spouse Name</label
+                  >
+                  <input
+                    type="text"
+                    id="basic-icon-default-spouse"
+                    class="form-control dt-spouse"
+                    placeholder=""
+                    aria-label=""
+                    aria-describedby="basic-icon-default-spouse"
+                    name="spouse"
+                    placeholder="Spouse name"
+                    [(ngModel)]="visitorForm.spouse_name"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="basic-icon-default-firstname"
+                    >Child’s Name</label
+                  >
+                  <div class="row">
+                    <div class="col-md-6">
+                      <input
+                        type="text"
+                        class="form-control dt-child1"
+                        id="basic-icon-default-child1"
+                        placeholder="Child 1"
+                        name="user-child1"
+                        [(ngModel)]="visitorForm.child1_name"
+                        aria-label=""
+                        aria-describedby="basic-icon-default-child1"
+                      />
+                    </div>
+
+                    <div class="col-md-6">
+                      <input
+                        type="text"
+                        class="form-control dt-child2"
+                        id="basic-icon-default-child2"
+                        placeholder="Child 2"
+                        name="user-child2"
+                        [(ngModel)]="visitorForm.child2_name"
+                        aria-label=""
+                        aria-describedby="basic-icon-default-child2"
+                      />
+                    </div>
+                  </div>
+                  <br />
+                  <div class="row">
+                    <div class="col-md-6">
+                      <input
+                        type="text"
+                        class="form-control dt-child3"
+                        id="basic-icon-default-child3"
+                        placeholder="Child 3"
+                        name="user-child3"
+                        [(ngModel)]="visitorForm.child3_name"
+                        aria-label=""
+                        aria-describedby="basic-icon-default-child3"
+                      />
+                    </div>
+
+                    <div class="col-md-6">
+                      <input
+                        type="text"
+                        class="form-control dt-child4"
+                        id="basic-icon-default-child4"
+                        placeholder="Child 4"
+                        name="user-child4"
+                        [(ngModel)]="visitorForm.child4_name"
+                        aria-label=""
+                        aria-describedby="basic-icon-default-lastname"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label
+                    class="form-label"
+                    for="basic-icon-default-phone-number"
+                    >Contact Information
+                    <span
+                      *ngIf="
+                        newUserForm.submitted &&
+                        PhoneRef.invalid &&
+                        FEmailRef.invalid
+                      "
+                      class="text-danger"
+                      >*</span
+                    >
+                    <span
+                      *ngIf="
+                        !newUserForm.submitted ||
+                        !PhoneRef.invalid ||
+                        !FEmailRef.invalid
+                      "
+                      >*</span
+                    ></label
+                  >
+                  <div class="row">
+                    <div class="col-md-6">
+                      <input
+                        type="text"
+                        id="basic-icon-default-phone-number"
+                        class="form-control dt-phone-number"
+                        placeholder="Phone Number"
+                        aria-label=""
+                        aria-describedby="basic-icon-default-phone-number"
+                        name="phone-number"
+                        [(ngModel)]="visitorForm.phone_number"
+                        [class.error]="
+                          newUserForm.submitted && PhoneRef.invalid
+                        "
+                        #PhoneRef="ngModel"
+                        required
+                      />
+                      <span
+                        *ngIf="newUserForm.submitted && PhoneRef.invalid"
+                        class="invalid-form"
+                      >
+                        <small
+                          class="form-text text-danger"
+                          *ngIf="PhoneRef.errors.required"
+                          >This field is required!</small
+                        >
+                      </span>
+                    </div>
+
+                    <div class="col-md-6">
+                      <input
+                        type="text"
+                        id="basic-icon-default-email"
+                        class="form-control dt-email"
+                        placeholder="Email"
+                        aria-label=""
+                        aria-describedby="basic-icon-default-email"
+                        name="user-email"
+                        [(ngModel)]="visitorForm.email"
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                        [class.error]="
+                          newUserForm.submitted && FEmailRef.invalid
+                        "
+                        #FEmailRef="ngModel"
+                        required
+                      />
+                      <span
+                        *ngIf="newUserForm.submitted && FEmailRef.invalid"
+                        class="invalid-form"
+                      >
+                        <small
+                          class="form-text text-danger"
+                          *ngIf="FEmailRef.invalid && newUserForm.submitted"
+                          >Must be a valid email!</small
+                        >
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="basic-icon-default-city"
+                    >City
+                    <span
+                      *ngIf="newUserForm.submitted && CityRef.invalid"
+                      class="text-danger"
+                      >*</span
+                    >
+                    <span *ngIf="!newUserForm.submitted || !CityRef.invalid"
+                      >*</span
+                    ></label
+                  >
+                  <div class="row">
+                    <div class="col-12">
+                      <input
+                        type="text"
+                        id="basic-icon-default-city"
+                        class="form-control dt-city"
+                        placeholder="City"
+                        aria-label=""
+                        aria-describedby="basic-icon-default-city"
+                        name="city"
+                        [(ngModel)]="visitorForm.city"
+                        [class.error]="newUserForm.submitted && CityRef.invalid"
+                        #CityRef="ngModel"
+                        required
+                      />
+                      <span
+                        *ngIf="newUserForm.submitted && CityRef.invalid"
+                        class="invalid-form"
+                      >
+                        <small
+                          class="form-text text-danger"
+                          *ngIf="CityRef.errors.required"
+                          >This field is required!</small
+                        >
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-2" style="align-self: flex-end; float: right">
+                  <button
+                    [disabled]="loading"
+                    type="submit"
+                    class="btn btn-primary btn-login"
+                    rippleEffect
+                    (click)="next()"
+                  >
+                    <span
+                      *ngIf="loading"
+                      class="spinner-border spinner-border-sm mr-1"
+                    ></span
+                    >Next
+                  </button>
+                </div>
+              </div>
+
+              <div *ngIf="secondDiv">
+                <div class="row">
+                  <div class="col-12">
+                    <label>Connection Card</label><br />
+
+                    <div class="form-group">
+                      <ng-select
+                        [multiple]="true"
+                        [hideSelected]="true"
+                        [closeOnSelect]="false"
+                        [items]="selectGroup"
+                        bindLabel="name"
+                        groupBy="group"
+                        [(ngModel)]="selectMultiGroupSelected"
+                        (click)="checkOther($event)"
+                      >
+                        <ng-template ng-optgroup-tmp let-item="item">
+                          {{ item.group || "Unnamed group" }}
+                        </ng-template>
+                      </ng-select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="user-plan"
+                    >How did you hear about us?</label
+                  >
+                  <select
+                    [(ngModel)]="visitorForm.hear_about"
+                    [ngModelOptions]="{ standalone: true }"
+                    id="basic-icon-default-hear-about"
+                    class="form-control dt-hear-about"
+                    aria-label=""
+                    aria-describedby="basic-icon-default-hear-about"
+                    name="hear-about"
+                  >
+                    <option value="">Select</option>
+                    <option value="Invited by a friend or family member">
+                      Invited by a friend or family member
+                    </option>
+                    <option value="Online search">Online search</option>
+                    <option value="Social media">Social media</option>
+                    <option value="Advertisement">Advertisement</option>
+                    <option value="Other">Other</option>
+                  </select>
+
+                  <div
+                    class="form-group"
+                    *ngIf="visitorForm.hear_about == 'Other'"
+                  >
+                    <input
+                      type="text"
+                      id="basic-icon-default-hear-about-other"
+                      class="form-control dt-hear-about-other"
+                      placeholder="Type here..."
+                      aria-label=""
+                      aria-describedby="basic-icon-default-hear-about-other"
+                      name="hear-about-other"
+                      [(ngModel)]="visitorForm.hear_about_other"
+                    />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label class="form-label" for="user-plan"
+                        >Date of Visit</label
+                      >
+
+                      <input
+                        type="date"
+                        id="basic-icon-default-visit"
+                        class="form-control dt-visit"
+                        placeholder=""
+                        aria-label=""
+                        aria-describedby="basic-icon-default-visit"
+                        name="visit"
+                        [(ngModel)]="visitorForm.visit_date"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label class="form-label" for="user-plan"
+                        >How was your experience today?</label
+                      >
+                      <select
+                        [(ngModel)]="visitorForm.experience"
+                        [ngModelOptions]="{ standalone: true }"
+                        class="form-control dt-experience"
+                        aria-label=""
+                        aria-describedby="basic-icon-default-experience"
+                        name="experience"
+                      >
+                        <option value="">Select</option>
+                        <option value="Excellent">Excellent</option>
+                        <option value="">Good</option>
+                        <option value="Average">Average</option>
+                        <option value="Below Average">Below Average</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6">
+                    <label>What did you enjoy most about your visit?</label>
+
+                    <div class="form-group">
+                      <textarea
+                        rows="4"
+                        id="basic-icon-default-about-visit"
+                        class="form-control dt-about-visit"
+                        placeholder=""
+                        aria-label=""
+                        aria-describedby="basic-icon-default-about-visit"
+                        name="about-visit"
+                        [(ngModel)]="visitorForm.about_visit"
+                      ></textarea>
+                    </div>
+                  </div>
+
+                  <div class="col-6">
+                    <label>Suggestions for Improvement</label>
+
+                    <div class="form-group">
+                      <textarea
+                        rows="4"
+                        id="basic-icon-default-suggestions"
+                        class="form-control dt-suggestions"
+                        placeholder=""
+                        aria-label=""
+                        aria-describedby="basic-icon-default-suggestions"
+                        name="suggestions"
+                        [(ngModel)]="visitorForm.suggestions"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6">
+                    <label>Prayer Requests</label>
+                    <br />
+                    <span style="font-size: 12px"
+                      >We would be honored to pray for you. Please share any
+                      prayer requests you may have</span
+                    >
+
+                    <div class="form-group">
+                      <textarea
+                        rows="4"
+                        id="basic-icon-default-prayer-request"
+                        class="form-control dt-prayer-request"
+                        placeholder=""
+                        aria-label=""
+                        aria-describedby="basic-icon-default-prayer-request"
+                        name="prayer-request"
+                        [(ngModel)]="visitorForm.prayer_request"
+                      ></textarea>
+                    </div>
+                  </div>
+
+                  <div class="col-6">
+                    <label>Additional Comments</label><br />
+                    <span style="font-size: 12px"
+                      >Is there anything else you would like to share with us or
+                      any specific information you are seeking?</span
+                    >
+                    <br />
+                    <div class="form-group">
+                      <textarea
+                        rows="4"
+                        id="basic-icon-default-comments"
+                        class="form-control dt-comments"
+                        placeholder=""
+                        aria-label=""
+                        aria-describedby="basic-icon-default-comments"
+                        name="comments"
+                        [(ngModel)]="visitorForm.comments"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-2">
+                  <button
+                    type="reset"
+                    class="btn btn-outline-warning"
+                    (click)="prev()"
+                    rippleEffect
+                  >
+                    Prev
+                  </button>
+
+                  <button
+                    type="reset"
+                    class="btn btn-outline-secondary"
+                    (click)="toggleSidebar('new-user-sidebar')"
+                    rippleEffect
+                  >
+                    Cancel
+                  </button>
+
+                  <button
+                    [disabled]="loading"
+                    type="submit"
+                    class="btn btn-primary btn-login"
+                    rippleEffect
+                    (click)="submit(newUserForm)"
+                  >
+                    <span
+                      *ngIf="loading"
+                      class="spinner-border spinner-border-sm mr-1"
+                    ></span
+                    >Submit
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="mobile-only" style="display: none">
+    <div style="display: flex; flex-direction: column" *ngIf="firstDiv">
+      <div style="height: 50%; width: auto">
+        <img
+          src="../../../../../assets/images/form/first.png"
+          style="width: 100%; height: 100%; object-fit: fill; margin: 0"
+        />
+      </div>
+
+      <div
+        style="
+          height: 50%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+        "
+        class="pl-2 pr-2"
+      >
+        <div class="input-group align-items-center">
+          <p>
+            Please fill in your details below, so we can know more about you.
+          </p>
+        </div>
+        <form
+          class=""
+          (ngSubmit)="(newUserForm.form.valid)"
+          #newUserForm="ngForm"
+        >
+          <div class="input-group align-items-center">
             <img
-              class="img-fluid dynamic-image"
-              src="../../../../../assets/images/pages/pexels-erik-mclean-8910014_editted.jpg"
-              alt="Add visitor"
+              src="../../../../../assets/images/form/user.png"
+              class="mr-2 mt-0 icon-cls"
+              style="width: 20px; height: 20px; object-fit: cover; margin: 0"
+            />
+            <input
+              type="text"
+              class="form-control dt-first-name custom-input"
+              id="basic-icon-default-firstname"
+              placeholder="Full Name"
+              name="user-first"
+              [(ngModel)]="visitorForm1.first_name"
+              [class.error]="newUserForm.submitted && FiNameRef.invalid"
+              #FiNameRef="ngModel"
+              required
+              aria-label=""
+              aria-describedby="basic-icon-default-firstname"
             />
           </div>
-        </div>
-        <!-- /Left Text-->
-        <!-- Login-->
-        <div class="d-flex col-lg-6  auth-bg">
-          <div class="col-12 col-sm-6 col-md-6 col-lg-12 ">
-            <div >
-
-
-    <form *ngIf="status"
-      class="add-new-user modal-content pt-0"
-      (ngSubmit)="(newUserForm.form.valid)"
-      #newUserForm="ngForm"
-    >
-      <div class="modal-header mb-1">
-        <h5 class="modal-title" id="exampleModalLabel">New Visitor</h5>
-      </div>
-      <div class="modal-body flex-grow-1">
-        <div *ngIf="firstDiv">
-          <div class="form-group">
-            <label class="form-label" for="user-plan"
-              >Select Church
-              <span
-                *ngIf="newUserForm.submitted && ChurchRef.invalid"
-                class="text-danger"
-                >*</span
-              >
-              <span *ngIf="!newUserForm.submitted || !ChurchRef.invalid"
-                >*</span
-              ></label
+          <span
+            *ngIf="newUserForm.submitted && FiNameRef.invalid"
+            class="invalid-form"
+          >
+            <small
+              class="form-text text-danger ml-4"
+              *ngIf="FiNameRef.errors.required"
+              >This field is required!</small
             >
-            <select
-              id="basic-icon-default-church"
-              class="form-control dt-church"
+          </span>
+
+          <div class="input-group align-items-center">
+            <img
+              src="../../../../../assets/images/form/mail.png"
+              class="mr-2 mt-0 icon-cls"
+              style="width: 20px; height: 20px; object-fit: cover; margin: 0"
+            />
+
+            <input
+              type="text"
+              id="basic-icon-default-email"
+              class="form-control dt-email custom-input"
+              placeholder="Email"
               aria-label=""
-              aria-describedby="basic-icon-default-church"
-              name="church"
-              [class.error]="newUserForm.submitted && ChurchRef.invalid"
-              #ChurchRef="ngModel"
+              aria-describedby="basic-icon-default-email"
+              name="user-email"
+              [(ngModel)]="visitorForm1.email"
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+              [class.error]="newUserForm.submitted && FEmailRef.invalid"
+              #FEmailRef="ngModel"
               required
-              [(ngModel)]="visitorForm.church_id"
-              [ngModelOptions]="{ standalone: true }"
-              (ngModelChange)="churchName($event)"
+            />
+          </div>
+          <span
+            *ngIf="newUserForm.submitted && FEmailRef.invalid"
+            class="invalid-form"
+          >
+            <small
+              class="form-text text-danger ml-4"
+              *ngIf="FEmailRef.invalid && newUserForm.submitted"
+              >Must be a valid email!</small
             >
-              <option *ngFor="let church of churcesData" [ngValue]="church.id">
-                {{ church.church_name }}
-              </option>
-            </select>
-            <span
-              *ngIf="newUserForm.submitted && ChurchRef.invalid"
-              class="invalid-form"
+          </span>
+
+          <div
+            class="input-group align-items-center d-flex"
+            style="padding-top: 0px !important"
+          >
+            <img
+              src="../../../../../assets/images/form/phone.png"
+              class="mr-2 mt-0 icon-cls"
+              style="width: 20px; height: 20px; object-fit: cover"
+              alt="Phone Icon"
+            />
+
+            <div
+              class="input-group"
+              style="
+                float: left;
+                flex: 1;
+                padding-left: 0px !important;
+                margin-right: -10px !important;
+              "
             >
-              <small
-                class="form-text text-danger"
-                *ngIf="ChurchRef.errors.required"
+              <div
+                class="input-group-prepend custom-input"
+                style="background-color: #f8f8f8 !important"
+              >
+                <span
+                  class="input-group-text custom-input"
+                  id="basic-addon1"
+                  style="background-color: #f8f8f8 !important; border: none"
+                  >+971
+                </span>
+              </div>
+              <input
+                type="text"
+                id="basic-icon-default-phone-number"
+                class="form-control dt-phone-number custom-input"
+                placeholder="Phone Number"
+                aria-label="Phone Number"
+                aria-describedby="basic-icon-default-phone-number"
+                name="phone-number"
+                [(ngModel)]="visitorForm1.phone_number"
+                [class.error]="newUserForm.submitted && PhoneRef.invalid"
+                #PhoneRef="ngModel"
+                required
+              />
+            </div>
+          </div>
+          <span
+            *ngIf="newUserForm.submitted && PhoneRef.invalid"
+            class="invalid-form"
+          >
+            <small
+              class="form-text text-danger ml-4"
+              *ngIf="PhoneRef.errors?.required"
+            >
+              This field is required!
+            </small>
+          </span>
+
+          <br />
+
+          <div style="align-self: flex-end; float: right; padding: 10px">
+            <button
+              [disabled]="loading"
+              class="btn btn-primary btn-login"
+              rippleEffect
+              (click)="first(newUserForm)"
+            >
+              <span
+                *ngIf="loading"
+                class="spinner-border spinner-border-sm mr-1"
+              ></span
+              >NEXT
+            </button>
+          </div>
+        </form>
+        <br />
+      </div>
+
+      <!-- <div
+    style="
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+    "
+    class="pl-2 pr-2"
+  >
+    <div class="input-group align-items-center">
+       We would be happy to pray for you. Please share an prayer requests you may have:
+    </div>
+    <div class="mt-1 ml-1 mr-1">
+      
+        <textarea class="custom-textarea" placeholder=""></textarea>
+      
+   </div>
+    <br />
+    <br />
+    <div style="align-self: flex-end">
+      <img
+        src="../../../../../assets/images/form/button.png"
+        style="width: 100%; height: 42px"
+      />
+
+      <span
+        *ngIf="loading"
+        class="spinner-border spinner-border-sm mr-1"
+      ></span>
+    </div>
+    <br />
+  </div>  -->
+    </div>
+
+    <div style="display: flex; flex-direction: column" *ngIf="secondDiv">
+      <div style="height: 50%; width: auto">
+        <img
+          src="../../../../../assets/images/form/second.jpg"
+          style="width: 100%; height: 100%; object-fit: fill; margin: 0"
+        />
+      </div>
+      <div
+        style="
+          height: 40%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+        "
+        class="pl-2 pr-2"
+      >
+        <form class="" (ngSubmit)="second(newUserForm1)" #newUserForm1="ngForm">
+          <div class="input-group align-items-center">
+            How did you hear about us?
+          </div>
+          <div class="mt-2">
+            <!-- Custom radio buttons -->
+            <div
+              class="custom-radio-container mt-2 ml-2"
+              *ngFor="
+                let option of [
+                  'Invited by a friend',
+                  'Online Search',
+                  'Social Media',
+                  'Advertisement',
+                  'Other'
+                ];
+                let i = index
+              "
+              (click)="checkHearabout()"
+            >
+              <input
+                type="radio"
+                [(ngModel)]="visitorForm2.hear_about"
+                [ngModelOptions]="{ standalone: true }"
+                id="hear-about{{ i }}"
+                class="custom-radio-input mr-1"
+                aria-label=""
+                name="hear-about"
+                [value]="option"
+                required
+                #HearaboutRef="ngModel"
+              />
+              <label class="custom-radio-label ml-2" [for]="'hear-about' + i">{{
+                option
+              }}</label>
+            </div>
+            <span *ngIf="errorMsg" class="invalid-form">
+              <small class="form-text text-danger ml-1"
                 >This field is required!</small
               >
             </span>
           </div>
-          <div class="form-group">
-            <label class="form-label" for="basic-icon-default-firstname"
-              >Full Name
-              <span
-                *ngIf="
-                  newUserForm.submitted &&
-                  FiNameRef.invalid &&
-                  LsNameRef.invalid
-                "
-                class="text-danger"
-                >*</span
-              >
-              <span
-                *ngIf="
-                  !newUserForm.submitted ||
-                  !FiNameRef.invalid ||
-                  !LsNameRef.invalid
-                "
-                >*</span
-              ></label
-            >
-            <div class="row">
-              <div class="col-md-6">
-                <input
-                  type="text"
-                  class="form-control dt-first-name"
-                  id="basic-icon-default-firstname"
-                  placeholder="First Name"
-                  name="user-first"
-                  [(ngModel)]="visitorForm.first_name"
-                  [class.error]="newUserForm.submitted && FiNameRef.invalid"
-                  #FiNameRef="ngModel"
-                  required
-                  aria-label=""
-                  aria-describedby="basic-icon-default-firstname"
-                />
-                <span
-                  *ngIf="newUserForm.submitted && FiNameRef.invalid"
-                  class="invalid-form"
-                >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="FiNameRef.errors.required"
-                    >This field is required!</small
-                  >
-                </span>
-              </div>
-
-              <div class="col-md-6">
-                <input
-                  type="text"
-                  class="form-control dt-last-name"
-                  id="basic-icon-default-lastname"
-                  placeholder="Last Name"
-                  name="user-first"
-                  [(ngModel)]="visitorForm.last_name"
-                  [class.error]="newUserForm.submitted && LsNameRef.invalid"
-                  #LsNameRef="ngModel"
-                  required
-                  aria-label=""
-                  aria-describedby="basic-icon-default-lastname"
-                />
-                <span
-                  *ngIf="newUserForm.submitted && LsNameRef.invalid"
-                  class="invalid-form"
-                >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="LsNameRef.errors.required"
-                    >This field is required!</small
-                  >
-                </span>
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="basic-icon-default-spouse"
-              >Spouse Name</label
-            >
-            <input
-              type="text"
-              id="basic-icon-default-spouse"
-              class="form-control dt-spouse"
-              placeholder=""
-              aria-label=""
-              aria-describedby="basic-icon-default-spouse"
-              name="spouse"
-              placeholder="Spouse name"
-              [(ngModel)]="visitorForm.spouse_name"
-            />
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="basic-icon-default-firstname"
-              >Child’s Name</label
-            >
-            <div class="row">
-              <div class="col-md-6">
-                <input
-                  type="text"
-                  class="form-control dt-child1"
-                  id="basic-icon-default-child1"
-                  placeholder="Child 1"
-                  name="user-child1"
-                  [(ngModel)]="visitorForm.child1_name"
-                  aria-label=""
-                  aria-describedby="basic-icon-default-child1"
-                />
-              </div>
-
-              <div class="col-md-6">
-                <input
-                  type="text"
-                  class="form-control dt-child2"
-                  id="basic-icon-default-child2"
-                  placeholder="Child 2"
-                  name="user-child2"
-                  [(ngModel)]="visitorForm.child2_name"
-                  aria-label=""
-                  aria-describedby="basic-icon-default-child2"
-                />
-              </div>
-            </div>
-            <br />
-            <div class="row">
-              <div class="col-md-6">
-                <input
-                  type="text"
-                  class="form-control dt-child3"
-                  id="basic-icon-default-child3"
-                  placeholder="Child 3"
-                  name="user-child3"
-                  [(ngModel)]="visitorForm.child3_name"
-                  aria-label=""
-                  aria-describedby="basic-icon-default-child3"
-                />
-              </div>
-
-              <div class="col-md-6">
-                <input
-                  type="text"
-                  class="form-control dt-child4"
-                  id="basic-icon-default-child4"
-                  placeholder="Child 4"
-                  name="user-child4"
-                  [(ngModel)]="visitorForm.child4_name"
-                  aria-label=""
-                  aria-describedby="basic-icon-default-lastname"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="basic-icon-default-phone-number"
-              >Contact Information
-              <span
-                *ngIf="
-                  newUserForm.submitted && PhoneRef.invalid && FEmailRef.invalid
-                "
-                class="text-danger"
-                >*</span
-              >
-              <span
-                *ngIf="
-                  !newUserForm.submitted ||
-                  !PhoneRef.invalid ||
-                  !FEmailRef.invalid
-                "
-                >*</span
-              ></label
-            >
-            <div class="row">
-              <div class="col-md-6">
-                <input
-                  type="text"
-                  id="basic-icon-default-phone-number"
-                  class="form-control dt-phone-number"
-                  placeholder="Phone Number"
-                  aria-label=""
-                  aria-describedby="basic-icon-default-phone-number"
-                  name="phone-number"
-                  [(ngModel)]="visitorForm.phone_number"
-                  [class.error]="newUserForm.submitted && PhoneRef.invalid"
-                  #PhoneRef="ngModel"
-                  required
-                />
-                <span
-                  *ngIf="newUserForm.submitted && PhoneRef.invalid"
-                  class="invalid-form"
-                >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="PhoneRef.errors.required"
-                    >This field is required!</small
-                  >
-                </span>
-              </div>
-
-              <div class="col-md-6">
-                <input
-                  type="text"
-                  id="basic-icon-default-email"
-                  class="form-control dt-email"
-                  placeholder="Email"
-                  aria-label=""
-                  aria-describedby="basic-icon-default-email"
-                  name="user-email"
-                  [(ngModel)]="visitorForm.email"
-                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                  [class.error]="newUserForm.submitted && FEmailRef.invalid"
-                  #FEmailRef="ngModel"
-                  required
-                />
-                <span
-                  *ngIf="newUserForm.submitted && FEmailRef.invalid"
-                  class="invalid-form"
-                >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="FEmailRef.invalid && newUserForm.submitted"
-                    >Must be a valid email!</small
-                  >
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="basic-icon-default-city"
-              >City
-              <span
-                *ngIf="newUserForm.submitted && CityRef.invalid"
-                class="text-danger"
-                >*</span
-              >
-              <span *ngIf="!newUserForm.submitted || !CityRef.invalid"
-                >*</span
-              ></label
-            >
-            <div class="row">
-              <div class="col-12">
-                <input
-                  type="text"
-                  id="basic-icon-default-city"
-                  class="form-control dt-city"
-                  placeholder="City"
-                  aria-label=""
-                  aria-describedby="basic-icon-default-city"
-                  name="city"
-                  [(ngModel)]="visitorForm.city"
-                  [class.error]="newUserForm.submitted && CityRef.invalid"
-                  #CityRef="ngModel"
-                  required
-                />
-                <span
-                  *ngIf="newUserForm.submitted && CityRef.invalid"
-                  class="invalid-form"
-                >
-                  <small
-                    class="form-text text-danger"
-                    *ngIf="CityRef.errors.required"
-                    >This field is required!</small
-                  >
-                </span>
-              </div>
-            </div>
-          </div>
-          <div class="d-flex justify-content-between mt-2">
+          <br />
+          <div style="align-self: flex-end; float: right; padding: 10px">
             <button
               [disabled]="loading"
-              type="submit"
               class="btn btn-primary btn-login"
               rippleEffect
-              (click)="next()"
+              (click)="second(newUserForm1)"
             >
               <span
                 *ngIf="loading"
                 class="spinner-border spinner-border-sm mr-1"
-              ></span
-              >Next
+              ></span>
+              NEXT
             </button>
           </div>
-        </div>
-
-        <div *ngIf="secondDiv">
-          <div class="row">
-            <div class="col-12">
-              <label>Connection Card</label><br />
-
-              <div class="form-group">
-                <ng-select
-                  [multiple]="true"
-                  [hideSelected]="true"
-                  [closeOnSelect]="false"
-                  [items]="selectGroup"
-                  bindLabel="name"
-                  groupBy="group"
-                  [(ngModel)]="selectMultiGroupSelected"
-                  (click)="checkOther($event)"
-                >
-                  <ng-template ng-optgroup-tmp let-item="item">
-                    {{ item.group || "Unnamed group" }}
-                  </ng-template>
-                </ng-select>
-
-              
-              
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="user-plan"
-              >How did you hear about us?</label
-            >
-            <select
-              [(ngModel)]="visitorForm.hear_about"
-              [ngModelOptions]="{ standalone: true }"
-              id="basic-icon-default-hear-about"
-              class="form-control dt-hear-about"
-              aria-label=""
-              aria-describedby="basic-icon-default-hear-about"
-              name="hear-about"
-            >
-              <option value="">Select</option>
-              <option value="Invited by a friend or family member">
-                Invited by a friend or family member
-              </option>
-              <option value="Online search">Online search</option>
-              <option value="Social media">Social media</option>
-              <option value="Advertisement">Advertisement</option>
-              <option value="Other">Other</option>
-            </select>
-
-            <div class="form-group" *ngIf="visitorForm.hear_about == 'Other'">
-              <input
-                type="text"
-                id="basic-icon-default-hear-about-other"
-                class="form-control dt-hear-about-other"
-                placeholder="Type here..."
-                aria-label=""
-                aria-describedby="basic-icon-default-hear-about-other"
-                name="hear-about-other"
-                [(ngModel)]="visitorForm.hear_about_other"
-              />
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-6">
-              <div class="form-group">
-                <label class="form-label" for="user-plan">Date of Visit</label>
-
-                <input
-                  type="date"
-                  id="basic-icon-default-visit"
-                  class="form-control dt-visit"
-                  placeholder=""
-                  aria-label=""
-                  aria-describedby="basic-icon-default-visit"
-                  name="visit"
-                  [(ngModel)]="visitorForm.visit_date"
-                />
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="form-group">
-                <label class="form-label" for="user-plan"
-                  >How was your experience today?</label
-                >
-                <select
-                  [(ngModel)]="visitorForm.experience"
-                  [ngModelOptions]="{ standalone: true }"
-                  class="form-control dt-experience"
-                  aria-label=""
-                  aria-describedby="basic-icon-default-experience"
-                  name="experience"
-                >
-                  <option value="">Select</option>
-                  <option value="Excellent">Excellent</option>
-                  <option value="">Good</option>
-                  <option value="Average">Average</option>
-                  <option value="Below Average">Below Average</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-6">
-              <label>What did you enjoy most about your visit?</label>
-
-              <div class="form-group">
-                <textarea
-                  rows="4"
-                  id="basic-icon-default-about-visit"
-                  class="form-control dt-about-visit"
-                  placeholder=""
-                  aria-label=""
-                  aria-describedby="basic-icon-default-about-visit"
-                  name="about-visit"
-                  [(ngModel)]="visitorForm.about_visit"
-                ></textarea>
-              </div>
-            </div>
-
-            <div class="col-6">
-              <label>Suggestions for Improvement</label>
-
-              <div class="form-group">
-                <textarea
-                  rows="4"
-                  id="basic-icon-default-suggestions"
-                  class="form-control dt-suggestions"
-                  placeholder=""
-                  aria-label=""
-                  aria-describedby="basic-icon-default-suggestions"
-                  name="suggestions"
-                  [(ngModel)]="visitorForm.suggestions"
-                ></textarea>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-6">
-              <label>Prayer Requests</label>
-              <br />
-              <span style="font-size: 12px"
-                >We would be honored to pray for you. Please share any prayer
-                requests you may have</span
-              >
-
-              <div class="form-group">
-                <textarea
-                  rows="4"
-                  id="basic-icon-default-prayer-request"
-                  class="form-control dt-prayer-request"
-                  placeholder=""
-                  aria-label=""
-                  aria-describedby="basic-icon-default-prayer-request"
-                  name="prayer-request"
-                  [(ngModel)]="visitorForm.prayer_request"
-                ></textarea>
-              </div>
-            </div>
-
-            <div class="col-6">
-              <label>Additional Comments</label><br />
-              <span style="font-size: 12px"
-                >Is there anything else you would like to share with us or any
-                specific information you are seeking?</span
-              >
-              <br />
-              <div class="form-group">
-                <textarea
-                  rows="4"
-                  id="basic-icon-default-comments"
-                  class="form-control dt-comments"
-                  placeholder=""
-                  aria-label=""
-                  aria-describedby="basic-icon-default-comments"
-                  name="comments"
-                  [(ngModel)]="visitorForm.comments"
-                ></textarea>
-              </div>
-            </div>
-          </div>
-
-          <div class="d-flex justify-content-between mt-2">
-            <button
-              type="reset"
-              class="btn btn-outline-warning"
-              (click)="prev()"
-              rippleEffect
-            >
-              Prev
-            </button>
-
-            <button
-              type="reset"
-              class="btn btn-outline-secondary"
-              (click)="toggleSidebar('new-user-sidebar')"
-              rippleEffect
-            >
-              Cancel
-            </button>
-
-            <button
-              [disabled]="loading"
-              type="submit"
-              class="btn btn-primary btn-login"
-              rippleEffect
-              (click)="submit(newUserForm)"
-            >
-              <span
-                *ngIf="loading"
-                class="spinner-border spinner-border-sm mr-1"
-              ></span
-              >Submit
-            </button>
-          </div>
-        </div>
+        </form>
       </div>
-    </form>
+    </div>
+
+    <div style="display: flex; flex-direction: column" *ngIf="thirdDiv">
+      <div style="height: 50%; width: auto">
+        <img
+          src="../../../../../assets/images/form/third.jpg"
+          style="width: 100%; height: 100%; object-fit: fill; margin: 0"
+        />
+      </div>
+      <div
+        style="
+          height: 30%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+        "
+        class="pl-2 pr-2"
+      >
+        <form class="" (ngSubmit)="third(newUserForm2)" #newUserForm1="ngForm">
+          <div class="input-group align-items-center">Are you visiting:</div>
+          <div class="mt-2">
+            <!-- Custom radio buttons -->
+            <div
+              class="custom-radio-container mt-2 ml-2"
+              *ngFor="
+                let option of [
+                  'By yourself',
+                  'With a friend',
+                  'With your family'
+                ];
+                let i = index
+              "
+              (click)="checkVisitingWith(visitorForm3.visiting_with)"
+            >
+              <input
+                type="radio"
+                [(ngModel)]="visitorForm3.visiting_with"
+                [ngModelOptions]="{ standalone: true }"
+                id="visiting-with{{ i }}"
+                class="custom-radio-input mr-1"
+                aria-label=""
+                name="visiting-with"
+                [value]="option"
+                required
+                #HearaboutRef="ngModel"
+              />
+              <label
+                class="custom-radio-label ml-2"
+                [for]="'visiting-with' + i"
+                >{{ option }}</label
+              >
+            </div>
+            <span *ngIf="errorMsg1" class="invalid-form">
+              <small class="form-text text-danger ml-1"
+                >This field is required!</small
+              >
+            </span>
+          </div>
+          <br />
+          <div style="align-self: flex-end; float: right; padding: 10px">
+            <button
+              [disabled]="loading"
+              class="btn btn-primary btn-login"
+              rippleEffect
+              (click)="third(newUserForm2)"
+            >
+              <span
+                *ngIf="loading"
+                class="spinner-border spinner-border-sm mr-1"
+              ></span>
+              NEXT
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div
+      style="display: flex; flex-direction: column"
+      *ngIf="fourthDiv && visitorForm3.visiting_with == 'With your family'"
+    >
+      <!-- <div style="display: flex; flex-direction: column" *ngIf="fourthDiv"> -->
+      <div style="height: 50%; width: auto">
+        <img
+          src="../../../../../assets/images/form/fourth.jpg"
+          style="width: 100%; height: 100%; object-fit: cover; margin: 0"
+        />
+      </div>
+      <div
+        style="
+          height: 40%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+        "
+        class="pl-2 pr-2"
+      >
+        <!-- <form class="" (ngSubmit)="third(newUserForm3)" #newUserForm1="ngForm"> -->
+        <form class="" (ngSubmit)="(return)" #newUserForm1="ngForm">
+          <div class="input-group align-items-center">
+            Tell us more about your accompanying family members. How many of you
+            are visiting us?
+          </div>
+          <div class="ml-4">
+            <div class="mt-2 row align-items-center">
+              <span class="w-25">Adults</span>
+              <core-touchspin
+                [minValue]="0"
+                [stepValue]="1"
+                [numberValue]="0"
+                [maxValue]="10"
+                (onChange)="countChange('adults', $event)"
+              ></core-touchspin>
+            </div>
+            <div class="mt-1 row align-items-center">
+              <span class="w-25">Children</span>
+              <core-touchspin
+                [minValue]="0"
+                [stepValue]="1"
+                [numberValue]="0"
+                [maxValue]="10"
+                (onChange)="countChange('children', $event)"
+              ></core-touchspin>
+            </div>
+            <div class="mt-1 row align-items-center">
+              <span class="w-25">Infants</span>
+              <core-touchspin
+                [minValue]="0"
+                [stepValue]="1"
+                [numberValue]="0"
+                [maxValue]="10"
+                (onChange)="countChange('infants', $event)"
+              ></core-touchspin>
+            </div>
+            <div class="mt-1 row align-items-center">
+              <span class="w-25">Seniors</span>
+              <core-touchspin
+                [minValue]="0"
+                [stepValue]="1"
+                [numberValue]="0"
+                [maxValue]="10"
+                (onChange)="countChange('seniors', $event)"
+              ></core-touchspin>
+            </div>
+          </div>
+          <div class="ml-1 mt-2 custom-control custom-checkbox">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              id="customCheck2"
+              [(ngModel)]="visitorForm4.visitingWithSpouse"
+              (click)="checkSpouse()"
+            />
+            <label class="custom-control-label" for="customCheck2">
+              I am visiting with my spouse
+            </label>
+          </div>
+          <span *ngIf="errorMsg2" class="invalid-form">
+            <small class="form-text text-danger ml-1"
+              >This field is required!</small
+            >
+          </span>
+          <br />
+          <div style="align-self: flex-end; float: right; padding: 10px">
+            <button
+              [disabled]="loading"
+              class="btn btn-primary btn-login"
+              rippleEffect
+              (click)="fourth(newUserForm2)"
+            >
+              <span
+                *ngIf="loading"
+                class="spinner-border spinner-border-sm mr-1"
+              ></span>
+              NEXT
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column" *ngIf="fifthDiv">
+      <div style="height: 50%; width: auto">
+        <img
+          src="../../../../../assets/images/form/fifth.jpg"
+          style="width: 100%; height: 100%; object-fit: cover; margin: 0"
+        />
+      </div>
+      <div
+        style="
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+        "
+        class="pl-2 pr-2"
+      >
+        <div class="input-group align-items-center">
+          We would be happy to pray for you. Please share an prayer requests you
+          may have:
+        </div>
+        <div class="mt-1 ml-1 mr-1">
+          <textarea
+            class="custom-textarea"
+            placeholder=""
+            [(ngModel)]="visitorForm5.prayer_request"
+          ></textarea>
+        </div>
+
+        <div
+          style="padding: 10px; justify-content: space-between; display: flex"
+        >
+          <button
+            [disabled]="loading"
+            class="btn"
+            rippleEffect
+            (click)="submitForm()"
+          >
+            <span
+              *ngIf="loading"
+              class="spinner-border spinner-border-sm mr-1"
+            ></span>
+            SKIP
+          </button>
+          <button
+            [disabled]="loading"
+            class="btn btn-primary btn-login"
+            rippleEffect
+            (click)="submitForm()"
+          >
+            <span
+              *ngIf="loading"
+              class="spinner-border spinner-border-sm mr-1"
+            ></span>
+            NEXT
+          </button>
+        </div>
+        <br />
+      </div>
+    </div>
   </div>
 </div>

@@ -8,7 +8,8 @@ import { colors } from "app/colors.const";
 import { User } from "app/auth/models";
 import { UserService } from "app/auth/service";
 import { CoreHttpService } from "@core/services/http.service";
-
+import { menu } from "app/menu/menu";
+import { CoreMenu } from "@core/types";
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
@@ -69,7 +70,7 @@ export class DashboardComponent implements OnInit {
   public churches: any;
   public admins: any;
   public light = "#6c757d";
-
+  public menu:CoreMenu[] = [];
   /**
    * Constructor
    *
@@ -83,7 +84,7 @@ export class DashboardComponent implements OnInit {
     private _coreConfigService: CoreConfigService,
     public httpService: CoreHttpService
   ) {
-  
+    this.menu=menu
     this.visitorChartoptions = {
 
       colors: [this.$warning],
@@ -269,6 +270,26 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  hasVisitorManagementItem(): boolean {
+    return this.menu.filter(item => item.id === 'visitor-management').length > 0;
+}
+hasMemberManagementItem(): boolean {
+  return this.menu.filter(item => item.id === 'member-management').length > 0;
+}
+
+hasPrayerRequestItem(): boolean {
+  return this.menu.filter(item => item.id === 'prayer-request-management').length > 0;
+}
+
+hasTestimonyItem(): boolean {
+  return this.menu.filter(item => item.id === 'testimony-management').length > 0;
+}
+hasFeedItem(): boolean {
+  return this.menu.filter(item => item.id === 'feed-management').length > 0;
+}
+hasLifeGroupItem(): boolean {
+  return this.menu.filter(item => item.id === 'life-group-management').length > 0;
+}
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
   /**
@@ -382,6 +403,7 @@ export class DashboardComponent implements OnInit {
 
 
   ngAfterViewInit() {
+    this.loading=true;
     // Subscribe to core config changes
     this._coreConfigService.getConfig().subscribe((config) => {
       // If Menu Collapsed Changes
@@ -415,6 +437,7 @@ export class DashboardComponent implements OnInit {
             this.adminsChartRef?.nativeElement.offsetWidth;
    this.orderChartoptions.chart.width =
             this.orderChartRef?.nativeElement.offsetWidth;
+            this.loading=false;
       
         }, 4000);
       }

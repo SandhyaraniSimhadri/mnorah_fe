@@ -138,7 +138,7 @@
                 rippleEffect
                 (click)="toggleSidebar('new-user-sidebar')"
               >
-                <span class="d-none d-sm-inline-block"
+                <span class=""
                   >Add Role</span
                 >
               </button>
@@ -191,7 +191,7 @@
                 </ng-template>
                 <div class="cell-line-height">
                   <a
-                    routerLink="./roles-and-permissions-view/{{ row.id }}"
+                    routerLink="./roles-and-permissions-view/{{ row.role_id }}"
                     class="font-medium-1 d-block"
                     ><span class="font-weight-bold white-space">{{
                       name | truncate: 20

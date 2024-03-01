@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
   public returnUrl: string;
   public error = "";
   public passwordTextType: boolean;
-
+  public role_data:any;
   // Private
   private _unsubscribeAll: Subject<any>;
 
@@ -115,6 +115,7 @@ export class LoginComponent implements OnInit {
             this.httpService.USERINFO = user_data;
             this.httpService.APIToken = user_data.token;
             this.httpService.loginuserid = user_data.user_id;
+           
             setTimeout(() => {
               this._toastrService.success(
                 "You have successfully logged in. Now you can start to explore. Enjoy! 🎉",
@@ -179,4 +180,5 @@ export class LoginComponent implements OnInit {
       closeButton: true,
     });
   }
+ 
 }

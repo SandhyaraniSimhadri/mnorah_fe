@@ -1,81 +1,298 @@
-@import '@core/scss/base/bootstrap-extended/include'; // Bootstrap includes
-@import '@core/scss/base/pages/page-auth.scss';
-@import '@core/scss/angular/libs/toastr.component.scss';
-@import '@core/scss/angular/libs/datatables.component.scss';
-@import '@core/scss/base/pages/app-user.scss';
-@import '@core/scss/angular/libs/select.component.scss';
-@import '@core/scss/angular/libs/datatables.component.scss';
-@import '@core/scss/base/pages/app-user.scss';
-@import '@core/scss/angular/libs/select.component.scss';
-@import '@core/scss/angular/libs/toastr.component.scss';
-.new-col{
-    padding-right: 0px !important;
+@import "@core/scss/base/bootstrap-extended/include"; // Bootstrap includes
+@import "@core/scss/base/pages/page-auth.scss";
+@import "@core/scss/angular/libs/toastr.component.scss";
+@import "@core/scss/angular/libs/datatables.component.scss";
+@import "@core/scss/base/pages/app-user.scss";
+@import "@core/scss/angular/libs/select.component.scss";
+@import "@core/scss/angular/libs/datatables.component.scss";
+@import "@core/scss/base/pages/app-user.scss";
+@import "@core/scss/angular/libs/select.component.scss";
+@import "@core/scss/angular/libs/toastr.component.scss";
+.new-col {
+  padding-right: 0px !important;
 }
-.new-col1{
-    padding-left: 0px !important;
+.new-col1 {
+  padding-left: 0px !important;
 }
 .row {
-    display: flex;
-  }
-  
-  .col-6 {
-    flex-grow: 1;
-  }
-  
-  .new-col img {
-    width: 100%;
-    height: auto;
-  }
-  .auth-help-icon {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-  }
-  
-  .signin-title{
-    font-weight: 200;
-  }
+  display: flex;
+}
 
-  
+.col-6 {
+  flex-grow: 1;
+}
 
-  .register{
-    color:#9B02FE;
-  }
-  .font-cls{
-    font-size: 12px;
-  }
-  
-  .img-fluid{
-   
-    padding: 0px !important;
-  }
-  .img-class{
-    padding: 0px !important;
-  
-  }
+.new-col img {
+  width: 100%;
+  height: auto;
+}
+.auth-help-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
 
+.signin-title {
+  font-weight: 200;
+}
 
-  
-  .fa-user-circle-o{
-    color: gray;
-  }
-  .icon-cls{
-    margin-top:4px !important;
-    color:#9B02FE;
-  }
+.register {
+  color: #9b02fe;
+}
+.font-cls {
+  font-size: 12px;
+}
 
-  .avatar{
-    background-color: white !important;
-  }
+.img-fluid {
+  padding: 0px !important;
+}
+.img-class {
+  padding: 0px !important;
+}
 
-  // .image-container {
-  //   max-width: 100%;
-  //   height: auto;
-  // }
-  
-  // .dynamic-image {
-  //   width: 100%;
-  //   height: auto;
-  //   max-width: 100%;
-  //   object-fit: contain; /* Adjust the object-fit property as needed (e.g., contain, cover) */
-  // }
+.fa-user-circle-o {
+  color: gray;
+}
+.icon-cls {
+  margin-top: 4px !important;
+  color: #9b02fe;
+}
+
+.avatar {
+  background-color: white !important;
+}
+
+// .image-container {
+//   max-width: 100%;
+//   height: auto;
+// }
+
+// .dynamic-image {
+//   width: 100%;
+//   height: auto;
+//   max-width: 100%;
+//   object-fit: contain; /* Adjust the object-fit property as needed (e.g., contain, cover) */
+// }
+
+.custom-input {
+  border: none;
+  border-bottom: 1px #98c6f1 solid;
+
+  /* Adjust padding for icon */
+}
+
+//   .custom-input:focus {
+//     outline: none;
+//   }
+
+//   .custom-input:focus-visible {
+//     outline: none;
+//   }
+
+//   .form-group {
+//     position: relative;
+//   }
+
+//   .form-group i {
+//     position: absolute;
+//     left: 5px; /* Adjust icon position */
+//     top: 50%; /* Adjust icon position */
+//     transform: translateY(-50%); /* Center icon vertically */
+//   }
+
+input {
+  // margin-left:5px;
+  // width: 70% !important;
+  border: none;
+  background-color: transparent;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif !important;
+}
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none !important;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif !important;
+}
+
+.fa-user-circle-o {
+  color: gray;
+}
+.icon-cls {
+  margin-top: 4px !important;
+  color: #9b02fe;
+  // font-size: 160px !important;
+  width: 20px;
+  height: 20px;
+}
+.input-group {
+  border: 0px solid black;
+  // border-bottom: 1px #98c6f1 solid;
+  padding: 10px;
+  padding-top: 30px !important;
+  box-shadow: none !important;
+  // width: 86% !important;
+}
+.input-group1 {
+  border: 0px solid black;
+
+  box-shadow: none !important;
+}
+.avatar {
+  background-color: white !important;
+}
+// #0d00ff
+// #9b02fe
+.image-container {
+  max-width: 100%;
+  height: auto;
+}
+
+.dynamic-image {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain; /* Adjust the object-fit property as needed (e.g., contain, cover) */
+}
+.custom-input::placeholder {
+  /* Add your styles for the placeholder text here */
+  color: #999; /* Placeholder text color */
+  // font-style: italic; /* Placeholder text style */
+  padding-bottom: 10px !important;
+
+  /* Add any additional styles as needed */
+}
+.btn-login {
+  border: none !important;
+  background: linear-gradient(90deg, #66b1f9 0%, #7459dc 50%);
+  color: #fff !important;
+  // padding-left:30px;
+  // padding-right: 30px;
+  // width: 50%;
+  // float:right;
+}
+.custom-control-label::before {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.custom-control-label::after {
+  top: 0.25rem;
+  left: 0.25rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  // background-color: #2d8cf0;
+}
+.custom-control-input {
+  border-radius: 5px !important;
+}
+.custom-control-input:not(:checked) ~ .custom-control-label::before {
+  background-color: transparent !important;
+  border-color: #adb5bd; /* Optional: Add border color if needed */
+}
+
+.custom-control-input:not(:checked) ~ .custom-control-label::after {
+  background-color: transparent !important;
+  border-color: #adb5bd; /* Optional: Add border color if needed */
+}
+.custom-textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #f8f8f8 !important;
+  border-radius: 5px;
+  resize: vertical; /* Allow vertical resizing */
+  min-height: 200px; /* Set minimum height */
+}
+
+.custom-textarea:focus {
+  outline: none;
+  border-color: #007bff; /* Change border color on focus */
+}
+.form-control {
+  background-color: #f8f8f8 !important;
+}
+/* Custom radio button styles */
+.custom-radio-container {
+  position: relative;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.custom-radio-input {
+  position: absolute;
+  opacity: 0;
+  border-radius: 10px !important;
+  cursor: pointer;
+}
+
+.custom-radio-label {
+  position: relative;
+  padding-left: 30px; /* Increase the padding for better clickability */
+  cursor: pointer;
+  display: inline-block;
+}
+
+/* Create a custom radio button */
+.custom-radio-label::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px; /* Changed to square border radius */
+}
+
+/* Style the custom radio button when checked */
+.custom-radio-input:checked ~ .custom-radio-label::before {
+  background-color: #2196f3;
+}
+
+/* Create the tick mark for the custom radio button */
+.custom-radio-label::after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the tick mark when radio button is checked */
+.custom-radio-input:checked ~ .custom-radio-label::after {
+  display: block;
+  content: "\2713"; /* Checkmark character */
+  font-size: 16px;
+  top: 2px;
+  left: 4px;
+  border-radius: 10px;
+}
+.custom-radio-label {
+  font-size: 14px !important;
+}
+/* Style the tick mark */
+.custom-radio-label::after {
+  color: white;
+}
+.mobile-only {
+  display: none; /* Hide the div by default */
+}
+
+/* Media query for screens smaller than or equal to 768px (typical mobile devices) */
+@media screen and (max-width: 768px) {
+  .mobile-only {
+    display: block; /* Show the div on mobile devices */
+  }
+}
+
+.desktop-only {
+  display: none; /* Hide the div by default */
+}
+
+/* Media query for screens larger than 768px (typical mobile devices) */
+@media screen and (min-width: 769px) {
+  .desktop-only {
+    display: block; /* Show the div on devices larger than mobile */
+  }
+}
