@@ -19,8 +19,7 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
   selector: "app-church-management-list",
   templateUrl: "./church-management-list.component.html",
   styleUrls: ["./church-management-list.component.scss"],
-  encapsulation: ViewEncapsulation.None
- 
+  encapsulation: ViewEncapsulation.None,
 })
 export class ChurchManagementListComponent implements OnInit {
   // Public
@@ -33,6 +32,8 @@ export class ChurchManagementListComponent implements OnInit {
   public previousPlanFilter = "";
   public previousStatusFilter = "";
   public apiUrl: any;
+  public apiUrl_web: any;
+
   public selectChurch: any = [];
   public selectUsers: any = [];
   public selectLanguage: any = [];
@@ -41,7 +42,7 @@ export class ChurchManagementListComponent implements OnInit {
   public selectedChurch = [];
   public selectedUsers = [];
   public selectedLanguage = [];
-  public buttonLoading:any=false
+  public buttonLoading: any = false;
 
   // Decorator
   @ViewChild(DatatableComponent) table: DatatableComponent;
@@ -62,9 +63,9 @@ export class ChurchManagementListComponent implements OnInit {
     private _coreSidebarService: CoreSidebarService,
     private _coreConfigService: CoreConfigService,
     public httpService: CoreHttpService,
-    public modalsService:ModalsService,
+    public modalsService: ModalsService,
     private _toastrService: ToastrService,
-    private modalService: NgbModal,
+    private modalService: NgbModal
   ) {
     this._unsubscribeAll = new Subject();
   }
@@ -188,6 +189,8 @@ export class ChurchManagementListComponent implements OnInit {
    */
   ngOnInit(): void {
     this.apiUrl = environment.apiUrl;
+    this.apiUrl_web = environment.apiUrl_web;
+
     this.getChurches();
   }
 
@@ -211,7 +214,6 @@ export class ChurchManagementListComponent implements OnInit {
     };
     this.httpService.doHttp(request).subscribe(
       (res: any) => {
-
         if (res == "nonet") {
         } else {
           if (res.status == false) {
@@ -250,20 +252,20 @@ export class ChurchManagementListComponent implements OnInit {
             });
           }
         }
-        this.loading=false;
+        this.loading = false;
       },
       (error: any) => {
-        this.loading=false;
+        this.loading = false;
       }
     );
   }
   updateUserList(newUser: any) {
-    this.loading=true;
+    this.loading = true;
     this.rows.push(newUser);
-    this.getChurches(); 
+    this.getChurches();
   }
   delete(id: any) {
-    this.buttonLoading=true;
+    this.buttonLoading = true;
     let request = {
       params: { id: id },
       action_url: "delete_church",
@@ -287,13 +289,11 @@ export class ChurchManagementListComponent implements OnInit {
             this.getChurches();
           }
         }
-    this.buttonLoading=false;
+        this.buttonLoading = false;
       },
       (error: any) => {
-    this.buttonLoading=false;
-
+        this.buttonLoading = false;
       }
     );
   }
-
 }
