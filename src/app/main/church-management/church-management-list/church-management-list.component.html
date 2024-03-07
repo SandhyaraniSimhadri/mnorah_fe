@@ -81,20 +81,23 @@
               class="d-flex align-items-center justify-content-end pr-1 pb-1 pb-md-0"
             >
               <label class="d-flex align-items-center ml-1 ml-md-0"
-                >Search:</label><input
-                  [(ngModel)]="searchValue"
-                  name="searchValue"
-                  type="search"
-                  class="form-control ml-25"
-                  (keyup)="filterUpdate($event)"
-                  (search)="filterUpdate($event)"
+                >Search:</label
+              >
+
+              <input
+                [(ngModel)]="searchValue"
+                name="searchValue"
+                type="search"
+                class="form-control ml-25"
+                (keyup)="filterUpdate($event)"
+                (search)="filterUpdate($event)"
               />
               <button
                 class="btn btn-primary ml-1 d-flex w-100 justify-content-center align-items-center"
                 rippleEffect
                 (click)="toggleSidebar('new-user-sidebar')"
               >
-            <span class="d-none d-sm-inline-block">Add New Church</span>
+                <span class="d-none d-sm-inline-block">Add New Church</span>
               </button>
             </div>
           </div>
@@ -106,7 +109,7 @@
           [limit]="selectedOption"
           [columnMode]="ColumnMode.force"
           [scrollbarH]="true"
-          style="width: 100%; overflow-x: auto;"
+          style="width: 100%; overflow-x: auto"
         >
           <ngx-datatable-column
             name="Church name"
@@ -149,22 +152,21 @@
                   <a
                     routerLink="./church-management-view/{{ row.id }}"
                     class="font-medium-1 d-block"
-                    >
+                  >
                     <div class="d-flex align-items-center">
-                      <div class="cell-line-height d-block"><span class="font-weight-bold white-space">{{
-                      name | truncate: 20 
-                    }}</span></div></div></a
+                      <div class="cell-line-height d-block">
+                        <span class="font-weight-bold white-space">{{
+                          name | truncate : 20
+                        }}</span>
+                      </div>
+                    </div></a
                   >
                 </div>
               </div>
             </ng-template>
           </ngx-datatable-column>
-     
 
-          <ngx-datatable-column
-            name="Admin Name"
-            prop="admins"
-          >
+          <ngx-datatable-column name="Admin Name" prop="admins">
             <ng-template
               let-row="row"
               let-name="value"
@@ -173,54 +175,67 @@
               <div class="d-flex align-items-center">
                 <div class="cell-line-height d-block">
                   <span class="font-weight-bold white-space">{{
-                      name | truncate: 20 
-                    }}</span>
+                    name | truncate : 20
+                  }}</span>
                 </div>
               </div>
             </ng-template>
           </ngx-datatable-column>
 
-     
-
-          <ngx-datatable-column
-          name="Pastor Name"
-          prop="pastor_name"
-        >
-          <ng-template
-            let-row="row"
-            let-name="value"
-            ngx-datatable-cell-template
-          >
-            <div class="d-flex align-items-center">
-              <div class="cell-line-height d-block">
-                <span class="font-weight-bold white-space">{{
-                    name | truncate: 20 
+          <ngx-datatable-column name="Pastor Name" prop="pastor_name">
+            <ng-template
+              let-row="row"
+              let-name="value"
+              ngx-datatable-cell-template
+            >
+              <div class="d-flex align-items-center">
+                <div class="cell-line-height d-block">
+                  <span class="font-weight-bold white-space">{{
+                    name | truncate : 20
                   }}</span>
+                </div>
               </div>
-            </div>
-          </ng-template>
-        </ngx-datatable-column>
-  
+            </ng-template>
+          </ngx-datatable-column>
 
-
-          <ngx-datatable-column
-          name="Location"
-          prop="location"
-        >
-          <ng-template
-            let-row="row"
-            let-name="value"
-            ngx-datatable-cell-template
-          >
-            <div class="d-flex align-items-center">
-              <div class="cell-line-height d-block">
-                <span class="font-weight-bold white-space">{{
-                    name | truncate: 20 
+          <ngx-datatable-column name="Location" prop="location">
+            <ng-template
+              let-row="row"
+              let-name="value"
+              ngx-datatable-cell-template
+            >
+              <div class="d-flex align-items-center">
+                <div class="cell-line-height d-block">
+                  <span class="font-weight-bold white-space">{{
+                    name | truncate : 20
                   }}</span>
+                </div>
               </div>
-            </div>
-          </ng-template>
-        </ngx-datatable-column>
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="QR code" prop="church_name">
+            <ng-template
+              let-row="row"
+              let-name="value"
+              ngx-datatable-cell-template
+            >
+              <div class="d-flex align-items-center">
+                <div class="cell-line-height d-block">
+                  <qrcode
+                    [qrdata]="
+                      'http://localhost:4200/' +
+                      row.id +
+                      '/' +
+                      name +
+                      '/visitor-form'
+                    "
+                    [width]="64"
+                    [errorCorrectionLevel]="'M'"
+                  ></qrcode>
+                </div>
+              </div>
+            </ng-template>
+          </ngx-datatable-column>
           <ngx-datatable-column name="Actions" [width]="40" [sortable]="false">
             <ng-template ngx-datatable-cell-template let-row="row">
               <div ngbDropdown container="body">
@@ -287,14 +302,27 @@
       </button> -->
     </div>
     <div class="modal-body" tabindex="0" ngbAutofocus>
-      Are you sure you want to delete church - {{modalsService.item.church_name}}?<br/>
-    <span class="f-size-class"> This item will be deleted immediately. You can't undo this action.</span>
+      Are you sure you want to delete church -
+      {{ modalsService.item.church_name }}?<br />
+      <span class="f-size-class">
+        This item will be deleted immediately. You can't undo this action.</span
+      >
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn" (click)="modal.dismiss('Cross click')" rippleEffect>
+      <button
+        type="button"
+        class="btn"
+        (click)="modal.dismiss('Cross click')"
+        rippleEffect
+      >
         No
       </button>
-      <button type="button" class="btn btn-danger" (click)="delete(modalsService.item.id)" rippleEffect>
+      <button
+        type="button"
+        class="btn btn-danger"
+        (click)="delete(modalsService.item.id)"
+        rippleEffect
+      >
         Yes
       </button>
     </div>

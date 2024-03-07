@@ -12,7 +12,7 @@ import { CoreConfigService } from "@core/services/config.service";
 import { CoreHttpService } from "@core/services/http.service";
 import { environment } from "environments/environment";
 import { ToastrService } from "ngx-toastr";
-
+import { ActivatedRoute } from "@angular/router";
 interface VisitorForm4 {
   visitingWithSpouse: string;
   selectedCount: {
@@ -124,6 +124,8 @@ export class VisitorManagementNewComponent implements OnInit {
     connection: "",
     visiting_with: "",
   };
+  name: any;
+  id: any;
   selectedChurchName: any = "";
   public customTag: any[] = [];
   public selectGroup = [
@@ -163,7 +165,8 @@ export class VisitorManagementNewComponent implements OnInit {
     private _coreConfigService: CoreConfigService,
     public httpService: CoreHttpService,
     private router: Router,
-    private _toastrService: ToastrService
+    private _toastrService: ToastrService,
+    private route: ActivatedRoute
   ) {
     if (this.httpService.USERINFO.role == "Sub Admin") {
       this.visitorForm.church_id = this.httpService.USERINFO.church_id;
@@ -213,6 +216,7 @@ export class VisitorManagementNewComponent implements OnInit {
               // Handle false status if needed
             } else if (res.status === true) {
               this.churcesData = res.data;
+
               this.status = true;
             }
           }
@@ -297,6 +301,14 @@ export class VisitorManagementNewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe((params) => {
+      this.name = params.get("name");
+      this.id = params.get("id");
+      // Now you can use this.name in your component
+    });
+    console.log("church name", this.name);
+    console.log("church id", this.id);
+
     this.checkOrientation();
     this.getData();
     this.customTagNames.forEach((c, i) => {
@@ -336,21 +348,40 @@ export class VisitorManagementNewComponent implements OnInit {
       this.selectMultiGroupSelected.splice(idx, 1);
     }
   }
-  next() {
-    this.secondDiv = true;
-    this.firstDiv = false;
+  next(form: any) {
+    if (form.valid) {
+      this.secondDiv = true;
+      this.firstDiv = false;
+    } else {
+      if (form.controls["user-email"].invalid) {
+        this.visitorForm.email = "";
+      }
+      if (form.controls["phone-number"].invalid) {
+        this.visitorForm.phone_number = "";
+      }
+      this.secondDiv = false;
+      this.firstDiv = true;
+    }
   }
   prev() {
     this.secondDiv = false;
     this.firstDiv = true;
   }
   first(form: any) {
-    console.log("visitor form", this.visitorForm1);
+    console.log("visitor form", form.value);
     this.loading = true;
     if (form.valid) {
       this.secondDiv = true;
       this.firstDiv = false;
     } else {
+      if (form.controls["user-email"].invalid) {
+        this.visitorForm1.email = "";
+      }
+      if (form.controls["phone-number"].invalid) {
+        this.visitorForm1.phone_number = "";
+      }
+
+      // this.visitorForm1.phone_number = "";
       this.secondDiv = false;
       this.firstDiv = true;
     }
@@ -423,7 +454,7 @@ export class VisitorManagementNewComponent implements OnInit {
       phone_number: this.visitorForm1.phone_number,
       address: "",
       city: "",
-      church_id: "",
+      church_id: this.id,
       hear_about: this.visitorForm2.hear_about,
       hear_about_other: "",
       visit_date: "",

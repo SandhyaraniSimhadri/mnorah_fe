@@ -39,6 +39,7 @@ import { LoginComponent } from "./main/login/login.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { VisitorManagementNewComponent } from "./main/visitor-management-new/visitor-management-new.component";
 import { CoreTouchspinModule } from "@core/components/core-touchspin/core-touchspin.module";
+import { QRCodeModule } from "angularx-qrcode";
 
 const appRoutes: Routes = [
   {
@@ -201,7 +202,7 @@ const appRoutes: Routes = [
     pathMatch: "full",
   },
   {
-    path: "visitor-form",
+    path: ":id/:name/visitor-form",
     component: VisitorManagementNewComponent,
     pathMatch: "full",
   },
@@ -222,6 +223,7 @@ const appRoutes: Routes = [
     SubMenuCustomContextMenuComponent,
   ],
   imports: [
+    QRCodeModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,

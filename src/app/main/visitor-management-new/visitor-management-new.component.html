@@ -252,62 +252,80 @@
                     ></label
                   >
                   <div class="row">
-                    <div class="col-md-6">
+                    <div
+                      class="input-group"
+                      style="
+                        margin-top: -30px !important;
+                        margin-left: 5px;
+                        margin-right: 5px;
+                      "
+                    >
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"
+                          >+971
+                        </span>
+                      </div>
+
                       <input
                         type="text"
                         id="basic-icon-default-phone-number"
                         class="form-control dt-phone-number"
                         placeholder="Phone Number"
-                        aria-label=""
+                        aria-label="Phone Number"
                         aria-describedby="basic-icon-default-phone-number"
                         name="phone-number"
                         [(ngModel)]="visitorForm.phone_number"
+                        pattern="^(50|51|52|55|56|58|2|3|4|6|7|9)\d{7}$"
                         [class.error]="
                           newUserForm.submitted && PhoneRef.invalid
                         "
                         #PhoneRef="ngModel"
                         required
                       />
-                      <span
-                        *ngIf="newUserForm.submitted && PhoneRef.invalid"
-                        class="invalid-form"
-                      >
-                        <small
-                          class="form-text text-danger"
-                          *ngIf="PhoneRef.errors.required"
-                          >This field is required!</small
-                        >
-                      </span>
                     </div>
 
-                    <div class="col-md-6">
-                      <input
-                        type="text"
-                        id="basic-icon-default-email"
-                        class="form-control dt-email"
-                        placeholder="Email"
-                        aria-label=""
-                        aria-describedby="basic-icon-default-email"
-                        name="user-email"
-                        [(ngModel)]="visitorForm.email"
-                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                        [class.error]="
-                          newUserForm.submitted && FEmailRef.invalid
-                        "
-                        #FEmailRef="ngModel"
-                        required
-                      />
-                      <span
-                        *ngIf="newUserForm.submitted && FEmailRef.invalid"
-                        class="invalid-form"
+                    <span
+                      *ngIf="newUserForm.submitted && PhoneRef.invalid"
+                      class="invalid-form"
+                      style="
+                        margin-top: -12px !important;
+                        margin-left: -34px !important;
+                        margin-bottom: 8px !important;
+                      "
+                    >
+                      <small
+                        class="form-text text-danger ml-4"
+                        *ngIf="PhoneRef.invalid && newUserForm.submitted"
                       >
-                        <small
-                          class="form-text text-danger"
-                          *ngIf="FEmailRef.invalid && newUserForm.submitted"
-                          >Must be a valid email!</small
-                        >
-                      </span>
-                    </div>
+                        Must be a valid phone number
+                      </small>
+                    </span>
+                  </div>
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      id="basic-icon-default-email"
+                      class="form-control dt-email"
+                      placeholder="Email"
+                      aria-label=""
+                      aria-describedby="basic-icon-default-email"
+                      name="user-email"
+                      [(ngModel)]="visitorForm.email"
+                      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                      [class.error]="newUserForm.submitted && FEmailRef.invalid"
+                      #FEmailRef="ngModel"
+                      required
+                    />
+                    <span
+                      *ngIf="newUserForm.submitted && FEmailRef.invalid"
+                      class="invalid-form"
+                    >
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="FEmailRef.invalid && newUserForm.submitted"
+                        >Must be a valid email!</small
+                      >
+                    </span>
                   </div>
                 </div>
 
@@ -357,7 +375,7 @@
                     type="submit"
                     class="btn btn-primary btn-login"
                     rippleEffect
-                    (click)="next()"
+                    (click)="next(newUserForm)"
                   >
                     <span
                       *ngIf="loading"
@@ -596,6 +614,16 @@
     </div>
   </div>
   <div id="mobile-only" style="display: none">
+    <div id="preload-images">
+      <img src="../../../../../assets/images/form/first.png" alt="" />
+      <img src="../../../../../assets/images/form/second.jpg" alt="" />
+      <img src="      ../../../../../assets/images/form/third.jpg" alt="" />
+      <img src="../../../../../assets/images/form/fourth.jpg" alt="" />
+      <img src="../../../../../assets/images/form/fifth.jpg" alt="" />
+
+      <!-- Add more image tags for preloading -->
+    </div>
+
     <div style="display: flex; flex-direction: column" *ngIf="firstDiv">
       <div style="height: 50%; width: auto">
         <img
@@ -718,6 +746,7 @@
                   >+971
                 </span>
               </div>
+
               <input
                 type="text"
                 id="basic-icon-default-phone-number"
@@ -727,6 +756,7 @@
                 aria-describedby="basic-icon-default-phone-number"
                 name="phone-number"
                 [(ngModel)]="visitorForm1.phone_number"
+                pattern="^(50|51|52|55|56|58|2|3|4|6|7|9)\d{7}$"
                 [class.error]="newUserForm.submitted && PhoneRef.invalid"
                 #PhoneRef="ngModel"
                 required
@@ -739,9 +769,9 @@
           >
             <small
               class="form-text text-danger ml-4"
-              *ngIf="PhoneRef.errors?.required"
+              *ngIf="PhoneRef.invalid && newUserForm.submitted"
             >
-              This field is required!
+              Must be a valid phone number
             </small>
           </span>
 
