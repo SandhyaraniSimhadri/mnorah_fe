@@ -222,13 +222,7 @@
               <div class="d-flex align-items-center">
                 <div class="cell-line-height d-block">
                   <qrcode
-                    [qrdata]="
-                      'http://16.171.129.115/' +
-                      row.id +
-                      '/' +
-                      name +
-                      '/visitor-form'
-                    "
+                    [qrdata]="apiUrl + row.id + '/' + name + '/visitor-form'"
                     [width]="64"
                     [errorCorrectionLevel]="'M'"
                   ></qrcode>

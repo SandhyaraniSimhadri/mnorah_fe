@@ -98,7 +98,7 @@ export class VisitorManagementNewComponent implements OnInit {
   public visitorForm5: any = {
     prayer_request: "",
   };
-
+  church_id: any;
   public visitorForm: any = {
     first_name: "",
     last_name: "",
@@ -146,6 +146,7 @@ export class VisitorManagementNewComponent implements OnInit {
       group: "Connection Card",
     },
   ];
+  apiUrl: any;
   // @ViewChild("newUserForm") newUserForm: NgForm;
   // @ViewChild("newUserForm1") newUserForm1: NgForm;
   // @ViewChild("newUserForm2") newUserForm2: NgForm;
@@ -168,9 +169,14 @@ export class VisitorManagementNewComponent implements OnInit {
     private _toastrService: ToastrService,
     private route: ActivatedRoute
   ) {
+    this.apiUrl = environment.apiUrl;
+
     if (this.httpService.USERINFO.role == "Sub Admin") {
+      this.church_id = this.httpService.USERINFO.church_id;
       this.visitorForm.church_id = this.httpService.USERINFO.church_id;
     }
+    // this.church_id = 10;
+    // this.visitorForm.church_id = 10;
     this._coreConfigService.config = {
       layout: {
         navbar: {
@@ -232,6 +238,7 @@ export class VisitorManagementNewComponent implements OnInit {
    * @param form
    */
   submit(form: any) {
+    this.visitorForm.church_id = this.church_id;
     if (this.selectMultiGroupSelected.length > 0) {
       this.visitorForm.connection = this.selectMultiGroupSelected.toString();
     }
@@ -301,14 +308,17 @@ export class VisitorManagementNewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loading = true;
     this.route.paramMap.subscribe((params) => {
       this.name = params.get("name");
       this.id = params.get("id");
       // Now you can use this.name in your component
     });
+    this.church_id = this.id;
+    this.visitorForm.church_id = this.id;
     console.log("church name", this.name);
     console.log("church id", this.id);
-
+    this.loading = false;
     this.checkOrientation();
     this.getData();
     this.customTagNames.forEach((c, i) => {

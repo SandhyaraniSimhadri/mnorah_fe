@@ -1,4 +1,4 @@
-<div class="auth-wrapper auth-v2">
+<div class="auth-wrapper auth-v2" *ngIf="!loading">
   <div class="auth-inner row m-0" id="desktop-only" style="display: none">
     <div class="col-lg-6">
       <img
@@ -30,7 +30,7 @@
               <div *ngIf="firstDiv">
                 <div class="form-group">
                   <label class="form-label" for="user-plan"
-                    >Select Church
+                    >Select Church . {{ visitorForm.church_id }}
                     <span
                       *ngIf="newUserForm.submitted && ChurchRef.invalid"
                       class="text-danger"
@@ -49,13 +49,16 @@
                     [class.error]="newUserForm.submitted && ChurchRef.invalid"
                     #ChurchRef="ngModel"
                     required
-                    [(ngModel)]="visitorForm.church_id"
+                    [(ngModel)]="church_id"
                     [ngModelOptions]="{ standalone: true }"
-                    (ngModelChange)="churchName($event)"
+                    (ngModelChange)="getMembers()"
+                    [disabled]="true"
                   >
+                    <option value="" disabled>Select</option>
                     <option
                       *ngFor="let church of churcesData"
-                      [ngValue]="church.id"
+                      [value]="church.id"
+                      disabled
                     >
                       {{ church.church_name }}
                     </option>
