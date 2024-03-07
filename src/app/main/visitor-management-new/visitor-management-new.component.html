@@ -1,4 +1,4 @@
-<div class="auth-wrapper auth-v2" *ngIf="!loading">
+<div class="auth-wrapper auth-v2">
   <div class="auth-inner row m-0" id="desktop-only" style="display: none">
     <div class="col-lg-6">
       <img
@@ -314,7 +314,7 @@
                       aria-describedby="basic-icon-default-email"
                       name="user-email"
                       [(ngModel)]="visitorForm.email"
-                      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                      pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"
                       [class.error]="newUserForm.submitted && FEmailRef.invalid"
                       #FEmailRef="ngModel"
                       required
@@ -701,7 +701,7 @@
               aria-describedby="basic-icon-default-email"
               name="user-email"
               [(ngModel)]="visitorForm1.email"
-              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+              pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"
               [class.error]="newUserForm.submitted && FEmailRef.invalid"
               #FEmailRef="ngModel"
               required

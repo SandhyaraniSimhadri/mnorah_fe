@@ -14,7 +14,7 @@ import { environment } from "environments/environment";
 import { ToastrService } from "ngx-toastr";
 import { ActivatedRoute } from "@angular/router";
 interface VisitorForm4 {
-  visitingWithSpouse: string;
+  visitingWithSpouse: boolean;
   selectedCount: {
     adults: number;
     children: number;
@@ -86,7 +86,7 @@ export class VisitorManagementNewComponent implements OnInit {
     visiting_with: "",
   };
   public visitorForm4: VisitorForm4 = {
-    visitingWithSpouse: "",
+    visitingWithSpouse: false,
     selectedCount: {
       adults: 0,
       children: 0,
@@ -414,7 +414,12 @@ export class VisitorManagementNewComponent implements OnInit {
     this.errorMsg = false;
   }
   checkSpouse() {
-    this.errorMsg2 = false;
+    this.visitorForm4.visitingWithSpouse =
+      !this.visitorForm4.visitingWithSpouse;
+    if (this.visitorForm4.visitingWithSpouse) {
+      this.errorMsg2 = false;
+    }
+    // this.errorMsg2=!this.visitorForm4.visitingWithSpouse;
   }
   third(form: any) {
     console.log("visitor form 3,", this.visitorForm3);
@@ -441,6 +446,8 @@ export class VisitorManagementNewComponent implements OnInit {
     const familyVisitorsCount = Object.values(
       this.visitorForm4.selectedCount
     ).reduce((total, ob) => total + ob, 0);
+    console.log("error msg 2 1", !!this.visitorForm4.visitingWithSpouse);
+    console.log("error msg 2 2", familyVisitorsCount);
     if (!!this.visitorForm4.visitingWithSpouse || familyVisitorsCount > 0) {
       this.fourthDiv = false;
       this.fifthDiv = true;
@@ -515,7 +522,7 @@ export class VisitorManagementNewComponent implements OnInit {
                 visiting_with: "",
               };
               this.visitorForm4 = {
-                visitingWithSpouse: "",
+                visitingWithSpouse: false,
                 selectedCount: {
                   adults: 0,
                   children: 0,
@@ -554,6 +561,7 @@ export class VisitorManagementNewComponent implements OnInit {
               };
               this.fifthDiv = false;
               this.firstDiv = true;
+              this.loading = false;
             }
           }
           this.loading = false;
