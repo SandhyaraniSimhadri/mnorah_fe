@@ -130,7 +130,7 @@
                 >
                   <img
                     class="rounded-circle mr-1"
-                    src="{{ apiUrl_web + row.avatar }}"
+                    src="{{ apiUrl + row.avatar }}"
                     height="32"
                     width="32"
                     alt="datatable-avatar"
@@ -222,7 +222,9 @@
               <div class="d-flex align-items-center">
                 <div class="cell-line-height d-block">
                   <qrcode
-                    [qrdata]="apiUrl + row.id + '/' + name + '/visitor-form'"
+                    [qrdata]="
+                      apiUrl_web + row.id + '/' + name + '/visitor-form'
+                    "
                     [width]="64"
                     [errorCorrectionLevel]="'M'"
                   ></qrcode>
