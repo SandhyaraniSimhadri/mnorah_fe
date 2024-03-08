@@ -890,6 +890,26 @@
               >
             </span>
           </div>
+          <div
+            class="form-group m-1"
+            *ngIf="visitorForm2.hear_about == 'Other'"
+          >
+            <input
+              type="text"
+              id="basic-icon-default-hear-about-other"
+              class="form-control dt-hear-about-other"
+              placeholder="Type here..."
+              aria-label=""
+              aria-describedby="basic-icon-default-hear-about-other"
+              name="hear-about-other"
+              [(ngModel)]="visitorForm2.hear_about_other"
+            />
+            <span *ngIf="hearAboutErrorMsg" class="invalid-form">
+              <small class="form-text text-danger"
+                >This field is required!</small
+              >
+            </span>
+          </div>
           <br />
           <div style="align-self: flex-end; float: right; padding: 10px">
             <button
@@ -1064,11 +1084,30 @@
               I am visiting with my spouse
             </label>
           </div>
+          <div class="form-group m-1" *ngIf="visitorForm4.visitingWithSpouse">
+            <input
+              type="text"
+              id="basic-icon-default-spouse"
+              class="form-control dt-spouse"
+              placeholder="Type Spouse name here..."
+              aria-label=""
+              aria-describedby="basic-icon-default-spouse"
+              name="spouse"
+              [(ngModel)]="visitorForm4.spouse_name"
+            />
+            <span *ngIf="spouseErrorMsg" class="invalid-form">
+              <small class="form-text text-danger"
+                >This field is required1!</small
+              >
+            </span>
+          </div>
+
           <span *ngIf="errorMsg2" class="invalid-form">
             <small class="form-text text-danger ml-1"
               >This field is required!</small
             >
           </span>
+
           <br />
           <div style="align-self: flex-end; float: right; padding: 10px">
             <button
@@ -1145,6 +1184,14 @@
           </button>
         </div>
         <br />
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column" *ngIf="sixthDiv">
+      <div style="height: 100%; width: auto">
+        <img
+          src="../../../../../assets/images/form/thankyou.png"
+          style="width: 100%; height: 100%; object-fit: cover; margin: 0"
+        />
       </div>
     </div>
   </div>

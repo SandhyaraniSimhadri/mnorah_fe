@@ -15,6 +15,7 @@ import { ToastrService } from "ngx-toastr";
 import { ActivatedRoute } from "@angular/router";
 interface VisitorForm4 {
   visitingWithSpouse: boolean;
+  spouse_name: String;
   selectedCount: {
     adults: number;
     children: number;
@@ -61,10 +62,12 @@ export class VisitorManagementNewComponent implements OnInit {
   public thirdDiv: any = false;
   public fourthDiv: any = false;
   public fifthDiv: any = false;
+  public sixthDiv: any = false;
   public errorMsg: any = false;
   public errorMsg1: any = false;
   public errorMsg2: any = false;
-
+  public hearAboutErrorMsg: any = false;
+  public spouseErrorMsg: any = false;
   public visitorForm1: {
     first_name: string;
     email: string;
@@ -87,6 +90,7 @@ export class VisitorManagementNewComponent implements OnInit {
   };
   public visitorForm4: VisitorForm4 = {
     visitingWithSpouse: false,
+    spouse_name: "",
     selectedCount: {
       adults: 0,
       children: 0,
@@ -401,8 +405,20 @@ export class VisitorManagementNewComponent implements OnInit {
     console.log("visitor form 1,", this.visitorForm2);
     this.loading = true;
     if (this.visitorForm2.hear_about) {
-      this.thirdDiv = true;
-      this.secondDiv = false;
+      if (this.visitorForm2.hear_about == "Other") {
+        if (this.visitorForm2.hear_about_other) {
+          this.thirdDiv = true;
+          this.secondDiv = false;
+          this.hearAboutErrorMsg = false;
+        } else {
+          this.hearAboutErrorMsg = true;
+          this.thirdDiv = false;
+          this.secondDiv = true;
+        }
+      } else {
+        this.thirdDiv = true;
+        this.secondDiv = false;
+      }
     } else {
       this.errorMsg = true;
       this.thirdDiv = false;
@@ -416,9 +432,7 @@ export class VisitorManagementNewComponent implements OnInit {
   checkSpouse() {
     this.visitorForm4.visitingWithSpouse =
       !this.visitorForm4.visitingWithSpouse;
-    if (this.visitorForm4.visitingWithSpouse) {
-      this.errorMsg2 = false;
-    }
+    this.errorMsg2 = false;
     // this.errorMsg2=!this.visitorForm4.visitingWithSpouse;
   }
   third(form: any) {
@@ -449,8 +463,22 @@ export class VisitorManagementNewComponent implements OnInit {
     console.log("error msg 2 1", !!this.visitorForm4.visitingWithSpouse);
     console.log("error msg 2 2", familyVisitorsCount);
     if (!!this.visitorForm4.visitingWithSpouse || familyVisitorsCount > 0) {
-      this.fourthDiv = false;
-      this.fifthDiv = true;
+      if (this.visitorForm4.visitingWithSpouse) {
+        console.log("spouse name", this.visitorForm4.spouse_name);
+        if (this.visitorForm4.spouse_name == "") {
+          this.spouseErrorMsg = true;
+          this.fourthDiv = true;
+          this.fifthDiv = false;
+        } else {
+          this.spouseErrorMsg = false;
+          this.fourthDiv = false;
+          this.fifthDiv = true;
+        }
+      } else {
+        this.spouseErrorMsg = false;
+        this.fourthDiv = false;
+        this.fifthDiv = true;
+      }
     } else {
       this.errorMsg2 = true;
       this.fourthDiv = true;
@@ -461,7 +489,7 @@ export class VisitorManagementNewComponent implements OnInit {
     this.visitorForm = {
       first_name: this.visitorForm1.first_name,
       last_name: "",
-      spouse_name: "",
+      spouse_name: this.visitorForm4.spouse_name,
       child1_name: "",
       child2_name: "",
       child3_name: "",
@@ -473,7 +501,7 @@ export class VisitorManagementNewComponent implements OnInit {
       city: "",
       church_id: this.id,
       hear_about: this.visitorForm2.hear_about,
-      hear_about_other: "",
+      hear_about_other: this.visitorForm2.hear_about_other,
       visit_date: "",
       experience: "",
       about_visit: "",
@@ -523,6 +551,7 @@ export class VisitorManagementNewComponent implements OnInit {
               };
               this.visitorForm4 = {
                 visitingWithSpouse: false,
+                spouse_name: "",
                 selectedCount: {
                   adults: 0,
                   children: 0,
@@ -560,7 +589,7 @@ export class VisitorManagementNewComponent implements OnInit {
                 connection: "",
               };
               this.fifthDiv = false;
-              this.firstDiv = true;
+              this.sixthDiv = true;
               this.loading = false;
             }
           }
